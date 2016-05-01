@@ -258,6 +258,39 @@ Expanding on the above, this is a project which I would be heavily and personall
 	\subsection{Methods of Informing Client}
 		\input{../informingClient}
 	\subsection{Initial Ideas for Solving Technical Challenges}
+	\begin{itemize}
+		\item MVC should be used to decouple the interface from the functional logic.
+		\item The interface should be easy to use. Functionality should include:
+		\begin{itemize}
+			\item A login system for client access.
+			\item A report system to view past missions.
+			\item A system to create a new mission.
+			\item A system to view progress on current missions.
+			\item A notification system to alert clients to completed missions.
+		\end{itemize}
+		\item The server should be able to handel any requests, and should link up with the drones.
+		\item The results of a mission should be processed by the server:
+		\begin{itemize}
+			\item Single images and videos are easy to store and retrieve.
+			\item Image stitching and orthophoto generation needs to be accurate and fast.
+			\item By using AI and image recognition, the images can be processed to count cars, people etc.
+		\end{itemize}
+	\end{itemize}
 	\subsection{Possible Technologies to Use for Project}
+		\begin{itemize}
+			\item For the portal interface, HTML5 should be used.
+			\begin{itemize}
+				\item Google Maps can be used to track drones and place coordinates for drone missions.
+				\item JavaScript can be used for basic web processing.
+			\end{itemize}
+			\item It is possible to create a RESTful API to be run on a server using a variety of different languages and technologies, some being:
+			\begin{itemize}
+				\item C/C++ - Fast and efficient
+				\item Java - Slower but more intuitive
+				\item Django/Python - Slowest yet easier to program and forces the use of MVC
+				\item Node.js - Lightweight and efficient
+			\end{itemize}
+			\item Each language/technology has its advantages and disadvantages. A final decision would be more wise to make after consulting with the client as well as learning more about the drone API.
+		\end{itemize}
 	\subsection{Final Deliverable}
 \end{document}
