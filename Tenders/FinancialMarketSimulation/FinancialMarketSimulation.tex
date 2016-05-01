@@ -84,30 +84,29 @@
     
 \section{Project Execution}
 	\subsection{Development Methodology}
-		We intend to follow the Scrum approach to Agile software development throughout the course of project development. Agile itself is not a methodology and does not provide concrete steps which we would be able to follow. Hence we have opted to incorporate Scrum specific methods within the Agile movement. The reasons we have considered to use this methodology are as follows:
-		\begin{itemize}
-			\item The agile approach ensures that we as a team will be able to respond effectively and efficiently to unpredictability through incremental, iterative sprints
-			\item These short sprints enable us to ensure that the product is kept in a potentially shippable state at all times
-			\begin{itemize}
-				\item This is effective as it ensures the product is always integrated and tested
-				\item By having these short sprints of development it will enable us to periodically demonstrate our product to the client so that we are able to receive feedback, adapt to said feedback and plan accordingly for the next sprint
-			\end{itemize}
-			\item Scrum and agile work well together as Scrum is simple and flexible
-			\item Scrum enables test-driven development
-			\item Agile incorporates both the business and technical side and enables all involved with the project to engage and function together
-			\begin{itemize}
-				\item Scrum only has three roles: Product owner, Team, and Scrum Master
-				\item These roles bode well to the nature of this project
-			\end{itemize}
-			\item To summarise: Scrum emphasises "empirical feedback, team self management, and striving to build properly tested product increments within short iterations"
-			\begin{itemize}
-				\item This ensures the continuous act of inspecting and adapting in order to deal with complexity and risk
-				\item Our team is responsible for self management which enables us to function well without having to have continuous contact with our client
-				\item Scrum decision making revolves around real-world situations and feedback rather than assumption
-			\end{itemize}
-		\end{itemize}
+	\input{../developmentMethodology}
 	\subsection{Methods of Informing Client}
+	\input{../informingClient}
 	\subsection{Initial Ideas for Solving Technical Challenges}
+	Functional programming could be used to solve the concurrent, and algorithmic challenges.
+	\begin{itemize}
+		\item The expressiveness of functional programming is a major benefit as this will allow us to write the algorithms in a very clear and concise manner.
+		\item Testing is made easier and more definite in a functional language as you have pure functions without side-effects.
+		\item The thread-safe nature of functional programming is perfect for the concurrent needs of the system.
+	\end{itemize}
+
 	\subsection{Possible Technologies to Use for Project}
+	.NET would be our go-to choice for technology since we could use the functional language F\# and combine it with C\# code and libraries if needed. F\# is really powerful and succinct, and combines functional programming with the best aspects of Object-Orientated programming. \\
+
+	Correctness of the software is obviously a concern as a mistake in the code could cause a lot of money to be lost. The succinctness and static typing of F\# helps greatly with this, as it is much easier to reason about strongly typed, clear and well-written code.\\
+
+	A great type system and/or DSL (domain specific language) can be created within F\# to assist in the development and verification of the system.\\
+
+	The other great thing about the type system is that you can catch most bugs at compile time, rather than getting unwanted surprises at runtime. \\
+
+	Here is some example F\# code that analyses stock markets: \href{http://www.tryfsharp.org/Learn/financial-computing#analyzing-stock-markets}{TryF\# - Analysing Stock Markets}
+
 	\subsection{Final Deliverable}
+	As specified in the proposal.
+
 \end{document}
