@@ -31,50 +31,53 @@
 
 \section{A World of Plants}
 	\subsection{Intro}
-		This project involves the networking and monitoring of living plants so as to be able to analyse aspects of their environment such as water intake, lighting, mineral composition and temperature. These results will be used to create a collaborative platform on which users may learn from them so as to grow the best possible plants. The platform's intended use is to encourage younger generations to become interested in agriculture so as to stimulate South Africa's agricultural industry. We plan to implement gamification on our platform as a way to encourage competition amongst users. Given enough time we would like to use AI to learn how to analyse the growth of a plant so that we may automate the process. Through doing this we would like to create an even greater challenge, which is for users to attempt to grow a plant better than our control plant grown with AI.
+		This project involves the networking and monitoring of living plants in order to analyse aspects of their environment - such as water intake, lighting, mineral composition and temperature. These results will be used to create a collaborative platform on which users may share their own results and learn from the results of others, in order to grow the best possible plants. One of the platform's intended uses is to encourage younger generations to become interested in agriculture and, in doing so, help stimulate South Africa's agricultural industry. We plan to implement gamification on our platform as a way to encourage competition among users. Given enough time, we would like to automate more parts of the system. Additionally, AI learning could be employed to optimise the conditions in which plants grow. By combining automation and AI learning, we could create an interesting challenge for the users: grow a plant better than our control plant grown with the help of AI.
 	\subsection{What We Plan to Deliver}
 		\begin{itemize}
-			\item A software system which is able to control lights
 			\item A software system which is able to (ideally) use hardware to monitor the following readings:
 				\begin{itemize}
-					\item Strength of lights
-					\item Duration of light on time
+					\item Intensity of light
 					\item Temperature
 					\item Humidity
 					\item Moisture
 					\item Mineral composition
 					\item CO2 (Nice to have)
-					\item Flow control (Nice to have)
 				\end{itemize}
-			\item A gamified collaborative web platform which enables users to learn from their actions on the plants as well as from others
-			\item A software system which is able to track the readings and visualise them for each individual plant over a period of time
+			\item A software system which is able to automate the following:
+				\begin{itemize}
+					\item Turning light sources on/off
+					\item Change the intensity of light
+					\item Control the amount of water released
+				\end{itemize}
+			\item A gamified collaborative web platform which encourages learning by allowing users to monitor their own plants, compare them to the plants of others and control certain conditions.
+			\item A software system which is able to track the readings for each individual plant over a period of time. These readings could then be analysed and the results visualised.
 		\end{itemize}
 	\subsection{Additional Goals Depending on Time}
 		\begin{itemize}
-			\item Learn from users and additional pre-existing data using AI so as to create a perfect way to grow a plant
-			\item Using this learning capability automate the processes of:
+			\item Learn from users and additional pre-existing data using AI to optimise plant growth
+			\item Using this learning capability, automate the processes of:
 				\begin{itemize}
 					\item Watering the plants
 					\item Adding minerals to the water with the correct ratios
-					\item Changing of light strength and type
+					\item Changing the light strength and type
 				\end{itemize}
 		\end{itemize}
 	\subsection{Hardware Requirements}
 		\subsubsection{Base Requirements}
-			The following items are necessities for each unit:
+			Hardware components that perform tasks similar to:
 			\begin{itemize}
-				\item Raspberry Pi
-				\item Arduino
+				\item Raspberry Pi / Arduino
 				\item 4-channel relay (voltage control)
-				\item Wi-Fi adapter (not necessary if using Raspberry Pi 3 or later)
-				\item Grow Light (can be bought as LED array, bulbs or as LED strips by the meter)
-				\item Humidifier
+				\item Wi-Fi adapter
+				\item Grow Light (can be bought as bulbs, LED array or as LED strips by the meter)
 				\item Humidity sensors
 				\item Temperature sensors
 			\end{itemize}
+			We've looked at some AWS IoT Starter Kits (such as the Seeeduino Cloud and Grove) that achieve some of these requirements, but we're not sure what the best choice would be.
 		\subsubsection{Additional}
 			The following items are not necessary to have, but would extend the functionality of the final project:
 			\begin{itemize}
+				\item Humidifier
 				\item CO2 sensor
 				\item Light intensity sensor
 				\item pH sensor
@@ -84,15 +87,15 @@
 	\subsection{Amazon Web Services Requirements}
 		\begin{itemize}
 			\item \textbf{EC2} - We would use EC2 to run our API and web services
-			\item \textbf{S3} - We would implement the use of buckets so as to store our data independently of any hardware or software restrictions
-			\item \textbf{DynamoDB} - We would prefer to use a NoSQL database as it works well with large volumes of structured (or unstructured) data as well as works well with object-oriented programming
+			\item \textbf{S3} - We would use buckets to store our data, independent of any hardware or software restrictions
+			\item \textbf{DynamoDB} - We would prefer to use a NoSQL database, as it works well with large volumes of structured (or unstructured) data as well as with object-oriented programming
 			\item \textbf{AWS IoT} - This service would allow us to easily connect our devices to the cloud
 			\item \textbf{SQS (Maybe)} - Could be used to manage the information coming in from different nodes
-			\item \textbf{Machine Learning (Extra)} - Could be used for the learning
+			\item \textbf{Machine Learning (Extra)} - Could be used for the learning, as mentioned above.
 		\end{itemize}
 	\subsection{Proposal of Technologies to Use}
 		\begin{itemize}
-			\item HTML5 \& CSS3/SASS - Web front end interface
+			\item HTML5 \& CSS3/SASS - Web front-end interface
 			\item AngularJS - Building the web-app
 			\item Java (Or an equivalent) - Building the API
 			\item ThreeJS (Or an equivalent) - Visualisations
@@ -101,7 +104,7 @@
 \cleardoublepage
 	\section{A World of Offices}
 	\subsection{Intro}
-		This project involves the networking of offices within a building so as to form some sort of Intranet. It aims to improve communication between workers as well as their efficiency as individuals and as teams. It integrates a web interface, IoT as well as Amazon Alexa so as to create a smart personal assistant which is able to organise schedules, detect whether a user is in their office as well as provide instant communication amongst users within an Intranet or amongst Intranets.
+		This project involves the networking of offices within a building to create some sort of Intranet within a business. It aims to improve communication between workers as well as their efficiency as individuals and as teams. It integrates a web interface, IoT as well as Amazon Alexa to create a smart personal assistant which is able to organise schedules, detect whether a user is in their office and  provide instant communication among users within an Intranet or among Intranets.
 	\subsection{What We Plan to Deliver}
 	\subsection{Additional Goals Depending on Time}
 	\subsection{Hardware Requirements}
