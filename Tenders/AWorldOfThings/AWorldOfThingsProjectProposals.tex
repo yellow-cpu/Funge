@@ -34,10 +34,43 @@
 		This project involves the networking and monitoring of living plants so as to be able to analyse aspects of their environment such as water intake, lighting, mineral composition and temperature. These results will be used to create a collaborative platform on which users may learn from them so as to grow the best possible plants. The platform's intended use is to encourage younger generations to become interested in agriculture so as to stimulate South Africa's agricultural industry. We plan to implement gamification on our platform as a way to encourage competition amongst users. Given enough time we would like to use AI to learn how to analyse the growth of a plant so that we may automate the process. Through doing this we would like to create an even greater challenge, which is for users to attempt to grow a plant better than our control plant grown with AI.
 	\subsection{What We Plan to Deliver}
 		\begin{itemize}
-			\item
+			\item A software system which is able to control lights
+			\item A software system which is able to (ideally) use hardware to monitor the following readings:
+				\begin{itemize}
+					\item Strength of lights
+					\item Duration of light on time
+					\item Temperature
+					\item Humidity
+					\item Moisture
+					\item Mineral composition
+					\item CO2 (Nice to have)
+					\item Flow control (Nice to have)
+				\end{itemize}
+			\item A gamified collaborative web platform which enables users to learn from their actions on the plants as well as from others
+			\item A software system which is able to track the readings and visualise them for each individual plant over a period of time
 		\end{itemize}
 	\subsection{Additional Goals Depending on Time}
+		\begin{itemize}
+			\item Learn from users and additional pre-existing data using AI so as to create a perfect way to grow a plant
+			\item Using this learning capability automate the processes of:
+				\begin{itemize}
+					\item Watering the plants
+					\item Adding minerals to the water with the correct ratios
+					\item Changing of light strength and type
+				\end{itemize}
+		\end{itemize}
 	\subsection{Hardware Requirements}
 	\subsection{Amazon Web Services Requirements}
+		\begin{itemize}
+			\item \textbf{EC2} - We would use EC2 to run our API and web services
+			\item \textbf{S3} - We would implement the use of buckets so as to store our data independently of any hardware or software restrictions
+			\item \textbf{DynamoDB} - We would prefer to use a NoSQL database as it works well with large volumes of structured (or unstructured) data as well as works well with object-oriented programming
+			\item \textbf{AWS IoT} - This service would allow us to easily connect our devices to the cloud
+			\item \textbf{SQS (Maybe)} - Could be used to manage the information coming in from different nodes
+			\item \textbf{Machine Learning (Extra)} - Could be used for the learning
+		\end{itemize}
 	\subsection{Proposal of Technologies to Use}
+		\begin{itemize}
+			\item
+		\end{itemize}
 \end{document}
