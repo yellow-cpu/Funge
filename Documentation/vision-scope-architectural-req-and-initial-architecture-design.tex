@@ -156,14 +156,28 @@ It is important that the system has support for many hardware components such as
 \section{Architecture Design}
 \subsection{Architectural Tactics}
 	\subsubsection{Overall Software Architecture}
-		\paragraph{Event-Driven Programming}
-		The program flow will be determined by events. The user interface will make API calls via the use of RESTful services exposed by API Gateway. Lambda functions will only be called upon the triggering of events by the user via the user interface via API Gateway. DynamoDB will be able to receive data from Lambda after an event has been triggered as well as trigger its own events based on information which it receives. The IoT hardware platform will also be able to trigger events to call Lambda functions via the use of IoT Gateway.
-		
+		\paragraph{Event-Driven Programming}\mbox{}\\
+		The program flow will be determined by events. The user interface will make API calls via the use of RESTful services exposed by API Gateway. Lambda functions will only be called upon the triggering of events by the user via the user interface via API Gateway. DynamoDB will be able to receive data from Lambda after an event has been triggered as well as trigger its own events based on information which it receives. The IoT hardware platform will also be able to trigger events to call Lambda functions via the use of IoT Gateway.\\\\
 		This tactic ensures lower running costs as well as the creation of an almost autonomous system which reacts to events only when they occur. This tactic also allows for complex event processing whereby multiple events can be analysed to determine a larger picture.
-	\subsubsection{API - API Gateway}
-		\paragraph{REST}
+	\subsubsection{API - Amazon API Gateway}
+		\paragraph{REST}\mbox{}\\
+		RESTful services will be exposed via the use of API Gateway. Our web application would then be able to call publicly available AWS services through code running in AWS Lambda.
 	\subsubsection{Database - DynamoDB}
+		\paragraph{Dynamo Storage}\mbox{}\\
+		Dynamo refers to a set of techniques that when taken together can form a key-value structured storage system or a distributed data store. It combines properties of databases as well as distributed hash tables. Dynamo provides scalability and performance quality attributes through the managing of resource demand via spreading the load of the resources. Dynamo also enables the increasing of storage by scaling up resources.\\\\
+		\textit{Principles of Dynamo Systems:}
+		\begin{itemize}
+			\item Incremental scalability
+			\item Symmetry
+			\item Decentralization
+			\item Heterogeneity
+		\end{itemize}
+		The above principles aim to ensure that Dynamo is able to scale out each storage host (node) and that each node has the same set of responsibilities and therefore no nodes have special responsibilities. They also ensure that there is no central control and therefore no central point of failure. Dynamo ultimately also ensures that the work is distributed equally and that the distribution is proportional across all nodes according to the workload.
 	\subsubsection{Lambda}
+		\paragraph{Lambda Functions}\mbox{}\\
+		Lambda is the main driving force behind our event-driven design and consists of Lambda functions. These are always available to run as soon as they are triggered by some sort of event. They are stateless with no affinity to the underlying infrastructure so that Lambda can launch as many copies of the function as needed to scale for incoming events.
+		
+		Hence Lambda functions provide scalability and performance quality attributes as they ensure the ability to scale up resources via the increase of processing power.
 	\subsubsection{IoT - MQTT}
 	
 \subsection{Architectural Components Addressing Architectural Responsibilities}
