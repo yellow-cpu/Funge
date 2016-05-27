@@ -150,6 +150,9 @@ It is important that the system has support for many hardware components such as
 
 \subsection{Architectural Responsibilities}
 \subsection{Architecture Constraints}
+The AWS IoT (Amazon Web Services Internet of Things) is the only technology to which we are constrained. As a result of this constraint, it would be beneficial to make full use of the AWS suite of services, due to the inherent integrability between them. As such, we will be using AWS for persistence, integration and event handling as well.
+
+All other system functionality that does not form part of the proprietary Amazon services will be made open-source, and will be expected to run on all modern browsers. 
 
 \cleardoublepage
 
