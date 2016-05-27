@@ -103,7 +103,7 @@ It is important that the system has support for many hardware components such as
 		\item Passwords should be hashed and salted
 		\item Personal information such as passwords should be encrypted when being sent over the network
 	\end{itemize}
-\subsubsection{Auditability}
+\subsubsection{Auditabilty}
 	\begin{itemize}
 		\item API Gateway should monitor performance metrics as well as information on API calls, data latency and error rates.
 		\item Conditions of the environment of the plants should be monitored in real time
@@ -150,9 +150,15 @@ It is important that the system has support for many hardware components such as
 
 \subsection{Architectural Responsibilities}
 \subsection{Architecture Constraints}
-The AWS IoT (Amazon Web Services Internet of Things) is the only technology to which we are constrained. As a result of this constraint, it would be beneficial to make full use of the AWS suite of services, due to the inherent integrability between them. As such, we will be using AWS for persistence, integration and event handling as well.
-
-All other system functionality that does not form part of the proprietary Amazon services will be made open-source, and will be expected to run on all modern browsers. 
+\subsubsection{REST}
+	REST has the following architectural constraints:
+	\begin{itemize}
+		\item Decouples consumers from producers
+		\item Stateless existence
+		\item Able to leverage a cache
+		\item Leverages a layered system
+		\item Leverages a uniform interface
+	\end{itemize}
 
 \cleardoublepage
 
@@ -161,10 +167,12 @@ All other system functionality that does not form part of the proprietary Amazon
 	\subsubsection{Overall Software Architecture}
 		\paragraph{Event-Driven Programming}\mbox{}\\
 		The program flow will be determined by events. The user interface will make API calls via the use of RESTful services exposed by API Gateway. Lambda functions will only be called upon the triggering of events by the user via the user interface via API Gateway. DynamoDB will be able to receive data from Lambda after an event has been triggered as well as trigger its own events based on information which it receives. The IoT hardware platform will also be able to trigger events to call Lambda functions via the use of IoT Gateway.\\\\
-		This tactic ensures lower running costs as well as the creation of an almost autonomous system which reacts to events only when they occur. This tactic also allows for complex event processing whereby multiple events can be analysed to determine a larger picture.
+		This paradigm ensures lower running costs as well as the creation of an almost autonomous system which reacts to events only when they occur. This tactic also allows for complex event processing whereby multiple events can be analysed to determine a larger picture.\\\\
+		This provides scalability and performance quality attributes in terms of being able to increase processing power on demand to scale-up resources. It also enables the ease of managing resource demand through efficient processing which is only used when it is required as a way to reduce load.
 	\subsubsection{API - Amazon API Gateway}
 		\paragraph{REST}\mbox{}\\
-		RESTful services will be exposed via the use of API Gateway. Our web application would then be able to call publicly available AWS services through code running in AWS Lambda.
+		RESTful services will be exposed via the use of API Gateway. Our web application would then be able to call publicly available AWS services through code running in AWS Lambda.\\\\
+		REST provides accessibility and integrability quality attributes through ensuring the goal of providing access. It does this through enforcing standard communication protocols.
 	\subsubsection{Database - DynamoDB}
 		\paragraph{Dynamo Storage}\mbox{}\\
 		Dynamo refers to a set of techniques that when taken together can form a key-value structured storage system or a distributed data store. It combines properties of databases as well as distributed hash tables. Dynamo provides scalability and performance quality attributes through the managing of resource demand via spreading the load of the resources. Dynamo also enables the increasing of storage by scaling up resources.\\\\
@@ -184,7 +192,7 @@ All other system functionality that does not form part of the proprietary Amazon
 	\subsubsection{IoT - MQTT}
 	
 \subsection{Architectural Components Addressing Architectural Responsibilities}
-\subsubsection{Infrastructure}
+\subsection{Infrastructure}
 	We will be using the Amazon WebServices SDK and APIs as we need to use the AWS IoT (Internet of Things) platform for the project. As such, we will be using other AWS products together with IoT due to their seamless intergration.
 		\begin{figure}[H]
 			\centering
@@ -210,14 +218,7 @@ All other system functionality that does not form part of the proprietary Amazon
 In terms of data persistence:
 \begin{itemize}
 	\item We will be using Java objects to store plant-based information with long-living state
-	\item The state of these data objects will be modified and retrieved via DynamoDB.
+	\item The state of these data objects will be modified and retrieved using DynamoDB.
 \end{itemize}
 These objects will store only data, and thus be devoid of any business processes.
-\newline \newline
-In terms of the front-end User Interface platform:
-We are currently still reviewing three Javascript frameworks; namely EmberJS, AngularJS and ReactJS. The decision of which framework to use will depend on client preferences as well as efficiency, maintainability and integrability with Amazon Web Services.
-
-So far, we are leaning toward EmberJS, which is guided by the Model-View-Controller (MVC) pattern. In all cases, the web application should integrate with the API Gateway solely via REST. 
- 
-
 \end{document}
