@@ -173,6 +173,8 @@ It is important that the system has support for many hardware components such as
 		\paragraph{REST}\mbox{}\\
 		RESTful services will be exposed via the use of API Gateway. Our web application would then be able to call publicly available AWS services through code running in AWS Lambda.\\\\
 		REST provides accessibility and integrability quality attributes through ensuring the goal of providing access. It does this through enforcing standard communication protocols.
+		\paragraph{Monitoring \& Testing}\mbox{}\\
+		Amazon API Gateway enables easy monitoring in terms of performance metrics and information on API calls, data latency and error rates. Using this information we will be able to ensure reliability and availability through the detection and recovering of faults. Amazon API Gateway also enables multiple different versions of the same API to be deployed so as to enable testing. Through the use of this we will be able to prevent faults so as to achieve a higher level of reliability.
 	\subsubsection{Database - DynamoDB}
 		\paragraph{Dynamo Storage}\mbox{}\\
 		Dynamo refers to a set of techniques that when taken together can form a key-value structured storage system or a distributed data store. It combines properties of databases as well as distributed hash tables. Dynamo provides scalability and performance quality attributes through the managing of resource demand via spreading the load of the resources. Dynamo also enables the increasing of storage by scaling up resources.\\\\
@@ -189,7 +191,8 @@ It is important that the system has support for many hardware components such as
 		Lambda is the main driving force behind our event-driven design and consists of Lambda functions. These are always available to run as soon as they are triggered by some sort of event. They are stateless with no affinity to the underlying infrastructure so that Lambda can launch as many copies of the function as needed to scale for incoming events.
 		
 		Hence Lambda functions provide scalability and performance quality attributes as they ensure the ability to scale up resources via the increase of processing power.
-	\subsubsection{IoT - MQTT}
+	\subsubsection{IoT Hardware Platform}
+		\paragraph{MQTT}\mbox{}\\
 	
 \subsection{Architectural Components Addressing Architectural Responsibilities}
 \subsection{Infrastructure}
