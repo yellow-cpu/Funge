@@ -103,7 +103,7 @@ It is important that the system has support for many hardware components such as
 		\item Passwords should be hashed and salted
 		\item Personal information such as passwords should be encrypted when being sent over the network
 	\end{itemize}
-\subsubsection{Auditabilty}
+\subsubsection{Auditability}
 	\begin{itemize}
 		\item API Gateway should monitor performance metrics as well as information on API calls, data latency and error rates.
 		\item Conditions of the environment of the plants should be monitored in real time
@@ -150,6 +150,9 @@ It is important that the system has support for many hardware components such as
 
 \subsection{Architectural Responsibilities}
 \subsection{Architecture Constraints}
+The AWS IoT (Amazon Web Services Internet of Things) is the only technology to which we are constrained. As a result of this constraint, it would be beneficial to make full use of the AWS suite of services, due to the inherent integrability between them. As such, we will be using AWS for persistence, integration and event handling as well.
+
+All other system functionality that does not form part of the proprietary Amazon services will be made open-source, and will be expected to run on all modern browsers. 
 
 \cleardoublepage
 
@@ -181,7 +184,7 @@ It is important that the system has support for many hardware components such as
 	\subsubsection{IoT - MQTT}
 	
 \subsection{Architectural Components Addressing Architectural Responsibilities}
-\subsection{Infrastructure}
+\subsubsection{Infrastructure}
 	We will be using the Amazon WebServices SDK and APIs as we need to use the AWS IoT (Internet of Things) platform for the project. As such, we will be using other AWS products together with IoT due to their seamless intergration.
 		\begin{figure}[H]
 			\centering
@@ -207,8 +210,14 @@ It is important that the system has support for many hardware components such as
 In terms of data persistence:
 \begin{itemize}
 	\item We will be using Java objects to store plant-based information with long-living state
-	\item The state of these data objects will be modified and retrieved using DynamoDB.
+	\item The state of these data objects will be modified and retrieved via DynamoDB.
 \end{itemize}
 These objects will store only data, and thus be devoid of any business processes.
+\newline \newline
+In terms of the front-end User Interface platform:
+We are currently still reviewing three Javascript frameworks; namely EmberJS, AngularJS and ReactJS. The decision of which framework to use will depend on client preferences as well as efficiency, maintainability and integrability with Amazon Web Services.
+
+So far, we are leaning toward EmberJS, which is guided by the Model-View-Controller (MVC) pattern. In all cases, the web application should integrate with the API Gateway solely via REST. 
+ 
 
 \end{document}
