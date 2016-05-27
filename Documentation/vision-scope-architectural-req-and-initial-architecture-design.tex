@@ -155,12 +155,23 @@ It is important that the system has support for many hardware components such as
 
 \section{Architecture Design}
 \subsection{Architectural Tactics}
+	\subsubsection{Overall Software Architecture}
+		\paragraph{Event-Driven Programming}
+		The program flow will be determined by events. The user interface will make API calls via the use of RESTful services exposed by API Gateway. Lambda functions will only be called upon the triggering of events by the user via the user interface via API Gateway. DynamoDB will be able to receive data from Lambda after an event has been triggered as well as trigger its own events based on information which it receives. The IoT hardware platform will also be able to trigger events to call Lambda functions via the use of IoT Gateway.
+		
+		This tactic ensures lower running costs as well as the creation of an almost autonomous system which reacts to events only when they occur. This tactic also allows for complex event processing whereby multiple events can be analysed to determine a larger picture.
+	\subsubsection{API - API Gateway}
+		\paragraph{REST}
+	\subsubsection{Database - DynamoDB}
+	\subsubsection{Lambda}
+	\subsubsection{IoT - MQTT}
+	
 \subsection{Architectural Components Addressing Architectural Responsibilities}
 \subsection{Infrastructure}
 	We will be using the Amazon WebServices SDK and APIs as we need to use the AWS IoT (Internet of Things) platform for the project. As such, we will be using other AWS products together with IoT due to their seamless intergration.
 		\begin{figure}[H]
 			\centering
-			%\includegraphics[width=\textwidth]{AWSMap.png}
+			\includegraphics[width=\textwidth]{AWSMap.png}
 			\caption{Communication between AWS services}
 		\end{figure}
 	\subsubsection{Internet of Things}
