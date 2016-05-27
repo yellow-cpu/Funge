@@ -151,7 +151,7 @@ It is important that the system has support for many hardware components such as
 	\begin{itemize}
 		\item Flexibility in terms of easily adding or removing resources and functions to API Gateway
 		\item Easily add or remove Lambda functions
-		\item The system should be able to function with any number of sensors, it is not imperative that a user has all the necessary sensors in order to use the system
+		\item The system should be modular in the sense that it is able to function with any number of sensors. It is not imperative that a user has all the necessary sensors in order to use the system
 	\end{itemize}
 \subsubsection{Extensibility}
 	\begin{itemize}
@@ -181,7 +181,7 @@ It is important that the system has support for many hardware components such as
 		\item API Gateway should monitor performance metrics as well as information on API calls, data latency and error rates.
 		\item Conditions of the environment of the plants should be monitored in real time
 		\item Each sensor should be distinguishable from the others so as to track where the data originates from
-		\item The logs of the sensors will be persisted within the database so that analytics can be performed on them
+		\item The logs of the sensors will be persisted to the database so that analytics can be performed on them
 		\item The results of the sensor logs will be made available via the user interface to the users
 		\item The system will not allow the audit log to be modified
 	\end{itemize}
@@ -230,8 +230,15 @@ The architectural responsibilities for the system as a whole are shown below
 \end{figure}
 \clearpage
 \subsection{Architecture Constraints}
+The following architecture constraints will be applicable:
+\begin{itemize}
+	\item The system will make use of Amazon Web Services. Amazon IoT \textit{has} to be used. This can be combined with AWS Lambda, Gateway API and DynamoDB
+	\item Architecture should be deployable on Linux servers
+	\item Make use of public standards, including on the web interface
+	\item Web interface should support the newest browsers and function on mobile devices
+\end{itemize}
 \subsubsection{REST}
-	The use of REST must ensure the system has the following architectural constraints:
+	REST would mean the system would have the following constraints:
 	\begin{itemize}
 		\item Decouples consumers from producers
 		\item Stateless existence
