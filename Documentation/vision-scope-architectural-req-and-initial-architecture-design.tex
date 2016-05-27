@@ -151,7 +151,7 @@ It is important that the system has support for many hardware components such as
 	\begin{itemize}
 		\item Flexibility in terms of easily adding or removing resources and functions to API Gateway
 		\item Easily add or remove Lambda functions
-		\item The system should be able to function with any number of sensors, it is not imperative that a user has all the necessary sensors in order to use the system
+		\item The system should be modular in the sense that it is able to function with any number of sensors. It is not imperative that a user has all the necessary sensors in order to use the system
 	\end{itemize}
 \subsubsection{Extensibility}
 	\begin{itemize}
@@ -181,7 +181,7 @@ It is important that the system has support for many hardware components such as
 		\item API Gateway should monitor performance metrics as well as information on API calls, data latency and error rates.
 		\item Conditions of the environment of the plants should be monitored in real time
 		\item Each sensor should be distinguishable from the others so as to track where the data originates from
-		\item The logs of the sensors will be persisted within the database so that analytics can be performed on them
+		\item The logs of the sensors will be persisted to the database so that analytics can be performed on them
 		\item The results of the sensor logs will be made available via the user interface to the users
 		\item The system will not allow the audit log to be modified
 	\end{itemize}
