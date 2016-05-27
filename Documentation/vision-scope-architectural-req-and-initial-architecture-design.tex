@@ -130,6 +130,11 @@ users: Grow a plant better than our control plant grown with the help of AI.
 
 \section{Architectural Requirements}
 \subsection{Access and Integration Requirements}
+The system will be accessed by the users through a web browser. This could be from a mobile device or a computer. 
+\begin{itemize}
+	\item The IoT devices integrate with MQTT through the hardware API to queue and send events to AWS Lambda, where the data will be processed and persisted to DynamoDB
+	\item The web interface will integrate with the AWS API Gateway's REST interface in order to send requests to Lambda. Lambda will then perform the necessary actions, access the database if needed and then return relevant information if required
+\end{itemize} 
 \subsection{Quality Requirements}
 
 \subsubsection{Maintainability}
