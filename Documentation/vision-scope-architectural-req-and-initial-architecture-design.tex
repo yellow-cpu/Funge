@@ -70,18 +70,83 @@ The system should be designed and created in such a way that it easy to maintain
 	\item New developers should be able to easily understand the system
 	\item It should be easy to modify parts of the system
 	\item Adding new functionality should be easy and straightforward
+	\item SDKs are available for all the Amazon Web Services which are constantly being maintained and documented allowing for other developers to easily understand the infrastructure of the project
 \end{itemize}
 \subsubsection{Flexibility}
 It is important that the system has support for many hardware components such as sensors. These technologies are advancing rapidly, therefore it should be easy to add new components to the system, without making any large changes.
+
+	\begin{itemize}
+		\item Flexibility in terms of easily adding or removing resources and functions to API Gateway
+		\item Easily add or remove Lambda functions
+		\item The system should be able to function with any number of sensors, it is not imperative that a user has all the necessary sensors in order to use the system
+	\end{itemize}
 \subsubsection{Extensibility}
-a program that it easy to modify parts of living plants in order to motivate students to model concurrent systems formally defined and learn from the
-system dding new components such as sensors hese results of their own 
+	\begin{itemize}
+		\item The system should be able to have extra sensors added which it can then monitor
+	\end{itemize}
 \subsubsection{Performance}
+	\begin{itemize}
+		\item The UI should respond in less than 0.2 seconds excluding external influences out of the control of the system
+		\item Lambda functions should executed within under 5 seconds
+		\item Getting and setting information with regard to the database should be executed under 5 seconds
+		\item Conditions of plants need to be monitored within real time and should be queued to be sent to the database. Every 20 minutes the hardware should trigger an event to send the information to Lambda or to DynamoDB. If there is no connection available the hardware should continue to queue data until a connection is established.
+	\end{itemize}
 \subsubsection{Scalability}
+	\begin{itemize}
+		\item System will be able to support 10 000 concurrent users and should be able to scale upwards to handle hundreds of thousands of concurrent calls
+		\item The system will be able to support up to 2000 plant boxes and should be able to scale proportionally with regard to the number of users (Up to hundreds of thousands of concurrent calls)
+	\end{itemize}
 \subsubsection{Security}
+	\begin{itemize}
+		\item All personal user information should be kept private and should not be accessible by other users
+		\item User authentication and authorization should be performed
+		\item Passwords should be hashed and salted
+		\item Personal information such as passwords should be encrypted when being sent over the network
+	\end{itemize}
 \subsubsection{Auditabilty}
+	\begin{itemize}
+		\item API Gateway should monitor performance metrics as well as information on API calls, data latency and error rates.
+		\item Conditions of the environment of the plants should be monitored in real time
+		\item Each sensor should be distinguishable from the others so as to track where the data originates from
+		\item The logs of the sensors will be persisted within the database so that analytics can be performed on them
+		\item The results of the sensor logs will be made available via the user interface to the users
+		\item The system will not allow the audit log to be modified
+	\end{itemize}
 \subsubsection{Usability}
+	\begin{itemize}
+		\item The system should be intuitive and efficient to use
+		\item Users with basic computer literacy should be able to easily use the core functionality of the system
+		\item Error messages should be clear
+		\item Input validation should be done on the client side as much as possible
+	\end{itemize}
+\subsubsection{Reliability}
+	\begin{itemize}
+		\item The system should not have a single point of failure
+		\item The system should have a reasonable amount of availability
+	\end{itemize}
 \subsubsection{Testability}
+	\begin{itemize}
+		\item The system should support multiple versions of the same API, allowing for quick iterations, testing and releasing of new versions.
+		\item The system should support mock objects for testing in place of hardware if none is available
+		\item Tests should be run to ensure that a function is only called if all pre-conditions for said function have been met
+		\item Tests should be run to ensure after a function has executed all post-conditions are true
+		\item The system should be able to test other quality requirements where possible
+	\end{itemize}
+\subsubsection{Deployability}
+	\begin{itemize}
+		\item The system will be deployed through on Amazon Web Services such as Lambda and DynamoDB
+		\item The system should be able to deploy multiple versions of the same API for testing
+	\end{itemize}
+\subsubsection{Cost}
+	\begin{itemize}
+		\item The system should only cost as much as the resources it is using at a particular instance
+	\end{itemize}
+\subsubsection{Integrability}
+	\begin{itemize}
+		\item The system should be able to integrate well between the Amazon Web Services which are being used
+		\item Future integration requirements should be easily addressable by using widely adopted public standards
+		\item The system should be able to integrate with different hardware as long as the hardware queues information using a standardized format using MQTT
+	\end{itemize}
 
 \subsection{Architectural Responsibilities}
 \subsection{Architecture Constraints}
@@ -95,7 +160,7 @@ system dding new components such as sensors hese results of their own
 	We will be using the Amazon WebServices SDK and APIs as we need to use the AWS IoT (Internet of Things) platform for the project. As such, we will be using other AWS products together with IoT due to their seamless intergration.
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=\textwidth]{AWSMap.png}
+			%\includegraphics[width=\textwidth]{AWSMap.png}
 			\caption{Communication between AWS services}
 		\end{figure}
 	\subsubsection{Internet of Things}
