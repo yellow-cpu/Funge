@@ -186,13 +186,22 @@ It is important that the system has support for many hardware components such as
 			\item Heterogeneity
 		\end{itemize}
 		The above principles aim to ensure that Dynamo is able to scale out each storage host (node) and that each node has the same set of responsibilities and therefore no nodes have special responsibilities. They also ensure that there is no central control and therefore no central point of failure. Dynamo ultimately also ensures that the work is distributed equally and that the distribution is proportional across all nodes according to the workload.
-	\subsubsection{Lambda}
+	\subsubsection{Backend Processing - Lambda}
 		\paragraph{Lambda Functions}\mbox{}\\
 		Lambda is the main driving force behind our event-driven design and consists of Lambda functions. These are always available to run as soon as they are triggered by some sort of event. They are stateless with no affinity to the underlying infrastructure so that Lambda can launch as many copies of the function as needed to scale for incoming events.
 		
 		Hence Lambda functions provide scalability and performance quality attributes as they ensure the ability to scale up resources via the increase of processing power.
-	\subsubsection{IoT Hardware Platform}
+	\subsubsection{Hardware - IoT Hardware Platform}
 		\paragraph{MQTT}\mbox{}\\
+		The hardware used will be gathering a lot of information in real time and therefore it is imperative that this information is queued. The reasoning behind using a queueing system is that queueing offers the following main benefits:
+		\begin{itemize}
+			\item There are no direct connections between programs - can easily mock out the queued data
+			\item Pre-processing can be performed whilst the data is queued
+			\item Communication between programs can be independent of time - this will help in the case of loss of connection to the hardware
+			\item Communication can be driven by events
+		\end{itemize}
+		
+		The above ensures that scalability and performance can be achieved through the managing of resource demand by spreading the load and using queueing. It also ensures more efficient processing by only using processing power when there is enough data to process hence effectively reducing the load on the machines.
 	
 \subsection{Architectural Components Addressing Architectural Responsibilities}
 \subsection{Infrastructure}
