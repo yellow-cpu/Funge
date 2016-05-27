@@ -230,8 +230,15 @@ The architectural responsibilities for the system as a whole are shown below
 \end{figure}
 \clearpage
 \subsection{Architecture Constraints}
+The following architecture constraints will be applicable:
+\begin{itemize}
+	\item The system will make use of Amazon Web Services. Amazon IoT \textit{has} to be used. This can be combined with AWS Lambda, Gateway API and DynamoDB
+	\item Architecture should be deployable on Linux servers
+	\item Make use of public standards, including on the web interface
+	\item Web interface should support the newest browsers and function on mobile devices
+\end{itemize}
 \subsubsection{REST}
-	REST has the following architectural constraints:
+	REST would mean the system would have the following constraints:
 	\begin{itemize}
 		\item Decouples consumers from producers
 		\item Stateless existence
