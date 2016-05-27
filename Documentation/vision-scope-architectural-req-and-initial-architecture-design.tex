@@ -184,6 +184,12 @@ It is important that the system has support for many hardware components such as
 	\end{itemize}
 
 \subsection{Architectural Responsibilities}
+The architectural responsibilities for the system as a whole are shown below
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{Responsibilities.jpg}
+	\caption{Architectural responsibilities of the system}
+\end{figure}
 \subsection{Architecture Constraints}
 \subsubsection{REST}
 	REST has the following architectural constraints:
@@ -238,7 +244,6 @@ It is important that the system has support for many hardware components such as
 		
 		The above ensures that scalability and performance can be achieved through the managing of resource demand by spreading the load and using queueing. It also ensures more efficient processing by only using processing power when there is enough data to process hence effectively reducing the load on the machines.
 	
-\subsection{Architectural Components Addressing Architectural Responsibilities}
 \subsection{Infrastructure}
 	We will be using the Amazon WebServices SDK and APIs as we need to use the AWS IoT (Internet of Things) platform for the project. As such, we will be using other AWS products together with IoT due to their seamless intergration.
 		\begin{figure}[H]
