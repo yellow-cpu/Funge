@@ -70,26 +70,139 @@ The system should be designed and created in such a way that it easy to maintain
 	\item New developers should be able to easily understand the system
 	\item It should be easy to modify parts of the system
 	\item Adding new functionality should be easy and straightforward
+	\item SDKs are available for all the Amazon Web Services which are constantly being maintained and documented allowing for other developers to easily understand the infrastructure of the project
 \end{itemize}
 \subsubsection{Flexibility}
 It is important that the system has support for many hardware components such as sensors. These technologies are advancing rapidly, therefore it should be easy to add new components to the system, without making any large changes.
+
+	\begin{itemize}
+		\item Flexibility in terms of easily adding or removing resources and functions to API Gateway
+		\item Easily add or remove Lambda functions
+		\item The system should be able to function with any number of sensors, it is not imperative that a user has all the necessary sensors in order to use the system
+	\end{itemize}
 \subsubsection{Extensibility}
-a program that it easy to modify parts of living plants in order to motivate students to model concurrent systems formally defined and learn from the
-system dding new components such as sensors hese results of their own 
+	\begin{itemize}
+		\item The system should be able to have extra sensors added which it can then monitor
+	\end{itemize}
 \subsubsection{Performance}
+	\begin{itemize}
+		\item The UI should respond in less than 0.2 seconds excluding external influences out of the control of the system
+		\item Lambda functions should executed within under 5 seconds
+		\item Getting and setting information with regard to the database should be executed under 5 seconds
+		\item Conditions of plants need to be monitored within real time and should be queued to be sent to the database. Every 20 minutes the hardware should trigger an event to send the information to Lambda or to DynamoDB. If there is no connection available the hardware should continue to queue data until a connection is established.
+	\end{itemize}
 \subsubsection{Scalability}
+	\begin{itemize}
+		\item System will be able to support 10 000 concurrent users and should be able to scale upwards to handle hundreds of thousands of concurrent calls
+		\item The system will be able to support up to 2000 plant boxes and should be able to scale proportionally with regard to the number of users (Up to hundreds of thousands of concurrent calls)
+	\end{itemize}
 \subsubsection{Security}
+	\begin{itemize}
+		\item All personal user information should be kept private and should not be accessible by other users
+		\item User authentication and authorization should be performed
+		\item Passwords should be hashed and salted
+		\item Personal information such as passwords should be encrypted when being sent over the network
+	\end{itemize}
 \subsubsection{Auditabilty}
+	\begin{itemize}
+		\item API Gateway should monitor performance metrics as well as information on API calls, data latency and error rates.
+		\item Conditions of the environment of the plants should be monitored in real time
+		\item Each sensor should be distinguishable from the others so as to track where the data originates from
+		\item The logs of the sensors will be persisted within the database so that analytics can be performed on them
+		\item The results of the sensor logs will be made available via the user interface to the users
+		\item The system will not allow the audit log to be modified
+	\end{itemize}
 \subsubsection{Usability}
+	\begin{itemize}
+		\item The system should be intuitive and efficient to use
+		\item Users with basic computer literacy should be able to easily use the core functionality of the system
+		\item Error messages should be clear
+		\item Input validation should be done on the client side as much as possible
+	\end{itemize}
+\subsubsection{Reliability}
+	\begin{itemize}
+		\item The system should not have a single point of failure
+		\item The system should have a reasonable amount of availability
+	\end{itemize}
 \subsubsection{Testability}
+	\begin{itemize}
+		\item The system should support multiple versions of the same API, allowing for quick iterations, testing and releasing of new versions.
+		\item The system should support mock objects for testing in place of hardware if none is available
+		\item Tests should be run to ensure that a function is only called if all pre-conditions for said function have been met
+		\item Tests should be run to ensure after a function has executed all post-conditions are true
+		\item The system should be able to test other quality requirements where possible
+	\end{itemize}
+\subsubsection{Deployability}
+	\begin{itemize}
+		\item The system will be deployed through on Amazon Web Services such as Lambda and DynamoDB
+		\item The system should be able to deploy multiple versions of the same API for testing
+	\end{itemize}
+\subsubsection{Cost}
+	\begin{itemize}
+		\item The system should only cost as much as the resources it is using at a particular instance
+	\end{itemize}
+\subsubsection{Integrability}
+	\begin{itemize}
+		\item The system should be able to integrate well between the Amazon Web Services which are being used
+		\item Future integration requirements should be easily addressable by using widely adopted public standards
+		\item The system should be able to integrate with different hardware as long as the hardware queues information using a standardized format using MQTT
+	\end{itemize}
 
 \subsection{Architectural Responsibilities}
 \subsection{Architecture Constraints}
+\subsubsection{REST}
+	REST has the following architectural constraints:
+	\begin{itemize}
+		\item Decouples consumers from producers
+		\item Stateless existence
+		\item Able to leverage a cache
+		\item Leverages a layered system
+		\item Leverages a uniform interface
+	\end{itemize}
 
 \cleardoublepage
 
 \section{Architecture Design}
 \subsection{Architectural Tactics}
+	\subsubsection{Overall Software Architecture}
+		\paragraph{Event-Driven Programming}\mbox{}\\
+		The program flow will be determined by events. The user interface will make API calls via the use of RESTful services exposed by API Gateway. Lambda functions will only be called upon the triggering of events by the user via the user interface via API Gateway. DynamoDB will be able to receive data from Lambda after an event has been triggered as well as trigger its own events based on information which it receives. The IoT hardware platform will also be able to trigger events to call Lambda functions via the use of IoT Gateway.\\\\
+		This paradigm ensures lower running costs as well as the creation of an almost autonomous system which reacts to events only when they occur. This tactic also allows for complex event processing whereby multiple events can be analysed to determine a larger picture.\\\\
+		This provides scalability and performance quality attributes in terms of being able to increase processing power on demand to scale-up resources. It also enables the ease of managing resource demand through efficient processing which is only used when it is required as a way to reduce load.
+	\subsubsection{API - Amazon API Gateway}
+		\paragraph{REST}\mbox{}\\
+		RESTful services will be exposed via the use of API Gateway. Our web application would then be able to call publicly available AWS services through code running in AWS Lambda.\\\\
+		REST provides accessibility and integrability quality attributes through ensuring the goal of providing access. It does this through enforcing standard communication protocols.
+		\paragraph{Monitoring \& Testing}\mbox{}\\
+		Amazon API Gateway enables easy monitoring in terms of performance metrics and information on API calls, data latency and error rates. Using this information we will be able to ensure reliability and availability through the detection and recovering of faults. Amazon API Gateway also enables multiple different versions of the same API to be deployed so as to enable testing. Through the use of this we will be able to prevent faults so as to achieve a higher level of reliability.
+	\subsubsection{Database - DynamoDB}
+		\paragraph{Dynamo Storage}\mbox{}\\
+		Dynamo refers to a set of techniques that when taken together can form a key-value structured storage system or a distributed data store. It combines properties of databases as well as distributed hash tables. Dynamo provides scalability and performance quality attributes through the managing of resource demand via spreading the load of the resources. Dynamo also enables the increasing of storage by scaling up resources.\\\\
+		\textit{Principles of Dynamo Systems:}
+		\begin{itemize}
+			\item Incremental scalability
+			\item Symmetry
+			\item Decentralization
+			\item Heterogeneity
+		\end{itemize}
+		The above principles aim to ensure that Dynamo is able to scale out each storage host (node) and that each node has the same set of responsibilities and therefore no nodes have special responsibilities. They also ensure that there is no central control and therefore no central point of failure. Dynamo ultimately also ensures that the work is distributed equally and that the distribution is proportional across all nodes according to the workload.
+	\subsubsection{Backend Processing - Lambda}
+		\paragraph{Lambda Functions}\mbox{}\\
+		Lambda is the main driving force behind our event-driven design and consists of Lambda functions. These are always available to run as soon as they are triggered by some sort of event. They are stateless with no affinity to the underlying infrastructure so that Lambda can launch as many copies of the function as needed to scale for incoming events.
+		
+		Hence Lambda functions provide scalability and performance quality attributes as they ensure the ability to scale up resources via the increase of processing power.
+	\subsubsection{Hardware - IoT Hardware Platform}
+		\paragraph{MQTT}\mbox{}\\
+		The hardware used will be gathering a lot of information in real time and therefore it is imperative that this information is queued. The reasoning behind using a queueing system is that queueing offers the following main benefits:
+		\begin{itemize}
+			\item There are no direct connections between programs - can easily mock out the queued data
+			\item Pre-processing can be performed whilst the data is queued
+			\item Communication between programs can be independent of time - this will help in the case of loss of connection to the hardware
+			\item Communication can be driven by events
+		\end{itemize}
+		
+		The above ensures that scalability and performance can be achieved through the managing of resource demand by spreading the load and using queueing. It also ensures more efficient processing by only using processing power when there is enough data to process hence effectively reducing the load on the machines.
+	
 \subsection{Architectural Components Addressing Architectural Responsibilities}
 \subsection{Infrastructure}
 	We will be using the Amazon WebServices SDK and APIs as we need to use the AWS IoT (Internet of Things) platform for the project. As such, we will be using other AWS products together with IoT due to their seamless intergration.
@@ -112,5 +225,12 @@ system dding new components such as sensors hese results of their own
 		Amazon API Gateway is a fully managed service that makes it easy for developers to create, publish, maintain, monitor, and secure APIs at any scale. We can easily and quickly create an API that acts as a “front door” for the user interface to access data from DynamoDB or trigger events in Lambda by exposing RESTful services to the API. Amazon API Gateway handles all the tasks involved in accepting and processing up to hundreds of thousands of concurrent API calls, including traffic management, authorization and access control, monitoring, and API version management.
 	\subsubsection{JavaScript SDK}
 		The AWS SDK for JavaScript enables us to directly access AWS services from JavaScript code running in the browser. We can authenticate users, store data in DynamoDB and trigger Lambda events. It is simple to deploy and uses the same API as the other components, meaning function migration becomes trivial.
+
 \subsection{Concepts and Constraints for Application Components}
+In terms of data persistence:
+\begin{itemize}
+	\item We will be using Java objects to store plant-based information with long-living state
+	\item The state of these data objects will be modified and retrieved using DynamoDB.
+\end{itemize}
+These objects will store only data, and thus be devoid of any business processes.
 \end{document}
