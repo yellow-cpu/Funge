@@ -92,5 +92,25 @@ system dding new components such as sensors hese results of their own
 \subsection{Architectural Tactics}
 \subsection{Architectural Components Addressing Architectural Responsibilities}
 \subsection{Infrastructure}
+	We will be using the Amazon WebServices SDK and APIs as we need to use the AWS IoT (Internet of Things) platform for the project. As such, we will be using other AWS products together with IoT due to their seamless intergration.
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=\textwidth]{AWSMap.png}
+			\caption{Communication between AWS services}
+		\end{figure}
+	\subsubsection{Internet of Things}
+		AWS IoT is a managed cloud platform that lets connected devices easily and securely interact with cloud applications and other devices.
+		
+		We will be using the IoT platform to connect to Lambda (explained below) using the MQTT protocol. As part of the project, we are required to use the AWS IoT platform.
+	\subsubsection{Lambda}
+		AWS Lambda lets you run code without provisioning or managing servers. You pay only for the compute time you consume - there is no charge when your code is not running. With Lambda, you can run code for virtually any type of application or backend service - all with zero administration. Just upload your code and Lambda takes care of everything required to run and scale your code with high availability. You can set up your code to automatically trigger from other AWS services or call it directly from any web or mobile app.
+		
+		Lambda will form the largest part of our backend. All messages will be sent from IoT to Lambda, using MQTT, and that event will trigger a response and the web interface can access Lambda through the API Gateway, negating the need for a server to be constantly listening. Lambda can then perform operations on DynamoDB, but can also respond to events triggered when data in DynamoDB is changed or added. 
+	\subsubsection{DynamoDB}
+		Amazon DynamoDB is a fast and flexible NoSQL database service which has built in Java ORM. It intergrates with AWS Lambda, allowing Lambda to respond to events in the database. It can also be easily accessed through the API Gateway, allowing for fast read-write operations from the client interface.
+	\subsubsection{API Gateway}
+		Amazon API Gateway is a fully managed service that makes it easy for developers to create, publish, maintain, monitor, and secure APIs at any scale. We can create an API that acts as a “front door” for the user interface to access data from DynamoDB or trigger events in Lambda. Amazon API Gateway handles all the tasks involved in accepting and processing up to hundreds of thousands of concurrent API calls, including traffic management, authorization and access control, monitoring, and API version management.
+	\subsubsection{JavaScript SDK}
+		The AWS SDK for JavaScript enables us to directly access AWS services from JavaScript code running in the browser. We can authenticate users, store data in DynamoDB and trigger Lambda events. It is simple to deploy and uses the same API as the other components, meaning function migration becomes trivial.
 \subsection{Concepts and Constraints for Application Components}
 \end{document}
