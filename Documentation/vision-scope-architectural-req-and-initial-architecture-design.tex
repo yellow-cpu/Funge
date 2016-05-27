@@ -188,5 +188,13 @@ It is important that the system has support for many hardware components such as
 		Amazon API Gateway is a fully managed service that makes it easy for developers to create, publish, maintain, monitor, and secure APIs at any scale. We can easily and quickly create an API that acts as a “front door” for the user interface to access data from DynamoDB or trigger events in Lambda by exposing RESTful services to the API. Amazon API Gateway handles all the tasks involved in accepting and processing up to hundreds of thousands of concurrent API calls, including traffic management, authorization and access control, monitoring, and API version management.
 	\subsubsection{JavaScript SDK}
 		The AWS SDK for JavaScript enables us to directly access AWS services from JavaScript code running in the browser. We can authenticate users, store data in DynamoDB and trigger Lambda events. It is simple to deploy and uses the same API as the other components, meaning function migration becomes trivial.
+
 \subsection{Concepts and Constraints for Application Components}
+In terms of data persistence:
+\begin{itemize}
+	\item We will be using Java objects to store plant-based information with long-living state
+	\item The state of these data objects will be modified and retrieved using DynamoDB.
+\end{itemize}
+These objects will store only data, and thus be devoid of any business processes.
+
 \end{document}
