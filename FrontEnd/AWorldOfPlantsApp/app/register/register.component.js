@@ -14,17 +14,18 @@ angular.
       }
 
       self.registerUser = function registerUser(username, password) {
-        var data = JSON.stringify({
-          "action": "com.amazonaws.apigatewaydemo.action.RegisterDemoAction",
-          "body": {
-              "username": username,
-              "password": password
-          }
-        });
+        var apigClient = apigClientFactory.newClient();
 
-        $http.post('https://60rtntlltg.execute-api.us-east-1.amazonaws.com/test/users', data).then(function(response) {
-          console.log(response);
-        });
+        var params = {
+          "action": "com.amazonaws.apigatewaydemo.action.RegisterDemoAction"
+        };
+
+        var body = {
+          "username": username,
+          "password": password
+        };
+
+        apigClient.usersPost(params, body);
       };
     }
   });
