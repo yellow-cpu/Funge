@@ -5,7 +5,7 @@ angular.
   module('register').
   component('register', {
     templateUrl: 'register/register.template.html',
-    controller: function RegisterController($http) {
+    controller: function RegisterController() {
       var self = this;
 
       self.user = {
@@ -14,16 +14,22 @@ angular.
       };
 
       self.registerUser = function registerUser(username, password) {
-        var data = JSON.stringify({
-          "action": "com.amazonaws.apigatewaydemo.action.RegisterDemoAction",
-          "body": {
-              "username": username,
-              "password": password
-          }
-        });
+        var apigClient = apigClientFactory.newClient();
 
-        $http.post('https://60rtntlltg.execute-api.us-east-1.amazonaws.com/test/users', data).then(function(response) {
-          console.log(response);
+        var params = {
+          "action": "com.amazonaws.apigatewaydemo.action.RegisterDemoAction"
+        };
+
+        var body = {
+          "username": username,
+          "password": password
+        };
+
+        apigClient.usersPost(params, body)
+          .then(function(result){
+            console.log("Success: " + JSON.stringify(result));
+          }).catch( function(result){
+            console.log("Error: " + result);
         });
       };
     }
