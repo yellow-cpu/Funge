@@ -5,7 +5,7 @@ angular.
   module('register').
   component('register', {
     templateUrl: 'register/register.template.html',
-    controller: function RegisterController($http) {
+    controller: function RegisterController() {
       var self = this;
 
       self.user = {
@@ -25,7 +25,12 @@ angular.
           "password": password
         };
 
-        apigClient.usersPost(params, body);
+        apigClient.usersPost(params, body)
+          .then(function(result){
+            console.log("Success: " + JSON.stringify(result));
+          }).catch( function(result){
+            console.log("Error: " + result);
+        });
       };
     }
   });
