@@ -11,7 +11,7 @@ angular.
       self.user = {
         "username": "test1",
         "password": "123"
-      }
+      };
 
       self.registerUser = function registerUser(username, password) {
         var apigClient = apigClientFactory.newClient();
