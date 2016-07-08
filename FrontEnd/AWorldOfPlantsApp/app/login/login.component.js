@@ -27,19 +27,19 @@ angular.
 
         apigClient.loginPost(params, body)
           .then(function(result){
-            console.log("Success: " + JSON.stringify(result.data.identityId));
+            console.log("Success: " + JSON.stringify(result.data));
 
-            AWS.config.region = 'us-east-1';
+            var credentials = result.data.credentials;
+            console.log(credentials);
 
-            AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-               IdentityPoolId: 'us-east-1:01d06c3d-957e-4db3-a37b-35d7b3e6bef5',
-               IdentityId: JSON.stringify(result.data.identityId),
-               Logins: {
-                  'cognito-identity.amazonaws.com': JSON.stringify(result.data.token)
-               }
-            });
+            AWS.config.credentials = {
+              accessKey: credentials.accessKey,
+              secretKey: credentials.secretKey,
+              sessionToken: credentials.sessionToken,
+              region: 'us-east-1',
+            };
           }).catch( function(result){
-            console.log("Error: " + result);
+            console.log("Error: " + JSON.stringify(result));
           });
       };
     }
