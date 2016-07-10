@@ -12,6 +12,8 @@
  */
 package cf.funge.aworldofplants.model;
 
+import cf.funge.aworldofplants.model.plant.DDBPlantDAO;
+import cf.funge.aworldofplants.model.plant.PlantDAO;
 import cf.funge.aworldofplants.model.user.DDBUserDAO;
 import cf.funge.aworldofplants.model.user.UserDAO;
 
@@ -19,13 +21,6 @@ import cf.funge.aworldofplants.model.user.UserDAO;
  * The DAO Factory object to abstract the implementation of DAO interfaces.
  */
 public class DAOFactory {
-    /**
-     * Contains the implementations of the DAO objects. By default we only have a DynamoDB implementation
-     */
-    public enum DAOType {
-        DynamoDB
-    }
-
     /**
      * Returns the default UserDAO object
      *
@@ -50,5 +45,38 @@ public class DAOFactory {
         }
 
         return dao;
+    }
+
+    /**
+     * Returns the default PlantDAO implementation
+     *
+     * @return The DynamoDB PlantDAO implementation
+     */
+    public static PlantDAO getPlantDAO() {
+        return getPlantDAO(DAOType.DynamoDB);
+    }
+
+    /**
+     * Returns a PlantDAO implementation
+     *
+     * @param daoType The implementation type
+     * @return The requested DAO implementation
+     */
+    public static PlantDAO getPlantDAO(DAOType daoType) {
+        PlantDAO dao = null;
+        switch (daoType) {
+            case DynamoDB:
+                dao = DDBPlantDAO.getInstance();
+                break;
+        }
+
+        return dao;
+    }
+
+    /**
+     * Contains the implementations of the DAO objects. By default we only have a DynamoDB implementation
+     */
+    public enum DAOType {
+        DynamoDB
     }
 }
