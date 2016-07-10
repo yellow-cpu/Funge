@@ -20,4 +20,5 @@ public class DynamoDBConfiguration {
     public static final String USERS_TABLE_NAME = "users";
 
     public static final int SCAN_LIMIT = 50;
+    public static final String PLANT_TABLE_NAME = "plants";
 }
