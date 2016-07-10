@@ -17,7 +17,7 @@ angular.
         var apigClient = apigClientFactory.newClient();
 
         var params = {
-          "action": "com.amazonaws.apigatewaydemo.action.RegisterDemoAction"
+          "action": "cf.funge.aworldofplants.action.RegisterAction"
         };
 
         var body = {

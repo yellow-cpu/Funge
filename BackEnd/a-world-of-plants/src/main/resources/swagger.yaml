@@ -142,7 +142,7 @@ paths:
         requestTemplates:
           application/json: |
             {
-              "action" : "com.amazonaws.apigatewaydemo.action.LoginDemoAction",
+              "action" : "cf.funge.aworldofplants.action.LoginAction",
               "body" : $input.json('$')
             }
         responses:
@@ -217,11 +217,11 @@ paths:
               type: "string"
             Access-Control-Allow-Origin:
               type: "string"
-  /pets:
+  /plants:
     post:
-      summary: Creates a new pet
+      summary: Creates a new plant
       description: |
-        Creates a new pet object in the datastore
+        Creates a new plant object in the datastore
       x-amazon-apigateway-auth:
         type: aws_iam
       consumes:
@@ -229,22 +229,22 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: NewPet
+        - name: NewPlant
           in: body
-          description: New pet details.
+          description: New plant details.
           schema:
-            $ref: '#/definitions/NewPet'
+            $ref: '#/definitions/NewPlant'
       tags:
-        - Pet Store
+        - Plant DB
       x-amazon-apigateway-integration:
         type: aws
         uri: arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:339898884101:function:user-management/invocations
-        credentials: arn:aws:iam::339898884101:role/user-management-role
+        credentials: arn:aws:iam::*:user/*
         httpMethod: POST
         requestTemplates:
           application/json: |
             {
-              "action" : "com.amazonaws.apigatewaydemo.action.CreatePetDemoAction",
+              "action" : "cf.funge.aworldofplants.action.CreatePlantAction",
               "body" : $input.json('$')
             }
         responses:
@@ -262,12 +262,12 @@ paths:
               method.response.header.Access-Control-Allow-Origin : "'*'"
       responses:
         200:
-          description: The unique identifier of the new pet
+          description: The unique identifier of the new plant
           headers:
             Access-Control-Allow-Origin:
               type: "string"
           schema:
-            $ref: '#/definitions/NewPetResponse'
+            $ref: '#/definitions/NewPlantResponse'
         400:
           description: Bad request
           headers:
@@ -283,8 +283,8 @@ paths:
           schema:
             $ref: '#/definitions/Error'
     get:
-      summary: List pets
-      description: Retrieve a list of pets in the store
+      summary: List plants
+      description: Retrieve a list of plants in the DB
       x-amazon-apigateway-auth:
         type: aws_iam
       consumes:
@@ -292,7 +292,7 @@ paths:
       produces:
         - application/json
       tags:
-        - Pet Store
+        - Plant DB
       x-amazon-apigateway-integration:
         type: aws
         uri: arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:339898884101:function:user-management/invocations
@@ -301,7 +301,7 @@ paths:
         requestTemplates:
           application/json: |
             {
-              "action" : "com.amazonaws.apigatewaydemo.action.ListPetsDemoAction",
+              "action" : "cf.funge.aworldofplants.action.ListPlantsAction",
               "body" : $input.json('$')
             }
         responses:
@@ -319,12 +319,12 @@ paths:
               method.response.header.Access-Control-Allow-Origin : "'*'"
       responses:
         200:
-          description: A list of pets
+          description: A list of plants
           headers:
             Access-Control-Allow-Origin:
               type: "string"
           schema:
-            $ref: '#/definitions/Pets'
+            $ref: '#/definitions/Plants'
         400:
           description: Bad request
           headers:
@@ -376,10 +376,10 @@ paths:
               type: "string"
             Access-Control-Allow-Origin:
               type: "string"
-  /pets/{petId}:
+  /plants/{plantId}:
     get:
-      summary: Get pet by id
-      description: Returns a pet definition based on the given id
+      summary: Get plant by id
+      description: Returns a plant definition based on the given id
       x-amazon-apigateway-auth:
         type: aws_iam
       consumes:
@@ -387,23 +387,23 @@ paths:
       produces:
         - application/json
       tags:
-        - Pet Store
+        - Plant DB
       parameters:
-        - name: petId
+        - name: plantId
           in: path
-          description: The unique identifier for a pet
+          description: The unique identifier for a plant
           type: string
       x-amazon-apigateway-integration:
         type: aws
         uri: arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:339898884101:function:user-management/invocations
-        credentials: arn:aws:iam::339898884101:role/user-management-role
+        credentials: arn:aws:iam::*:user/*
         httpMethod: POST
         requestTemplates:
           application/json: |
             {
-              "action" : "com.amazonaws.apigatewaydemo.action.GetPetDemoAction",
+              "action" : "cf.funge.aworldofplants.action.GetPlantAction",
               "body" : {
-                "petId" : "$input.params('petId')"
+                "plantId" : "$input.params('plantId')"
               }
             }
         responses:
@@ -421,12 +421,12 @@ paths:
               method.response.header.Access-Control-Allow-Origin : "'*'"
       responses:
         200:
-          description: A pet
+          description: A plant
           headers:
             Access-Control-Allow-Origin:
               type: "string"
           schema:
-            $ref: '#/definitions/Pet'
+            $ref: '#/definitions/Plant'
         400:
           description: Bad request
           headers:
@@ -538,40 +538,40 @@ definitions:
             type: integer
             description: |
               Expiration date of the temporary credentials in millis since 1/1/1970
-  NewPet:
+  NewPlant:
     properties:
-      petType:
+      plantType:
         type: string
-        description: Free text pet type
-      petName:
+        description: Free text plant type
+      plantName:
         type: string
-        description: Free text pet name
-      petAge:
+        description: Free text plant name
+      plantAge:
         type: integer
-        description: Age of the new pet
-  NewPetResponse:
+        description: Age of the new plant
+  NewPlantResponse:
     properties:
-      petId:
+      plantId:
         type: string
-        description: The generated unique identifier for the new pet
-  Pet:
+        description: The generated unique identifier for the new plant
+  Plant:
     properties:
-      petId:
+      plantId:
         type: string
-        description: The generated unique identifier for the new pet
-      petType:
+        description: The generated unique identifier for the new plant
+      plantType:
         type: string
-        description: Free text pet type
-      petName:
+        description: Free text plant type
+      plantName:
         type: string
-        description: Free text pet name
-      petAge:
+        description: Free text plant name
+      plantAge:
         type: integer
-        description: Age of the new pet
-  Pets:
+        description: Age of the new plant
+  Plants:
     type: array
     items:
-      $ref: Pet
+      $ref: Plant
   Error:
     properties:
       code:

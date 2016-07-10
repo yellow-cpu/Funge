@@ -12,19 +12,19 @@ angular.
       self.thePlant = "xxx";
 
       self.plant = {
-        "petType": "Dog",
-        "petName": "Bob",
-        "petAge": 5
+        "plantType": "Flower",
+        "plantName": "Timmy",
+        "plantAge": 3
       };
 
       self.getPlants = function getPlants() {
         var params = {
-          "action": "com.amazonaws.apigatewaydemo.action.ListPetsDemoAction"
+          "action": "cf.funge.aworldofplants.action.ListPlantsAction"
         };
 
         var apigClient = apigClientFactory.newClient(AWS.config.credentials);
 
-        apigClient.petsGet(params, {})
+        apigClient.plantsGet(params, {})
           .then(function(result){
             console.log("Success: " + JSON.stringify(result.data));
           }).catch( function(result){
@@ -34,15 +34,15 @@ angular.
 
       self.getPlantId = function getPlantId(plantId) {
         var params = {
-          "action": "com.amazonaws.apigatewaydemo.action.GetPetDemoAction",
-          "petId": plantId
+          "action": "cf.funge.aworldofplants.action.action.GetPlantAction",
+          "plantId": plantId
         };
 
         var body = {};
 
         var apigClient = apigClientFactory.newClient(AWS.config.credentials);
 
-        apigClient.petsPetIdGet(params, body)
+        apigClient.plantsPlantIdGet(params, body)
           .then(function(result){
             console.log("Success: " + JSON.stringify(result.data));
             self.thePlant = JSON.stringify(result.data.petName);
@@ -53,20 +53,19 @@ angular.
 
       self.createPlant = function createPlant() {
         var params = {
-          "action": "com.amazonaws.apigatewaydemo.action.CreatePetDemoAction"
+          "action": "cf.funge.aworldofplants.action.CreatePlantAction"
         };
 
         var body = {
-          "petId": "asdasdasd",
-          "petType": "Hamster",
-          "petName": "Toby",
-          "petAge": 9001
+          "plantType": "Flower",
+          "plantName": "Bob",
+          "plantAge": 9001
         };
 
         console.log(AWS.config.credentials);
         var apigClient = apigClientFactory.newClient(AWS.config.credentials);
 
-        apigClient.petsPost(params, body)
+        apigClient.plantsPost(params, body)
           .then(function(result){
             console.log("Success: " + JSON.stringify(result.data));
           }).catch( function(result){

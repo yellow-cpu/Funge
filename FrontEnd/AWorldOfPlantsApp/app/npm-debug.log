@@ -1,0 +1,38 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'start' ]
+2 info using npm@2.14.12
+3 info using node@v4.3.1
+4 verbose run-script [ 'prestart', 'start', 'poststart' ]
+5 info prestart AWorldOfPlants@0.0.0
+6 verbose unsafe-perm in lifecycle true
+7 info AWorldOfPlants@0.0.0 Failed to exec prestart script
+8 verbose stack Error: AWorldOfPlants@0.0.0 prestart: `npm install`
+8 verbose stack Exit status 1
+8 verbose stack     at EventEmitter.<anonymous> (C:\Program Files\nodejs\node_modules\npm\lib\utils\lifecycle.js:214:16)
+8 verbose stack     at emitTwo (events.js:87:13)
+8 verbose stack     at EventEmitter.emit (events.js:172:7)
+8 verbose stack     at ChildProcess.<anonymous> (C:\Program Files\nodejs\node_modules\npm\lib\utils\spawn.js:24:14)
+8 verbose stack     at emitTwo (events.js:87:13)
+8 verbose stack     at ChildProcess.emit (events.js:172:7)
+8 verbose stack     at maybeClose (internal/child_process.js:821:16)
+8 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
+9 verbose pkgid AWorldOfPlants@0.0.0
+10 verbose cwd D:\BISMultimedia\2016\Semester 1\COS301\Main Project\Git\Funge\FrontEnd\AWorldOfPlantsApp\app
+11 error Windows_NT 6.3.9600
+12 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "start"
+13 error node v4.3.1
+14 error npm  v2.14.12
+15 error code ELIFECYCLE
+16 error AWorldOfPlants@0.0.0 prestart: `npm install`
+16 error Exit status 1
+17 error Failed at the AWorldOfPlants@0.0.0 prestart script 'npm install'.
+17 error This is most likely a problem with the AWorldOfPlants package,
+17 error not with npm itself.
+17 error Tell the author that this fails on your system:
+17 error     npm install
+17 error You can get their info via:
+17 error     npm owner ls AWorldOfPlants
+17 error There is likely additional logging output above.
+18 verbose exit [ 1, true ]
