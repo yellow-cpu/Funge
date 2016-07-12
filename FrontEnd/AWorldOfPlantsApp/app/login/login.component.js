@@ -13,7 +13,6 @@ angular.
         "password": "123"
       };
 
-      //TODO test logging out
       self.logoutUser = function logoutUser(username, password) {
 
       };
@@ -21,9 +20,7 @@ angular.
       self.loginUser = function loginUser(username, password) {
         var apigClient = apigClientFactory.newClient();
 
-        var params = {
-          "action": "cf.funge.aworldofplants.action.LoginAction"
-        };
+        var params = {};
 
         var body = {
           "username": username,

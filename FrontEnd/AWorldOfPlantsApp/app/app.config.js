@@ -5,15 +5,12 @@ angular.
             $locationProvider.hashPrefix('!');
 
             $routeProvider.
-            when('/login', {
-                template: '<login></login>'
-            }).
-            when('/register', {
-                template: '<register></register>'
-            }).
             when('/create-plant', {
                 template: '<create-plant></create-plant>'
             }).
-            otherwise('/login');
+            when('/landing', {
+                template: '<landing></landing>'
+            }).
+            otherwise('/landing');
         }
     ]);

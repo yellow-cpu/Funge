@@ -5,8 +5,10 @@
 <p><b>Password:</b> {{$ctrl.user.password}}</p>
 
 <input type="button" class="btn btn-info" ng-click="$ctrl.loginUser($ctrl.user.username, $ctrl.user.password)" value="Login">
+<input type="button" value="Clear Cache" ng-click="$ctrl.clearCache()">
 
 <p>Not yet registered? <a href="#!/register">Register here</a></p>
+<p>View plants: <a href="#!/create-plant">Create plant</a></p>
 <a href="#!/create-plant">Create Plant</a>
 
 <!-- TODO test logging out -->
