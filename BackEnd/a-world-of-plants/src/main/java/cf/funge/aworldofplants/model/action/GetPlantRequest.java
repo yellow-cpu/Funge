@@ -10,15 +10,19 @@
  * OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
  * and limitations under the License.
  */
-package cf.funge.aworldofplants.configuration;
+package cf.funge.aworldofplants.model.action;
 
 /**
- * Configuration parameters for the DynamoDB DAO objects
+ * Bean for the get plant by id request.
  */
-public class DynamoDBConfiguration {
-    // TODO: Specify the name of the Users table in DynamoDB
-    public static final String USERS_TABLE_NAME = "users";
+public class GetPlantRequest {
+    private String plantId;
 
-    public static final int SCAN_LIMIT = 50;
-    public static final String PLANT_TABLE_NAME = "plants";
+    public String getPlantId() {
+        return plantId;
+    }
+
+    public void setPlantId(String plantId) {
+        this.plantId = plantId;
+    }
 }

@@ -53,7 +53,7 @@ apigClientFactory.newClient = function (config) {
 
     
     // extract endpoint and path from url
-    var invokeUrl = 'https://2v124564za.execute-api.us-east-1.amazonaws.com/test';
+    var invokeUrl = 'https://ziu3ewp0h7.execute-api.us-east-1.amazonaws.com/test';
     var endpoint = /(^https?:\/\/[^\/]+)/g.exec(invokeUrl)[1];
     var pathComponent = invokeUrl.substring(endpoint.length);
 
@@ -119,93 +119,93 @@ apigClientFactory.newClient = function (config) {
     };
     
     
-    apigClient.petsGet = function (params, body, additionalParams) {
+    apigClient.plantsGet = function (params, body, additionalParams) {
         if(additionalParams === undefined) { additionalParams = {}; }
         
         apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
         
-        var petsGetRequest = {
+        var plantsGetRequest = {
             verb: 'get'.toUpperCase(),
-            path: pathComponent + uritemplate('/pets').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            path: pathComponent + uritemplate('/plants').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
             headers: apiGateway.core.utils.parseParametersToObject(params, []),
             queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
             body: body
         };
         
         
-        return apiGatewayClient.makeRequest(petsGetRequest, authType, additionalParams, config.apiKey);
+        return apiGatewayClient.makeRequest(plantsGetRequest, authType, additionalParams, config.apiKey);
     };
     
     
-    apigClient.petsPost = function (params, body, additionalParams) {
+    apigClient.plantsPost = function (params, body, additionalParams) {
         if(additionalParams === undefined) { additionalParams = {}; }
         
         apiGateway.core.utils.assertParametersDefined(params, ['body'], ['body']);
         
-        var petsPostRequest = {
+        var plantsPostRequest = {
             verb: 'post'.toUpperCase(),
-            path: pathComponent + uritemplate('/pets').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            path: pathComponent + uritemplate('/plants').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
             headers: apiGateway.core.utils.parseParametersToObject(params, []),
             queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
             body: body
         };
         
         
-        return apiGatewayClient.makeRequest(petsPostRequest, authType, additionalParams, config.apiKey);
+        return apiGatewayClient.makeRequest(plantsPostRequest, authType, additionalParams, config.apiKey);
     };
     
     
-    apigClient.petsOptions = function (params, body, additionalParams) {
+    apigClient.plantsOptions = function (params, body, additionalParams) {
         if(additionalParams === undefined) { additionalParams = {}; }
         
         apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
         
-        var petsOptionsRequest = {
+        var plantsOptionsRequest = {
             verb: 'options'.toUpperCase(),
-            path: pathComponent + uritemplate('/pets').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            path: pathComponent + uritemplate('/plants').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
             headers: apiGateway.core.utils.parseParametersToObject(params, []),
             queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
             body: body
         };
         
         
-        return apiGatewayClient.makeRequest(petsOptionsRequest, authType, additionalParams, config.apiKey);
+        return apiGatewayClient.makeRequest(plantsOptionsRequest, authType, additionalParams, config.apiKey);
     };
     
     
-    apigClient.petsPetIdGet = function (params, body, additionalParams) {
+    apigClient.plantsPlantIdGet = function (params, body, additionalParams) {
         if(additionalParams === undefined) { additionalParams = {}; }
         
-        apiGateway.core.utils.assertParametersDefined(params, ['petId'], ['body']);
+        apiGateway.core.utils.assertParametersDefined(params, ['plantId'], ['body']);
         
-        var petsPetIdGetRequest = {
+        var plantsPlantIdGetRequest = {
             verb: 'get'.toUpperCase(),
-            path: pathComponent + uritemplate('/pets/{petId}').expand(apiGateway.core.utils.parseParametersToObject(params, ['petId'])),
+            path: pathComponent + uritemplate('/plants/{plantId}').expand(apiGateway.core.utils.parseParametersToObject(params, ['plantId'])),
             headers: apiGateway.core.utils.parseParametersToObject(params, []),
             queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
             body: body
         };
         
         
-        return apiGatewayClient.makeRequest(petsPetIdGetRequest, authType, additionalParams, config.apiKey);
+        return apiGatewayClient.makeRequest(plantsPlantIdGetRequest, authType, additionalParams, config.apiKey);
     };
     
     
-    apigClient.petsPetIdOptions = function (params, body, additionalParams) {
+    apigClient.plantsPlantIdOptions = function (params, body, additionalParams) {
         if(additionalParams === undefined) { additionalParams = {}; }
         
         apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
         
-        var petsPetIdOptionsRequest = {
+        var plantsPlantIdOptionsRequest = {
             verb: 'options'.toUpperCase(),
-            path: pathComponent + uritemplate('/pets/{petId}').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            path: pathComponent + uritemplate('/plants/{plantId}').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
             headers: apiGateway.core.utils.parseParametersToObject(params, []),
             queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
             body: body
         };
         
         
-        return apiGatewayClient.makeRequest(petsPetIdOptionsRequest, authType, additionalParams, config.apiKey);
+        return apiGatewayClient.makeRequest(plantsPlantIdOptionsRequest, authType, additionalParams, config.apiKey);
     };
     
     
