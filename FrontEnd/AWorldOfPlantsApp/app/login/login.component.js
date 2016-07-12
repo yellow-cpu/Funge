@@ -13,9 +13,8 @@ angular.
         "password": "123"
       };
 
-      self.clearCache = function () {
-        console.log("Clearing cache...");
-        AWS.CognitoIdentity.clearCachedId();
+      self.logoutUser = function logoutUser(username, password) {
+
       };
 
       self.loginUser = function loginUser(username, password) {
