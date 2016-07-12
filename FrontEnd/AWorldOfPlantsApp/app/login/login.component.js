@@ -13,12 +13,15 @@ angular.
         "password": "123"
       };
 
+      self.clearCache = function () {
+        console.log("Clearing cache...");
+        AWS.CognitoIdentity.clearCachedId();
+      };
+
       self.loginUser = function loginUser(username, password) {
         var apigClient = apigClientFactory.newClient();
 
-        var params = {
-          "action": "cf.funge.aworldofplants.action.LoginAction"
-        };
+        var params = {};
 
         var body = {
           "username": username,

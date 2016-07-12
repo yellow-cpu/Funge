@@ -28,16 +28,3 @@
   content: "";
   padding: 0;
 }
-
-#wrapper {
-  width: 100%;
-  height: 100%;
-  background-color: #fec353;
-  overflow: hidden;
-}
-
-#main-container {
-  margin: 20px;
-  border: 4px solid #231f20;
-  background-color: white;
-}
