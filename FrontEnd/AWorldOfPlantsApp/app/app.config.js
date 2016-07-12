@@ -12,7 +12,7 @@ angular.
                 template: '<register></register>'
             }).
             when('/create-plant', {
-                template: '<createPlant></createPlant>'
+                template: '<create-plant></create-plant>'
             }).
             otherwise('/login');
         }
