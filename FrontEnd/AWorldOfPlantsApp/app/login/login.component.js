@@ -11,7 +11,7 @@ angular.
       self.user = {
         "username": "test1",
         "password": "123"
-      }
+      };
 
       self.loginUser = function loginUser(username, password) {
         var apigClient = apigClientFactory.newClient();
@@ -36,7 +36,7 @@ angular.
               accessKey: credentials.accessKey,
               secretKey: credentials.secretKey,
               sessionToken: credentials.sessionToken,
-              region: 'us-east-1',
+              region: 'us-east-1'
             };
           }).catch( function(result){
             console.log("Error: " + JSON.stringify(result));

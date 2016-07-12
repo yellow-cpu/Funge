@@ -12,7 +12,7 @@ angular.
           'width': $(window).width(),
           'height': $(window).height()
         });
-      }
+      };
 
       $(document).ready(resizeFunction);
       $(window).resize(resizeFunction);

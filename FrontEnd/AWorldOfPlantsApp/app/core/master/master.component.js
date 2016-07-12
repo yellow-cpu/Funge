@@ -4,7 +4,7 @@
 angular.
   module('master').
   component('master', {
-    templateUrl: 'master/master.template.html',
+    templateUrl: 'core/master/master.template.html',
     controller: function MasterController() {
       var self = this;
     }
