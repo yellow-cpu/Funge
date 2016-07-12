@@ -13,6 +13,11 @@ angular.
         "password": "123"
       };
 
+      //TODO test logging out
+      self.logoutUser = function logoutUser(username, password) {
+
+      };
+
       self.loginUser = function loginUser(username, password) {
         var apigClient = apigClientFactory.newClient();
 
