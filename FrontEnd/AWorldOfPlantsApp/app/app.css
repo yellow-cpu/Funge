@@ -37,5 +37,7 @@
 }
 
 #main-container {
-  
+  margin: 20px;
+  border: 4px solid #231f20;
+  background-color: white;
 }

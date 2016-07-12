@@ -5,7 +5,7 @@ angular.
   module('master').
   directive('wrapper', function() {
     var linkFunction = function(scope, element, attributes) {
-      var wrapper = angular.element(document.querySelector('#wrapper'));
+      var wrapper = $("#wrapper");
 
       var resizeFunction = function() {
         $(wrapper).css({
