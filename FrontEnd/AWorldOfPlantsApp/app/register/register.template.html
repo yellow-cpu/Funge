@@ -1,7 +1,21 @@
-<p>Username: <input type="text" ng-model="$ctrl.user.username"></p>
-<p>Password: <input type="text" ng-model="$ctrl.user.password"></p>
+<!--<p>Username: <input type="text" ng-model="$ctrl.user.username"></p>-->
+<!--<p>Password: <input type="text" ng-model="$ctrl.user.password"></p>-->
 
-<p><b>Username:</b> {{$ctrl.user.username}}</p>
-<p><b>Password:</b> {{$ctrl.user.password}}</p>
+<!--<p><b>Username:</b> {{$ctrl.user.username}}</p>-->
+<!--<p><b>Password:</b> {{$ctrl.user.password}}</p>-->
 
-<input type="button" class="btn btn-info" ng-click="$ctrl.registerUser($ctrl.user.username, $ctrl.user.password)" value="Register">
+<!--<input type="button" class="btn btn-info" ng-click="$ctrl.registerUser($ctrl.user.username, $ctrl.user.password)" value="Register">-->
+
+<div id="register">
+    <form class="form-signin" action="" method="">
+        <input type="text" class="form-control" placeholder="User Name ..." required autofocus
+               ng-model="$ctrl.user.username">
+        <input type="password" class="form-control" placeholder="Password ..." required
+               ng-model="$ctrl.user.password">
+        <input type="submit" class="btn btn-lg btn-default btn-block" value="Sign Up"
+               ng-click="$ctrl.registerUser($ctrl.user.username, $ctrl.user.password)"/>
+    </form>
+    <div id="tabs">
+        <p id="switchToLogin" class="text-center" switch-to-login><a href="">Have an Account?</a></p>
+    </div>
+</div>
