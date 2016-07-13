@@ -92,24 +92,25 @@
         border-radius: 50%;
     }
 
-    #switchToRegister > a {
+    #switchToRegister > a, #switchToLogin > a {
         color: #FFF;
         font-weight: bold;
     }
 
-    #login > form > input:nth-child(1) {
+    #login > form > input:nth-child(1), #register > form > input {
         margin-bottom: 10px;
         border-radius: 3px;
     }
 
-    #login > form > input:nth-child(2) {
+    #login > form > input:nth-child(2), #register > form > input:nth-last-child(2) {
         margin-bottom: 20px;
         border-radius: 3px;
     }
 
-    #login > form > input.btn.btn-lg.btn-primary.btn-block {
+    #login > form > input.btn.btn-lg.btn-primary.btn-block, #register > form > input.btn.btn-lg.btn-default.btn-block {
+        color: #ffffff;
         background-color: #36465D;
-        border: 1px solid #203345;
+        border: 0;
     }
 </style>
 
@@ -127,5 +128,5 @@
             </div>
         </div>
     </div>
-    <div class="section">Some section</div>
+    <div class="section"></div>
 </div>
