@@ -8,6 +8,18 @@ directive('switchToLogin', function($compile) {
         $('#switchToLogin').on('click', function() {
             $('#my-tab-content').html($compile('<login></login>')(scope));
         });
+
+        $('#signUp').on('click', function () {
+            var password = $('#password').val();
+            var confirmPassword = $('#confirmPassword').val();
+
+            if (password != confirmPassword) {
+                alert("Passwords do not match");
+                $('#password').css({
+                    "border": "red solid 3px"
+                });
+            }
+        });
     };
 
     return {

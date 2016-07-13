@@ -9,8 +9,10 @@ angular.
       var self = this;
 
       self.user = {
-        "username": "test1",
-        "password": "123"
+        "email": "",
+        "username": "",
+        "password": "",
+        "confirmPassword": ""
       };
 
       self.switchToLogin = function switchToLogin() {
@@ -20,9 +22,7 @@ angular.
       self.registerUser = function registerUser(username, password) {
         var apigClient = apigClientFactory.newClient();
 
-        var params = {
-          "action": "cf.funge.aworldofplants.action.RegisterAction"
-        };
+        var params = {};
 
         var body = {
           "username": username,
