@@ -5,16 +5,22 @@
 <!--<p><b>Password:</b> {{$ctrl.user.password}}</p>-->
 
 <!--<input type="button" class="btn btn-info" ng-click="$ctrl.registerUser($ctrl.user.username, $ctrl.user.password)" value="Register">-->
-
+<style>
+    .glowing-border:focus {
+        outline: none;
+        border-color: #ff5139;
+        box-shadow: 0 0 10px #ff5139;
+    }
+</style>
 <div id="register">
     <form class="form-signin" action="" method="">
-        <input type="text" class="form-control" id="email" placeholder="Email Address" required autofocus
+        <input type="text" class="form-control" id="email" placeholder="Email Address" autofocus
                ng-model="$ctrl.user.email">
-        <input type="text" class="form-control" id="username" placeholder="Username" required
+        <input type="text" class="form-control" id="username" placeholder="Username"
                ng-model="$ctrl.user.username">
-        <input type="password" class="form-control" id="password" placeholder="Password" required
+        <input type="password" class="form-control" id="password" placeholder="Password"
                ng-model="$ctrl.user.password">
-        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" required
+        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password"
                ng-model="$ctrl.user.confirmPassword">
         <!--<input type="submit" class="btn btn-lg btn-default btn-block" id="signUp" value="Sign Up"
                ng-click="$ctrl.registerUser($ctrl.user.username, $ctrl.user.password)"/>-->
