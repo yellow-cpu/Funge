@@ -13,6 +13,10 @@ angular.
         "password": "123"
       };
 
+      self.switchToLogin = function switchToLogin() {
+        $('#my-tab-content').html('<login></login>');
+      };
+
       self.registerUser = function registerUser(username, password) {
         var apigClient = apigClientFactory.newClient();
 
