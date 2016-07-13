@@ -28,3 +28,7 @@
   content: "";
   padding: 0;
 }
+
+#fp-nav > ul > li > a > span {
+  background: white;
+}
