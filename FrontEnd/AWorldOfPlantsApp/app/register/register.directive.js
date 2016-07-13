@@ -23,15 +23,33 @@ directive('switchToLogin', function($compile) {
                 'box-shadow': '0 0 10px #ff5139'
             };
 
-            if (password != confirmPassword) {
-                $('#confirmPassword').css(errorCss);
+            var emailPattern = /.+@.+/;
+
+            if (!emailPattern.test(email)) {
+                console.log("Incorrect email pattern");
+                $('#email').css(errorCss);
                 valid = false;
             }
 
-            var emailPattern = /\A[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\z"/i;
+            var usernamePattern = /.{3,20}/;
 
-            if (email.match(emailPattern)) {
-                $('#email').css(errorCss);
+            if (!usernamePattern.test(username)) {
+                console.log("Incorrect username pattern (must be between 3 - 20 characters)");
+                $('#username').css(errorCss);
+                valid = false;
+            }
+
+            var passwordPattern = /.{8,10}/; //Temporary - must change
+
+            if (!passwordPattern.test(password)) {
+                console.log("Password is not long enough");
+                $('#password').css(errorCss);
+                valid = false;
+            }
+
+            if (password != confirmPassword) {
+                console.log("Passwords do not match");
+                $('#confirmPassword').css(errorCss);
                 valid = false;
             }
 
