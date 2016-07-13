@@ -19,6 +19,11 @@ angular.
         $('#my-tab-content').html('<login></login>');
       };
 
+      // Test function
+      self.directiveToCtrl = function (email, username, password) {
+        console.log(email + " " + username + " " + password);
+      };
+
       self.registerUser = function registerUser(username, password) {
         var apigClient = apigClientFactory.newClient();
 

@@ -10,15 +10,20 @@ directive('switchToLogin', function($compile) {
         });
 
         $('#signUp').on('click', function () {
+            var email = $('#email').val();
+            var username = $('#username').val();
             var password = $('#password').val();
             var confirmPassword = $('#confirmPassword').val();
 
             if (password != confirmPassword) {
-                alert("Passwords do not match");
                 $('#password').css({
-                    "border": "red solid 3px"
+                    "border": "red solid 1px"
                 });
+
+                return;
             }
+
+            scope.$ctrl.directiveToCtrl(email, username, password);
         });
     };
 
