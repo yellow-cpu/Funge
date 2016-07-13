@@ -13,6 +13,9 @@
     "html5-boilerplate": "^5.3.0",
     "aws-sdk-js": "2.4.5",
     "bootstrap": "^3.3.6",
-    "fullpage.js": "^2.8.2"
+    "angular-fullpage.js": "git://github.com/hellsan631/angular-fullpage.js.git#df5ed68de1c8dd0c96a51b40e68801c84fee6bff"
+  },
+  "resolutions": {
+    "angular": "~1.5.0"
   }
 }

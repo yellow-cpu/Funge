@@ -7,5 +7,12 @@ angular.
     templateUrl: 'landing/landing.template.html',
     controller: function LandingController() {
       var self = this;
+
+      self.mainOptions = {
+        sectionsColor: ['#1bbc9b', '#4BBFC3', '#7BAABE'],
+        navigation: true,
+        navigationPosition: 'right',
+        scrollingSpeed: 1000
+      }
     }
   });
