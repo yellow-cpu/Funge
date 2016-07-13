@@ -15,8 +15,8 @@
         <input type="password" class="form-control" placeholder="Password" required
                ng-model="$ctrl.user.password">
         <input type="password" class="form-control" placeholder="Confirm Password" required
-               ng-model="$ctrl.user.password">
-        <input type="submit" class="btn btn-lg btn-default btn-block" value="Sign Up"
+               ng-model="$ctrl.user.confirmPassword">
+        <input type="submit" class="btn btn-lg btn-default btn-block" id="signUp" value="Sign Up"
                ng-click="$ctrl.registerUser($ctrl.user.username, $ctrl.user.password)"/>
     </form>
     <div id="tabs">
