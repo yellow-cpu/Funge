@@ -1,6 +1,6 @@
 'use strict';
 
-// Register `master` component, along with its associated controller and template
+// Register `master` directive
 angular.
   module('master').
   directive('wrapper', function() {
@@ -22,4 +22,3 @@ angular.
       link: linkFunction
     };
   });
-fag

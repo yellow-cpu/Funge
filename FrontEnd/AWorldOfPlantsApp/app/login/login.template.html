@@ -12,15 +12,12 @@
 <!--<input type="button" ng-click="$ctrl.logoutUser($ctrl.user.username, $ctrl.user.password)" value="Logout">-->
 
 <div id="login">
-    <img class="profile-img"
-         src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
-         alt="">
     <form class="form-signin" action="" method="">
         <input type="text" class="form-control" placeholder="Username" required autofocus
-               ng-model="$ctrl.user.username">
+               ng-model="$ctrl.user.username" autofocus>
         <input type="password" class="form-control" placeholder="Password" required
                ng-model="$ctrl.user.password">
-        <input type="submit" class="btn btn-lg btn-default btn-block" value="Sign In"
+        <input type="submit" class="btn btn-lg btn-primary btn-block" value="Sign In"
                ng-click="$ctrl.loginUser($ctrl.user.username, $ctrl.user.password)"/>
     </form>
     <div id="tabs">

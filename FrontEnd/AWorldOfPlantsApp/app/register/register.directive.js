@@ -1,6 +1,6 @@
 'use strict';
 
-// Register `register` component, along with its associated controller and template
+// Register `register` directive
 angular.
 module('register').
 directive('switchToLogin', function($compile) {

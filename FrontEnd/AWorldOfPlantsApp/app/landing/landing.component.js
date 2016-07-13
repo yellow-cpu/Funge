@@ -9,7 +9,7 @@ angular.
       var self = this;
 
       self.mainOptions = {
-        sectionsColor: ['#36465D', '#56BC8A'],
+        sectionsColor: ['#36465D', '#36465D'],
         verticalCentered: false,
         navigation: true,
         navigationPosition: 'right',

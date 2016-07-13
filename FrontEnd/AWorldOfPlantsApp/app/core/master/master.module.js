@@ -4,5 +4,5 @@
 angular.module('master', [
   'ngRoute',
   'landing',
-  'createPlant'
+  'site'
 ]);

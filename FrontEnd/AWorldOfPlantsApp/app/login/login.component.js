@@ -9,8 +9,8 @@ angular.
       var self = this;
 
       self.user = {
-        "username": "test1",
-        "password": "123"
+        "username": "",
+        "password": ""
       };
 
       self.logoutUser = function logoutUser(username, password) {

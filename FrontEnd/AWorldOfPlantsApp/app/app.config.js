@@ -5,8 +5,8 @@ angular.
             $locationProvider.hashPrefix('!');
 
             $routeProvider.
-            when('/create-plant', {
-                template: '<create-plant></create-plant>'
+            when('/site', {
+                template: '<site></site>'
             }).
             when('/landing', {
                 template: '<landing></landing>'
