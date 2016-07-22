@@ -17,9 +17,12 @@
                ng-model="$ctrl.user.username">
         <input type="password" class="form-control" placeholder="Password" required
                ng-model="$ctrl.user.password">
-        <input type="submit" class="btn btn-lg btn-primary btn-block" value="Sign In"
+        <input type="button" class="btn btn-lg btn-primary btn-block" value="Sign In"
                ng-click="$ctrl.loginUser($ctrl.user.username, $ctrl.user.password)"/>
     </form>
+    <div class="active">
+        <img id="loading" style="display: none;" src="images/loading.gif" width="30px" height="30px">
+    </div>
     <div id="tabs">
         <p id="switchToRegister" class="text-center" switch-to-register><a href="">Need an Account?</a></p>
     </div>

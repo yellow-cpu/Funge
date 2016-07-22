@@ -18,6 +18,7 @@ angular.
       };
 
       self.loginUser = function loginUser(username, password) {
+        console.log("loginUser");
         var apigClient = apigClientFactory.newClient();
 
         var params = {};
@@ -26,6 +27,10 @@ angular.
           "username": username,
           "password": password
         };
+
+        $("#loading").css({
+          'display': 'block'
+        });
 
         apigClient.loginPost(params, body)
           .then(function(result){
@@ -40,6 +45,8 @@ angular.
               sessionToken: credentials.sessionToken,
               region: 'us-east-1'
             };
+
+            window.location.replace("#!/site");
           }).catch( function(result){
             console.log("Error: " + JSON.stringify(result));
           });
