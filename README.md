@@ -1,4 +1,4 @@
-[![Stories in Progress](https://badge.waffle.io/waffleio/waffle.io.svg?label=waffle%3Ain%20progress&title=In%20Progress)](https://waffle.io/DillonHeins/Funge)
+[![Stories in Ready](https://badge.waffle.io/DillonHeins/Funge.png?label=ready&title=Ready)](https://waffle.io/DillonHeins/Funge)
 
 # Funge
 ## COS301 Main Project
