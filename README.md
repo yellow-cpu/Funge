@@ -1,3 +1,5 @@
+[![Stories in Progress](https://badge.waffle.io/waffleio/waffle.io.svg?label=waffle%3Ain%20progress&title=In%20Progress)](https://waffle.io/DillonHeins/Funge)
+
 # Funge
 ## COS301 Main Project
 ---
