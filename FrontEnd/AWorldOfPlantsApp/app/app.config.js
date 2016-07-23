@@ -11,6 +11,9 @@ angular.
       when ('/landing', {
         template: '<landing></landing>'
       }).
+      when ('/testing', {
+        template: '<testing></testing>'
+      }).
       otherwise('/landing');
     }
   ]);
