@@ -1,3 +1,7 @@
+### waffle.io - [![Stories in Ready](https://badge.waffle.io/DillonHeins/Funge.png?label=ready&title=Ready)](https://waffle.io/DillonHeins/Funge)
+
+### burndown.io - http://burndown.io/#DillonHeins/Funge
+
 # Funge
 ## COS301 Main Project
 ---
