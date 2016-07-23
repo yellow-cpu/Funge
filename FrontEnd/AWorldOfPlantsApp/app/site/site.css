@@ -398,6 +398,8 @@ table.dataTable thead .sorting:after {
 
 #a-plants {
     border-right: 3px solid #F99406;
+    cursor: hand;
+    cursor: pointer;
 }
 
 #a-control {
@@ -408,15 +410,23 @@ table.dataTable thead .sorting:after {
     border-right: 3px solid #0088CC;
 }
 
-#side-menu > li > a:hover, #side-menu > li > a:focus {
+#side-menu > li > a:hover, #side-menu > li > a:focus, #side-menu > li > ul > li > a:hover, #side-menu > li > ul > li > a:focus {
     background-color: #212121;
 }
 
-#wrapper > nav > ul > li > a {
+#wrapper > nav > ul > li > a, #side-menu > li > ul > li > a {
     color: #FFF;
+}
+
+#wrapper > nav > ul > li > a:hover, #wrapper > nav > ul > li > a:focus, .nav .open > a, .nav .open > a:focus, .nav .open > a:hover {
+    background-color: #1A8A67;
 }
 
 .page-header {
     color: #FFF;
     border-color: #1A8A67;
+}
+
+#wrapper > nav > div.navbar-header > a {
+    border-right: 1px solid rgba(255, 255, 255, 0.29);
 }

@@ -170,10 +170,19 @@
             <a href="#!/site" id="a-dashboard"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
           </li>
           <li>
-            <a href="" id="a-plants"><i class="fa fa-leaf fa-fw"></i> Plants</a>
+            <a id="a-plants"><i class="fa fa-leaf fa-fw"></i> Plants</a>
           </li>
           <li>
-            <a href="" id="a-control"><i class="fa fa-cogs fa-fw"></i> Control</a>
+            <a href="#" id="a-control"><i class="fa fa-cogs fa-fw"></i> Control<span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level">
+              <li>
+                <a href="#">Control-sub</a>
+              </li>
+              <li>
+                <a href="#">Control-sub2</a>
+              </li>
+            </ul>
+            <!-- /.nav-second-level -->
           </li>
           <li>
             <a href="" id="a-intelligence"><i class="fa fa-terminal fa-fw"></i> Intelligence</a>
@@ -185,11 +194,7 @@
   </nav>
 
   <div id="page-wrapper">
-    <div class="row">
-      <div class="col-lg-12">
-        <h1 class="page-header">Dashboard</h1>
-      </div>
-    </div>
+    <dashboard></dashboard>
   </div>
   <!-- /#page-wrapper -->
 
@@ -200,4 +205,4 @@
 <!--<script src="site/morris-data.js"></script>-->
 
 <!-- Custom Theme JavaScript -->
-<script src="site/sb-admin-2.js"></script>
+<!--<script src="site/sb-admin-2.js"></script>-->

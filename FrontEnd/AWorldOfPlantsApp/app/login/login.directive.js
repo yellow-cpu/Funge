@@ -37,7 +37,6 @@ directive('switchToRegister', function($compile) {
                 opacity: 0
             }, 500, function() {
                 $('#my-tab-content').html($compile('<register></register>')(scope));
-
             });
 
         });
