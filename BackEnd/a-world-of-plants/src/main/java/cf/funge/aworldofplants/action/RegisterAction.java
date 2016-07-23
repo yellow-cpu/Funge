@@ -97,9 +97,13 @@ public class RegisterAction extends AbstractAction {
 
         UserIdentity identity;
         try {
-            // check if the user exists
+            // check if the username exists
             if (dao.getUserByName(newUser.getUsername()) != null) {
                 throw new BadRequestException("Username is taken");
+            }
+
+            if (dao.getUserByEmail(newUser.getEmail())) {
+                throw new BadRequestException("Email is taken");
             }
 
             identity = cognito.getUserIdentity(newUser);

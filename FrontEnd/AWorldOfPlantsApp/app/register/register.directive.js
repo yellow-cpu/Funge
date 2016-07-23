@@ -1,11 +1,9 @@
 'use strict';
 
 // Register `register` directive
-angular.
-module('register').
-directive('switchToLogin', function($compile) {
-    var linkFunction = function(scope, element, attributes) {
-        $('#switchToLogin').on('click', function() {
+angular.module('register').directive('switchToLogin', function ($compile) {
+    var linkFunction = function (scope, element, attributes) {
+        $('#switchToLogin').on('click', function () {
             $('register').animate({
                 opacity: 0,
                 height: "toggle"
@@ -71,7 +69,28 @@ directive('switchToLogin', function($compile) {
                 return;
             }
 
-            scope.$ctrl.registerUser(email.val(),username.val(), password.val());
+            // scope.$ctrl.registerUser(email.val(),username.val(), password.val());
+
+            var apigClient = apigClientFactory.newClient();
+
+            var params = {};
+
+            var body = {
+                "email": email.val(),
+                "username": username.val(),
+                "password": password.val()
+            };
+
+            apigClient.usersPost(params, body)
+                .then(function (result) {
+                    console.log("Success: " + JSON.stringify(result));
+                    window.location.replace("#!/site");
+                }).catch(function (result) {
+                console.log("Error: " + JSON.stringify(result));
+                error = $("<div id='error' class=\"alert alert-danger\">" +
+                    "<strong>Username or email already in use. Please try again</strong></div>");
+                error.insertAfter('#confirmPassword');
+            });
         });
     };
 
