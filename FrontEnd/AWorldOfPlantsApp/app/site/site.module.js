@@ -2,5 +2,6 @@
 
 // Define the `site` module
 angular.module('site', [
-  'dashboard'
+  'dashboard',
+  'plants'
 ]);

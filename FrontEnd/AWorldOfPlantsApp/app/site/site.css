@@ -394,6 +394,8 @@ table.dataTable thead .sorting:after {
 
 #a-dashboard {
     border-right: 3px solid #0044CB;
+    cursor: hand;
+    cursor: pointer;
 }
 
 #a-plants {
@@ -404,13 +406,17 @@ table.dataTable thead .sorting:after {
 
 #a-control {
     border-right: 3px solid #BD3630;
+    cursor: hand;
+    cursor: pointer;
 }
 
 #a-intelligence {
     border-right: 3px solid #0088CC;
+    cursor: hand;
+    cursor: pointer;
 }
 
-#side-menu > li > a:hover, #side-menu > li > a:focus, #side-menu > li > ul > li > a:hover, #side-menu > li > ul > li > a:focus {
+#side-menu > li > a:hover, #side-menu > li > a:focus, #side-menu > li > ul > li > a:hover, #side-menu > li > ul > li > a:focus, #side-menu > li > a.active {
     background-color: #212121;
 }
 
