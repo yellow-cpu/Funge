@@ -22,6 +22,7 @@ import java.nio.ByteBuffer;
  */
 @DynamoDBTable(tableName = DynamoDBConfiguration.USERS_TABLE_NAME)
 public class User {
+    private String email;
     private String username;
     private ByteBuffer password;
     private ByteBuffer salt;
@@ -29,6 +30,15 @@ public class User {
 
     public User() {
 
+    }
+
+    @DynamoDBAttribute(attributeName = "email")
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @DynamoDBHashKey(attributeName = "username")

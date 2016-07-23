@@ -24,12 +24,13 @@ angular.
         console.log(email + " " + username + " " + password);
       };
 
-      self.registerUser = function registerUser(username, password) {
+      self.registerUser = function registerUser(email, username, password) {
         var apigClient = apigClientFactory.newClient();
 
         var params = {};
 
         var body = {
+          "email" : email,
           "username": username,
           "password": password
         };
@@ -37,8 +38,9 @@ angular.
         apigClient.usersPost(params, body)
           .then(function(result){
             console.log("Success: " + JSON.stringify(result));
+            window.location.replace("#!/site");
           }).catch( function(result){
-            console.log("Error: " + result);
+            console.log("Error: " + JSON.stringify(result));
         });
       };
     }

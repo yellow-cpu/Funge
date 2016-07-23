@@ -18,6 +18,7 @@ import cf.funge.aworldofplants.model.user.UserCredentials;
  * Bean for the user registration response
  */
 public class RegisterUserResponse {
+    private String email;
     private String username;
     private String identityId;
     private String token;
@@ -25,6 +26,14 @@ public class RegisterUserResponse {
 
     public RegisterUserResponse() {
 
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getUsername() {

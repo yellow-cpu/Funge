@@ -65,6 +65,21 @@ public class DDBUserDAO implements UserDAO {
     }
 
     /**
+     * Queries DynamoDB to find a user by its Email
+     *
+     * @param email The email to search for
+     * @return A populated User object, null if the user was not found
+     * @throws DAOException
+     */
+    public User getUserByEmail(String email) throws DAOException {
+        if (email == null || email.trim().equals("")) {
+            throw new DAOException("Cannot lookup null or empty user");
+        }
+
+        return getMapper().load(User.class, email);
+    }
+
+    /**
      * Inserts a new row in the DynamoDB users table.
      *
      * @param user The new user information
@@ -76,8 +91,16 @@ public class DDBUserDAO implements UserDAO {
             throw new DAOException("Cannot create user with empty username");
         }
 
+        if (user.getEmail() == null || user.getEmail().trim().equals("")) {
+            throw new DAOException("Cannot create user with empty email");
+        }
+
         if (getUserByName(user.getUsername()) != null) {
             throw new DAOException("Username must be unique");
+        }
+
+        if (getUserByEmail(user.getEmail()) != null) {
+            throw new DAOException("Email must be unique");
         }
 
         getMapper().save(user);

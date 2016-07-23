@@ -24,7 +24,8 @@
                ng-model="$ctrl.user.confirmPassword">
         <!--<input type="submit" class="btn btn-lg btn-default btn-block" id="signUp" value="Sign Up"
                ng-click="$ctrl.registerUser($ctrl.user.username, $ctrl.user.password)"/>-->
-        <input type="submit" class="btn btn-lg btn-default btn-block" id="signUp" value="Sign Up"/>
+        <input type="button" class="btn btn-lg btn-default btn-block" id="signUp" value="Sign Up"
+               ng-click="$ctrl.registerUser($ctrl.user.email, $ctrl.user.username, $ctrl.user.password)"/>
     </form>
     <div id="tabs">
         <p id="switchToLogin" class="text-center" switch-to-login><a href="">Have an Account?</a></p>

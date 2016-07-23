@@ -60,6 +60,8 @@ public class RegisterAction extends AbstractAction {
         RegisterUserRequest input = getGson().fromJson(request, RegisterUserRequest.class);
 
         if (input == null ||
+                input.getEmail() == null ||
+                input.getEmail().trim().equals("") ||
                 input.getUsername() == null ||
                 input.getUsername().trim().equals("") ||
                 input.getPassword() == null ||
@@ -69,6 +71,7 @@ public class RegisterAction extends AbstractAction {
         }
 
         User newUser = new User();
+        newUser.setEmail(input.getEmail());
         newUser.setUsername(input.getUsername());
 
         // encrypt password

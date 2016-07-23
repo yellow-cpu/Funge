@@ -19,6 +19,15 @@ import cf.funge.aworldofplants.exception.DAOException;
  */
 public interface UserDAO {
     /**
+     * Find a user by its unique email
+     *
+     * @param email The email to search for
+     * @return A populated User object if the user was found, null otherwise
+     * @throws DAOException
+     */
+    User getUserByEmail(String email) throws DAOException;
+
+    /**
      * Find a user by its unique username
      *
      * @param username The username to search for
