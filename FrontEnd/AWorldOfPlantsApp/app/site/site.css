@@ -99,7 +99,7 @@ body {
 }
 
 .sidebar ul li a.active {
-    background-color: #eee;
+    background-color: #454753;
 }
 
 .sidebar .arrow {
@@ -136,6 +136,7 @@ body {
         width: 250px;
         margin-left: -225px;
         border: none;
+        background-color: #242735;
         border-radius: 0;
         overflow-y: auto;
         bottom: 0;
@@ -359,4 +360,29 @@ table.dataTable thead .sorting:after {
 
 .panel-yellow a:hover {
     color: #df8a13;
+}
+
+/*
+ * Custom
+ */
+
+.dropdown-toggle {
+    cursor: pointer;
+    cursor: hand;
+}
+
+#wrapper > nav {
+    background-color: #1d9d73;
+    border-color: #1A8A67;
+    -webkit-box-shadow: 0px 4px 19px -5px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 4px 19px -5px rgba(0,0,0,0.75);
+    box-shadow: 0px 4px 19px -5px rgba(0,0,0,0.75);
+}
+
+#wrapper > nav > div.navbar-header > a {
+    color: #FFF;
+}
+
+#side-menu > li> a {
+    color: #FFF;
 }
