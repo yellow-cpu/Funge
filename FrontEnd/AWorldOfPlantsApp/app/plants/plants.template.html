@@ -3,3 +3,29 @@
     <h1 class="page-header">Plants</h1>
   </div>
 </div>
+
+<div ng-repeat="plant in $ctrl.plants" class="panel panel-green">
+  <div class="panel-heading">
+    <div class="row">
+      <div class="col-xs-1">
+        <i class="fa fa-pagelines fa-5x"></i>
+      </div>
+      <div class="col-xs-5">
+        <div><b>ID:</b> {{plant.id}}</div>
+        <div><b>Name:</b> {{plant.name}}</div>
+        <div><b>Type:</b> {{plant.type}}</div>
+      </div>
+      <div class="col-xs-6 text-right">
+        <div class="huge">3</div>
+        <div>Updates!</div>
+      </div>
+    </div>
+  </div>
+  <a href="#">
+    <div class="panel-footer">
+      <span class="pull-left">View Details</span>
+      <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+      <div class="clearfix"></div>
+    </div>
+  </a>
+</div>
