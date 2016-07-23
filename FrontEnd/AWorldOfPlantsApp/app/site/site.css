@@ -5,7 +5,7 @@
  */
 
 body {
-    background-color: #f8f8f8;
+    background-color: #212121;
 }
 
 #wrapper {
@@ -14,8 +14,7 @@ body {
 
 #page-wrapper {
     padding: 0 15px;
-    min-height: 568px;
-    background-color: #fff;
+    background-color: #212121;
 }
 
 @media(min-width:768px) {
@@ -23,7 +22,6 @@ body {
         position: inherit;
         margin: 50px 0 0 250px;
         padding: 0 30px;
-        border-left: 1px solid #e7e7e7;
     }
 }
 
@@ -99,7 +97,7 @@ body {
 }
 
 .sidebar ul li a.active {
-    background-color: #454753;
+    background-color: #2c2c2c;
 }
 
 .sidebar .arrow {
@@ -136,12 +134,15 @@ body {
         width: 250px;
         margin-left: -225px;
         border: none;
-        background-color: #242735;
+        background-color: #2c2c2c;
         border-radius: 0;
         overflow-y: auto;
         bottom: 0;
         overflow-x: hidden;
         padding-bottom: 40px;
+        -webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+        -moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+        box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
     }
 
     .navbar-top-links .dropdown-messages,
@@ -384,5 +385,54 @@ table.dataTable thead .sorting:after {
 }
 
 #side-menu > li> a {
+    color: #f3f3f3;
+}
+
+#side-menu > li {
+    border-bottom: none;
+}
+
+#a-dashboard {
+    border-right: 3px solid #0044CB;
+    cursor: hand;
+    cursor: pointer;
+}
+
+#a-plants {
+    border-right: 3px solid #F99406;
+    cursor: hand;
+    cursor: pointer;
+}
+
+#a-control {
+    border-right: 3px solid #BD3630;
+    cursor: hand;
+    cursor: pointer;
+}
+
+#a-intelligence {
+    border-right: 3px solid #0088CC;
+    cursor: hand;
+    cursor: pointer;
+}
+
+#side-menu > li > a:hover, #side-menu > li > a:focus, #side-menu > li > ul > li > a:hover, #side-menu > li > ul > li > a:focus, #side-menu > li > a.active {
+    background-color: #212121;
+}
+
+#wrapper > nav > ul > li > a, #side-menu > li > ul > li > a {
     color: #FFF;
+}
+
+#wrapper > nav > ul > li > a:hover, #wrapper > nav > ul > li > a:focus, .nav .open > a, .nav .open > a:focus, .nav .open > a:hover {
+    background-color: #1A8A67;
+}
+
+.page-header {
+    color: #FFF;
+    border-color: #1A8A67;
+}
+
+#wrapper > nav > div.navbar-header > a {
+    border-right: 1px solid rgba(255, 255, 255, 0.29);
 }

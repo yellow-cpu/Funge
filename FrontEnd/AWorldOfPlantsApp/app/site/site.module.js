@@ -1,4 +1,7 @@
 'use strict';
 
 // Define the `site` module
-angular.module('site', []);
+angular.module('site', [
+  'dashboard',
+  'plants'
+]);
