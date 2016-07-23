@@ -4,5 +4,6 @@
 angular.module('master', [
   'ngRoute',
   'landing',
-  'site'
+  'site',
+  'testing'
 ]);
