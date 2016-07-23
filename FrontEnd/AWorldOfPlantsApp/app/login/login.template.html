@@ -12,9 +12,8 @@
 <!--<input type="button" ng-click="$ctrl.logoutUser($ctrl.user.username, $ctrl.user.password)" value="Logout">-->
 
 <style>
-    #error {
-        /*visibility: hidden;*/
-
+    .alert-danger {
+        background: rgba(255,255,255,0.75);
     }
 </style>
 
@@ -24,8 +23,7 @@
                ng-model="$ctrl.user.username">
         <input id="password" type="password" class="form-control" placeholder="Password" required
                ng-model="$ctrl.user.password">
-        <input id="loginBtn" type="button" class="btn btn-lg btn-primary btn-block" value="Sign In"
-               ng-click="$ctrl.loginUser($ctrl.user.username, $ctrl.user.password)"/>
+        <input id="loginBtn" type="button" class="btn btn-lg btn-primary btn-block" value="Sign In" />
     </form>
     <div class="active">
         <img id="loading" style="display: none;" src="images/loading.gif" width="30px" height="30px">

@@ -18,19 +18,6 @@ angular.module('login').component('login', {
         self.loginUser = function loginUser(username, password) {
             console.log("Attempting to log user in...");
 
-
-            var usernameCheck = $("#username").val();
-            var passwordCheck = $("#password").val();
-
-            var error = $("<div class=\"alert alert-danger\">" +
-                "<a href=\"\" class=\"close\" data-dismiss=\"alert\" " +
-                "aria-label=\"close\">&times;</a>Please enter your username and password </div>");
-
-            if (usernameCheck.length == 0 || passwordCheck.length == 0) {
-                error.insertAfter('#password');
-                return;
-            }
-
             var apigClient = apigClientFactory.newClient();
 
             var params = {};
