@@ -16,6 +16,12 @@ import cf.funge.aworldofplants.exception.DAOException;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * DynamoDB implementation of the UserDAO interface. This class reads the configuration from the DyanmoDBConfiguration
@@ -71,12 +77,29 @@ public class DDBUserDAO implements UserDAO {
      * @return A populated User object, null if the user was not found
      * @throws DAOException
      */
-    public User getUserByEmail(String email) throws DAOException {
+    public boolean getUserByEmail(String email) throws DAOException {
         if (email == null || email.trim().equals("")) {
             throw new DAOException("Cannot lookup null or empty user");
         }
 
-        return getMapper().load(User.class, email);
+        //return getMapper().load(User.class, email);
+
+        Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
+        eav.put(":val1", new AttributeValue().withS(email));
+
+        System.out.println("Trying to query with email");
+
+        DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
+            .withFilterExpression("email = :val1")
+            .withExpressionAttributeValues(eav);
+
+        List<User> scanResult = getMapper().scan(User.class, scanExpression);
+
+        if (scanResult.isEmpty()) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -99,7 +122,7 @@ public class DDBUserDAO implements UserDAO {
             throw new DAOException("Username must be unique");
         }
 
-        if (getUserByEmail(user.getEmail()) != null) {
+        if (getUserByEmail(user.getEmail())) {
             throw new DAOException("Email must be unique");
         }
 

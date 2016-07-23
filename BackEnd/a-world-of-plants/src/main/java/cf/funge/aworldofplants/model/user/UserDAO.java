@@ -25,7 +25,7 @@ public interface UserDAO {
      * @return A populated User object if the user was found, null otherwise
      * @throws DAOException
      */
-    User getUserByEmail(String email) throws DAOException;
+    boolean getUserByEmail(String email) throws DAOException;
 
     /**
      * Find a user by its unique username
