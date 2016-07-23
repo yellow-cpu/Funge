@@ -1,55 +1,67 @@
 'use strict';
 
 // Register `login` component, along with its associated controller and template
-angular.
-  module('login').
-  component('login', {
+angular.module('login').component('login', {
     templateUrl: 'login/login.template.html',
     controller: function LoginController() {
-      var self = this;
+        var self = this;
 
-      self.user = {
-        "username": "",
-        "password": ""
-      };
-
-      self.logoutUser = function logoutUser(username, password) {
-
-      };
-
-      self.loginUser = function loginUser(username, password) {
-        console.log("loginUser");
-        var apigClient = apigClientFactory.newClient();
-
-        var params = {};
-
-        var body = {
-          "username": username,
-          "password": password
+        self.user = {
+            "username": "",
+            "password": ""
         };
 
-        $("#loading").css({
-          'display': 'block'
-        });
+        self.logoutUser = function logoutUser(username, password) {
 
-        apigClient.loginPost(params, body)
-          .then(function(result){
-            console.log("Success: " + JSON.stringify(result.data));
+        };
 
-            var credentials = result.data.credentials;
-            console.log(credentials);
+        self.loginUser = function loginUser(username, password) {
+            console.log("Attempting to log user in...");
 
-            AWS.config.credentials = {
-              accessKey: credentials.accessKey,
-              secretKey: credentials.secretKey,
-              sessionToken: credentials.sessionToken,
-              region: 'us-east-1'
+
+            var usernameCheck = $("#username").val();
+            var passwordCheck = $("#password").val();
+
+            var error = $("<div class=\"alert alert-danger\">" +
+                "<a href=\"\" class=\"close\" data-dismiss=\"alert\" " +
+                "aria-label=\"close\">&times;</a>Please enter your username and password </div>");
+
+            if (usernameCheck.length == 0 || passwordCheck.length == 0) {
+                error.insertAfter('#password');
+                return;
+            }
+
+            var apigClient = apigClientFactory.newClient();
+
+            var params = {};
+
+            var body = {
+                "username": username,
+                "password": password
             };
 
-            window.location.replace("#!/site");
-          }).catch( function(result){
-            console.log("Error: " + JSON.stringify(result));
-          });
-      };
+            $("#loading").css({
+                'display': 'block'
+            });
+
+            apigClient.loginPost(params, body)
+                .then(function (result) {
+                    console.log("Success: " + JSON.stringify(result.data));
+
+                    var credentials = result.data.credentials;
+                    console.log(credentials);
+
+                    AWS.config.credentials = {
+                        accessKey: credentials.accessKey,
+                        secretKey: credentials.secretKey,
+                        sessionToken: credentials.sessionToken,
+                        region: 'us-east-1'
+                    };
+
+                    window.location.replace("#!/site");
+                }).catch(function (result) {
+                console.log("Error: " + JSON.stringify(result));
+            });
+        };
     }
-  });
+});

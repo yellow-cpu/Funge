@@ -11,13 +11,20 @@
 <!--&lt;!&ndash; TODO test logging out &ndash;&gt;-->
 <!--<input type="button" ng-click="$ctrl.logoutUser($ctrl.user.username, $ctrl.user.password)" value="Logout">-->
 
+<style>
+    #error {
+        /*visibility: hidden;*/
+
+    }
+</style>
+
 <div id="login">
     <form class="form-signin" action="" method="">
-        <input type="text" class="form-control" placeholder="Username" required autofocus
+        <input id="username" type="text" class="form-control" placeholder="Username" required autofocus
                ng-model="$ctrl.user.username">
-        <input type="password" class="form-control" placeholder="Password" required
+        <input id="password" type="password" class="form-control" placeholder="Password" required
                ng-model="$ctrl.user.password">
-        <input type="button" class="btn btn-lg btn-primary btn-block" value="Sign In"
+        <input id="loginBtn" type="button" class="btn btn-lg btn-primary btn-block" value="Sign In"
                ng-click="$ctrl.loginUser($ctrl.user.username, $ctrl.user.password)"/>
     </form>
     <div class="active">
