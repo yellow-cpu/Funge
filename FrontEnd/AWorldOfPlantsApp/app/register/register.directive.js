@@ -6,7 +6,13 @@ module('register').
 directive('switchToLogin', function($compile) {
     var linkFunction = function(scope, element, attributes) {
         $('#switchToLogin').on('click', function() {
-            $('#my-tab-content').html($compile('<login></login>')(scope));
+            $('register').animate({
+                opacity: 0,
+                height: "toggle"
+            }, 500, function () {
+                $('#my-tab-content').html($compile('<login></login>')(scope));
+
+            });
         });
 
         $('#signUp').on('click', function () {
