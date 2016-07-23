@@ -6,7 +6,14 @@ module('login').
 directive('switchToRegister', function($compile) {
     var linkFunction = function(scope, element, attributes) {
         $('#switchToRegister').on('click', function() {
-            $('#my-tab-content').html($compile('<register></register>')(scope));
+            $('login').animate({
+               height: 'toggle',
+                opacity: 0
+            }, 500, function() {
+                $('#my-tab-content').html($compile('<register></register>')(scope));
+
+            });
+
         });
     };
 
@@ -14,4 +21,3 @@ directive('switchToRegister', function($compile) {
         link: linkFunction
     };
 });
-
