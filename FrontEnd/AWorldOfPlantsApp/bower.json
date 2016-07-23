@@ -16,7 +16,11 @@
     "angular-fullpage.js": "git://github.com/hellsan631/angular-fullpage.js.git#df5ed68de1c8dd0c96a51b40e68801c84fee6bff",
     "moment": "momentjs#~2.11.1",
     "cryptojslib": "~3.1.2",
-    "paho-mqtt-js": "~1.0.1"
+    "paho-mqtt-js": "~1.0.1",
+    "metisMenu": "^2.5.2",
+    "raphael": "^2.2.1",
+    "morris.js": "^0.5.1",
+    "font-awesome": "^4.6.3"
   },
   "resolutions": {
     "angular": "~1.5.0"
