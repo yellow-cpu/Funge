@@ -4,7 +4,7 @@
 angular.
   module('site').
   component('site', {
-    templateUrl: 'site/site.template.html',
+    templateUrl: 'components/site/site.template.html',
     controller: function SiteController() {
       var self = this;
     }

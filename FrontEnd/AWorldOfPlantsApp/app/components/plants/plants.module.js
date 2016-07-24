@@ -1,4 +1,4 @@
 'use strict';
 
-// Define the `login` module
+// Define the `plants` module
 angular.module('plants', []);

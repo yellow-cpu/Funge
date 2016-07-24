@@ -4,7 +4,7 @@
 angular.
   module('createPlant').
   component('createPlant', {
-    templateUrl: 'create-plant/create-plant.template.html',
+    templateUrl: 'components/create-plant/create-plant.template.html',
     controller: function CreatePlantController() {
       var self = this;
 

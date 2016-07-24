@@ -436,3 +436,8 @@ table.dataTable thead .sorting:after {
 #wrapper > nav > div.navbar-header > a {
     border-right: 1px solid rgba(255, 255, 255, 0.29);
 }
+
+.view-details {
+    cursor: pointer;
+    cursor: hand;
+}

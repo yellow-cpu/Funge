@@ -4,7 +4,7 @@
 angular.
   module('testing').
   component('testing', {
-    templateUrl: 'testing/testing.template.html',
+    templateUrl: 'components/testing/testing.template.html',
     controller: function TestingController() {
       var self = this;
 

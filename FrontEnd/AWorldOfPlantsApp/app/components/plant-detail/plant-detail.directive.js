@@ -1,9 +1,9 @@
 'use strict';
 
-// Register `plants` directive
+// Register `plantDetail` directive
 angular.
 module('plants').
-directive('dashboardDirective', function($compile) {
+directive('plantDetailDirective', function($compile) {
     var linkFunction = function(scope, element, attributes) {
 
     };

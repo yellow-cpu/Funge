@@ -4,7 +4,7 @@
 angular.
   module('landing').
   component('landing', {
-    templateUrl: 'landing/landing.template.html',
+    templateUrl: 'components/landing/landing.template.html',
     controller: function LandingController() {
       var self = this;
 
