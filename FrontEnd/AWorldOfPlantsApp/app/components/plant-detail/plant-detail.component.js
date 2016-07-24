@@ -3,11 +3,8 @@
 // Register `plantDetail` component, along with its associated controller and template
 angular.module('plantDetail').component('plantDetail', {
   templateUrl: 'components/plant-detail/plant-detail.template.html',
-  controller: function PlantDetailController($scope, $localStorage) {
+  controller: function PlantDetailController($scope, $localStorage, siteService) {
     var self = this;
-    self.plantDetail = "";
-
-    console.log($scope.test);
 
     var apigClient = apigClientFactory.newClient({
       accessKey: $localStorage.accessKey,
@@ -15,6 +12,8 @@ angular.module('plantDetail').component('plantDetail', {
       sessionToken: $localStorage.sessionToken,
       region: $localStorage.region
     });
+
+    self.plantDetails = siteService.getPlant();
 
     var params = {};
     var body = {};

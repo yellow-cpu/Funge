@@ -22,7 +22,7 @@
       </div>
     </div>
   </div>
-  <a class="view-details" ng-click="viewDetails(plant.plantId)" data-plant-id="{{plant.plantId}}">
+  <a class="view-details" ng-click="$ctrl.updateDetails(plant.plantId, plant.plantName, plant.plantType, plant.plantAge)">
     <div class="panel-footer">
       <span class="pull-left">View Details</span>
       <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>

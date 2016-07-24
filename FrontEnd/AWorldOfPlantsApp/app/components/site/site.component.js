@@ -8,4 +8,20 @@ angular.
     controller: function SiteController() {
       var self = this;
     }
+  }).
+  service('siteService', function() {
+    var plant = {};
+
+    var setPlant = function(_plant) {
+      plant = _plant;
+    }
+
+    var getPlant = function() {
+      return plant;
+    }
+
+    return {
+      setPlant: setPlant,
+      getPlant: getPlant
+    };
   });

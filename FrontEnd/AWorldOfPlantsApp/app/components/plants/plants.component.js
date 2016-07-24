@@ -3,11 +3,25 @@
 // Register `plants` component, along with its associated controller and template
 angular.module('plants').component('plants', {
   templateUrl: 'components/plants/plants.template.html',
-  controller: function PlantsController($scope, $localStorage) {
+  controller: function PlantsController($scope, $localStorage, siteService) {
     var self = this;
 
-    self.plants = [];
-    $scope.test = "LASKDHJLKASJD";
+    $scope.plantDetails = {};
+
+    self.test = "TEST";
+    $scope.test1 = "TEST1";
+
+    self.updateDetails = function(_plantId, _plantName, _plantType, _plantAge) {
+      $scope.plantDetails = {
+        plantId: _plantId,
+        plantName: _plantName,
+        plantType: _plantType,
+        plantAge: _plantAge
+      };
+
+      siteService.setPlant($scope.plantDetails);
+      self.viewDetails();
+    };
 
     var apigClient = apigClientFactory.newClient({
       accessKey: $localStorage.accessKey,
