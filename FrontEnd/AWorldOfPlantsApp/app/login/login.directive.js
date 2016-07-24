@@ -58,6 +58,8 @@ angular.module('login').directive('switchToRegister', function ($compile) {
                         region: 'us-east-1'
                     };
 
+                    scope.$ctrl.saveLogin(credentials.accessKey, credentials.secretKey, credentials.sessionToken, 'us-east-1');
+
                     window.location.replace("#!/site");
                 }).catch(function (result) {
                 console.log("Error: " + JSON.stringify(result));
