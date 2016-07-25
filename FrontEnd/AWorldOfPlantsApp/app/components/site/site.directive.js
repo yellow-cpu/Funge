@@ -1,7 +1,7 @@
 'use strict';
 
 // Register `site` directive
-angular.module('site').directive('site', function ($compile) {
+angular.module('site').directive('site', function ($compile, siteService) {
   var linkFunction = function(scope, element, attributes) {
     $(document).ready(function() {
       $('#side-menu').metisMenu();
@@ -17,6 +17,11 @@ angular.module('site').directive('site', function ($compile) {
       $('#side-menu > li > a').removeClass('active');
       $(this).addClass('active');
       $('#page-wrapper').html($compile('<plants></plants>')(scope));
+      $('#page-wrapper').html($compile('<plants></plants>')(scope));
+    });
+
+    $('#logout').on('click', function () {
+      siteService.logout();
     });
   };
 
