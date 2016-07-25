@@ -17,8 +17,11 @@ import cf.funge.aworldofplants.exception.DAOException;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * The DynamoDB implementation of the PlantDAO object. This class expects the Plant bean to be annotated with the required
@@ -98,6 +101,23 @@ public class DDBPlantDAO implements PlantDAO {
         DynamoDBScanExpression expression = new DynamoDBScanExpression();
         expression.setLimit(limit);
         return getMapper().scan(Plant.class, expression);
+    }
+
+    public List<Plant> getUserPlants(int limit, String username) {
+        if (limit <= 0 || limit > DynamoDBConfiguration.SCAN_LIMIT)
+            limit = DynamoDBConfiguration.SCAN_LIMIT;
+
+        Map<String, AttributeValue> eav = new HashMap<>();
+        eav.put(":val1", new AttributeValue().withS(username));
+
+        DynamoDBScanExpression expression = new DynamoDBScanExpression()
+                .withFilterExpression("username = :val1")
+                .withExpressionAttributeValues(eav);
+        expression.setLimit(limit);
+
+        List<Plant> scanResult = getMapper().scan(Plant.class, expression);
+
+        return scanResult;
     }
 
     /**

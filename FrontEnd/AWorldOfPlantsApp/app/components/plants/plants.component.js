@@ -7,7 +7,7 @@ angular.module('plants').component('plants', {
     var self = this;
 
     self.newPlant = {
-      plantOwner: $localStorage.identityId,
+      username: "dill2",
       plantType: "Strawberry",
       plantName: "Bert",
       plantAge: 0
@@ -48,13 +48,15 @@ angular.module('plants').component('plants', {
       region: $localStorage.region
     });
 
-    var params = {};
+    var params = {
+      "username": "dill"
+    };
 
     var body = {};
 
-    apigClient.plantsGet(params, body)
+    apigClient.plantsUserUsernameGet(params, body)
       .then(function (result) {
-        console.log("Success: " + JSON.stringify(result.data));
+        console.log("Success: " + JSON.stringify(result));
         self.plants = result.data.plants;
         $scope.$apply();
       }).catch(function (result) {

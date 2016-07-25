@@ -12,62 +12,49 @@
  */
 package cf.funge.aworldofplants.action;
 
+import cf.funge.aworldofplants.configuration.DynamoDBConfiguration;
 import cf.funge.aworldofplants.configuration.ExceptionMessages;
 import cf.funge.aworldofplants.exception.BadRequestException;
-import cf.funge.aworldofplants.exception.DAOException;
 import cf.funge.aworldofplants.exception.InternalErrorException;
 import cf.funge.aworldofplants.model.DAOFactory;
-import cf.funge.aworldofplants.model.action.CreatePlantRequest;
-import cf.funge.aworldofplants.model.action.CreatePlantResponse;
+import cf.funge.aworldofplants.model.action.GetUserPlantsRequest;
+import cf.funge.aworldofplants.model.action.ListPlantsResponse;
 import cf.funge.aworldofplants.model.plant.Plant;
 import cf.funge.aworldofplants.model.plant.PlantDAO;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.google.gson.JsonObject;
 
+import java.util.List;
+
 /**
- * Action that creates a new Plant in the data store
+ * Action to return a list of plants belonging to a user from the data store
  * <p/>
- * POST to /plants/
+ * GET to /plants/
  */
-public class CreatePlantAction extends AbstractAction {
-    private LambdaLogger logger;
+public class ListUserPlantsAction extends AbstractAction {
+    private static LambdaLogger logger;
 
     public String handle(JsonObject request, Context lambdaContext) throws BadRequestException, InternalErrorException {
         logger = lambdaContext.getLogger();
 
-        CreatePlantRequest input = getGson().fromJson(request, CreatePlantRequest.class);
+        GetUserPlantsRequest input = getGson().fromJson(request, GetUserPlantsRequest.class);
 
         if (input == null ||
-                input.getPlantType() == null ||
-                input.getPlantType().trim().equals("")) {
+                input.getUsername() == null ||
+                input.getUsername().trim().equals("")) {
+            logger.log("Invalid input passed to " + this.getClass().getName());
             throw new BadRequestException(ExceptionMessages.EX_INVALID_INPUT);
         }
 
         PlantDAO dao = DAOFactory.getPlantDAO();
 
-        Plant newPlant = new Plant();
-        newPlant.setUsername(input.getUsername());
-        newPlant.setPlantType(input.getPlantType());
-        newPlant.setPlantName(input.getPlantName());
-        newPlant.setPlantAge(input.getPlantAge());
+        List<Plant> plants = dao.getUserPlants(DynamoDBConfiguration.SCAN_LIMIT, input.getUsername());
 
-        String plantId;
-
-        try {
-            plantId = dao.createPlant(newPlant);
-        } catch (final DAOException e) {
-            logger.log("Error while creating new plant\n" + e.getMessage());
-            throw new InternalErrorException(ExceptionMessages.EX_DAO_ERROR);
-        }
-
-        if (plantId == null || plantId.trim().equals("")) {
-            logger.log("PlantID is null or empty");
-            throw new InternalErrorException(ExceptionMessages.EX_DAO_ERROR);
-        }
-
-        CreatePlantResponse output = new CreatePlantResponse();
-        output.setPlantId(plantId);
+        ListPlantsResponse output = new ListPlantsResponse();
+        output.setCount(plants.size());
+        output.setPageLimit(DynamoDBConfiguration.SCAN_LIMIT);
+        output.setPlants(plants);
 
         return getGson().toJson(output);
     }

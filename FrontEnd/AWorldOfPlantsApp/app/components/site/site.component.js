@@ -7,6 +7,10 @@ angular.
     templateUrl: 'components/site/site.template.html',
     controller: function SiteController() {
       var self = this;
+
+      self.logout = function () {
+        console.log("xxx");
+      }
     }
   }).
   service('siteService', function() {

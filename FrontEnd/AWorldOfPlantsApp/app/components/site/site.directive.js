@@ -18,6 +18,10 @@ angular.module('site').directive('site', function ($compile) {
       $(this).addClass('active');
       $('#page-wrapper').html($compile('<plants></plants>')(scope));
     });
+
+    $('#logout').on('click', function() {
+      scope.$ctrl.logout();
+    });
   };
 
   return {

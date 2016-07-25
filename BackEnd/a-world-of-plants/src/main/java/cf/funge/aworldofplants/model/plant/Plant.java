@@ -24,7 +24,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 @DynamoDBTable(tableName = DynamoDBConfiguration.PLANT_TABLE_NAME)
 public class Plant {
     private String plantId;
-    private String plantOwner;
+    private String username;
     private String plantType;
     private String plantName;
     private int plantAge;
@@ -39,13 +39,13 @@ public class Plant {
         this.plantId = plantId;
     }
 
-    @DynamoDBAttribute(attributeName = "owner")
-    public String getPlantOwner() {
-        return plantOwner;
+    @DynamoDBAttribute(attributeName = "username")
+    public String getUsername() {
+        return username;
     }
 
-    public void setPlantOwner(String plantOwner) {
-        this.plantOwner = plantOwner;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @DynamoDBAttribute(attributeName = "type")

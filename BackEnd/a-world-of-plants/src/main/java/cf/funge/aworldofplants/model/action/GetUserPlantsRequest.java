@@ -13,13 +13,10 @@
 package cf.funge.aworldofplants.model.action;
 
 /**
- * Bean for the plant creation request
+ * Bean for the get plant by id request.
  */
-public class CreatePlantRequest {
+public class GetUserPlantsRequest {
     private String username;
-    private String plantType;
-    private String plantName;
-    private int plantAge;
 
     public String getUsername() {
         return username;
@@ -27,29 +24,5 @@ public class CreatePlantRequest {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPlantType() {
-        return plantType;
-    }
-
-    public void setPlantType(String plantType) {
-        this.plantType = plantType;
-    }
-
-    public String getPlantName() {
-        return plantName;
-    }
-
-    public void setPlantName(String plantName) {
-        this.plantName = plantName;
-    }
-
-    public int getPlantAge() {
-        return plantAge;
-    }
-
-    public void setPlantAge(int plantAge) {
-        this.plantAge = plantAge;
     }
 }

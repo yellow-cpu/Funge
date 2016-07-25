@@ -53,7 +53,7 @@ apigClientFactory.newClient = function (config) {
 
     
     // extract endpoint and path from url
-    var invokeUrl = 'https://ziu3ewp0h7.execute-api.us-east-1.amazonaws.com/test';
+    var invokeUrl = 'https://1a0tn4u7m6.execute-api.us-east-1.amazonaws.com/test';
     var endpoint = /(^https?:\/\/[^\/]+)/g.exec(invokeUrl)[1];
     var pathComponent = invokeUrl.substring(endpoint.length);
 
@@ -188,6 +188,60 @@ apigClientFactory.newClient = function (config) {
         
         
         return apiGatewayClient.makeRequest(plantsOptionsRequest, authType, additionalParams, config.apiKey);
+    };
+    
+    
+    apigClient.plantsUserOptions = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
+        
+        var plantsUserOptionsRequest = {
+            verb: 'options'.toUpperCase(),
+            path: pathComponent + uritemplate('/plants/user').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(plantsUserOptionsRequest, authType, additionalParams, config.apiKey);
+    };
+    
+    
+    apigClient.plantsUserUsernameGet = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, ['username'], ['body']);
+        
+        var plantsUserUsernameGetRequest = {
+            verb: 'get'.toUpperCase(),
+            path: pathComponent + uritemplate('/plants/user/{username}').expand(apiGateway.core.utils.parseParametersToObject(params, ['username'])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(plantsUserUsernameGetRequest, authType, additionalParams, config.apiKey);
+    };
+    
+    
+    apigClient.plantsUserUsernameOptions = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, ['username'], ['body']);
+        
+        var plantsUserUsernameOptionsRequest = {
+            verb: 'options'.toUpperCase(),
+            path: pathComponent + uritemplate('/plants/user/{username}').expand(apiGateway.core.utils.parseParametersToObject(params, ['username'])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(plantsUserUsernameOptionsRequest, authType, additionalParams, config.apiKey);
     };
     
     

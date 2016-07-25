@@ -39,4 +39,6 @@ public interface PlantDAO {
     Plant getPlantById(String plantId) throws DAOException;
 
     List<Plant> getPlants(int limit);
+
+    List<Plant> getUserPlants(int limit, String username);
 }
