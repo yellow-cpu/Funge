@@ -16,9 +16,18 @@ package cf.funge.aworldofplants.model.action;
  * Bean for the plant creation request
  */
 public class CreatePlantRequest {
+    private String plantOwner;
     private String plantType;
     private String plantName;
     private int plantAge;
+
+    public String getPlantOwner() {
+        return plantOwner;
+    }
+
+    public void setPlantOwner(String plantOwner) {
+        this.plantOwner = plantOwner;
+    }
 
     public String getPlantType() {
         return plantType;

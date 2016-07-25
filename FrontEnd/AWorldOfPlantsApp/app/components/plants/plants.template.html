@@ -1,6 +1,11 @@
 <div class="row">
   <div class="col-lg-12">
-    <h1 class="page-header">Plants</h1>
+    <h1 class="page-header">
+      Plants
+      <button id="newPlant" class="btn btn-success pull-right" data-toggle="modal" data-target="#createPlantModal">
+        Create New Plant
+      </button>
+    </h1>
   </div>
 </div>
 
@@ -12,8 +17,8 @@
       </div>
       <div class="col-xs-5">
         <div><b>ID:</b> {{plant.plantId}}</div>
-        <div><b>Name:</b> {{plant.plantName}}</div>
         <div><b>Type:</b> {{plant.plantType}}</div>
+        <div><b>Name:</b> {{plant.plantName}}</div>
         <div><b>Created:</b> {{plant.plantAge}}</div>
       </div>
       <div class="col-xs-6 text-right">
@@ -22,11 +27,39 @@
       </div>
     </div>
   </div>
-  <a class="view-details" ng-click="$ctrl.updateDetails(plant.plantId, plant.plantName, plant.plantType, plant.plantAge)">
+  <a class="view-details" ng-click="$ctrl.updateDetails(plant.plantId, plant.plantType, plant.plantName, plant.plantAge)">
     <div class="panel-footer">
       <span class="pull-left">View Details</span>
       <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
       <div class="clearfix"></div>
     </div>
   </a>
+</div>
+
+
+<div class="modal fade" id="createPlantModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form">
+          <div class="form-group">
+            <label for="type">Plant type:</label>
+            <input ng-model="$ctrl.newPlant.plantType" type="text" class="form-control" id="type">
+          </div>
+          <div class="form-group">
+            <label for="name">Plant name:</label>
+            <input ng-model="$ctrl.newPlant.plantName" type="text" class="form-control" id="name">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button ng-click="$ctrl.createPlant()" type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
 </div>

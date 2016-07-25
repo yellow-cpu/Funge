@@ -47,6 +47,7 @@ public class CreatePlantAction extends AbstractAction {
         PlantDAO dao = DAOFactory.getPlantDAO();
 
         Plant newPlant = new Plant();
+        newPlant.setPlantOwner(input.getPlantOwner());
         newPlant.setPlantType(input.getPlantType());
         newPlant.setPlantName(input.getPlantName());
         newPlant.setPlantAge(input.getPlantAge());

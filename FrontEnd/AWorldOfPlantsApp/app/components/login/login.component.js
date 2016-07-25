@@ -11,7 +11,8 @@ angular.module('login').component('login', {
             "password": ""
         };
 
-        self.saveLogin = function (accessKey, secretKey, sessionToken, region) {
+        self.saveLogin = function (identityId, accessKey, secretKey, sessionToken, region) {
+          $localStorage.identityId = identityId;
           $localStorage.accessKey = accessKey;
           $localStorage.secretKey = secretKey;
           $localStorage.sessionToken = sessionToken;

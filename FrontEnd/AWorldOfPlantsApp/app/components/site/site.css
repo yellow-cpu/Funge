@@ -441,3 +441,12 @@ table.dataTable thead .sorting:after {
     cursor: pointer;
     cursor: hand;
 }
+
+.btn-success {
+    background-color: #1d9d73;
+    border-color: #1A8A67;
+}
+
+.btn-success:hover, .btn-success:focus {
+    background-color: #1A8A67;
+}

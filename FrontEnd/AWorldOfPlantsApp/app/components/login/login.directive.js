@@ -49,6 +49,7 @@ angular.module('login').directive('switchToRegister', function ($compile) {
                     console.log("Success: " + JSON.stringify(result.data));
 
                     var credentials = result.data.credentials;
+                    var identityId = result.data.identityId;
                     console.log(credentials);
 
                     AWS.config.credentials = {
@@ -58,7 +59,7 @@ angular.module('login').directive('switchToRegister', function ($compile) {
                         region: 'us-east-1'
                     };
 
-                    scope.$ctrl.saveLogin(credentials.accessKey, credentials.secretKey, credentials.sessionToken, 'us-east-1');
+                    scope.$ctrl.saveLogin(identityId, credentials.accessKey, credentials.secretKey, credentials.sessionToken, 'us-east-1');
 
                     window.location.replace("#!/site");
                 }).catch(function (result) {

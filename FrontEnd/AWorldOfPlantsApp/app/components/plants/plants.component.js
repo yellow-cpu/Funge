@@ -6,16 +6,34 @@ angular.module('plants').component('plants', {
   controller: function PlantsController($scope, $localStorage, siteService) {
     var self = this;
 
+    self.newPlant = {
+      plantOwner: $localStorage.identityId,
+      plantType: "Strawberry",
+      plantName: "Bert",
+      plantAge: 0
+    };
+
     $scope.plantDetails = {};
 
-    self.test = "TEST";
-    $scope.test1 = "TEST1";
+    self.createPlant = function() {
+      console.log(self.newPlant);
 
-    self.updateDetails = function(_plantId, _plantName, _plantType, _plantAge) {
+      var params = {};
+      var body = self.newPlant;
+
+      apigClient.plantsPost(params, body)
+        .then(function (result) {
+          console.log("Success: " + JSON.stringify(result.data));
+        }).catch(function (result) {
+        console.log("Error: " + JSON.stringify(result));
+      });
+    };
+
+    self.updateDetails = function(_plantId, _plantType, _plantName, _plantAge) {
       $scope.plantDetails = {
         plantId: _plantId,
-        plantName: _plantName,
         plantType: _plantType,
+        plantName: _plantName,
         plantAge: _plantAge
       };
 
