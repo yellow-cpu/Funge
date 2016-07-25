@@ -48,19 +48,23 @@ angular.module('plants').component('plants', {
       region: $localStorage.region
     });
 
-    var params = {
-      "username": "dill"
-    };
+    self.test = function() {
+      console.log("Test called");
+      var params = {
+        "username": "dill"
+      };
 
-    var body = {};
+      var body = {};
 
-    apigClient.plantsUserUsernameGet(params, body)
-      .then(function (result) {
-        console.log("Success: " + JSON.stringify(result));
-        self.plants = result.data.plants;
-        $scope.$apply();
-      }).catch(function (result) {
+      apigClient.plantsUserUsernameGet(params, body)
+        .then(function (result) {
+          console.log("Success: " + JSON.stringify(result));
+          console.log("xxx");
+          self.plants = result.data.plants;
+          $scope.$apply();
+        }).catch(function (result) {
         console.log("Error: " + JSON.stringify(result));
-    });
+      });
+    };
   }
 });

@@ -23,10 +23,6 @@ angular.module('site').directive('site', function ($compile, siteService) {
     $('#logout').on('click', function () {
       siteService.logout();
     });
-
-    $('#logout').on('click', function() {
-      scope.$ctrl.logout();
-    });
   };
 
   return {
