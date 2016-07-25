@@ -18,9 +18,5 @@ angular.module('login').component('login', {
           $localStorage.sessionToken = sessionToken;
           $localStorage.region = region;
         };
-
-        self.logoutUser = function logoutUser(username, password) {
-
-        };
     }
 });
