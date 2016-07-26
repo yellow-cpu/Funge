@@ -128,6 +128,16 @@ public class DDBPlantDAO implements PlantDAO {
         return "Plant updated successfully";
     }
 
+    public String deletePlant(String plantId) {
+        try {
+            getMapper().delete(getPlantById(plantId));
+        } catch (DAOException e) {
+
+        }
+
+        return "Plant deleted successfully";
+    }
+
     /**
      * Returns a DynamoDBMapper object initialized with the default DynamoDB client
      *

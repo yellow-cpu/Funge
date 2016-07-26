@@ -44,4 +44,6 @@ public interface PlantDAO {
     List<Plant> getUserPlants(int limit, String username);
 
     String updatePlant(Plant plant);
+
+    String deletePlant(String plantId);
 }
