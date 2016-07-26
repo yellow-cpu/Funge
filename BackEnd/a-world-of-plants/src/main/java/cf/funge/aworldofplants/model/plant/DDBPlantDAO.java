@@ -14,8 +14,10 @@ package cf.funge.aworldofplants.model.plant;
 
 import cf.funge.aworldofplants.configuration.DynamoDBConfiguration;
 import cf.funge.aworldofplants.exception.DAOException;
+import cf.funge.aworldofplants.model.action.UpdatePlantRequest;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 
@@ -120,12 +122,18 @@ public class DDBPlantDAO implements PlantDAO {
         return scanResult;
     }
 
+    public String updatePlant(Plant plant) {
+        getMapper().save(plant);
+
+        return "Plant updated successfully";
+    }
+
     /**
      * Returns a DynamoDBMapper object initialized with the default DynamoDB client
      *
      * @return An initialized DynamoDBMapper
      */
     protected DynamoDBMapper getMapper() {
-        return new DynamoDBMapper(ddbClient);
+        return new DynamoDBMapper(ddbClient, new DynamoDBMapperConfig(DynamoDBMapperConfig.SaveBehavior.UPDATE));
     }
 }

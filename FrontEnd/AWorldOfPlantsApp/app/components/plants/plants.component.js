@@ -51,7 +51,7 @@ angular.module('plants').component('plants', {
     self.test = function() {
       console.log("Test called");
       var params = {
-        "username": "dill"
+        "username": "dill2"
       };
 
       var body = {};

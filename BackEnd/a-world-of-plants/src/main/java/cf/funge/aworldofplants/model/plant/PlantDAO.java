@@ -13,6 +13,7 @@
 package cf.funge.aworldofplants.model.plant;
 
 import cf.funge.aworldofplants.exception.DAOException;
+import cf.funge.aworldofplants.model.action.UpdatePlantRequest;
 
 import java.util.List;
 
@@ -41,4 +42,6 @@ public interface PlantDAO {
     List<Plant> getPlants(int limit);
 
     List<Plant> getUserPlants(int limit, String username);
+
+    String updatePlant(Plant plant);
 }
