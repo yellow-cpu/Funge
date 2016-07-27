@@ -5,6 +5,7 @@ import cf.funge.aworldofplants.exception.BadRequestException;
 import cf.funge.aworldofplants.exception.InternalErrorException;
 import cf.funge.aworldofplants.model.DAOFactory;
 import cf.funge.aworldofplants.model.action.UpdatePlantRequest;
+import cf.funge.aworldofplants.model.action.UpdatePlantResponse;
 import cf.funge.aworldofplants.model.plant.Plant;
 import cf.funge.aworldofplants.model.plant.PlantDAO;
 import com.amazonaws.services.lambda.runtime.Context;
@@ -41,6 +42,9 @@ public class UpdatePlantAction extends AbstractAction {
 
         dao.updatePlant(updatedPlant);
 
-        return "Updated plant successfully";
+        UpdatePlantResponse output = new UpdatePlantResponse();
+        output.setPlantId(input.getPlantId());
+
+        return getGson().toJson(output);
     }
 }
