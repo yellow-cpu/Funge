@@ -1,6 +1,7 @@
 'use strict';
 
 // Register `master` component, along with its associated controller and template
+
 angular.
   module('master').
   component('master', {
@@ -11,3 +12,12 @@ angular.
       var self = this;
     }
   });
+
+master.run(function($rootScope, $localStorage) {
+    $rootScope.$on("$routeChangeStart", function () {
+        if ($localStorage.loggedIn) {
+            window.location.replace("#!/site");
+        }
+
+    });
+});
