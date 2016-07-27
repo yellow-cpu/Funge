@@ -6,6 +6,8 @@ angular.
   component('master', {
     templateUrl: 'core/master/master.template.html',
     controller: function MasterController() {
+      /* jQuery animations turned off temporarily */
+      $.fx.off = true;
       var self = this;
     }
   });

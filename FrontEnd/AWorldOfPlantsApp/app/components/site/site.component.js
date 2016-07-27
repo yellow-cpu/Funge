@@ -7,16 +7,13 @@ angular.
     templateUrl: 'components/site/site.template.html',
     controller: function SiteController() {
       var self = this;
-
-      self.logout = function () {
-        console.log("xxx");
-      }
     }
   }).
   service('siteService', function($localStorage) {
     var logout = function() {
       $localStorage.$reset();
-      console.log("Local storage reset... ");
+      console.log("Local storage reset.");
+      window.location.replace("#!/landing");
     };
 
     var plant = {};
