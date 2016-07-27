@@ -5,8 +5,10 @@ angular.
   module('site').
   component('site', {
     templateUrl: 'components/site/site.template.html',
-    controller: function SiteController() {
+    controller: function SiteController($localStorage) {
       var self = this;
+
+      self.username = $localStorage.username;
     }
   }).
   service('siteService', function($localStorage) {

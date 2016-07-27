@@ -45,7 +45,7 @@
   </a>
 </div>
 
-<div class="modal fade" id="createPlantModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="createPlantModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" create-plant-directive>
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -56,16 +56,16 @@
         <form role="form">
           <div class="form-group">
             <label for="type">Plant type:</label>
-            <input ng-model="$ctrl.newPlant.plantType" type="text" class="form-control" id="type">
+            <input id="plantType" ng-model="$ctrl.newPlant.plantType" type="text" class="form-control" id="type">
           </div>
           <div class="form-group">
             <label for="name">Plant name:</label>
-            <input ng-model="$ctrl.newPlant.plantName" type="text" class="form-control" id="name">
+            <input id="plantName" ng-model="$ctrl.newPlant.plantName" type="text" class="form-control" id="name">
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button ng-click="$ctrl.createPlant()" type="button" class="btn btn-success" data-dismiss="modal">Create</button>
+        <button id="createPlant" type="button" class="btn btn-success" data-dismiss="modal">Create</button>
       </div>
     </div>
   </div>

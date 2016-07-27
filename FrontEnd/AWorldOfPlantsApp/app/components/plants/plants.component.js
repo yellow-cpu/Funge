@@ -33,8 +33,6 @@ angular.module('plants').component('plants', {
       var body = self.newPlant;
       body.plantAge = self.timeConverter(Date.now());
 
-      console.log(body.username);
-
       apigClient.plantsPost(params, body)
         .then(function (result) {
           console.log("Success: " + JSON.stringify(result.data));
@@ -46,6 +44,7 @@ angular.module('plants').component('plants', {
     self.updateDetails = function(_plantId, _plantType, _plantName, _plantAge) {
       $scope.plantDetails = {
         plantId: _plantId,
+        username: $localStorage.username,
         plantType: _plantType,
         plantName: _plantName,
         plantAge: _plantAge
@@ -61,25 +60,6 @@ angular.module('plants').component('plants', {
       sessionToken: $localStorage.sessionToken,
       region: $localStorage.region
     });
-
-    self.update = function() {
-      var params = {};
-
-      var body = {
-        plantId: "5b45cfe3-74ed-44c4-9872-49f4d41b3ef2",
-        username: "bob",
-        plantType: "Flower",
-        plantName: "Blue",
-        plantAge: 5
-      };
-
-      apigClient.plantsUpdatePost(params, body)
-        .then(function (result) {
-          console.log("Success: " + JSON.stringify(result));
-        }).catch(function (result) {
-        console.log("Error: " + JSON.stringify(result));
-      });
-    };
 
     self.delete = function() {
       console.log("Delete called");

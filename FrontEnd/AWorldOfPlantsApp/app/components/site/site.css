@@ -484,9 +484,13 @@ table.dataTable thead .sorting:after {
     border-color: #1c1c1c;
 }
 
-#btnUpdate {
+#plantUpdate {
     background-color: #236acb;
     border-color: #1e3b76;
+}
+
+#plantUpdate:hover, #plantUpdate:focus {
+    background-color: #1e3b76;
 }
 
 .modal-body {

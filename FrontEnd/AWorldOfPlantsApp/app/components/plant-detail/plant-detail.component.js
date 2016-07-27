@@ -15,23 +15,30 @@ angular.module('plantDetail').component('plantDetail', {
 
     self.plantDetails = siteService.getPlant();
 
-    var params = {};
-    var body = {};
+    self.updatePlant = function() {
+      var params = {};
+      var body = self.plantDetails;
 
-    self.getPlantId = function getPlantId(plantId) {
+      apigClient.plantsUpdatePost(params, body)
+        .then(function (result) {
+          console.log("Success: " + JSON.stringify(result));
+        }).catch(function (result) {
+          console.log("Error: " + JSON.stringify(result));
+        });
+    };
+
+    self.deletePlant = function() {
       var params = {
-        "plantId": plantId
+        plantId: self.plantDetails.plantId
       };
 
       var body = {};
 
-      apigClient.plantsPlantIdGet(params, body)
-        .then(function(result){
-          console.log("Success: " + JSON.stringify(result.data));
-          self.thePlant = JSON.stringify(result.data.plantName);
-          $scope.$apply();
-        }).catch( function(result){
-          console.log("Error: " + JSON.stringify(result));
+      apigClient.plantsDeletePlantIdGet(params, body)
+        .then(function (result) {
+          console.log("Success: " + JSON.stringify(result));
+        }).catch(function (result) {
+        console.log("Error: " + JSON.stringify(result));
       });
     };
   }
