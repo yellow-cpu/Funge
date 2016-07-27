@@ -27,6 +27,8 @@ angular.module('plantDetail').component('plantDetail', {
         });
     };
 
+    console.log("123");
+
     self.deletePlant = function() {
       var params = {
         plantId: self.plantDetails.plantId

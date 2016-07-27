@@ -310,21 +310,26 @@ table.dataTable thead .sorting:after {
 }
 
 .panel-green {
-    border-color: #1A8A67;
+    border: none;
 }
 
 .panel-green .panel-heading {
-    border-color: #1A8A67;
     color: #fff;
-    background-color: #1d9d73;
+    background-color: #2c2c2c;
+    border: none;
+}
+
+.panel-footer {
+    border: none;
+    background-color: #236acb;
 }
 
 .panel-green a {
-    color: #1d9d73;
+    color: #FFFFFF;
 }
 
 .panel-green a:hover {
-    color: #3d8b3d;
+    color: #FFFFFF;
 }
 
 .panel-red {

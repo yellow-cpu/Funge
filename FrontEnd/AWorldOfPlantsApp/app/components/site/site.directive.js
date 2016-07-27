@@ -17,7 +17,6 @@ angular.module('site').directive('site', function ($compile, siteService) {
       $('#side-menu > li > a').removeClass('active');
       $(this).addClass('active');
       $('#page-wrapper').html($compile('<plants></plants>')(scope));
-      $('#page-wrapper').html($compile('<plants></plants>')(scope));
     });
 
     $('#logout').on('click', function () {
