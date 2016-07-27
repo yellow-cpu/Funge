@@ -3,7 +3,7 @@
 // Register `plants` directive
 angular.
 module('plants').
-directive('plantDetailDirective', function ($compile) {
+directive('viewDetailsDirective', function ($compile) {
   var linkFunction = function (scope, element, attributes) {
     $(document).ready(function() {
       scope.$ctrl.getPlants();
