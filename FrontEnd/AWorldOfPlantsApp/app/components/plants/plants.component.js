@@ -8,18 +8,30 @@ angular.module('plants').component('plants', {
 
     self.newPlant = {
       username: "dill2",
-      plantType: "Strawberry",
-      plantName: "Bert",
-      plantAge: 0
+      plantType: "",
+      plantName: "",
+      plantAge: Date.now()
     };
 
     $scope.plantDetails = {};
+
+    self.timeConverter = function (now){
+      var a = new Date(now);
+      var year = a.getFullYear();
+      var month = a.getMonth() + 1;
+      var date = a.getDate();
+      var hour = a.getHours();
+      var min = a.getMinutes();
+      var sec = a.getSeconds();
+      return date + '/' + month + '/' + year + 'T' + hour + ':' + min + ':' + sec;
+    };
 
     self.createPlant = function() {
       console.log(self.newPlant);
 
       var params = {};
       var body = self.newPlant;
+      body.plantAge = self.timeConverter(Date.now());
 
       apigClient.plantsPost(params, body)
         .then(function (result) {

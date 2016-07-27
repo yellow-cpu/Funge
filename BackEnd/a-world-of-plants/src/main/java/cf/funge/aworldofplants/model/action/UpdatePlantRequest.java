@@ -8,7 +8,7 @@ public class UpdatePlantRequest {
     private String username;
     private String plantType;
     private String plantName;
-    private int plantAge;
+    private String plantAge;
 
     public String getPlantId() {
         return plantId;
@@ -42,11 +42,11 @@ public class UpdatePlantRequest {
         this.plantName = plantName;
     }
 
-    public int getPlantAge() {
+    public String getPlantAge() {
         return plantAge;
     }
 
-    public void setPlantAge(int plantAge) {
+    public void setPlantAge(String plantAge) {
         this.plantAge = plantAge;
     }
 }
