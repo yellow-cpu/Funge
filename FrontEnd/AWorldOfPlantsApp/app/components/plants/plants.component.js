@@ -48,6 +48,25 @@ angular.module('plants').component('plants', {
       region: $localStorage.region
     });
 
+    self.update = function() {
+      var params = {};
+
+      var body = {
+        plantId: "5b45cfe3-74ed-44c4-9872-49f4d41b3ef2",
+        username: "bob",
+        plantType: "Flower",
+        plantName: "Blue",
+        plantAge: 5
+      };
+
+      apigClient.plantsUpdatePost(params, body)
+        .then(function (result) {
+          console.log("Success: " + JSON.stringify(result));
+        }).catch(function (result) {
+        console.log("Error: " + JSON.stringify(result));
+      });
+    };
+
     self.delete = function() {
       console.log("Delete called");
 
@@ -62,7 +81,7 @@ angular.module('plants').component('plants', {
           console.log("Success: " + JSON.stringify(result));
         }).catch(function (result) {
           console.log("Error: " + JSON.stringify(result));
-        });
+      });
     };
 
     self.test = function() {
@@ -81,7 +100,7 @@ angular.module('plants').component('plants', {
           $scope.$apply();
         }).catch(function (result) {
           console.log("Error: " + JSON.stringify(result));
-        });
+      });
     };
   }
 });
