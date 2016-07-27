@@ -18,6 +18,8 @@ master.run(function($rootScope, $localStorage) {
         if ($localStorage.loggedIn) {
             window.location.replace("#!/site");
         }
-
+        else {
+            window.location.replace("#!/landing");
+        }
     });
 });
