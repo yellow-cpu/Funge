@@ -98,6 +98,7 @@ public class LoginAction extends AbstractAction {
         output.setIdentityId(loggedUser.getCognitoIdentityId());
         output.setToken(identity.getOpenIdToken());
         output.setCredentials(credentials);
+        output.setUsername(input.getUsername());
 
         return getGson().toJson(output);
     }

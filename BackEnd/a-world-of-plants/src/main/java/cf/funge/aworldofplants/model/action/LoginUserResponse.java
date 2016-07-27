@@ -21,7 +21,7 @@ public class LoginUserResponse {
     private String identityId;
     private String token;
     private UserCredentials credentials;
-
+    private String username;
 
     public String getIdentityId() {
         return identityId;
@@ -45,5 +45,13 @@ public class LoginUserResponse {
 
     public void setCredentials(UserCredentials credentials) {
         this.credentials = credentials;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

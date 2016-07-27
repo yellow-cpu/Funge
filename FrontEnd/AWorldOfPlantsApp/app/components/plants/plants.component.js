@@ -7,7 +7,7 @@ angular.module('plants').component('plants', {
     var self = this;
 
     self.newPlant = {
-      username: "dill2",
+      username: $localStorage.username,
       plantType: "",
       plantName: "",
       plantAge: Date.now()
@@ -32,6 +32,8 @@ angular.module('plants').component('plants', {
       var params = {};
       var body = self.newPlant;
       body.plantAge = self.timeConverter(Date.now());
+
+      console.log(body.username);
 
       apigClient.plantsPost(params, body)
         .then(function (result) {
@@ -99,7 +101,7 @@ angular.module('plants').component('plants', {
     self.test = function() {
       console.log("Test called");
       var params = {
-        "username": "dill2"
+        "username": $localStorage.username
       };
 
       var body = {};
