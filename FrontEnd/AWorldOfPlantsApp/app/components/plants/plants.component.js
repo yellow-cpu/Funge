@@ -48,6 +48,23 @@ angular.module('plants').component('plants', {
       region: $localStorage.region
     });
 
+    self.delete = function() {
+      console.log("Delete called");
+
+      var params = {
+        "plantId": "aa2d22b0-8aa4-46a8-8b13-f5fe6bc251da"
+      };
+
+      var body = {};
+
+      apigClient.plantsDeletePlantIdGet(params, body)
+        .then(function (result) {
+          console.log("Success: " + JSON.stringify(result));
+        }).catch(function (result) {
+          console.log("Error: " + JSON.stringify(result));
+        });
+    };
+
     self.test = function() {
       console.log("Test called");
       var params = {
@@ -63,8 +80,8 @@ angular.module('plants').component('plants', {
           self.plants = result.data.plants;
           $scope.$apply();
         }).catch(function (result) {
-        console.log("Error: " + JSON.stringify(result));
-      });
+          console.log("Error: " + JSON.stringify(result));
+        });
     };
   }
 });
