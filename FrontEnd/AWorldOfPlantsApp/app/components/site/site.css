@@ -450,3 +450,41 @@ table.dataTable thead .sorting:after {
 .btn-success:hover, .btn-success:focus {
     background-color: #1A8A67;
 }
+
+.panel-green {
+    background-color: #2c2c2c;
+    -webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+}
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    background-color: #282828;
+    color: #9a9a9a;
+}
+
+.form-control {
+    background-color: #464646;
+    color: #FFFFFF;
+    border-color: #1c1c1c;
+}
+
+.input-group-addon {
+    background-color: #212121;
+    border-color: #1c1c1c;
+    color: #fff;
+}
+
+#plantDetailsPanel > .panel-heading {
+    background-color: #236acb;
+    border-color: #1e3b76;
+}
+
+#plantDetailsPanel {
+    border-color: #1c1c1c;
+}
+
+#btnUpdate {
+    background-color: #236acb;
+    border-color: #1e3b76;
+}
