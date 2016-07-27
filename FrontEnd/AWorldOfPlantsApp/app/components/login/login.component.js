@@ -12,12 +12,13 @@ angular.module('login').component('login', {
         };
 
         self.saveLogin = function (identityId, accessKey, secretKey, sessionToken, region, username) {
-          $localStorage.identityId = identityId;
-          $localStorage.accessKey = accessKey;
-          $localStorage.secretKey = secretKey;
-          $localStorage.sessionToken = sessionToken;
-          $localStorage.region = region;
-          $localStorage.username = username;
+            $localStorage.identityId = identityId;
+            $localStorage.accessKey = accessKey;
+            $localStorage.secretKey = secretKey;
+            $localStorage.sessionToken = sessionToken;
+            $localStorage.region = region;
+            $localStorage.username = username;
+            $localStorage.loggedIn = true;
         };
     }
 });
