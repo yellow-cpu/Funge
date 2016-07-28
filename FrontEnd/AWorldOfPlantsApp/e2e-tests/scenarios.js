@@ -60,10 +60,10 @@ describe('A World of Plants App', function() {
 
       // TODO log user in after registering
       it('should register a new user and then log them in to the site dashboard', function() {
-        element(by.id('email')).sendKeys('newuser123@email.com');
-        element(by.id('username')).sendKeys('NewUser123');
-        element(by.id('password')).sendKeys('NewUser123');
-        element(by.id('confirmPassword')).sendKeys('NewUser123');
+        element(by.id('email')).sendKeys('newuser1234@email.com');
+        element(by.id('username')).sendKeys('NewUser1234');
+        element(by.id('password')).sendKeys('NewUser1234');
+        element(by.id('confirmPassword')).sendKeys('NewUser1234');
         element(by.id('signUp')).click();
         browser.ignoreSynchronization = true;
         expect(element(by.id('wrapper')).waitReady()).toBeTruthy();

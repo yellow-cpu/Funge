@@ -83,7 +83,14 @@ angular.module('register').directive('switchToLogin', function ($compile) {
 
             apigClient.usersPost(params, body)
                 .then(function (result) {
-                    console.log("Success: " + JSON.stringify(result));
+                    console.log("Success: " + JSON.stringify(result.data));
+
+                    var credentials = result.data.credentials;
+                    var identityId = result.data.identityId;
+                    var username = result.data.username;
+
+                    scope.$ctrl.saveLogin(identityId, credentials.accessKey, credentials.secretKey, credentials.sessionToken, 'us-east-1', username);
+
                     window.location.replace("#!/site");
                 }).catch(function (result) {
                 console.log("Error: " + JSON.stringify(result));

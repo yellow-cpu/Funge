@@ -5,7 +5,7 @@ angular.
   module('register').
   component('register', {
     templateUrl: 'components/register/register.template.html',
-    controller: function RegisterController() {
+    controller: function RegisterController($localStorage) {
       var self = this;
 
       self.user = {
@@ -22,6 +22,16 @@ angular.
       // Test function
       self.directiveToCtrl = function (email, username, password) {
         console.log(email + " " + username + " " + password);
+      };
+
+      self.saveLogin = function (identityId, accessKey, secretKey, sessionToken, region, username) {
+        $localStorage.identityId = identityId;
+        $localStorage.accessKey = accessKey;
+        $localStorage.secretKey = secretKey;
+        $localStorage.sessionToken = sessionToken;
+        $localStorage.region = region;
+        $localStorage.username = username;
+        $localStorage.loggedIn = true;
       };
 
       // self.registerUser = function registerUser(email, username, password) {
