@@ -9,12 +9,12 @@ describe('A World of Plants App', function() {
     expect(browser.getTitle()).toEqual("A World of Plants");
   });
 
+  it('should not allow an unauthorised user access to the site', function() {
+    browser.get('/#!/site');
+    expect(browser.getLocationAbsUrl()).toContain('/landing');
+  });
 
   describe('landing', function() {
-
-    beforeEach(function() {
-      browser.get('/#!/landing');
-    });
 
 
     describe('login', function() {
@@ -23,10 +23,8 @@ describe('A World of Plants App', function() {
         browser.get('/#!/landing');
       });
 
-      var switchToReg = element(by.id('switchToRegister'));
-
       it('should switch to registration form', function() {
-        switchToReg.click().then(function() {
+        element(by.id('switchToRegister')).click().then(function() {
           var searchString = '<register((.|\n)*)>((.|\n)*)<\/register>';
           expect(element(by.id('my-tab-content')).getInnerHtml()).toMatch(searchString);
         });
@@ -36,9 +34,12 @@ describe('A World of Plants App', function() {
         element(by.id('username')).sendKeys('JohnSmith');
         element(by.id('password')).sendKeys('JohnSmith');
         element(by.id('loginBtn')).click();
-        setTimeout(function () {
-          expect(browser.getCurrentUrl()).toContain('/site');
-        }, 5000);
+        browser.ignoreSynchronization = true;
+        expect(element(by.id('wrapper')).waitReady()).toBeTruthy();
+        expect(browser.getLocationAbsUrl()).toContain('/site');
+        browser.ignoreSynchronization = false;
+        element(by.id('user-toggle')).click();
+        element(by.id('logout')).click();
       });
 
     });
@@ -52,24 +53,46 @@ describe('A World of Plants App', function() {
       });
 
       it('should switch to login form', function() {
-        element(by.id('switchToLogin')).click().then(function() {
-          var searchString = '<login((.|\n)*)>((.|\n)*)<\/login>';
-          expect(element(by.id('my-tab-content')).getInnerHtml()).toMatch(searchString);
-        });
+        element(by.id('switchToLogin')).click();
+        var searchString = '<login((.|\n)*)>((.|\n)*)<\/login>';
+        expect(element(by.id('my-tab-content')).getInnerHtml()).toMatch(searchString);
       });
 
+      // TODO log user in after registering
       it('should register a new user and then log them in to the site dashboard', function() {
-        element(by.id('email')).sendKeys('newuser@email.com');
-        element(by.id('username')).sendKeys('NewUser');
-        element(by.id('password')).sendKeys('NewUser');
-        element(by.id('confirmPassword')).sendKeys('NewUser');
+        element(by.id('email')).sendKeys('newuser123@email.com');
+        element(by.id('username')).sendKeys('NewUser123');
+        element(by.id('password')).sendKeys('NewUser123');
+        element(by.id('confirmPassword')).sendKeys('NewUser123');
         element(by.id('signUp')).click();
-        setTimeout(function() {
-          expect(browser.getCurrentUrl()).toContain('/site');
-        }, 5000);
+        browser.ignoreSynchronization = true;
+        expect(element(by.id('wrapper')).waitReady()).toBeTruthy();
+        expect(browser.getLocationAbsUrl()).toContain('/site');
+        browser.ignoreSynchronization = false;
       });
     });
+  });
 
+
+  describe('site', function() {
+
+    beforeEach(function() {
+      browser.get('/#!/site');
+
+    });
+
+    it('should log the user out and redirect back to landing', function() {
+      element(by.id('username')).sendKeys('JohnSmith');
+      element(by.id('password')).sendKeys('JohnSmith');
+      element(by.id('loginBtn')).click();
+      browser.ignoreSynchronization = true;
+      expect(element(by.id('wrapper')).waitReady()).toBeTruthy();
+      browser.ignoreSynchronization = false;
+
+      element(by.id('user-toggle')).click();
+      element(by.id('logout')).click();
+      expect(browser.getLocationAbsUrl()).toContain('/landing');
+    });
 
   });
 

@@ -1,6 +1,11 @@
 //jshint strict: false
 exports.config = {
 
+  onPrepare: () => {
+      console.log('Loading waitReadyScript...');
+      require('./libs/waitReady.js');
+  },
+
   allScriptsTimeout: 11000,
 
   specs: [
