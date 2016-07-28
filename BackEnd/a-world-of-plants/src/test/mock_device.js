@@ -24,9 +24,9 @@ var clientTokenUpdate;
 //
 // Simulated device values
 //
-var rval = 187;
-var gval = 114;
-var bval = 222;
+var rval = 75;
+var gval = 150;
+var bval = 225;
 
 thingShadows.on('connect', function() {
 //
