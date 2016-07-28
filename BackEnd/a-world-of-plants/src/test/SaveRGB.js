@@ -11,7 +11,7 @@ exports.handler = (event, context, callback) => {
     console.log("Received event:", eventText);
     
     // Create a string extracting the click type and serial number from the message sent by the AWS IoT button
-    var messageText = "Red: " + event.state.red + " Green: " + event.state.green + " Blue: " + event.state.blue;
+    var messageText = "Red: " + event.state.desired.red + " Green: " + event.state.desired.green + " Blue: " + event.state.desired.blue;
     
     // Save the Red, Green and Blue values
     var clientToken = event.clientToken;
@@ -20,20 +20,19 @@ exports.handler = (event, context, callback) => {
         var docClient = new AWS.DynamoDB.DocumentClient();
         
         var table = "rgb";
-        var red = event.state.red;
-        var blue = event.state.blue;
-        var green = event.state.green;
+        var timestamp = Date.now();
+        var red = event.state.desired.red;
+        var blue = event.state.desired.blue;
+        var green = event.state.desired.green;
         
         var params = {
             TableName:table,
             Item:{
+                "device_ID": clientToken,
                 "timestamp": timestamp,
-                "clientToken": clientToken,
-                "info":{
-                    "red": red,
-                    "blue": blue,
-                    "green": green
-                }
+                "red": red,
+                "blue": blue,
+                "green": green
             }
         };
         
