@@ -5,7 +5,7 @@ angular.
   module('testing').
   component('testing', {
     templateUrl: 'components/testing/testing.template.html',
-    controller: function TestingController() {
+    controller: function TestingController($scope) {
       var self = this;
 
       function LogMsg(type, content){
@@ -54,7 +54,7 @@ angular.
       self.regionName = 'us-east-1';
       self.logs = new LogService();
       // TODO: Pass in scope
-      self.clients = new ClientControllerCache(null, self.logs);
+      self.clients = new ClientControllerCache($scope, self.logs);
 
       
 
