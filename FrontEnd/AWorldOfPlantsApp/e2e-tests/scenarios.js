@@ -58,12 +58,11 @@ describe('A World of Plants App', function() {
         expect(element(by.id('my-tab-content')).getInnerHtml()).toMatch(searchString);
       });
 
-      // TODO log user in after registering
       it('should register a new user and then log them in to the site dashboard', function() {
-        element(by.id('email')).sendKeys('newuser1234@email.com');
-        element(by.id('username')).sendKeys('NewUser1234');
-        element(by.id('password')).sendKeys('NewUser1234');
-        element(by.id('confirmPassword')).sendKeys('NewUser1234');
+        element(by.id('email')).sendKeys('newuser123@email.com');
+        element(by.id('username')).sendKeys('NewUser123');
+        element(by.id('password')).sendKeys('NewUser123');
+        element(by.id('confirmPassword')).sendKeys('NewUser123');
         element(by.id('signUp')).click();
         browser.ignoreSynchronization = true;
         expect(element(by.id('wrapper')).waitReady()).toBeTruthy();
@@ -78,17 +77,9 @@ describe('A World of Plants App', function() {
 
     beforeEach(function() {
       browser.get('/#!/site');
-
     });
 
     it('should log the user out and redirect back to landing', function() {
-      element(by.id('username')).sendKeys('JohnSmith');
-      element(by.id('password')).sendKeys('JohnSmith');
-      element(by.id('loginBtn')).click();
-      browser.ignoreSynchronization = true;
-      expect(element(by.id('wrapper')).waitReady()).toBeTruthy();
-      browser.ignoreSynchronization = false;
-
       element(by.id('user-toggle')).click();
       element(by.id('logout')).click();
       expect(browser.getLocationAbsUrl()).toContain('/landing');
