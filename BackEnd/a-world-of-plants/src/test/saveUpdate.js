@@ -15,7 +15,12 @@ console.log('Loading function');
         if(clientToken != undefined)
         {
             // Get the time of the event
-            var timestamp = Date.now();
+            var timestamp = event.timestamp;
+            if (timestamp == undefined)
+            {
+                timestamp = Date.now();
+            }
+            
             // Create the DynamoDB Document Client to connect to DynamoDB
             var docClient = new AWS.DynamoDB.DocumentClient();
             
