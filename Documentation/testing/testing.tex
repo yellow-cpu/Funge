@@ -148,7 +148,7 @@
 			
 			\subsubsection{System and Integration Testing}
 			\begin{itemize}
-				\item{Communication from the device to IoT}
+				\item{Communication between a device and IoT}
 					\begin{itemize}
 						\item Pre-conditions: 
 						\begin{itemize}
@@ -168,33 +168,39 @@
 							\item The device is synchronised with the thing shadow
 						\end{itemize}
 					\end{itemize}
-				\item{Communication from IoT to Lambda}
+				\item{Communication between IoT and Lambda}
 				\begin{itemize}
 					\item Pre-conditions: 
 					\begin{itemize}
-						\item The IoT unit test has passed
-						\item The Lambda unit test has passed
+						\item There is an IoT rule that triggers a Lambda function
+						\item The Lambda function that is to be triggered exists
 					\end{itemize}
-					\item A triggered IoT rule should trigger a Lambda function
+					\item An IoT rule should be able to be triggered
+					\item The rule should be able to trigger a Lambda function
+					\item The data from the rule should be sent to the Lambda function 
+					\item The Lambda function should receive the data from the rule
 					\item The Lambda function should execute correctly
 					\item Post-conditions:
 					\begin{itemize}
-						\item A Lambda function is triggered by an IoT rule
+						\item An IoT rule triggers a Lambda function
+						\item Data is sent from an IoT rule to a Lambda function
+						\item A Lambda function retrieves data from an IoT rule
 					\end{itemize}
 				\end{itemize}
 				
-				\item{Communication from Lambda to DynamoDB}
+				\item{Communication between Lambda and DynamoDB}
 				\begin{itemize}
 					\item Pre-conditions: 
 					\begin{itemize}
-						\item The Lambda unit test has passed
+						\item There is a Lambda function that uses DynamoDB
 					\end{itemize}
 					\item A Lambda function is triggered
 					\item The Lambda function saves an item in a DynamoDB table
-					\item The Lambda function correctly retrieves the saved item
+					\item The Lambda function correctly retrieves a saved item
 					\item Post-conditions:
 					\begin{itemize}
-						\item An item is saved in a DynamoDB table from Lambda
+						\item An item is saved in a DynamoDB table from a Lambda function
+						\item An item is retrieved by a Lambda function from DynamoDB
 					\end{itemize}
 				\end{itemize}
 			\end{itemize}
