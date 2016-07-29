@@ -52,6 +52,8 @@
 	\cleardoublepage
 	\thispagestyle{empty}
 	\tableofcontents
+	\input{../version_table.tex}
+	
 	\cleardoublepage
 	\setcounter{page}{1}
 	
@@ -74,7 +76,7 @@
 		This document serves to explore the details and requirements of the 'A World of Plants' system. This is including
 but not limited to the overall features of the system, interfaces, functionality, constraints and integration. This document is to serve as a reference tool for developers and as an informative resource for clients. Any third party collaborators who may have a need to use a reference to the 'A World of Plants' system may also refer to this document for reference.
 	\subsection{Structure}
-		Todo
+		This document covers the software requirement specifications for the 'A World of Plants' project. It covers the vision, background, scope, functional requirements and application design, use cases and services contracts, required functionality, process specifications, domain models, and open issues.
 
 \section{Vision}
 The aim of this project is to build an innovative Internet of Things solution through the use of the Amazon Web Services Internet of Things hardware platform as well as the Amazon Web Services Cloud. No problem was formally defined and hence it was up to us to determine what solution we would be creating. We opted to create a solution which focuses on the education of students with regard to agriculture and plant sciences.\\\\
@@ -82,10 +84,78 @@ We plan to motivate students to become interested in agriculture by creating an 
 We plan to implement gamification on our platform as a way to encourage competition amongst users. Given enough time, we would like to automate more parts of the system - such as automated watering. Additionally, AI learning could be employed to optimise the conditions under which plants grow. By combining automation and AI learning, we could create an interesting challenge for the users: Grow a plant better than our control plant grown with the help of AI.
 
 \section{Background}
-	- University of pretoria project
-	- Use AWS IoT platform
-	- Free-reign
-	- What we decided on -> AWOP
+This project is part of a Software Engineering module (COS 301) for the University of Pretoria. Our client is Julian Hambleton-Jones and our project was to create anything we wanted using the AWS IoT platform. What we decided upon was the creation of a network of living plants which are to be analysed and looked after through the use of IoT devices and our software system.
+	
+\cleardoublepage
+\section{Scope}
+	\subsection{Plants Monitoring and Environment Control}
+		The scope of the \emph{Plants Monitoring and Environment Control} module is shown below in Figure 1.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=\textwidth]{../software-architecture-specification/Plants_Monitoring_and_Environment_Control.jpg}
+			\caption{The scope of functionality required from the \emph{Plants Monitoring and Environment Control} module}
+		\end{figure}
+		
+		The scope of the \emph{Plants Monitoring and Environment Control} module includes:
+		
+		\begin{itemize}
+			\item Adding a plant, which includes adding sensors to the plant object.
+			\item Removing plants from the system, which will remove the plant object from the current plant view, but not from the database.
+			\item Managing and viewing current plants' details and settings, which includes adding and removing sensors, editing plant details and changing the environment control parameters.
+			\item Adding and removing categories of plants, which can only be done by a moderator.
+		\end{itemize}
+		
+	\pagebreak
+	\subsection{People}
+		The scope of the \emph{People} module is shown below in Figure 2.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=\textwidth]{../software-architecture-specification/People.jpg}
+			\caption{The scope of functionality required from the \emph{People} module}
+		\end{figure}
+		
+		The scope of the \emph{People} module includes:
+		
+		\begin{itemize}
+			\item Letting a user view their profile, on which will be achievements and gamified information (like badges and progress).
+			\item Allowing a user to edit their profile information.
+			\item Deleting of profiles.
+		\end{itemize}
+		
+	\pagebreak
+	\subsection{Analytics}
+		The scope of the \emph{Analytics} module is shown below in Figure 3.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=\textwidth]{../software-architecture-specification/Analytics.jpg}
+			\caption{The scope of functionality required from the \emph{Analytics} module}
+		\end{figure}
+		
+		The scope of the \emph{} module includes:
+		
+		\begin{itemize}
+			\item Viewing reports of either a single plant or a summary of all plant details.
+		\end{itemize}
+		
+	\pagebreak
+	\subsection{Notifications}
+		The scope of the \emph{Notifications} module is shown below in Figure 4.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=\textwidth]{../software-architecture-specification/Notifications.jpg}
+			\caption{The scope of functionality required from the \emph{Notifications} module}
+		\end{figure}
+		
+		The scope of the \emph{} module includes:
+		
+		\begin{itemize}
+			\item Viewing received notifications.
+			\item Sending notifications to other users.
+		\end{itemize}
 
 \section{Functional Requirements and Application Design}
 	\subsection{Use Case Prioritization}
@@ -191,74 +261,4 @@ We plan to implement gamification on our platform as a way to encourage competit
 
 \newpage
 \section{Open Issues}
-
-\section{Scope}
-	\subsection{Plants Monitoring and Environment Control}
-		The scope of the \emph{Plants Monitoring and Environment Control} module is shown below in Figure 1.
-		
-		\begin{figure}[H]
-			\centering
-			\includegraphics[width=\textwidth]{../software-architecture-specification/Plants_Monitoring_and_Environment_Control.jpg}
-			\caption{The scope of functionality required from the \emph{Plants Monitoring and Environment Control} module}
-		\end{figure}
-		
-		The scope of the \emph{Plants Monitoring and Environment Control} module includes:
-		
-		\begin{itemize}
-			\item Adding a plant, which includes adding sensors to the plant object.
-			\item Removing plants from the system, which will remove the plant object from the current plant view, but not from the database.
-			\item Managing and viewing current plants' details and settings, which includes adding and removing sensors, editing plant details and changing the environment control parameters.
-			\item Adding and removing categories of plants, which can only be done by a moderator.
-		\end{itemize}
-		
-	\pagebreak
-	\subsection{People}
-		The scope of the \emph{People} module is shown below in Figure 2.
-		
-		\begin{figure}[H]
-			\centering
-			\includegraphics[width=\textwidth]{../software-architecture-specification/People.jpg}
-			\caption{The scope of functionality required from the \emph{People} module}
-		\end{figure}
-		
-		The scope of the \emph{People} module includes:
-		
-		\begin{itemize}
-			\item Letting a user view their profile, on which will be achievements and gamified information (like badges and progress).
-			\item Allowing a user to edit their profile information.
-			\item Deleting of profiles.
-		\end{itemize}
-		
-	\pagebreak
-	\subsection{Analytics}
-		The scope of the \emph{Analytics} module is shown below in Figure 3.
-		
-		\begin{figure}[H]
-			\centering
-			\includegraphics[width=\textwidth]{../software-architecture-specification/Analytics.jpg}
-			\caption{The scope of functionality required from the \emph{Analytics} module}
-		\end{figure}
-		
-		The scope of the \emph{} module includes:
-		
-		\begin{itemize}
-			\item Viewing reports of either a single plant or a summary of all plant details.
-		\end{itemize}
-		
-	\pagebreak
-	\subsection{Notifications}
-		The scope of the \emph{Notifications} module is shown below in Figure 4.
-		
-		\begin{figure}[H]
-			\centering
-			\includegraphics[width=\textwidth]{../software-architecture-specification/Notifications.jpg}
-			\caption{The scope of functionality required from the \emph{Notifications} module}
-		\end{figure}
-		
-		The scope of the \emph{} module includes:
-		
-		\begin{itemize}
-			\item Viewing received notifications.
-			\item Sending notifications to other users.
-		\end{itemize}
 \end{document}
