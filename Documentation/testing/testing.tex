@@ -55,9 +55,9 @@
 \section{Introduction}
 	In order to test our system, we need to do unit tests, integration and system tests and performance and stress tests. There are two main halves, namely the back end and front end.
 
-\section{Back End}
+\section{IoT Back End}
 	\subsection{Objectives and Tasks}
-		In order to fully test the back end component of the project, we need to ensure that a number of connections are in place and are working as expected:
+		In order to fully test the IoT back end component of the project, we need to ensure that a number of connections are in place and are working as expected:
 		\begin{itemize}
 			\item{From the device to IoT}
 			\item{From IoT to Lambda}
@@ -76,16 +76,32 @@
 	\subsection{Testing Strategy}
 		\subsubsection{Unit Testing}
 			In order to test the functionality of the device, we have created a mock device using the AWS IoT Device SDK for
-			JavaScript, and have coded the mock device using NodeJS.  
-			\begin{itemize}
-				\item TestUpdate
-				\item TestUpdateShadow
-				\item TestSomethingElse
-			\end{itemize}
+			JavaScript, and have coded the mock device using NodeJS.
+			\\\\
+			\textbf{IoT rule test}:
+			\\
+			When the mock device test is run, it will send an MQTT message to the IoT platform. From here, we can check whether
+			the device shadow has been updated and if the rule has been triggered. If the shadow is updated, then the connection
+			was successful. If the connection was successful but the rule was not triggered, then the rule is not working. We
+			still need to automate this process.
+			\\\\
+			\textbf{Lambda Function Test}:
+			The AWS Lambda console has testing integrated into the platform. We have written a test package to send to Lambda
+			that simulates the messages sent from an IoT device through an IoT rule. The test runs a mock DynamoDB database
+			and will return if the test was successful or not. We can also use the logging feature to check the test results.
+			We still need to automate this process.
+			\\\\
+			\textbf{API Gateway and Thing Shadows}:
+			Because we have not yet implemented the thing shadow interface and functionality, there is no testing for the API
+			Gateway connection or thing shadow yet.
+			
 		\subsubsection{System and Integration Testing}
-			We will test how the lambda and device link with the front end.
+			When the mock device test is run, it will send a message through the IoT back end system and leave an item in the 
+			DynamoDB tables. If the test is successful, then we can see the messages in the DynamoDB table. We still have to 
+			automate this process.
+			
 		\subsubsection{Performance and Stress Testing}
-			We will test the system under load and with multiple devices and users logged in.
+			There is no testing for performance or stress testing as of yet.
 		
 \section{Front End}
 	\subsection{Objectives and Tasks}
