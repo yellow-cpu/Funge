@@ -90,8 +90,50 @@ We plan to implement gamification on our platform as a way to encourage competit
 \section{Functional Requirements and Application Design}
 	\subsection{Use Case Prioritization}
 		\subsubsection{Critical}
+			\begin{itemize}
+				\item User Management Subsystem:
+				\begin{itemize}
+					\item Register Account
+					\item Login
+				\end{itemize}
+				
+				\item Plant/Device Management Subsystem:
+				\begin{itemize}
+					\item Create Plant
+					\item View Plant Status
+				\end{itemize}
+				
+				\item Device Communications Subsystem
+				\begin{itemize}
+					\item Send Updated Settings/Configuration to Device
+					\item Send Readings Summary to Lambda
+				\end{itemize}
+			\end{itemize}
+			
 		\subsubsection{Important}
+		\begin{itemize}
+			\item User Management Subsystem:
+			\begin{itemize}
+				\item Edit Details
+			\end{itemize}
+			
+			\item Plant/Device Management Subsystem:
+			\begin{itemize}
+				\item Edit Plant Details
+				\item Add Sensor to Device
+				\item Remove Sensor from Device
+				\item Edit Plant Configuration/Settings
+				\item Remove Plant
+			\end{itemize}
+		\end{itemize}
+		
 		\subsubsection{Nice-To-Have}
+		\begin{itemize}
+			\item User Management Subsystem:
+			\begin{itemize}
+				\item View Gamification Info
+			\end{itemize}
+		\end{itemize}
 	
 \cleardoublepage
 
@@ -181,13 +223,15 @@ We plan to implement gamification on our platform as a way to encourage competit
 	
 	\subsection{Required Functionality}
 	\subsection{Process Specifications}
-		\begin{landscape}
-			\subsection{Domain Model}
-			\begin{figure}[H]
-				\includegraphics[width=\linewidth]{../images/aworldofplants_domain.png}
-				\caption{Services Contract - Delete Plant}
-			\end{figure}
-		\end{landscape}
+	
+	
+	\begin{landscape}
+		\subsection{Domain Model}
+		\begin{figure}[H]
+			\includegraphics[width=\linewidth]{../images/aworldofplants_domain.png}
+			\caption{Services Contract - Delete Plant}
+		\end{figure}
+	\end{landscape}
 
 \newpage
 \section{Open Issues}
