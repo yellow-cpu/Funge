@@ -16,6 +16,7 @@
 \fancyfoot[R]{\thepage}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
+\let\cleardoublepage\clearpage
 %
 
 \begin{document}
@@ -51,6 +52,118 @@
 	\tableofcontents
 	\cleardoublepage
 	\setcounter{page}{1}
+	
+	\textit{Disclaimer: The system is still under development. All documentation will be updated as the system progresses}
+
+\section{Introduction}
+	\subsection{General Uses}
+		\begin{itemize}
+			\item Registering of a user
+			\item Providing user with temporary credentials when they login
+			\item Managing of unauthenticated and authenticated processes
+			\item Ability to create a plant object and associate it with the logged in user
+			\item Association of plant objects with IoT devices
+			\item Analysis of data received from devices through means of graphs
+			\item Management of hardware such as pumps and RGB LEDs
+			\item Ability to update plant objects
+			\item Ability to delete plant object
+		\end{itemize}
+	\subsection{Purpose}
+		This document serves to explore the details and requirements of the 'A World of Plants' system. This is including
+but not limited to the overall features of the system, interfaces, functionality, constraints and integration. This document is to serve as a reference tool for developers and as an informative resource for clients. Any third party collaborators who may have a need to use a reference to the 'A World of Plants' system may also refer to this document for reference.
+	\subsection{Structure}
+		Todo
+
+\section{Vision}
+The aim of this project is to build an innovative Internet of Things solution through the use of the Amazon Web Services Internet of Things hardware platform as well as the Amazon Web Services Cloud. No problem was formally defined and hence it was up to us to determine what solution we would be creating. We opted to create a solution which focuses on the education of students with regard to agriculture and plant sciences.\\\\
+We plan to motivate students to become interested in agriculture by creating an "Internet of Plants". This involves the networking and monitoring of living plants in order to analyse aspects of their environment - such as water intake, lighting, humidity, moisture, mineral composition and temperature. These results will be used to create a collaborative platform on which users may share their own results and learn from the results of others, in order to grow the best possible plants. The main purpose of the platform is to encourage younger generations to become interested in agriculture and, in doing so, help stimulate South Africa's agricultural industry.\\\\
+We plan to implement gamification on our platform as a way to encourage competition amongst users. Given enough time, we would like to automate more parts of the system - such as automated watering. Additionally, AI learning could be employed to optimise the conditions under which plants grow. By combining automation and AI learning, we could create an interesting challenge for the users: Grow a plant better than our control plant grown with the help of AI.
+
+\section{Scope}
+	\section{Scope}
+	\subsection{Plants Monitoring and Environment Control}
+		The scope of the \emph{Plants Monitoring and Environment Control} module is shown below in Figure 1.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=\textwidth]{../vision-scope-architectural-req-and-initial-architecture-design/Plants_Monitoring_and_Environment_Control.jpg}
+			\caption{The scope of functionality required from the \emph{Plants Monitoring and Environment Control} module}
+		\end{figure}
+		
+		The scope of the \emph{Plants Monitoring and Environment Control} module includes:
+		
+		\begin{itemize}
+			\item Adding a plant, which includes adding sensors to the plant object.
+			\item Removing plants from the system, which will remove the plant object from the current plant view, but not from the database.
+			\item Managing and viewing current plants' details and settings, which includes adding and removing sensors, editing plant details and changing the environment control parameters.
+			\item Adding and removing categories of plants, which can only be done by a moderator.
+		\end{itemize}
+		
+	\pagebreak
+	\subsection{People}
+		The scope of the \emph{People} module is shown below in Figure 2.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=\textwidth]{../vision-scope-architectural-req-and-initial-architecture-design/People.jpg}
+			\caption{The scope of functionality required from the \emph{People} module}
+		\end{figure}
+		
+		The scope of the \emph{People} module includes:
+		
+		\begin{itemize}
+			\item Letting a user view their profile, on which will be achievements and gamified information (like badges and progress).
+			\item Allowing a user to edit their profile information.
+			\item Deleting of profiles.
+		\end{itemize}
+		
+	\pagebreak
+	\subsection{Analytics}
+		The scope of the \emph{Analytics} module is shown below in Figure 3.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=\textwidth]{../vision-scope-architectural-req-and-initial-architecture-design/Analytics.jpg}
+			\caption{The scope of functionality required from the \emph{Analytics} module}
+		\end{figure}
+		
+		The scope of the \emph{} module includes:
+		
+		\begin{itemize}
+			\item Viewing reports of either a single plant or a summary of all plant details.
+		\end{itemize}
+		
+	\pagebreak
+	\subsection{Notifications}
+		The scope of the \emph{Notifications} module is shown below in Figure 4.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=\textwidth]{../vision-scope-architectural-req-and-initial-architecture-design/Notifications.jpg}
+			\caption{The scope of functionality required from the \emph{Notifications} module}
+		\end{figure}
+		
+		The scope of the \emph{} module includes:
+		
+		\begin{itemize}
+			\item Viewing received notifications.
+			\item Sending notifications to other users.
+		\end{itemize}
+
+\section{Functional Requirements and Application Design}
+	\subsection{Use Case Prioritization}
+		\subsubsection{Critical}
+		\subsubsection{Important}
+		\subsubsection{Nice-To-Have}
+	\subsection{Use Case/Services Contracts}
+		\subsubsection{Pre-Conditions}
+		\subsubsection{Post-Conditions}
+		\subsubsection{Request and Results Data Structures}
+	\subsection{Required Functionality}
+	\subsection{Process Specifications}
+	\subsection{Domain Model}
+
+\section{Open Issues}
 
 \section{Use Cases}
 	\subsection{User Management Subsystem}
@@ -102,4 +215,40 @@
 		\subsubsection{Send Readings Summary to Lambda}
 			On a regular schedule, the device should send its summary of readings from the sensors to the Lambda server. The subscribed users can then view the summary in the \emph{View Plant Status (2.2)} page and historical summary.
 
+\section{Services Contracts}
+	\subsection{Register}
+		\begin{figure}[H]
+			\includegraphics[width=\linewidth]{../images/ServicesContracts/register.jpg}
+			\caption{Services Contract - Register User}
+		\end{figure}
+		
+	\subsection{Login}
+		\begin{figure}[H]
+			\includegraphics[width=\linewidth]{../images/ServicesContracts/login.jpg}
+			\caption{Services Contract - Login User}
+		\end{figure}
+	
+	\subsection{Create Plant}
+		\begin{figure}[H]
+			\includegraphics[width=\linewidth]{../images/ServicesContracts/createPlant.jpg}
+			\caption{Services Contract - Create Plant}
+		\end{figure}
+		
+	\subsection{List User Plants}
+		\begin{figure}[H]
+			\includegraphics[width=\linewidth]{../images/ServicesContracts/listUserPlants.jpg}
+			\caption{Services Contract - List User Plants}
+		\end{figure}
+		
+	\subsection{Update Plant}
+		\begin{figure}[H]
+			\includegraphics[width=\linewidth]{../images/ServicesContracts/updatePlant.jpg}
+			\caption{Services Contract - Update Plant}
+		\end{figure}
+		
+	\subsection{Delete Plant}
+		\begin{figure}[H]
+			\includegraphics[width=\linewidth]{../images/ServicesContracts/deletePlant.jpg}
+			\caption{Services Contract - Delete Plant}
+		\end{figure}
 \end{document}
