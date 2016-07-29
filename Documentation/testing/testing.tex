@@ -147,21 +147,57 @@
 			Because we have not yet implemented the thing shadow interface and functionality, there is no testing for the API Gateway connection or thing shadow yet.
 			
 			\subsubsection{System and Integration Testing}
-			\textbf{Communication from the device to IoT}
-			\\
-				\begin{itemize}
-					\item Pre-conditions:
+			\begin{itemize}
+				\item{Communication from the device to IoT}
 					\begin{itemize}
-						\item 
+						\item Pre-conditions: 
+						\begin{itemize}
+							\item A device exists and is connected to the internet
+							\item A thing has been created that relates to the device
+							\item The device has the correct credentials
+							\item There is an IoT rule subscribed to the topic related for the thing
+						\end{itemize}
+						\item The device should be able to send a message to IoT
+						\item IoT should be able to pick up the message and fire a rule
+						\item IoT should be able to change the shadow of the thing
+						\item The thing shadow should update the device
+						\item Post-conditions:
+						\begin{itemize}
+							\item An IoT rule has been fired by the device
+							\item The thing shadow has been updated
+							\item The device is synchronised with the thing shadow
+						\end{itemize}
 					\end{itemize}
-					\item 
+				\item{Communication from IoT to Lambda}
+				\begin{itemize}
+					\item Pre-conditions: 
+					\begin{itemize}
+						\item The IoT unit test has passed
+						\item The Lambda unit test has passed
+					\end{itemize}
+					\item A triggered IoT rule should trigger a Lambda function
+					\item The Lambda function should execute correctly
 					\item Post-conditions:
 					\begin{itemize}
-						\item 
+						\item A Lambda function is triggered by an IoT rule
 					\end{itemize}
 				\end{itemize}
 				
-			
+				\item{Communication from Lambda to DynamoDB}
+				\begin{itemize}
+					\item Pre-conditions: 
+					\begin{itemize}
+						\item The Lambda unit test has passed
+					\end{itemize}
+					\item A Lambda function is triggered
+					\item The Lambda function saves an item in a DynamoDB table
+					\item The Lambda function correctly retrieves the saved item
+					\item Post-conditions:
+					\begin{itemize}
+						\item An item is saved in a DynamoDB table from Lambda
+					\end{itemize}
+				\end{itemize}
+			\end{itemize}
 			
 			\subsubsection{Performance and Stress Testing}
 			There is no testing for performance or stress testing as of yet.
