@@ -55,11 +55,13 @@
 \textit{Disclaimer: The system is still under development. All documentation will be updated as the system progresses}
 
 \section{Introduction}
-	In order to test our system, we need to do unit tests, integration and system tests and performance and stress tests. There are two main halves, namely the back end and front end.
+	In order to test our system, we need to do unit tests, integration and system tests and performance and stress tests.
+	There are two main halves, namely the back end and front end.
 
 \section{IoT Back End}
 	\subsection{Objectives and Tasks}
-		In order to fully test the IoT back end component of the project, we need to ensure that a number of connections are in place and are working as expected:
+		In order to fully test the IoT back end component of the project, we need to ensure that a number of connections are
+		in place and are working as expected:
 		\begin{itemize}
 			\item{From the device to IoT}
 			\item{From IoT to Lambda}
@@ -69,32 +71,48 @@
 			\item{From Lambda to the device's shadow via IoT}
 			\item{From the shadow to the device}
 		\end{itemize}
-	
+		
+		These connections are made up of the device (Arduino), IoT, Lambda and the API Gateway. Each of these parts must be
+		tested individually and then together as a whole. This will be laid out in the sections below.
 	\subsection{Scope}
-		For each of the above mentioned steps, we must write a unit test that is automated. We must then write tests to test
-		the integration of each of the steps with each other. Finally, we must test how the back end functions with the front
-		end, testing the system as a whole.
-	
+		 The scope of this section of the testing encompasses the above mentioned parts and how they interoperate. This
+		 includes the following subsystems and use-cases:
+		 \begin{itemize}
+		 	\item Plant/Device Management
+				\begin{itemize}
+					\item Edit Plant Configuration/Settings
+				\end{itemize}
+		 	\item Device Communications
+			 	\begin{itemize}
+			 		\item Send Updated Settings/Configuration to Device
+			 		\item Send Readings Summary to Lambda
+			 	\end{itemize}
+		 \end{itemize}
+		 
 	\subsection{Testing Strategy}
 		\subsubsection{Unit Testing}
+			\textbf{Device Mocking:}
+			\\
 			In order to test the functionality of the device, we have created a mock device using the AWS IoT Device SDK for
-			JavaScript, and have coded the mock device using NodeJS.
+			JavaScript, and have coded the mock device using NodeJS. The mock device is not currently handled by a
+			testing environment and has to be managed manually via the terminal. The mock device makes use of npm to retrieve
+			the AWS IoT Device SDK for JavaScript so that the mock device can connect to IoT.
 			\\\\
-			\textbf{IoT rule test}:
+			\textbf{IoT rule test:}
 			\\
 			When the mock device test is run, it will send an MQTT message to the IoT platform. From here, we can check whether
 			the device shadow has been updated and if the rule has been triggered. If the shadow is updated, then the connection
 			was successful. If the connection was successful but the rule was not triggered, then the rule is not working. We
 			still need to automate this process.
 			\\\\
-			\textbf{Lambda Function Test}:
+			\textbf{Lambda Function Test:}
 			\\
 			The AWS Lambda console has testing integrated into the platform. We have written a test package to send to Lambda
 			that simulates the messages sent from an IoT device through an IoT rule. The test runs a mock DynamoDB database
 			and will return if the test was successful or not. We can also use the logging feature to check the test results.
 			We still need to automate this process.
 			\\\\
-			\textbf{API Gateway and Thing Shadows}:
+			\textbf{API Gateway and Thing Shadows:}
 			\\
 			Because we have not yet implemented the thing shadow interface and functionality, there is no testing for the API
 			Gateway connection or thing shadow yet.
