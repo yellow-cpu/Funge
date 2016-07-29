@@ -25,7 +25,7 @@ console.log('Loading function');
             var docClient = new AWS.DynamoDB.DocumentClient();
             
             // Check if the temperature item is in the event
-            var temperature = event.state.desired.temperature;
+            var temperature = event.state.reported.temperature;
             if(temperature != undefined)
             {
                 // Create parameters to send to DynamoDB
@@ -50,7 +50,7 @@ console.log('Loading function');
             }
             
             // Check if the humidity item is in the event
-            var humidity = event.state.desired.humidity;
+            var humidity = event.state.reported.humidity;
             if(humidity != undefined)
             {
                 // Create parameters to send to DynamoDB

@@ -49,7 +49,7 @@ void msg_callback_delta(char* src, unsigned int len, Message_status_t messageSta
   int st = data.indexOf("\"state\":") + strlen("\"state\":");
   int ed = data.indexOf(",\"metadata\":");
   String delta = data.substring(st, ed);
-  st = delta.indexOf("\"Temp\":") + strlen("\"Temp\":");
+  st = delta.indexOf("\"temperature\":") + strlen("\"temperature\":");
   ed = delta.indexOf("}");
   String delta_data = delta.substring(st, ed);
   desiredTemp = delta_data.toFloat();
@@ -57,7 +57,8 @@ void msg_callback_delta(char* src, unsigned int len, Message_status_t messageSta
 
 void setup() {
   Serial.begin(115200);
-  while(!Serial);
+  delay(2000);
+  //while(!Serial);
 
   char curr_version[80];
   sprintf(curr_version, "AWS IoT SDK Version(dev) %d.%d.%d-%s\n", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH, VERSION_TAG);
@@ -97,13 +98,13 @@ void loop() {
 
         dtostrf(t, 4, 1, float_buf);
         float_buf[4] = '\0';
-        sprintf(JSON_buf, "{\"state\":{\"reported\":{\"Temp\":%s}}}", float_buf);
+        sprintf(JSON_buf, "{\"state\":{\"reported\":{\"temperature\":%s}}}", float_buf);
         print_log("shadow update", myClient.shadow_update(AWS_IOT_MY_THING_NAME, JSON_buf, strlen(JSON_buf), NULL, 5));
         if(myClient.yield()) {
           Serial.println("Yield failed.");
         }
     }
     
-    delay(60000); // Update every 60000 ms
+    delay(5000); // Update every 60000 ms
   }
 }

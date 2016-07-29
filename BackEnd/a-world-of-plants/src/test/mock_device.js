@@ -49,7 +49,7 @@ thingShadows.on('connect', function() {
 //
 // Thing shadow state
 //
-	   var MyIoTButtonState = {"state":{"desired":{"temperature": temperature,"humidity": humidity}}, "timestamp": timestamp};
+	   var MyIoTButtonState = {"state":{"reported":{"temperature": temperature,"humidity": humidity}}, "timestamp": timestamp};
 
 	   clientTokenUpdate = thingShadows.update('mockDevice', MyIoTButtonState  );
 //
