@@ -90,13 +90,76 @@
 			We will test the system under load and with multiple devices and users logged in.
 		
 \section{Front End}
-	\subsection{Objectives and Tasks}
+	\subsection{Test Plan}
+	The focus of front-end tests will be to ensure that all AngularJS components integrate correctly with their dependant components, as well as with the Java backend (which in turn will communicate with the AWS services). \href{http://www.protractortest.org/#/}{Protractor} will be used for end-to-end (e2e) integration tests, and \href{https://karma-runner.github.io/1.0/index.html}{Karma} will be used for unit testing each Angular component. Integration tests form the backbone of any frontend system and will be as extensive and complete as possible. User scenarios will be simulated and run via Protractor to test all possible user interaction. Unit tests will be run on all critical frontend components.
+	
+	Test creation will form part of the daily design and implementation workflow. It is not a separate "phase" - as soon as new functionality is added or changed, accompanying tests should be created and executed. If a bug or error is detected outside of testing, the error or bug will be immediately fixed and an accompanying test will be added. Test automation will be implemented to ensure that all tests are executed every time a new commit is made. 
 		
-	\subsection{Scope}
-		
-	\subsection{Testing Strategy}
+	\subsection{Test Scenarios}
 		\subsubsection{Unit Testing}
-		\subsubsection{System and Integration Testing}
-		\subsubsection{Performance and Stress Testing}
+			\textit{Unit tests will only be written for critical frontend components if the need arises}
+		\subsubsection{Integration (end-to-end) Testing}
+			Basic application necessities:			
+			\begin{itemize}
+				\item Application should have a title
+				\item Application should not allow a user unauthorised access to the site
+			\end{itemize}
+			Landing Page:
+			\begin{itemize}
+			 \item \textit{Pre-conditions:} 
+				\begin{itemize}
+					\item User accesses web application via frontend
+					\item User is not logged in
+				\end{itemize}
+			\end{itemize}
+			\begin{itemize}
+				\item Login
+				
+				\begin{itemize}
+					\item \textit{Pre-conditions:}
+					\begin{itemize}
+						\item User must not be logged in
+						\item User must already have an account
+					\end{itemize}
+					\item \textit{Post-conditions:}
+					\begin{itemize}
+						\item User must be logged in
+					\end{itemize}						 
+					\item User should be able to switch to registration form if they do not have an account
+					\item User should be able to log in if they have entered the correct credentials and be redirected to the main site dashboard
+					\item User should not be logged in if they enter no credentials or the incorrect credentials and an appropriate error message should be displayed
+					
+				\end{itemize}
+				
+				\item Registration
+				\begin{itemize}
+					\item \textit{Pre-conditions:}
+					\begin{itemize}
+						\item User must not be logged in
+						\item User must have navigated to the registration form
+						\item User must not have an account
+						\item User's email or username must not already be in use
+					\end{itemize}
+					\item \textit{Post-conditions:}
+					\begin{itemize}
+						\item User must have an account registered on the system backend
+						\item User must be logged in
+					\end{itemize}
+					\item User should be able to switch to the login form if they already have an account
+					\item User should have their details saved in the backend and be automatically logged in if they have entered all their details and their details are not already on the system
+					\item User should not have their details registered if they do not enter all the required information or if their username or email is already on the system
+				\end{itemize}				 
+			\end{itemize}
+			Main site:
+			\begin{itemize}
+				\item Navbar
+				\begin{itemize}
+					\item \textit{Pre-conditions:}
+						\begin{itemize}
+							\item User must be logged in
+						\end{itemize}
+					\item If the user clicks "Logout", the user's credentials are immediately discarded and the user is redirected back to the landing page. \textit{Postcondition: The user is logged out and cannot access the site anymore}
+				\end{itemize}
+			\end{itemize}
 
 \end{document}
