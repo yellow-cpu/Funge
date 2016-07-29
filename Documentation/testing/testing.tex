@@ -53,18 +53,30 @@
 \setcounter{page}{1}
 
 \section{Introduction}
-	In order to test our system, we need to do unit tests, intergration and system tests and performance and stress tests. There are two main halves, namely the back end and front end.
+	In order to test our system, we need to do unit tests, integration and system tests and performance and stress tests. There are two main halves, namely the back end and front end.
 
 \section{Back End}
 	\subsection{Objectives and Tasks}
-		The objectives and tasks will be testing the sending of messages between the device and the lambda server and the updating of the device through the shadow.
+		In order to fully test the back end component of the project, we need to ensure that a number of connections are in place and are working as expected:
+		\begin{itemize}
+			\item{From the device to IoT}
+			\item{From IoT to Lambda}
+			\item{From Lambda to DynamoDB}
+			\\
+			\item{From API Gateway to Lambda}
+			\item{From Lambda to the device's shadow via IoT}
+			\item{From the shadow to the device}
+		\end{itemize}
 	
 	\subsection{Scope}
-		We will test the device and device shadow and the lambda server.
+		For each of the above mentioned steps, we must write a unit test that is automated. We must then write tests to test
+		the integration of each of the steps with each other. Finally, we must test how the back end functions with the front
+		end, testing the system as a whole.
 	
 	\subsection{Testing Strategy}
 		\subsubsection{Unit Testing}
-			We will use some testing framework. We will test using the following functions:
+			In order to test the functionality of the device, we have created a mock device using the AWS IoT Device SDK for
+			JavaScript, and have coded the mock device using NodeJS.  
 			\begin{itemize}
 				\item TestUpdate
 				\item TestUpdateShadow

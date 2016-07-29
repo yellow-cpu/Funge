@@ -26,8 +26,10 @@ var clientTokenUpdate;
 //
 var temperature = 24;
 var humidity = 30;
+var timestamp = Date.now();
 
 thingShadows.on('connect', function() {
+	console.log("Timestamp: " + timestamp);
 //
 // After connecting to the AWS IoT platform, register interest in the
 // Thing Shadow named 'mockDevice'.
@@ -47,7 +49,7 @@ thingShadows.on('connect', function() {
 //
 // Thing shadow state
 //
-	   var MyIoTButtonState = {"state":{"desired":{"temperature": temperature,"humidity": humidity}}};
+	   var MyIoTButtonState = {"state":{"desired":{"temperature": temperature,"humidity": humidity}}, "timestamp": timestamp};
 
 	   clientTokenUpdate = thingShadows.update('mockDevice', MyIoTButtonState  );
 //
