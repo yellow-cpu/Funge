@@ -24,7 +24,7 @@
 	\begin{center}
 		\line(1,0){500}\\
 		[6mm]
-		\huge{\bfseries Vision, Scope, Architectural Requirements and\\Initial Architecture Design}\\
+		\huge{\bfseries Software Architecture Specification}\\
 		\line(1,0){500}\\
 		[5mm]
 		\large\textbf{Project:}\\A World of Things\\
@@ -49,92 +49,15 @@
 \cleardoublepage
 \setcounter{page}{1}
 
-\section{Vision}
-The aim of this project is to build an innovative Internet of Things solution through the use of the Amazon Web Services Internet of Things hardware platform as well as the Amazon Web Services Cloud. No problem was formally defined and hence it was up to us to determine what solution we would be creating. We opted to create a solution which focuses on the education of students with regard to agriculture and plant sciences.\\\\
-We plan to motivate students to become interested in agriculture by creating an "Internet of Plants". This involves the networking and monitoring of living plants in order to analyse aspects of their environment - such as water intake, lighting, humidity, moisture, mineral composition and temperature. These results will be used to create a collaborative platform on which users may share their own results and learn from the results of others, in order to grow the best possible plants. The main purpose of the platform is to encourage younger generations to become interested in agriculture and, in doing so, help stimulate South Africa's agricultural industry.\\\\
-We plan to implement gamification on our platform as a way to encourage competition amongst users. Given enough time, we would like to automate more parts of the system - such as automated watering. Additionally, AI learning could be employed to optimise the conditions under which plants grow. By combining automation and AI learning, we could create an interesting challenge for the
-users: Grow a plant better than our control plant grown with the help of AI.
-\cleardoublepage
-
-\section{Scope}
-	\subsection{Plants Monitoring and Environment Control}
-		The scope of the \emph{Plants Monitoring and Environment Control} module is shown below in Figure 1.
-		
-		\begin{figure}[H]
-			\centering
-			\includegraphics[width=\textwidth]{Plants_Monitoring_and_Environment_Control.jpg}
-			\caption{The scope of functionality required from the \emph{Plants Monitoring and Environment Control} module}
-		\end{figure}
-		
-		The scope of the \emph{Plants Monitoring and Environment Control} module includes:
-		
-		\begin{itemize}
-			\item Adding a plant, which includes adding sensors to the plant object.
-			\item Removing plants from the system, which will remove the plant object from the current plant view, but not from the database.
-			\item Managing and viewing current plants' details and settings, which includes adding and removing sensors, editing plant details and changing the environment control parameters.
-			\item Adding and removing categories of plants, which can only be done by a moderator.
-		\end{itemize}
-		
-	\pagebreak
-	\subsection{People}
-		The scope of the \emph{People} module is shown below in Figure 2.
-		
-		\begin{figure}[H]
-			\centering
-			\includegraphics[width=\textwidth]{People.jpg}
-			\caption{The scope of functionality required from the \emph{People} module}
-		\end{figure}
-		
-		The scope of the \emph{People} module includes:
-		
-		\begin{itemize}
-			\item Letting a user view their profile, on which will be achievements and gamified information (like badges and progress).
-			\item Allowing a user to edit their profile information.
-			\item Deleting of profiles.
-		\end{itemize}
-		
-	\pagebreak
-	\subsection{Analytics}
-		The scope of the \emph{Analytics} module is shown below in Figure 3.
-		
-		\begin{figure}[H]
-			\centering
-			\includegraphics[width=\textwidth]{Analytics.jpg}
-			\caption{The scope of functionality required from the \emph{Analytics} module}
-		\end{figure}
-		
-		The scope of the \emph{} module includes:
-		
-		\begin{itemize}
-			\item Viewing reports of either a single plant or a summary of all plant details.
-		\end{itemize}
-		
-	\pagebreak
-	\subsection{Notifications}
-		The scope of the \emph{Notifications} module is shown below in Figure 4.
-		
-		\begin{figure}[H]
-			\centering
-			\includegraphics[width=\textwidth]{Notifications.jpg}
-			\caption{The scope of functionality required from the \emph{Notifications} module}
-		\end{figure}
-		
-		The scope of the \emph{} module includes:
-		
-		\begin{itemize}
-			\item Viewing recieved notifications.
-			\item Sending notifications to other users.
-		\end{itemize}
-
-\cleardoublepage
-
 \section{Architectural Requirements}
-\subsection{Access and Integration Requirements}
-The system will be accessed by the users through a web browser. This could be from a mobile device or a computer. 
-\begin{itemize}
-	\item The IoT devices integrate with MQTT through the hardware API to queue and send events to AWS Lambda, where the data will be processed and persisted to DynamoDB
-	\item The web interface will integrate with the AWS API Gateway's REST interface in order to send requests to Lambda. Lambda will then perform the necessary actions, access the database if needed and then return relevant information if required
-\end{itemize} 
+\subsection{Scope of Architectural Responsibilities}
+The architectural responsibilities for the system as a whole are shown below
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{Responsibilities.jpg}
+	\caption{Architectural responsibilities of the system}
+\end{figure}
+
 \subsection{Quality Requirements}
 
 \subsubsection{Maintainability}
@@ -220,22 +143,26 @@ It is important that the system has support for many hardware components such as
 		\item Future integration requirements should be easily addressable by using widely adopted public standards
 		\item The system should be able to integrate with different hardware as long as the hardware queues information using a standardized format using MQTT
 	\end{itemize}
+\subsection{Access and Integration Requirements}
+The system will be accessed by the users through a web browser. This could be from a mobile device or a computer. 
+\begin{itemize}
+	\item The IoT devices integrate with MQTT through the hardware API to queue and send events to AWS Lambda, where the data will be processed and persisted to DynamoDB
+	\item The web interface will integrate with the AWS API Gateway's REST interface in order to send requests to Lambda. Lambda will then perform the necessary actions, access the database if needed and then return relevant information if required
+\end{itemize}
 
-\subsection{Architectural Responsibilities}
-The architectural responsibilities for the system as a whole are shown below
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=\textwidth]{Responsibilities.jpg}
-	\caption{Architectural responsibilities of the system}
-\end{figure}
-\clearpage
 \subsection{Architecture Constraints}
 The following architecture constraints will be applicable:
 \begin{itemize}
-	\item The system will make use of Amazon Web Services. Amazon IoT \textit{has} to be used. This can be combined with AWS Lambda, Gateway API and DynamoDB
+	\item The system will make use of Amazon Web Services. Amazon IoT \textit{has} to be used. We also make use of AWS Lambda, API Gateway and DynamoDB
 	\item Architecture should be deployable on Linux servers
 	\item Make use of public standards, including on the web interface
 	\item Web interface should support the newest browsers and function on mobile devices
+	In terms of data persistence:
+	\begin{itemize}
+		\item We will be using Java objects to store plant-based information with long-living state
+		\item The state of these data objects will be modified and retrieved using DynamoDB.
+	\end{itemize}
+	These objects will store only data, and thus be devoid of any business processes.
 \end{itemize}
 \subsubsection{REST}
 	REST would mean the system would have the following constraints:
@@ -250,12 +177,12 @@ The following architecture constraints will be applicable:
 \cleardoublepage
 
 \section{Architecture Design}
-\subsection{Architectural Tactics}
-	\subsubsection{Overall Software Architecture}
-		\paragraph{Event-Driven Programming}\mbox{}\\
-		The program flow will be determined by events. The user interface will make API calls via the use of RESTful services exposed by API Gateway. Lambda functions will only be called upon the triggering of events by the user via the user interface via API Gateway. DynamoDB will be able to receive data from Lambda after an event has been triggered as well as trigger its own events based on information which it receives. The IoT hardware platform will also be able to trigger events to call Lambda functions via the use of IoT Gateway.\\\\
-		This paradigm ensures lower running costs as well as the creation of an almost autonomous system which reacts to events only when they occur. This tactic also allows for complex event processing whereby multiple events can be analysed to determine a larger picture.\\\\
-		This provides scalability and performance quality attributes in terms of being able to increase processing power on demand to scale-up resources. It also enables the ease of managing resource demand through efficient processing which is only used when it is required as a way to reduce load.
+\subsection{Architectural Patterns and Styles}
+	\subsubsection{Event-Driven Programming}\mbox{}\\
+	The program flow will be determined by events. The user interface will make API calls via the use of RESTful services exposed by API Gateway. Lambda functions will only be called upon the triggering of events by the user via the user interface via API Gateway. DynamoDB will be able to receive data from Lambda after an event has been triggered as well as trigger its own events based on information which it receives. The IoT hardware platform will also be able to trigger events to call Lambda functions via the use of IoT Gateway.\\\\
+	This paradigm ensures lower running costs as well as the creation of an almost autonomous system which reacts to events only when they occur. This tactic also allows for complex event processing whereby multiple events can be analysed to determine a larger picture.\\\\
+	This provides scalability and performance quality attributes in terms of being able to increase processing power on demand to scale-up resources. It also enables the ease of managing resource demand through efficient processing which is only used when it is required as a way to reduce load.
+\subsection{Architectural Tactics, Strategies and Technologies}
 	\subsubsection{API - Amazon API Gateway}
 		\paragraph{REST}\mbox{}\\
 		RESTful services will be exposed via the use of API Gateway. Our web application would then be able to call publicly available AWS services through code running in AWS Lambda.\\\\
@@ -289,8 +216,27 @@ The following architecture constraints will be applicable:
 		\end{itemize}
 		
 		The above ensures that scalability and performance can be achieved through the managing of resource demand by spreading the load and using queueing. It also ensures more efficient processing by only using processing power when there is enough data to process hence effectively reducing the load on the machines.
+	\subsubsection{Languages}
+	\paragraph{} For the frontend we use:
+	\begin{itemize}
+		\item HTML5, JQuery, Bootstrap
+		\item AngularJS
+	\end{itemize}
 	
-\subsection{Infrastructure}
+	
+	\paragraph{}For the backend:
+	\begin{itemize}
+		\item Java 8
+		\item NodeJS for mocking of devices
+	\end{itemize}
+	
+	\paragraph{}For the hardware:
+	\begin{itemize}
+		\item Processing for Arduino
+	\end{itemize}
+	
+	
+\subsection{Use of Reference Architectures and Frameworks}
 	We will be using the Amazon WebServices SDK and APIs as we need to use the AWS IoT (Internet of Things) platform for the project. As such, we will be using other AWS products together with IoT due to their seamless intergration.
 		\begin{figure}[H]
 			\centering
@@ -311,12 +257,9 @@ The following architecture constraints will be applicable:
 		Amazon API Gateway is a fully managed service that makes it easy for developers to create, publish, maintain, monitor, and secure APIs at any scale. We can easily and quickly create an API that acts as a “front door” for the user interface to access data from DynamoDB or trigger events in Lambda by exposing RESTful services to the API. Amazon API Gateway handles all the tasks involved in accepting and processing up to hundreds of thousands of concurrent API calls, including traffic management, authorization and access control, monitoring, and API version management.
 	\subsubsection{JavaScript SDK}
 		The AWS SDK for JavaScript enables us to directly access AWS services from JavaScript code running in the browser. We can authenticate users, store data in DynamoDB and trigger Lambda events. It is simple to deploy and uses the same API as the other components, meaning function migration becomes trivial.
+	\subsubsection{CloudWatch}
+		CloudWatch is a monitoring device for all AWS services. We use this to log access to the API Gateway, IoT, and Lambda functions, so that we have a historical audit of all connections. CloudWatch also has an alarm service, which can trigger custom events (e.g. a Lambda function fails)
+	\subsubsection{Cognito}
+		Cognito is used for user authentication and to manage user pools.
 
-\subsection{Concepts and Constraints for Application Components}
-In terms of data persistence:
-\begin{itemize}
-	\item We will be using Java objects to store plant-based information with long-living state
-	\item The state of these data objects will be modified and retrieved using DynamoDB.
-\end{itemize}
-These objects will store only data, and thus be devoid of any business processes.
 \end{document}
