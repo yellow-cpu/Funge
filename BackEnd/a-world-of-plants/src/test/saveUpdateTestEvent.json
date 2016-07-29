@@ -3,7 +3,7 @@
   "timestamp": 123456,
   "state":
   {
-      "desired":
+      "reported":
       {
           "temperature": 24, "humidity": 30
           
