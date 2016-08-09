@@ -105,6 +105,7 @@ void loop() {
         dtostrf(t, 4, 1, float_buf);
         dtostrf(test, 4, 1, float_buf2);
         float_buf[4] = '\0';
+
         sprintf(JSON_buf, "{\"state\":{\"reported\":{\"temperature\":%s, \"test\":%s}}}", float_buf, float_buf2);
         print_log("shadow update", myClient.shadow_update(AWS_IOT_MY_THING_NAME, JSON_buf, strlen(JSON_buf), NULL, 5));
         if(myClient.yield()) {

@@ -5,6 +5,7 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{hyperref}
+\usepackage{color}
 
 % Header and footer
 \usepackage{fancyhdr}
@@ -49,25 +50,78 @@
 \cleardoublepage
 \thispagestyle{empty}
 \tableofcontents
+\input{../version_table.tex}
 \cleardoublepage
 \setcounter{page}{1}
 
+\textit{Disclaimer: The system is still under development. All documentation will be updated as the system progresses}
+
 \section{Introduction}
-	Welcome to A World of Plants. This guide will guide you. PICTURES
+	This user manual will help you familiarise yourself with the ins and outs of the User Interface, from registration and login to creating, viewing and managing your own growing plants.
+	A World of Plants has been designed to make independent agriculture a fun and personalised experience. Compete to unlock new rewards or progress at your own leisure. Follow the plant suggestions to-the-letter or follow your own intuition. It's all up to you.
+	Welcome to A World of Plants. 
 	
-\section{First Steps}
-	\subsection{Account Creation}
-		Type in your details and click submit.
-	\subsection{Logging In}
-		Type in your details and click submit.
-
-\section{Main Page}
-	This is what you can do on the main page.
-
-\section{Adding a Device}
-	This how you add a device.
-
-\section{Viewing an Existing Device}
-	This is how you view an existing device.
+\section{Landing Page}
+	\subsection{Logging in}
+		\textcolor{red}{(1)} The first page you'll encounter is the login page. If you already have an account, enter your username and password in the appropriate blocks and click "Sign In".
+		\newline
+		\textcolor{red}{(2)} If you'd like to find out more about A World of Plants, you can scroll down to our information page. Scroll back up when you're ready to login or register.
+		\newline
+		\textcolor{red}{(3)} If you have not yet registered, click on "Need an account?" to navigate to the account registration.
+		\begin{figure}[H]
+			\includegraphics[width=\textwidth]{../images/UserManual/login.PNG}
+			\caption{Login Page}
+		\end{figure}				
+		
+	\subsection{Account Registration}
+		\textcolor{red}{(1)} If you do not yet have an account, enter your email, the username you'd like to be known by, and your password (twice) and click the "Sign Up" button.
+		\newline
+		\textcolor{red}{(2)} If you already have an account and would like to log in, click on "Have an Account?" to navigate to the user login.
+		\newline
+		\begin{figure}[H]
+			\includegraphics[width=\textwidth]{../images/UserManual/registration.PNG}
+			\caption{Registration Page}
+		\end{figure}
+		
+\section{Main Site}
+	\subsection{Navbar}
+	All pages on the main site will display the navbar at the top.
+		\subsubsection{User Actions}
+		\textcolor{red}{(1)} To access your user actions, click on your username at the right of the navbar. From here, you can either navigate to your profile or log out.
+		\begin{figure}[H]
+			\includegraphics[width=\textwidth]{../images/UserManual/navbar-user-actions.PNG}
+			\caption{Navbar User Actions}
+		\end{figure}
+		
+	\subsection{Plants}
+	To access your plants, click on "Plants" in the sidebar. This page will display a summary of all your current plants.
+	\newline
+	\textcolor{red}{(1)} To add a new plant, click on the "Create New Plant" button on the top right. See \hyperref[sec:creating-a-plant]{Creating a Plant} for more information.
+	\newline
+	\textcolor{red}{(2)} To view more information or change some of the details for a specific plant, click on "View Details" for the plant of your choice. See \hyperref[sec:plant-details]{Plant Details} for more information.
+	\begin{figure}[H]
+		\includegraphics[width=\textwidth]{../images/UserManual/plants.PNG}
+		\caption{Plants View}
+	\end{figure}
+		
+		\subsubsection{Creating a Plant}
+		\label{sec:creating-a-plant}
+		To create a plant, enter the plant's unique details and then click on "Create".
+		\begin{figure}[H]
+			\includegraphics[width=\textwidth]{../images/UserManual/create-plant.PNG}
+			\caption{Creating a Plant}
+		\end{figure}
+		
+	\subsection{Plant Details}
+	\label{sec:plant-details}
+	From here you can get an overview of all of your plant's details.
+	\newline
+	\textcolor{red}{(1)} To update plant details such as the plant's name or category, make your desired changes and then click the "Update" button.
+	\newline
+	\textcolor{red}{(2)} If you'd like to delete your plant, click on the red "Delete" button. \textbf{This is permanent}, so be careful.
+	\begin{figure}[H]
+		\includegraphics[width=\textwidth]{../images/UserManual/plant-details.PNG}
+		\caption{Plant Details}
+	\end{figure}
 
 \end{document}

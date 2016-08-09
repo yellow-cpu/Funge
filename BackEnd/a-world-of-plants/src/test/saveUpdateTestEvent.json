@@ -1,0 +1,13 @@
+{
+  "clientToken": "TestEvent-01",
+  "timestamp": 123456,
+  "state":
+  {
+      "reported":
+      {
+          "temperature": 24, "humidity": 30
+          
+      }
+      
+  },
+}
