@@ -33,6 +33,18 @@ angular.
         this.logs.push(logObj);
       };
 
+      self.temperatures = [{count:Date.now(), temperature:1}];
+
+      var graph = Morris.Line({
+          element: 'graph',
+          data: self.temperatures,
+          xkey: 'count',
+          ykeys: ['temperature'],
+          labels: ['temperature'],
+          parseTime: false,
+          hideHover: true
+      });
+
       /**
        * wrapper of received paho message
        * @class
@@ -41,19 +53,23 @@ angular.
       function ReceivedMsg(msg) {
         this.msg = msg;
         this.content = msg.payloadString;
+        self.payloadObject = jQuery.parseJSON(this.content);
+        self.temperatures.push({count:Date.now(), temperature:self.payloadObject.reported.temperature})
+        graph.setData(self.temperatures);
+
         this.destination = msg.destinationName;
         this.receivedTime = Date.now();
       }
 
-      // self.$inject = ['$scope'];
+
       self.clientId = 'someClientId';
       // Find endpoint here: https://console.aws.amazon.com/iot/home?region=us-east-1#/dashboard
       self.endpoint = 'a3afwj65bsju7b.iot.us-east-1.amazonaws.com';
-      self.accessKey = null;
-      self.secretKey = null;
+
+      self.accessKey = "";
+      self.secretKey = "";
       self.regionName = 'us-east-1';
       self.logs = new LogService();
-      // TODO: Pass in scope
       self.clients = new ClientControllerCache($scope, self.logs);
 
       
@@ -79,7 +95,7 @@ angular.
       // would be better to use a seperate directive
       function ClientController(client, logs) {
         this.client = client;
-        this.topicName = 'plants/temperature';
+        this.topicName = 'alphaseeed/temperature';
         this.message = null;
         this.msgs = [];
         this.logs = logs;
