@@ -35,7 +35,7 @@ angular.
 
       self.values = [];
 
-      var graph = null;
+      var graph = [];
 
       /**
        * wrapper of received paho message
@@ -46,28 +46,33 @@ angular.
         this.msg = msg;
         this.content = msg.payloadString;
         self.payloadObject = jQuery.parseJSON(this.content);
-        console.log("TEST");
         jQuery.each(self.payloadObject.reported, function(key, val) {
+          // Construct the value to be stored
           var obj = {};
           obj['count'] = Date.now();
           obj[key] = val;
+          // Create the type of value if it does not exist
           if(self.values[key]==null)
               self.values[key] = [];
           self.values[key].push(obj);
+          // Create the graph if it does not exist
+          if (graph[key] == null)
+          {
+            // Add a div for the graph
+            $("#graph").append('<div id="graph_' + key + '"></div>');
+            // Create the graph
+            graph[key] = Morris.Line({
+              element: 'graph_' + key,
+              data: self.values[key],
+              xkey: 'count',
+              ykeys: [key],
+              labels: [key],
+              parseTime: false,
+              hideHover: true
+            });
+          }
+          graph[key].setData(self.values[key]);
         });
-        if (graph == null)
-        {
-          graph = Morris.Line({
-            element: 'graph',
-            data: self.values['temperature'],
-            xkey: 'count',
-            ykeys: ['temperature'],
-            labels: ['temperature'],
-            parseTime: false,
-            hideHover: true
-          });
-        }
-        graph.setData(self.values['temperature']);
 
         this.destination = msg.destinationName;
         this.receivedTime = Date.now();
