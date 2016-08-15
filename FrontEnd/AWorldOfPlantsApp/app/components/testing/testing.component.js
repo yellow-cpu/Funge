@@ -33,17 +33,9 @@ angular.
         this.logs.push(logObj);
       };
 
-      self.temperatures = [{count:Date.now(), temperature:1}];
+      self.values = [];
 
-      var graph = Morris.Line({
-          element: 'graph',
-          data: self.temperatures,
-          xkey: 'count',
-          ykeys: ['temperature'],
-          labels: ['temperature'],
-          parseTime: false,
-          hideHover: true
-      });
+      var graph = [];
 
       /**
        * wrapper of received paho message
@@ -54,8 +46,33 @@ angular.
         this.msg = msg;
         this.content = msg.payloadString;
         self.payloadObject = jQuery.parseJSON(this.content);
-        self.temperatures.push({count:Date.now(), temperature:self.payloadObject.reported.temperature})
-        graph.setData(self.temperatures);
+        jQuery.each(self.payloadObject.reported, function(key, val) {
+          // Construct the value to be stored
+          var obj = {};
+          obj['count'] = Date.now();
+          obj[key] = val;
+          // Create the type of value if it does not exist
+          if(self.values[key]==null)
+              self.values[key] = [];
+          self.values[key].push(obj);
+          // Create the graph if it does not exist
+          if (graph[key] == null)
+          {
+            // Add a div for the graph
+            $("#graph").append('<div id="graph_' + key + '"></div>');
+            // Create the graph
+            graph[key] = Morris.Line({
+              element: 'graph_' + key,
+              data: self.values[key],
+              xkey: 'count',
+              ykeys: [key],
+              labels: [key],
+              parseTime: false,
+              hideHover: true
+            });
+          }
+          graph[key].setData(self.values[key]);
+        });
 
         this.destination = msg.destinationName;
         this.receivedTime = Date.now();
