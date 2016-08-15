@@ -33,7 +33,7 @@ angular.
         this.logs.push(logObj);
       };
 
-      self.temperatures = [];
+      self.values = [];
 
       var graph = null;
 
@@ -46,12 +46,24 @@ angular.
         this.msg = msg;
         this.content = msg.payloadString;
         self.payloadObject = jQuery.parseJSON(this.content);
-        self.temperatures.push({count:Date.now(), temperature:self.payloadObject.reported.temperature});
+        console.log("TEST");
+        jQuery.each(self.payloadObject.reported, function(key, val) {
+          console.log(key + "::" + val)
+          var obj = {};
+          obj['count'] = Date.now();
+          obj[key] = val;
+          if(self.values[key]==null)
+              self.values[key] = [];
+          self.values[key].push(obj);
+          console.log(self.values);
+        });
+        console.log(self.values['temperature']);
+        //self.temperatures.push({count:Date.now(), temperature:self.payloadObject.reported.temperature});
         if (graph == null)
         {
           graph = Morris.Line({
             element: 'graph',
-            data: self.temperatures,
+            data: self.values['temperature'],
             xkey: 'count',
             ykeys: ['temperature'],
             labels: ['temperature'],
