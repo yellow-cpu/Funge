@@ -34,6 +34,7 @@ angular.
       };
 
       self.values = [];
+      self.numValuesGraphed = 10;
 
       var graph = [];
 
@@ -54,7 +55,8 @@ angular.
           // Create the type of value if it does not exist
           if(self.values[key]==null)
               self.values[key] = [];
-          self.values[key].push(obj);
+          // Push to the front of the array
+          self.values[key].unshift(obj);
           // Create the graph if it does not exist
           if (graph[key] == null)
           {
@@ -63,7 +65,7 @@ angular.
             // Create the graph
             graph[key] = Morris.Line({
               element: 'graph_' + key,
-              data: self.values[key],
+              data: self.values[key].slice(0, self.numValuesGraphed).reverse(),
               xkey: 'count',
               ykeys: [key],
               labels: [key],
@@ -71,7 +73,8 @@ angular.
               hideHover: true
             });
           }
-          graph[key].setData(self.values[key]);
+          // Use only the top values
+          graph[key].setData(self.values[key].slice(0, self.numValuesGraphed).reverse());
         });
 
         this.destination = msg.destinationName;
