@@ -33,17 +33,9 @@ angular.
         this.logs.push(logObj);
       };
 
-      self.temperatures = [{count:Date.now(), temperature:1}];
+      self.temperatures = [];
 
-      var graph = Morris.Line({
-          element: 'graph',
-          data: self.temperatures,
-          xkey: 'count',
-          ykeys: ['temperature'],
-          labels: ['temperature'],
-          parseTime: false,
-          hideHover: true
-      });
+      var graph = null;
 
       /**
        * wrapper of received paho message
@@ -54,7 +46,19 @@ angular.
         this.msg = msg;
         this.content = msg.payloadString;
         self.payloadObject = jQuery.parseJSON(this.content);
-        self.temperatures.push({count:Date.now(), temperature:self.payloadObject.reported.temperature})
+        self.temperatures.push({count:Date.now(), temperature:self.payloadObject.reported.temperature});
+        if (graph == null)
+        {
+          graph = Morris.Line({
+            element: 'graph',
+            data: self.temperatures,
+            xkey: 'count',
+            ykeys: ['temperature'],
+            labels: ['temperature'],
+            parseTime: false,
+            hideHover: true
+          });
+        }
         graph.setData(self.temperatures);
 
         this.destination = msg.destinationName;
