@@ -48,17 +48,13 @@ angular.
         self.payloadObject = jQuery.parseJSON(this.content);
         console.log("TEST");
         jQuery.each(self.payloadObject.reported, function(key, val) {
-          console.log(key + "::" + val)
           var obj = {};
           obj['count'] = Date.now();
           obj[key] = val;
           if(self.values[key]==null)
               self.values[key] = [];
           self.values[key].push(obj);
-          console.log(self.values);
         });
-        console.log(self.values['temperature']);
-        //self.temperatures.push({count:Date.now(), temperature:self.payloadObject.reported.temperature});
         if (graph == null)
         {
           graph = Morris.Line({
@@ -71,7 +67,7 @@ angular.
             hideHover: true
           });
         }
-        graph.setData(self.temperatures);
+        graph.setData(self.values['temperature']);
 
         this.destination = msg.destinationName;
         this.receivedTime = Date.now();
