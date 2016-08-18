@@ -33,6 +33,11 @@ angular.
         this.logs.push(logObj);
       };
 
+      self.values = [];
+      self.numValuesGraphed = 10;
+
+      var graph = [];
+
       /**
        * wrapper of received paho message
        * @class
@@ -41,19 +46,50 @@ angular.
       function ReceivedMsg(msg) {
         this.msg = msg;
         this.content = msg.payloadString;
+        self.payloadObject = jQuery.parseJSON(this.content);
+        jQuery.each(self.payloadObject.reported, function(key, val) {
+          // Construct the value to be stored
+          var obj = {};
+          obj['count'] = Date.now();
+          obj[key] = val;
+          // Create the type of value if it does not exist
+          if(self.values[key]==null)
+              self.values[key] = [];
+          // Push to the front of the array
+          self.values[key].unshift(obj);
+          // Create the graph if it does not exist
+          if (graph[key] == null)
+          {
+            // Add a div for the graph
+            $("#graph").append('<div id="graph_' + key + '"></div>');
+            // Create the graph
+            graph[key] = Morris.Line({
+              element: 'graph_' + key,
+              data: self.values[key].slice(0, self.numValuesGraphed).reverse(),
+              xkey: 'count',
+              ykeys: [key],
+              labels: [key],
+              parseTime: false,
+              hideHover: true
+            });
+          }
+          // Use only the top values
+          graph[key].setData(self.values[key].slice(0, self.numValuesGraphed).reverse());
+        });
+
         this.destination = msg.destinationName;
         this.receivedTime = Date.now();
       }
 
-      // self.$inject = ['$scope'];
+
       self.clientId = 'someClientId';
       // Find endpoint here: https://console.aws.amazon.com/iot/home?region=us-east-1#/dashboard
       self.endpoint = 'a3afwj65bsju7b.iot.us-east-1.amazonaws.com';
-      self.accessKey = null;
-      self.secretKey = null;
+
+      self.accessKey = "";
+      self.secretKey = "";
       self.regionName = 'us-east-1';
       self.logs = new LogService();
-      // TODO: Pass in scope
       self.clients = new ClientControllerCache($scope, self.logs);
 
       
@@ -79,7 +115,7 @@ angular.
       // would be better to use a seperate directive
       function ClientController(client, logs) {
         this.client = client;
-        this.topicName = 'plants/temperature';
+        this.topicName = 'alphaseeed/temperature';
         this.message = null;
         this.msgs = [];
         this.logs = logs;

@@ -26,6 +26,17 @@
         <button class="btn btn-primary" ng-click="$ctrl.createClient()" ng-disabled="!$ctrl.accessKey || !$ctrl.secretKey">Create Client</button>
       </div>
     </div>
+    <!-- <div id="temperature">Temperature: {{$ctrl.temperature}}</div> -->
+<!--     <div
+      id="chart"
+      line-chart
+      line-data="temperatures"
+      line-xkey="count"
+      line-ykeys="['temperature']"
+      line-labels="['Series A']">
+      </div> -->
+  <div id="graph"></div>
+
     <div class="panel panel-info" ng-repeat="clientCtr in $ctrl.clients.val">
       <div class="panel-heading">
         <button type="button" class="close"  ng-click="$ctrl.removeClient(clientCtr)"><span>&times;</span></button>
