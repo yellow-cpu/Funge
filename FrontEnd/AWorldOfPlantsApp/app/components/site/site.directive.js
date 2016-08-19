@@ -19,6 +19,11 @@ angular.module('site').directive('site', function ($compile, siteService) {
       $('#page-wrapper').html($compile('<plants></plants>')(scope));
     });
 
+    $('#a-profile').on('click', function() {
+      $('#side-menu > li > a').removeClass('active');
+      $('#page-wrapper').html($compile('<profile></profile>')(scope));
+    });
+
     $('#logout').on('click', function () {
       siteService.logout();
     });

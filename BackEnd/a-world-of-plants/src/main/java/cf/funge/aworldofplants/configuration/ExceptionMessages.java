@@ -22,4 +22,5 @@ public class ExceptionMessages {
     public static final String EX_PWD_SAVE = "Failed to save password";
     public static final String EX_NO_COGNITO_IDENTITY = "Cannot retrieve Cognito identity";
     public static final String EX_DAO_ERROR = "Error loading user";
+    public static final String EX_UNAUTHORIZED_ERROR = "You do not have the privileges to access this.";
 }

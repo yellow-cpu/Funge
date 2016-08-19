@@ -40,6 +40,8 @@ public class ListUserPlantsAction extends AbstractAction {
 
         GetUserPlantsRequest input = getGson().fromJson(request, GetUserPlantsRequest.class);
 
+        System.out.println("Identity ID: " + lambdaContext.getIdentity().getIdentityId());
+
         if (input == null ||
                 input.getUsername() == null ||
                 input.getUsername().trim().equals("")) {

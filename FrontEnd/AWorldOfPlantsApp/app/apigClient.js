@@ -53,7 +53,7 @@ apigClientFactory.newClient = function (config) {
 
     
     // extract endpoint and path from url
-    var invokeUrl = 'https://1a0tn4u7m6.execute-api.us-east-1.amazonaws.com/test5';
+    var invokeUrl = 'https://1a0tn4u7m6.execute-api.us-east-1.amazonaws.com/test6';
     var endpoint = /(^https?:\/\/[^\/]+)/g.exec(invokeUrl)[1];
     var pathComponent = invokeUrl.substring(endpoint.length);
 
@@ -404,6 +404,42 @@ apigClientFactory.newClient = function (config) {
         
         
         return apiGatewayClient.makeRequest(usersOptionsRequest, authType, additionalParams, config.apiKey);
+    };
+    
+    
+    apigClient.usersUsernameGet = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, ['username'], ['body']);
+        
+        var usersUsernameGetRequest = {
+            verb: 'get'.toUpperCase(),
+            path: pathComponent + uritemplate('/users/{username}').expand(apiGateway.core.utils.parseParametersToObject(params, ['username'])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(usersUsernameGetRequest, authType, additionalParams, config.apiKey);
+    };
+    
+    
+    apigClient.usersUsernameOptions = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
+        
+        var usersUsernameOptionsRequest = {
+            verb: 'options'.toUpperCase(),
+            path: pathComponent + uritemplate('/users/{username}').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(usersUsernameOptionsRequest, authType, additionalParams, config.apiKey);
     };
     
 

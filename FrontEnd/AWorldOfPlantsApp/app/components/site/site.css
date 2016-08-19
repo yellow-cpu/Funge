@@ -409,6 +409,11 @@ table.dataTable thead .sorting:after {
     cursor: pointer;
 }
 
+#a-profile {
+    cursor: hand;
+    cursor: pointer;
+}
+
 #a-control {
     border-right: 3px solid #BD3630;
     cursor: hand;

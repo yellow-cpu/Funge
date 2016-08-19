@@ -4,5 +4,6 @@
 angular.module('site', [
   'dashboard',
   'plants',
-  'plantDetail'
+  'plantDetail',
+  'profile'
 ]);
