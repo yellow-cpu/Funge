@@ -26,6 +26,7 @@ angular.module('profile').component('profile', {
       .then(function (result) {
         console.log("Success: " + JSON.stringify(result));
         self.email = result.data.email;
+        self.username = result.data.username;
         $scope.$apply();
       }).catch(function (result) {
         console.log("Error: " + JSON.stringify(result));

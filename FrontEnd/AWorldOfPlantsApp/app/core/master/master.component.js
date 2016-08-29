@@ -16,7 +16,7 @@ angular.
 master.run(function($rootScope, $localStorage) {
     $rootScope.$on("$routeChangeStart", function () {
         if ($localStorage.loggedIn) {
-            window.location.replace("#!/site");
+            //window.location.replace("#!/site");
         }
         else {
             window.location.replace("#!/landing");
