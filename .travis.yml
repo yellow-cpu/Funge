@@ -3,6 +3,7 @@ jdk:
   - oraclejdk8
 before_script: cd ./BackEnd/a-world-of-plants
 script: mvn test
+before_deploy: cd $TRAVIS_BUILD_DIR/project
 deploy:
   provider: lambda
   function_name: "user-management"
