@@ -2,10 +2,11 @@ language: java
 jdk:
   - oraclejdk8
 before_script: cd ./BackEnd/a-world-of-plants
-script: mvn test
-before_deploy: cd $TRAVIS_BUILD_DIR
+script: mvn test package
+before_deploy: cd ./BackEnd/a-world-of-plants/target
 deploy:
   skip_cleanup: true
+  file: "a-world-of-plants-1.6.3-SNAPSHOT.jar"
   provider: lambda
   function_name: "user-management"
   role: "arn:aws:iam::339898884101:role/user-management-role"
