@@ -1,7 +1,7 @@
 ### waffle.io
 [![Build Status](https://travis-ci.org/DillonHeins/Funge.svg?branch=master)](https://travis-ci.org/DillonHeins/Funge)
 [![Stories in Ready](https://badge.waffle.io/DillonHeins/Funge.png?label=ready&title=Ready)](https://waffle.io/DillonHeins/Funge)
-[![Stories in Progress](https://badge.waffle.io/DillonHeins/Funge.svg?label=waffle%3Ain%20progress&title=In%20Progress)](https://waffle.io/DillonHeins/Funge)
+[![Stories in Progress](https://badge.waffle.io/DillonHeins/Funge.svg?label=in%20progress&title=In%20Progress)](https://waffle.io/DillonHeins/Funge)
 
 ### burndown.io
 http://burndown.io/#DillonHeins/Funge
