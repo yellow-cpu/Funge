@@ -1,7 +1,8 @@
 language: java
 jdk:
   - oraclejdk8
-script: mvn test -f ./BackEnd/a-world-of-plants/pom.xml
+before_script: cd ./BackEnd/a-world-of-plants/pom.xml
+script: mvn test
 deploy:
   provider: lambda
   function_name: "user-management"
