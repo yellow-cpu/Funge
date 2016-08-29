@@ -6,8 +6,8 @@ deploy:
   provider: lambda
   function_name: "user-management"
   role: "arn:aws:iam::339898884101:role/user-management-role"
+  module_name: ""
   handler_name: "cf.funge.aworldofplants.RequestRouter::lambdaHandler"
-  zip: "./BackEnd/a-world-of-plants/target/a-world-of-plants-1.6.3-SNAPSHOT.jar"
   runtime: "java8"
   access_key_id: "AKIAJIQHJ7FSHEDTA2DA"
   secret_access_key:
