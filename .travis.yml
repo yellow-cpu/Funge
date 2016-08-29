@@ -3,8 +3,9 @@ jdk:
   - oraclejdk8
 before_script: cd ./BackEnd/a-world-of-plants
 script: mvn test
-before_deploy: cd $TRAVIS_BUILD_DIR/project
+before_deploy: cd target
 deploy:
+  skip_cleanup: true
   provider: lambda
   function_name: "user-management"
   role: "arn:aws:iam::339898884101:role/user-management-role"
