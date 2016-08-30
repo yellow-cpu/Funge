@@ -1,16 +1,19 @@
 language: java
 jdk:
-  - oraclejdk8
+- oraclejdk8
 before_script: cd ./BackEnd/a-world-of-plants
 script: mvn test package
 before_deploy:
-  - cd target
-  - pip install --user awscli
-  - export PATH=$PATH:$HOME/.local/bin
-  - chmod +x "../../../scripts/deploy.sh"
+- cd target
+- pip install --user awscli
+- export PATH=$PATH:$HOME/.local/bin
+- chmod +x "../../../scripts/deploy.sh"
 deploy:
   skip_cleanup: true
   provider: script
   script: "../../../scripts/deploy.sh"
   on:
     branch: master
+notifications:
+  slack:
+    secure: Ztq7/NB4BNo+iFznAlKsfzO2EJ0e4RkRxe0Jn4T7CGV3JEhXUj1chbyXSs8UQrPtjAbjnOlRZG74RcsoiZ4KnACi8Juj9hStZ3eWJl9ZqKerZVUAjDv0fwdtbREs/1uXjhO184LY6dG1h7gz+h6akZgPObB+ABG8e8/HQgb66hU/6wvxbnNyb10KyGq1PQ5Jl6d5VNMh171AJuQyv9hwa3N+ZuyQMBhu+AqH6rG6kak0zTShfJRBQqlCUqSrP42xX6cMa130q2mRtK9fwPJJOqhrR+moPeJaJy3gyUYJDubCgZufnAN0qlqHosZrNxn2iz/CR0+TKskn4MnI5qqRNKzS0NCmchA5VdBR6GE+Nokd+Bj+HJeVsDalZsZe7gAd5JceiwuB5ALbaH5ecnFoZaRlrvZFYiJYofaYHpL4HGp2SBK3+diymJqFWzCWpU3MSVAse+HPVZ+NAS/89dj99q4UxlHm7WnP2oNpcLgnbwfLOQO/JPmDimBrqmX0J27DCZy+EAE2fRRE31NBO4DDzX/YuM/Fr1eW9Pq10VKNN5MGGnEQwoVbikSiXGiOth1Jlq6Zdm8xvDqjwMAo7ivyuP9RsBg7k02gNUoESPI39RRMDz3xbb5MYNvRzo+5o5BnqaQl8trsF8Gr/tCS0uWWI2FVcnCl6a7C8FXSjkHYF9c=
