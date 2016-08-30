@@ -3,20 +3,10 @@ jdk:
   - oraclejdk8
 before_script: cd ./BackEnd/a-world-of-plants
 script: mvn test package
-before_deploy: cd target
+before_deploy:
+  - cd target
+  - pip install --user awscli
+  - export PATH=$PATH:$HOME/.local/bin
 deploy:
-  provider: s3
-  skip_cleanup: true
-  zip: a-world-of-plants-1.6.3-SNAPSHOT.jar
-  bucket: a-world-of-plants-user-management
-  access_key_id: AKIAJIQHJ7FSHEDTA2DA
-  secret_access_key:
-    secure: K4pJXEzloIbPvNdbu0NVx6u0ytMtmzxXSnHpCQmsNqKn/pNRy4pYjfBb3pdvDemI2KD4nuohw6bMU2uYHscetYXhTkO++IRdaqQItSAeTx2d1FjNFaZYQIfxwKR4GDL//BY9SkmOtVR66SrbDwUttxONylfOSun7IbUqNRA+5BskdPA7NjhDaP4G+0p6h4VvK+Sdp0961cpDy9sfVGQ7W62pQfad2NCU92Zj7K6nRIf/aKMEx5l7stCcxECQT6X2jlkk8HM7/oLivffFQgZwvH3DLzt52f8Pnll+BIJBNVTQMQQCeaa6N1P8SChZET74n1XRlAr1Y2L4NqfXWHApv0gGV49tE9quU7njbyZiroYqSZFwYzZSZ2FjLruPaPa5xdaedMnm2IAJsfGiZfY9SNfJT+I54SZsoxkdEMnoEbj41PYHWLhuKdkxpu/HY/A0lOjoEkONrkf7/1mzfY8i7Zqm4z3aCfY3md1qRCguCg7gOVnJlJNhuWtAw3JrX21nsksJJMrkGbm/OGA6BS0R1MBhypexFFkPfOUjzwFJEhA+Dup+tLVCqZB5hrzxHkEJANbCiRXSdjMYLm5qc31QrzF43bJFLPrCMYFwHDuEVvtKwYTBn0oYTtQN2BioKxrfxAiW4pFSAP77GtRQl66WUI0qcT0gf3sHl3uF+roqIfs=
-before_deploy: cd ../../../FrontEnd/AWorldOfPlantsApp/app
-deploy:
-  provider: s3
-  skip_cleanup: true
-  bucket: a-world-of-plants-frontend
-  access_key_id: AKIAJIQHJ7FSHEDTA2DA
-  secret_access_key:
-    secure: K4pJXEzloIbPvNdbu0NVx6u0ytMtmzxXSnHpCQmsNqKn/pNRy4pYjfBb3pdvDemI2KD4nuohw6bMU2uYHscetYXhTkO++IRdaqQItSAeTx2d1FjNFaZYQIfxwKR4GDL//BY9SkmOtVR66SrbDwUttxONylfOSun7IbUqNRA+5BskdPA7NjhDaP4G+0p6h4VvK+Sdp0961cpDy9sfVGQ7W62pQfad2NCU92Zj7K6nRIf/aKMEx5l7stCcxECQT6X2jlkk8HM7/oLivffFQgZwvH3DLzt52f8Pnll+BIJBNVTQMQQCeaa6N1P8SChZET74n1XRlAr1Y2L4NqfXWHApv0gGV49tE9quU7njbyZiroYqSZFwYzZSZ2FjLruPaPa5xdaedMnm2IAJsfGiZfY9SNfJT+I54SZsoxkdEMnoEbj41PYHWLhuKdkxpu/HY/A0lOjoEkONrkf7/1mzfY8i7Zqm4z3aCfY3md1qRCguCg7gOVnJlJNhuWtAw3JrX21nsksJJMrkGbm/OGA6BS0R1MBhypexFFkPfOUjzwFJEhA+Dup+tLVCqZB5hrzxHkEJANbCiRXSdjMYLm5qc31QrzF43bJFLPrCMYFwHDuEVvtKwYTBn0oYTtQN2BioKxrfxAiW4pFSAP77GtRQl66WUI0qcT0gf3sHl3uF+roqIfs=  
+  provider: script
+  script: scripts/deploy.sh
