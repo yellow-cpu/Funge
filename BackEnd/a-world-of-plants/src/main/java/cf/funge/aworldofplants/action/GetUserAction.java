@@ -43,7 +43,7 @@ public class GetUserAction extends AbstractAction {
 
         GetUserResponse output = new GetUserResponse();
         output.setUsername(user.getUsername());
-        output.setEmail(user.getEmail() + " travis is working m90 :D");
+        output.setEmail(user.getEmail());
 
         return getGson().toJson(output);
     }
