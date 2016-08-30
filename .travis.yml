@@ -7,6 +7,7 @@ before_deploy:
   - cd target
   - pip install --user awscli
   - export PATH=$PATH:$HOME/.local/bin
+  - chmod +x "../../../scripts/deploy.sh"
 deploy:
   skip_cleanup: true
   provider: script
