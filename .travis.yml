@@ -3,14 +3,9 @@ jdk:
   - oraclejdk8
 before_script: cd ./BackEnd/a-world-of-plants
 script: mvn test package
-before_deploy:
+after_success:
   - cd target
   - pip install --user awscli
   - export PATH=$PATH:$HOME/.local/bin
-  - chmod +x "../../../scripts/deploy.sh"
-deploy:
-  skip_cleanup: true
-  provider: script
-  script: "../../../scripts/deploy.sh"
-  on:
-    branch: master
+  - echo "--- CUSTOM DEPLOYMENT SCRIPT RUNNING ---"
+  - aws s3 cp a-world-of-plants-1.6.3-SNAPSHOT.jar s3://a-world-of-plants-user-management
