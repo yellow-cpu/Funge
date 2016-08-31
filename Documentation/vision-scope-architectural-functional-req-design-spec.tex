@@ -91,7 +91,13 @@
 	
 	Through the use of this platform we were asked to create an innovative solution to a problem. The problem we decided to tackle was the growing lack of interest of young South Africans in agriculture.
 
-\section{Important Technology}
+\section{Important Terminology}
+\begin{itemize}
+	\item \textbf{A World of Plants} Name of the entire system.
+	\item \textbf{AWS} Amazon Web Services. A secure cloud services platform offering compute power, database storage, content delivery and other functionality.
+	\item \textbf{Plant Box} The enclosure which contains the plants, with all the monitoring and automation equipment.
+	\item \textbf{Achievements} Gamified awards given to users for completing certain tasks.
+\end{itemize}
 
 \section{Architecture Requirements}
 
@@ -100,6 +106,7 @@
 \subsubsection{Human Access Channels}
 
 \subsubsection{System Access Channels}
+AWS API Gateway will be used expose the system's API and map it to the serverless backend provided by AWS Lambda. MQTT messages will be used to communicate between the system backend and the individual Plant Boxes. MQTT is an ISO standard (ISO/IEC PRF 20922) publish-subscribe-based "lightweight" messaging protocol for use on top of the TCP/IP protocol. It is often used to facilitate IoT communications.
 
 \subsection{Quality Requirements}
 
