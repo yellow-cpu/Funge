@@ -112,7 +112,6 @@
 \subsubsection{System Access Channels}
 AWS API Gateway will be used expose the system's API and map it to the serverless backend provided by AWS Lambda. MQTT messages will be used to communicate between the system backend and the individual Plant Boxes. MQTT is an ISO standard (ISO/IEC PRF 20922) publish-subscribe-based "lightweight" messaging protocol for use on top of the TCP/IP protocol. It is often used to facilitate IoT communications.
 
-<<<<<<< HEAD
 	\subsection{Quality Requirements}
 		\subsubsection{Performance}
 			In order to have our system be as user friendly as possible, it is important to have the user interface respond quickly with little delay. The website should load quickly and logging in and out should be as fast as possible. The response to the live feed of MQTT topic updates in the live view should be instantaneous in order to allow for an accurate live graphing of the data.
@@ -147,27 +146,6 @@ AWS API Gateway will be used expose the system's API and map it to the serverles
 			The device communicates with the server and the web interface through the MQTT protocol and topics, which allows it to be decoupled from the server.
 			
 			The server consists of multiple services that cannot be decoupled from one another as they all use the same SDK and are designed to be used in unison.
-			
-	\subsection{Integration Requirements}
-	\subsection{Architecture Constraints}
-=======
-\subsection{Quality Requirements}
-
-\subsubsection{Performance}
-
-\subsubsection{Usability}
-
-\subsubsection{Reliability}
-
-\subsubsection{Scalability}
-
-\subsubsection{Flexibility}
-
-\subsubsection{Security}
-
-\subsubsection{Auditability/Monitorability}
-
-\subsubsection{Integrability}
 
 \subsection{Integration Requirements}
 \begin{itemize}
@@ -187,7 +165,6 @@ AWS API Gateway will be used expose the system's API and map it to the serverles
 \end{itemize}
 
 \subsection{Architecture Constraints}
->>>>>>> 41c76b4a25e20ee2c30aa1903504f3562c5dbc3f
 
 \section{Architecture Design}
 
