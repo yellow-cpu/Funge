@@ -1,6 +1,6 @@
 \documentclass{article}
 
-\usepackage[margin=2cm, left=2cm, includefoot]{geometry}
+\usepackage[margin=4cm, includefoot]{geometry}
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{hyperref}
@@ -26,10 +26,10 @@
 
 \begin{titlepage}
 	\begin{center}
-		\line(1,0){500}\\
+		\line(1,0){400}\\
 		[6mm]
 		\huge{\bfseries Architectural and Functional Requirements}\\
-		\line(1,0){500}\\
+		\line(1,0){400}\\
 			[5mm]
 			\includegraphics[width=150px]{images/AWorldOfPlants.png}
 			\\
@@ -39,7 +39,7 @@
 		\large\textbf{Client:}\\Julian Hambleton-Jones\\
 		[3mm]
 		\large \textbf{Team:}\\Funge\\
-		\line(1,0){500}\\
+		\line(1,0){400}\\
 		[5mm]
 		\large \textbf{Team Members:}\\
 		[3mm]
@@ -53,21 +53,55 @@
 \cleardoublepage
 \thispagestyle{empty}
 \tableofcontents
-\input{version_table}
 \cleardoublepage
 \setcounter{page}{1}
 
 \section{Introduction}
+	The Internet of Things (IoT) is a development of the Internet which involves the networking of every day physical devices allowing them to send and receive data. These devices are embedded with electronics, sensors, software as well as some form of Internet or network connectivity.
+
+
+	IoT is a relatively new development and has a large possibility of becoming a ubiquitous technology as well as allowing us to view the world from a different perspective. The potential it contains for innovation is endless.
+
+
+	We as a group were given the opportunity to use the Amazon Web Services (AWS) IoT platform to create an IoT project of our own desires. This document details our 'A World of Things' project.
 
 \section{Vision}
+	The aim of this project is to build an innovative Internet of Things solution through the use of the Amazon Web Services Internet of Things hardware platform as well as the Amazon Web Services Cloud.
+	
+	No problem was formally defined and hence it was up to us to determine what solution we would be creating. We opted to create a solution which focuses on the education of students with regard to agriculture and plant sciences. We plan to motivate students to become interested in agriculture by creating an "Internet of Plants".
+	
+	This involves the networking and monitoring of living plants in order to analyse aspects of their environment - such as water intake, lighting, humidity, moisture, and temperature. It also involves the controlling of the environment of the plants through the adjustment of the amount of water they receive, the wavelengths of their lights and air flow through the use of fans.
+	
+	Users should be able to view data gathered about their plants through the use of graphs so that they can make informed decisions about what adjustments to the environment they should make.
+	
+	The main purpose of the platform is to encourage younger generations to become interested in agriculture and, in doing so, help stimulate South Africa's agricultural industry. We plan to implement gamification on our platform as a way to encourage users to participate.
+	
+	Given enough time, AI learning could be employed to optimise the conditions under which plants grow. By combining automation and AI learning, we could create an interesting challenge for the users: Grow a plant better than our control plant grown with the help of AI.
+
+\cleardoublepage
 
 \section{Background}
-
-\subsection{Future business/research opportunities}
-
+	This project is part of a Software Engineering module (COS 301) for the University of Pretoria. Our client is Julian Hambleton-Jones (AWS) and our project was to create anything we wanted using the AWS IoT platform. What we decided upon was the creation of a network of living plants which are to be analysed and looked after through the use of IoT devices and our software system.
+	
+\subsection{Future Business/Research Opportunities}
+	Through the use of sensors to continuously monitor the environment of plants a large amount of important information can be gathered. This information can create opportunities for the learning of how particular actions affect the environment of plants.
+	
+	This data can also be used as training data for AI so that the controlling of the environment can be fully automated such that the AI attempts to tend to and grow a plant as best as possible.
+	
+	These activities could help agricultural industries to improve crop yields for an increasingly growing human population.
+	
 \subsection{The Client's Problem}
+	Our client did not have a particular problem which we were required to solve however we did have one restriction: we had to make use of the AWS IoT hardware platform.
+	
+	Through the use of this platform we were asked to create an innovative solution to a problem. The problem we decided to tackle was the growing lack of interest of young South Africans in agriculture.
 
-\section{Important Technology}
+\section{Important Terminology}
+\begin{itemize}
+	\item \textbf{A World of Plants} Name of the entire system.
+	\item \textbf{AWS} Amazon Web Services. A secure cloud services platform offering compute power, database storage, content delivery and other functionality.
+	\item \textbf{Plant Box} The enclosure which contains the plants, with all the monitoring and automation equipment.
+	\item \textbf{Achievements} Gamified awards given to users for completing certain tasks.
+\end{itemize}
 
 \section{Architecture Requirements}
 
@@ -76,6 +110,7 @@
 \subsubsection{Human Access Channels}
 
 \subsubsection{System Access Channels}
+AWS API Gateway will be used expose the system's API and map it to the serverless backend provided by AWS Lambda. MQTT messages will be used to communicate between the system backend and the individual Plant Boxes. MQTT is an ISO standard (ISO/IEC PRF 20922) publish-subscribe-based "lightweight" messaging protocol for use on top of the TCP/IP protocol. It is often used to facilitate IoT communications.
 
 	\subsection{Quality Requirements}
 		\subsubsection{Performance}
@@ -92,11 +127,7 @@
 			
 			The devices send MQTT messages on a Quality of Service level of zero (QoS 0). This means that if a message is sent but not received, it is not resent. This means that the server should always be connected and waiting for MQTT messages.
 		\subsubsection{Scalability}
-			
-			\begin{itemize}
-				\item System will be able to support 10 000 concurrent users and should be able to scale upwards to handle hundreds of thousands of concurrent calls
-				\item The system will be able to support up to 2000 plant boxes and should be able to scale proportionally with regard to the number of users (Up to hundreds of thousands of concurrent calls)
-			\end{itemize}
+			It is important that our system be scalable in order to ensure that the system can handle a very high number of users as well as all their devices. By using Amazon Web Services' Elastic Cloud Computing (AWS EC2), the system will grow and shrink as required by the users, providing a smooth experience no matter how many users or devices are connecting to the system.
 		\subsubsection{Flexibility}
 			It is important that the system has support for many hardware components such as sensors. These technologies are advancing rapidly, therefore it should be easy to add new components to the system, without making any large changes.
 			\begin{itemize}
