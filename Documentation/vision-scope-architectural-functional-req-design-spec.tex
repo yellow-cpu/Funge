@@ -73,14 +73,11 @@
 \subsubsection{System Access Channels}
 
 	\subsection{Quality Requirements}
-	
 		\subsubsection{Performance}
-			\begin{itemize}
-				\item The UI should respond in less than 0.2 seconds excluding external influences out of the control of the system
-				\item Lambda functions should executed within under 5 seconds
-				\item Getting and setting information with regard to the database should be executed under 5 seconds
-				\item Conditions of plants need to be monitored within real time and should be queued to be sent to the database. Every 20 minutes the hardware should trigger an event to send the information to Lambda or to DynamoDB. If there is no connection available the hardware should continue to queue data until a connection is established.
-			\end{itemize}
+			In order to have our system be as user friendly as possible, it is important to have the user interface respond quickly with little delay. The website should load quickly and logging in and out should be as fast as possible. The response to the live feed of MQTT topic updates in the live view should be instantaneous in order to allow for an accurate live graphing of the data.
+				\\\\		
+			On the server side, Lambda function executions and database read/writes should be speedy to ensure that bottlenecks do not occur. The response to any MQTT messages received should be instantaneous in order to process multiple MQTT messages properly.
+			
 		\subsubsection{Usability}
 			\begin{itemize}
 				\item The system should be intuitive and efficient to use
