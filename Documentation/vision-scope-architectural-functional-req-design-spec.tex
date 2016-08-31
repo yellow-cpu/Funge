@@ -1,7 +1,7 @@
 \documentclass{article}
 
 \usepackage{lipsum}
-\usepackage[margin=2cm, left=2cm, includefoot]{geometry}
+\usepackage[margin=4cm, includefoot]{geometry}
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{hyperref}
@@ -22,10 +22,10 @@
 
 \begin{titlepage}
 	\begin{center}
-		\line(1,0){500}\\
+		\line(1,0){400}\\
 		[6mm]
 		\huge{\bfseries Architectural and Functional Requirements}\\
-		\line(1,0){500}\\
+		\line(1,0){400}\\
 			[5mm]
 			\includegraphics[width=150px]{images/AWorldOfPlants.png}
 			\\
@@ -35,7 +35,7 @@
 		\large\textbf{Client:}\\Julian Hambleton-Jones\\
 		[3mm]
 		\large \textbf{Team:}\\Funge\\
-		\line(1,0){500}\\
+		\line(1,0){400}\\
 		[5mm]
 		\large \textbf{Team Members:}\\
 		[3mm]
@@ -49,18 +49,36 @@
 \cleardoublepage
 \thispagestyle{empty}
 \tableofcontents
-\input{version_table}
 \cleardoublepage
 \setcounter{page}{1}
 
 \section{Introduction}
+	The Internet of Things (IoT) is a development of the Internet which involves the networking of every day physical devices allowing them to send and receive data. These devices are embedded with electronics, sensors, software as well as some form of Internet or network connectivity.
+
+
+	IoT is a relatively new development and has a large possibility of becoming a ubiquitous technology as well as allowing us to view the world from a different perspective. The potential it contains for innovation is endless.
+
+
+	We as a group were given the opportunity to use the Amazon Web Services (AWS) IoT platform to create an IoT project of our own desires. This document details our 'A World of Things' project.
 
 \section{Vision}
+	The aim of this project is to build an innovative Internet of Things solution through the use of the Amazon Web Services Internet of Things hardware platform as well as the Amazon Web Services Cloud.
+	
+	No problem was formally defined and hence it was up to us to determine what solution we would be creating. We opted to create a solution which focuses on the education of students with regard to agriculture and plant sciences. We plan to motivate students to become interested in agriculture by creating an "Internet of Plants".
+	
+	This involves the networking and monitoring of living plants in order to analyse aspects of their environment - such as water intake, lighting, humidity, moisture, and temperature. It also involves the controlling of the environment of the plants through the adjustment of the amount of water they receive, the wavelengths of their lights and air flow through the use of fans.
+	
+	Users should be able to view data gathered about their plants through the use of graphs so that they can make informed decisions about what adjustments to the environment they should make.
+	
+	The main purpose of the platform is to encourage younger generations to become interested in agriculture and, in doing so, help stimulate South Africa's agricultural industry. We plan to implement gamification on our platform as a way to encourage users to participate.
+	
+	Given enough time, AI learning could be employed to optimise the conditions under which plants grow. By combining automation and AI learning, we could create an interesting challenge for the users: Grow a plant better than our control plant grown with the help of AI.
 
 \section{Background}
-
-\subsection{Future business/research opportunities}
-
+	This project is part of a Software Engineering module (COS 301) for the University of Pretoria. Our client is Julian Hambleton-Jones (AWS) and our project was to create anything we wanted using the AWS IoT platform. What we decided upon was the creation of a network of living plants which are to be analysed and looked after through the use of IoT devices and our software system.
+	
+\subsection{Future Business/Research Opportunities}
+	
 \subsection{The Client's Problem}
 
 \section{Important Technology}
