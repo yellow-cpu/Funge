@@ -89,12 +89,12 @@
 	This data can also be used as training data for AI so that the controlling of the environment can be fully automated such that the AI attempts to tend to and grow a plant as best as possible.
 	
 	These activities could help agricultural industries to improve crop yields for an increasingly growing human population.
-	
+
 \subsection{The Client's Problem}
 	Our client did not have a particular problem which we were required to solve however we did have one restriction: we had to make use of the AWS IoT hardware platform.
 	
 	Through the use of this platform we were asked to create an innovative solution to a problem. The problem we decided to tackle was the growing lack of interest of young South Africans in agriculture.
-
+	
 \section{Important Terminology}
 \begin{itemize}
 	\item \textbf{A World of Plants} Name of the entire system.
@@ -112,6 +112,7 @@
 \subsubsection{System Access Channels}
 AWS API Gateway will be used expose the system's API and map it to the serverless backend provided by AWS Lambda. MQTT messages will be used to communicate between the system backend and the individual Plant Boxes. MQTT is an ISO standard (ISO/IEC PRF 20922) publish-subscribe-based "lightweight" messaging protocol for use on top of the TCP/IP protocol. It is often used to facilitate IoT communications.
 
+<<<<<<< HEAD
 	\subsection{Quality Requirements}
 		\subsubsection{Performance}
 			In order to have our system be as user friendly as possible, it is important to have the user interface respond quickly with little delay. The website should load quickly and logging in and out should be as fast as possible. The response to the live feed of MQTT topic updates in the live view should be instantaneous in order to allow for an accurate live graphing of the data.
@@ -149,6 +150,44 @@ AWS API Gateway will be used expose the system's API and map it to the serverles
 			
 	\subsection{Integration Requirements}
 	\subsection{Architecture Constraints}
+=======
+\subsection{Quality Requirements}
+
+\subsubsection{Performance}
+
+\subsubsection{Usability}
+
+\subsubsection{Reliability}
+
+\subsubsection{Scalability}
+
+\subsubsection{Flexibility}
+
+\subsubsection{Security}
+
+\subsubsection{Auditability/Monitorability}
+
+\subsubsection{Integrability}
+
+\subsection{Integration Requirements}
+\begin{itemize}
+	\item \textbf{HTTP}
+	
+	This is the foundation of data communication for the World Wide Web. It will be used to serve the web pages to the users via a web browser.	
+	\item \textbf{REST}
+	
+	The system's RESTful API will be exposed via AWS API Gateway. This will map API calls to the serverless backend, AWS Lambda.
+	\item \textbf{TCP}
+	
+	The TCP protocol will be used to establish network communications between the users' computers and the system's backend, as well as between the system's backend and the users' Plant Boxes.
+	\item \textbf{MQTT}
+	
+	MQTT is a lightweight messaging protocol that will be used as a way to facilitate two-way communication between the backend and the Plant Boxes, via TCP as described above.  
+	
+\end{itemize}
+
+\subsection{Architecture Constraints}
+>>>>>>> 41c76b4a25e20ee2c30aa1903504f3562c5dbc3f
 
 \section{Architecture Design}
 
