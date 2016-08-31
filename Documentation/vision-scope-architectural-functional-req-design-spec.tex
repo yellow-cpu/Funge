@@ -121,9 +121,16 @@ AWS API Gateway will be used expose the system's API and map it to the serverles
 \begin{itemize}
 	\item \textbf{HTTP}
 	
-	This is the foundation of data communication for the World Wide Web. It will be used to serve the web pages to the users via a web browser.
-	
+	This is the foundation of data communication for the World Wide Web. It will be used to serve the web pages to the users via a web browser.	
 	\item \textbf{REST}
+	
+	The system's RESTful API will be exposed via AWS API Gateway. This will map API calls to the serverless backend, AWS Lambda.
+	\item \textbf{TCP}
+	
+	The TCP protocol will be used to establish network communications between the users' computers and the system's backend, as well as between the system's backend and the users' Plant Boxes.
+	\item \textbf{MQTT}
+	
+	MQTT is a lightweight messaging protocol that will be used as a way to facilitate two-way communication between the backend and the Plant Boxes, via TCP as described above.  
 	
 \end{itemize}
 
