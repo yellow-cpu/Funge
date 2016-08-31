@@ -108,6 +108,7 @@
 \subsection{Access Channel Requirements}
 
 \subsubsection{Human Access Channels}
+Users will be able to register and log into a Web interface. From the Web interface, they can associate their own Plant Boxes, monitor conditions such as temperature and humidity, control the Plant Box conditions and view their Achievements. The Web interface should be accessible from any modern browser, such as Google Chrome, Mozilla Firefox, Microsoft Edge, Apple Safari and latest Internet Explorer. The Web interface will be designed under strict UX, UI and World Wide Web Consortium (W3C) standards. This includes a responsive design that will work on any screen size. Plant Boxes do not need to be connected to the Internet at all times - the Web interface will store the latest settings and sync them with the Plant Boxes when a connection can be established.
 
 \subsubsection{System Access Channels}
 AWS API Gateway will be used expose the system's API and map it to the serverless backend provided by AWS Lambda. MQTT messages will be used to communicate between the system backend and the individual Plant Boxes. MQTT is an ISO standard (ISO/IEC PRF 20922) publish-subscribe-based "lightweight" messaging protocol for use on top of the TCP/IP protocol. It is often used to facilitate IoT communications.
