@@ -78,8 +78,6 @@
 	
 	Given enough time, AI learning could be employed to optimise the conditions under which plants grow. By combining automation and AI learning, we could create an interesting challenge for the users: Grow a plant better than our control plant grown with the help of AI.
 
-\cleardoublepage
-
 \section{Background}
 	This project is part of a Software Engineering module (COS 301) for the University of Pretoria. Our client is Julian Hambleton-Jones (AWS) and our project was to create anything we wanted using the AWS IoT platform. What we decided upon was the creation of a network of living plants which are to be analysed and looked after through the use of IoT devices and our software system.
 	
@@ -198,7 +196,13 @@ Figure \ref{fig:data-gathering} shows the components of the data gathering servi
 \end{figure}
 
 \subsubsection{Processing service}
-After the data has been gathered, it will be processed by means of calculating necessary statistics over a set time period. For example, every 12 hours the max, min and average readings from the temperature sensor are calculated and stored using the Database service (see section \ref{sec:database-service}).  
+After the data has been gathered, it will be processed by means of calculating necessary statistics over a set time period. For example, every 12 hours the max, min and average readings from the temperature sensor are calculated and stored using the Database service (see section \ref{sec:database-service}). This is shown at a high level in Figure \ref{fig:processing}
+
+\begin{figure}[h!]
+  \includegraphics[width=\textwidth]{images/services/processing-service.png}
+  \caption{Processing Service}
+  \label{fig:processing}
+\end{figure}
 
 \subsubsection{Business service}
 
