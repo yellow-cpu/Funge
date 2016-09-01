@@ -301,7 +301,7 @@ The Business Service, shown in Figure \ref{fig:business-service}, handles all us
 			\begin{itemize}
 				\item User Management Subsystem
 					\begin{itemize}
-						\item View gamification information
+						\item View gamification information/get user details
 					\end{itemize}
 				\item Device Communications Subsystem
 					\begin{itemize}
@@ -387,7 +387,7 @@ The Business Service, shown in Figure \ref{fig:business-service}, handles all us
 			\caption{Services contract diagram for edit details}
 		\end{figure}
 	
-	\paragraph{View Gamification Details}\mbox{}\\
+	\paragraph{View Gamification Details/Get User Details}\mbox{}\\
 		\textbf{Description:} A registered and logged in user should be able to view details with regard to the progress they have made. This includes details such as their ranked level and experience points for completing tasks.\\
 		\textbf{Prioritisation:} Nice-to-have\\		
 		\textbf{Pre-conditions:}
@@ -396,17 +396,18 @@ The Business Service, shown in Figure \ref{fig:business-service}, handles all us
 			\end{itemize}
 		\textbf{Post-conditions:}
 			\begin{itemize}
-				\item The gamification values associated with the user should be displayed to the user.
+				\item The user's personal details should be returned (username \& email)
+				\item The gamification values associated with the user should be displayed to the user (level and experience)
 			\end{itemize}
 
 		\begin{figure}[H]
-			%\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
-			\caption{Use case diagram for view gamification details}
+			\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
+			\caption{Use case diagram for view gamification details/get user details}
 		\end{figure}
 		
 		\begin{figure}[H]
-			%\includegraphics[width=\linewidth]{images/ServicesContracts/login.jpg}
-			\caption{Services contract diagram for view gamification details}
+			\includegraphics[width=\linewidth]{images/ServicesContracts/getUser.jpg}
+			\caption{Services contract diagram for view gamification details/get user details}
 		\end{figure}
 
 \subsubsection{Plant/Device Management Subsystem}
@@ -445,9 +446,12 @@ The Business Service, shown in Figure \ref{fig:business-service}, handles all us
 		\textbf{Pre-conditions:}
 			\begin{itemize}
 				\item The user should be logged in
+				\item Username must not be null
 			\end{itemize}
 		\textbf{Post-conditions:}
 			\begin{itemize}
+				\item A count of the plants belonging to the supplied username should be returned
+				\item A limit to the amount of plants returnable should be provided
 				\item A response object containing a list of all plants associated with a user and all their individual details should be returned
 			\end{itemize}
 
