@@ -262,20 +262,22 @@ The Business Service, shown in Figure \ref{fig:business-service}, handles all us
 			\begin{itemize}
 				\item User Management Subsystem:
 				\begin{itemize}
-					\item Register Account
+					\item Register account
 					\item Login
 				\end{itemize}
 				
 				\item Plant/Device Management Subsystem:
 				\begin{itemize}
-					\item Create Plant
-					\item View Plant Status
+					\item Create plant
+					\item List plants
+					\item Create and associate a virtual 'Thing' with a plant
+					\item View plant status
+					\item Configure light settings
 				\end{itemize}
 				
 				\item Device Communications Subsystem
 				\begin{itemize}
-					\item Send Updated Settings/Configuration to Device
-					\item Send Readings Summary to Lambda
+					\item Send readings summary to Lambda
 				\end{itemize}
 			\end{itemize}
 		
@@ -283,15 +285,15 @@ The Business Service, shown in Figure \ref{fig:business-service}, handles all us
 			\begin{itemize}
 				\item User Management Subsystem:
 				\begin{itemize}
-					\item Edit Details
+					\item Edit details
 				\end{itemize}
 				
 				\item Plant/Device Management Subsystem:
 				\begin{itemize}
-					\item Update Plant Details
+					\item Update plant details
 					\item Configure pump settings
 					\item Configure fan speeds
-					\item Delete Plant
+					\item Delete plant
 				\end{itemize}
 			\end{itemize}
 			
@@ -299,7 +301,7 @@ The Business Service, shown in Figure \ref{fig:business-service}, handles all us
 			\begin{itemize}
 				\item User Management Subsystem
 					\begin{itemize}
-						\item View Gamification Information
+						\item View gamification information
 					\end{itemize}
 				\item Device Communications Subsystem
 					\begin{itemize}
@@ -364,7 +366,7 @@ The Business Service, shown in Figure \ref{fig:business-service}, handles all us
 		
 	\paragraph{Edit details}\mbox{}\\
 		\textbf{Description:} A registered and logged in user should be able to edit details such as their email and password.\\
-		\textbf{Prioritisation:} Nice-to-have\\		
+		\textbf{Prioritisation:} Important\\		
 		\textbf{Pre-conditions:}
 			\begin{itemize}
 				\item User must be logged in
@@ -435,6 +437,52 @@ The Business Service, shown in Figure \ref{fig:business-service}, handles all us
 		\begin{figure}[H]
 			\includegraphics[width=\linewidth]{images/ServicesContracts/createPlant.jpg}
 			\caption{Services contract diagram for create plant}
+		\end{figure}
+		
+	\paragraph{List Plants}\mbox{}\\
+		\textbf{Description:} A registered and logged in user should be able to retrieve a list of all the plants associated with their account.\\
+		\textbf{Prioritisation:} Critical\\		
+		\textbf{Pre-conditions:}
+			\begin{itemize}
+				\item The user should be logged in
+			\end{itemize}
+		\textbf{Post-conditions:}
+			\begin{itemize}
+				\item A response object containing a list of all plants associated with a user and all their individual details should be returned
+			\end{itemize}
+
+		\begin{figure}[H]
+			\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
+			\caption{Use case diagram for list plants}
+		\end{figure}
+		
+		\begin{figure}[H]
+			\includegraphics[width=\linewidth]{images/ServicesContracts/listUserPlants.jpg}
+			\caption{Services contract diagram for list plants}
+		\end{figure}
+	
+	\paragraph{Create and Associate a Virtual 'Thing' With a Plant}\mbox{}\\
+		\textbf{Description:} A registered and logged in user should be able to create a virtual 'Thing' and associate it with a particular plant.\\
+		\textbf{Prioritisation:} Critical\\		
+		\textbf{Pre-conditions:}
+			\begin{itemize}
+				\item The user should be logged in
+				\item The virtual 'Thing' should be associated with a particular plant
+			\end{itemize}
+		\textbf{Post-conditions:}
+			\begin{itemize}
+				\item A newly created 'Thing' should be created
+				\item A relationship between the 'Thing' and a plant should be created and persisted in the database
+			\end{itemize}
+
+		\begin{figure}[H]
+			%\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
+			\caption{Use case diagram for create and associate a virtual 'Thing' with a plant}
+		\end{figure}
+		
+		\begin{figure}[H]
+			%\includegraphics[width=\linewidth]{images/ServicesContracts/listPlants.jpg}
+			\caption{Services contract diagram for create and associate a virtual 'Thing' with a plant}
 		\end{figure}
 		
 	\paragraph{View Plant Status}\mbox{}\\
@@ -542,7 +590,7 @@ The Business Service, shown in Figure \ref{fig:business-service}, handles all us
 			\caption{Services contract diagram for configure pump settings}
 		\end{figure}
 	
-	\paragraph{Control Fan Speeds}\mbox{}\\
+	\paragraph{Configure Fan Speeds}\mbox{}\\
 		\textbf{Description:} A registered and logged in user should be able to configure the settings of the fan associated with an IoT device.\\
 		\textbf{Prioritisation:} Important\\		
 		\textbf{Pre-conditions:}
@@ -591,7 +639,53 @@ The Business Service, shown in Figure \ref{fig:business-service}, handles all us
 		\end{figure}
 	
 \subsubsection{Device Communications Subsystem}
+	\paragraph{Send Readings Summary to Lambda}\mbox{}\\
+		\textbf{Description:}An IoT device should send details about the information it has gathered using its sensors to the serverless provider.\\
+		\textbf{Prioritisation:} Critical\\		
+		\textbf{Pre-conditions:}
+			\begin{itemize}
+				\item A connection should be established with the IoT platform
+				\item The device should publish to a particular topic
+			\end{itemize}
+		\textbf{Post-conditions:}
+			\begin{itemize}
+				\item The information gathered should be stored in the database and associated with the plant associated with the IoT device
+			\end{itemize}
 
+		\begin{figure}[H]
+			%\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
+			\caption{Use case diagram for send readings summary to Lambda}
+		\end{figure}
+		
+		\begin{figure}[H]
+			%\includegraphics[width=\linewidth]{images/ServicesContracts/deletePlant.jpg}
+			\caption{Services contract diagram for send readings summary to Lambda}
+		\end{figure}
+		
+	\paragraph{Complex Event Processing on Device Communications}\mbox{}\\
+		\textbf{Description:}An IoT device's readings should be intercepted and analysed to determine whether they indicate a complex event has occurred.\\
+		\textbf{Prioritisation:} Critical\\		
+		\textbf{Pre-conditions:}
+			\begin{itemize}
+				\item A connection should be established with the IoT platform
+				\item The device should publish to a particular topic
+				\item The information should be intercepted and analysed in real time
+			\end{itemize}
+		\textbf{Post-conditions:}
+			\begin{itemize}
+				\item According to the event the information indicates the appropriate automated action should take place in terms of controlling some aspect of the device.
+			\end{itemize}
+
+		\begin{figure}[H]
+			%\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
+			\caption{Use case diagram for Complex Event Processing on Device Communications}
+		\end{figure}
+		
+		\begin{figure}[H]
+			%\includegraphics[width=\linewidth]{images/ServicesContracts/deletePlant.jpg}
+			\caption{Services contract diagram for complex event processing on device communications}
+		\end{figure}	
+	
 \section{Technologies}
 
 \subsection{Todo add technologies like framework, web container etc}
