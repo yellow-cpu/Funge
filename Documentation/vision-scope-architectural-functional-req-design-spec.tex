@@ -502,7 +502,7 @@ The Database Service will use the DynamoDB persistence API to persist user infor
 		\textbf{Pre-conditions:}
 			\begin{itemize}
 				\item The user should be logged in
-				\item A particular plant should be selected
+				\item A valid plantId should be supplied
 			\end{itemize}
 		\textbf{Post-conditions:}
 			\begin{itemize}
@@ -522,7 +522,7 @@ The Database Service will use the DynamoDB persistence API to persist user infor
 		\end{figure}
 		
 		\begin{figure}[H]
-			%\includegraphics[width=\linewidth]{images/ServicesContracts/createPlant.jpg}
+			\includegraphics[width=\linewidth]{images/ServicesContracts/viewPlant.jpg}
 			\caption{Services contract diagram for view plant status}
 		\end{figure}
 		
@@ -615,7 +615,8 @@ The Database Service will use the DynamoDB persistence API to persist user infor
 			\end{itemize}
 		\textbf{Post-conditions:}
 			\begin{itemize}
-				\item The configuration details should be communicated to and applied on the IoT device.
+				\item The configuration details should be communicated to and applied on the IoT device
+				\item A response object indicating whether the action was successful should be returned
 			\end{itemize}
 
 		\begin{figure}[H]
@@ -624,7 +625,7 @@ The Database Service will use the DynamoDB persistence API to persist user infor
 		\end{figure}
 		
 		\begin{figure}[H]
-			%\includegraphics[width=\linewidth]{images/ServicesContracts/updatePlant.jpg}
+			\includegraphics[width=\linewidth]{images/ServicesContracts/configureFan.jpg}
 			\caption{Services contract diagram for configure fan settings}
 		\end{figure}
 	
