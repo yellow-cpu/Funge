@@ -190,15 +190,22 @@ We will be using a cloud-based, serverless, event-driven micro-services architec
 \subsection{Services}
 
 \subsubsection{Data gathering service}
+Figure \ref{fig:data-gathering} shows the components of the data gathering service. The Plant Box consists of the plants, sensors and the physical IoT device. The sensors send readings to the IoT device every 10 seconds, which in turn updates its virtual representation on the AWS IoT platform.
 
+\begin{figure}[h!]
+  \includegraphics[width=\textwidth]{images/services/data-gathering-service.png}
+  \caption{Data Gathering Service}
+  \label{fig:data-gathering}
+\end{figure}
 
 \subsubsection{Processing service}
-
+After the data has been gathered, it will be processed by means of calculating necessary statistics over a set time period. For example, every 12 hours the max, min and average readings from the temperature sensor are calculated and stored using the Database service (see section \ref{sec:database-service}).  
 
 \subsubsection{Business service}
 
 
-\subsubsection{Database service}
+\subsubsection{Database service} \label{sec:database-service}
+
 
 \subsubsection{TODO add services here}
 
@@ -215,10 +222,22 @@ We will be using a cloud-based, serverless, event-driven micro-services architec
 \section{Database and Persistence}
 
 \section{Process Specification}
-
-\subsection{Server}
-
-\subsection{Frontend}
+	In this section, there is an overview of the three main processes of the system, where each process is explained in a broad manner.
+	
+	\subsection{Backend}
+		The backend consists of three main parts, mainly the database, the events processor and the Internet of Things (IoT) manager.
+		
+		\subsubsection{Database}
+			The database stores the user details, which IoT device is associated with which account, as well as all the details sent by the IoT device in the updates (explained below) into the corresponding sensor detail tables. When a sensor table reaches a certain capacity, the database will trigger the events processor to collect and concatenate data into a more summarized form: hourly data is transformed into daily data, daily into monthly etc.
+		
+		\subsubsection{Events Processor}
+		
+		\subsubsection{IoT Manager}
+		
+	\subsection{Frontend}
+		
+	
+	\subsection{IoT Device}
 
 \section{Functional Requirements}
 	\subsection{Use Case Prioritisation}
