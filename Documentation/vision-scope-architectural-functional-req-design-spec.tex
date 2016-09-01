@@ -221,14 +221,81 @@ After the data has been gathered, it will be processed by means of calculating n
 \section{Database and Persistence}
 
 \section{Process Specification}
-
-\subsection{Server}
-
-\subsection{Frontend}
+	In this section, there is an overview of the three main processes of the system, where each process is explained in a broad manner.
+	
+	\subsection{Backend}
+		The backend consists of three main parts, mainly the database, the events processor and the Internet of Things (IoT) manager.
+		
+		\subsubsection{Database}
+			The database stores the user details, which IoT device is associated with which account, as well as all the details sent by the IoT device in the updates (explained below) into the corresponding sensor detail tables. When a sensor table reaches a certain capacity, the database will trigger the events processor to collect and concatenate data into a more summarized form: hourly data is transformed into daily data, daily into monthly etc.
+		
+		\subsubsection{Events Processor}
+		
+		\subsubsection{IoT Manager}
+		
+	\subsection{Frontend}
+		
+	
+	\subsection{IoT Device}
 
 \section{Functional Requirements}
-
-\subsection{Use Case Prioritisation}
+	\subsection{Use Case Prioritisation}
+		\subsubsection{Critical}
+			\begin{itemize}
+				\item User Management Subsystem:
+				\begin{itemize}
+					\item Register Account
+					\item Login
+				\end{itemize}
+				
+				\item Plant/Device Management Subsystem:
+				\begin{itemize}
+					\item Create Plant
+					\item View Plant Status
+				\end{itemize}
+				
+				\item Device Communications Subsystem
+				\begin{itemize}
+					\item Send Updated Settings/Configuration to Device
+					\item Send Readings Summary to Lambda
+				\end{itemize}
+			\end{itemize}
+		
+		\subsubsection{Important}
+			\begin{itemize}
+				\item User Management Subsystem:
+				\begin{itemize}
+					\item Edit Details
+				\end{itemize}
+				
+				\item Plant/Device Management Subsystem:
+				\begin{itemize}
+					\item Edit Plant Details
+					\item Add Sensor to Device
+					\item Remove Sensor from Device
+					\item Edit Plant Configuration/Settings
+					\item Remove Plant
+				\end{itemize}
+			\end{itemize}
+			
+		\subsubsection{Nice-to-haves}
+			\begin{itemize}
+				\item User Management Subsystem
+					\begin{itemize}
+						\item View Gamification Information
+					\end{itemize}
+				
+				\item Plant/Device Management Subsystem:
+					\begin{itemize}
+						\item Control fan speeds
+						\item Control water flow and watering cycle processing
+					\end{itemize}
+				
+				\item Device Communications Subsystem
+					\begin{itemize}
+						\item Complex event processing on device communications
+					\end{itemize}
+			\end{itemize}
 
 \subsection{Use Case/Service Contracts}
 
