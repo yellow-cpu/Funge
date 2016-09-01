@@ -7,13 +7,12 @@
 
 % Paragraph formatting
 \usepackage{indentfirst}
-\setlength{\parindent}{4em}
+\setlength{\parindent}{0em}
 \setlength{\parskip}{1em}
 
 % Header and footer
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-\setcounter{secnumdepth}{4}
 
 \rhead{}
 \lhead{}
@@ -249,7 +248,7 @@ After the data has been gathered, it will be processed by means of calculating n
 			\begin{itemize}
 				\item User Management Subsystem:
 				\begin{itemize}
-					\item Register account
+					\item Register Account
 					\item Login
 				\end{itemize}
 				
@@ -257,22 +256,28 @@ After the data has been gathered, it will be processed by means of calculating n
 				\begin{itemize}
 					\item Create Plant
 					\item View Plant Status
-					\item Configure light settings
 				\end{itemize}
 				
 				\item Device Communications Subsystem
 				\begin{itemize}
-					\item Send sensor readings to Lambda
+					\item Send Updated Settings/Configuration to Device
+					\item Send Readings Summary to Lambda
 				\end{itemize}
 			\end{itemize}
 		
 		\subsubsection{Important}
 			\begin{itemize}
+				\item User Management Subsystem:
+				\begin{itemize}
+					\item Edit Details
+				\end{itemize}
+				
 				\item Plant/Device Management Subsystem:
 				\begin{itemize}
 					\item Edit Plant Details
-					\item Configure pump settings
-					\item Control fan speeds
+					\item Add Sensor to Device
+					\item Remove Sensor from Device
+					\item Edit Plant Configuration/Settings
 					\item Remove Plant
 				\end{itemize}
 			\end{itemize}
@@ -281,12 +286,12 @@ After the data has been gathered, it will be processed by means of calculating n
 			\begin{itemize}
 				\item User Management Subsystem
 					\begin{itemize}
-						\item Edit details
-						\item View gamification information
+						\item View Gamification Information
 					\end{itemize}
 				
 				\item Plant/Device Management Subsystem:
 					\begin{itemize}
+						\item Control fan speeds
 						\item Control water flow and watering cycle processing
 					\end{itemize}
 				
@@ -298,166 +303,7 @@ After the data has been gathered, it will be processed by means of calculating n
 
 \subsection{Use Case/Service Contracts}
 
-\subsubsection{User Management Subsystem}
-	\paragraph{Register Account}\mbox{}\\
-		\textbf{Description:} A user must register an account before being able to access the system so that they may associated devices and plants with their account.\\
-		\textbf{Prioritisation:} Critical\\		
-		\textbf{Pre-conditions:}
-			\begin{itemize}
-				\item Email must be unique, obey email standards and not be null
-				\item Username must be unique and not null
-				\item Password must be longer than 8 characters and must not be null
-			\end{itemize}
-		\textbf{Post-conditions:}
-			\begin{itemize}
-				\item The password must be encrypted using PBKDF2WithHmacSHA1 and salted
-				\item A Cognito identity ID must be created for the user
-				\item All the above information must be associated with the username provided and stored in a database
-			\end{itemize}
-
-		\begin{figure}[H]
-			\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
-			\caption{Use case diagram for registering an account}
-		\end{figure}		
-		
-		\begin{figure}[H]
-			\includegraphics[width=\linewidth]{images/ServicesContracts/register.jpg}
-			\caption{Services contract diagram for registering an account}
-		\end{figure}
-		
-	\paragraph{Login}\mbox{}\\
-		\textbf{Description:} A registered user must be able to login so they may securely view their account and all associated details.\\
-		\textbf{Prioritisation:} Critical\\		
-		\textbf{Pre-conditions:}
-			\begin{itemize}
-				\item Username must not be null
-				\item Password must not be null
-				\item User account associated with username must exist
-				\item The password after being hashed and salted must match that of the provided username
-			\end{itemize}
-		\textbf{Post-conditions:}
-			\begin{itemize}
-				\item The user should be given temporary user credentials in a response object
-				\item The user should be given access to their information and redirected to their dashboard
-			\end{itemize}
-
-		\begin{figure}[H]
-			\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
-			\caption{Use case diagram for login}
-		\end{figure}		
-		
-		\begin{figure}[H]
-			\includegraphics[width=\linewidth]{images/ServicesContracts/login.jpg}
-			\caption{Services contract diagram for login}
-		\end{figure}
-		
-	\paragraph{Edit details}\mbox{}\\
-		\textbf{Description:} A registered and logged in user should be able to edit details such as their email and password.\\
-		\textbf{Prioritisation:} Nice-to-have\\		
-		\textbf{Pre-conditions:}
-			\begin{itemize}
-				\item User must be logged in
-				\item User editing details should be the owner of those details
-			\end{itemize}
-		\textbf{Post-conditions:}
-			\begin{itemize}
-				\item The values of the edited details should be reflected in the database
-			\end{itemize}
-
-		\begin{figure}[H]
-			%\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
-			\caption{Use case diagram for edit details}
-		\end{figure}		
-		
-		\begin{figure}[H]
-			%\includegraphics[width=\linewidth]{images/ServicesContracts/login.jpg}
-			\caption{Services contract diagram for edit details}
-		\end{figure}
-	
-	\paragraph{View Gamification Details}\mbox{}\\
-		\textbf{Description:} A registered and logged in user should be able to view details with regard to the progress they have made. This includes details such as their ranked level and experience points for completing tasks.\\
-		\textbf{Prioritisation:} Nice-to-have\\		
-		\textbf{Pre-conditions:}
-			\begin{itemize}
-				\item User must be logged in
-			\end{itemize}
-		\textbf{Post-conditions:}
-			\begin{itemize}
-				\item The gamification values associated with the user should be displayed to the user.
-			\end{itemize}
-
-		\begin{figure}[H]
-			%\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
-			\caption{Use case diagram for view gamification details}
-		\end{figure}
-		
-		\begin{figure}[H]
-			%\includegraphics[width=\linewidth]{images/ServicesContracts/login.jpg}
-			\caption{Services contract diagram for view gamification details}
-		\end{figure}
-
-\subsubsection{Plant/Device Management Subsystem}
-	\paragraph{Create Plant}\mbox{}\\
-		\textbf{Description:} A registered and logged in user should be able to create a virtual plant to be associated with a device monitoring a plant. This plant should have a name as well as a plant type.\\
-		\textbf{Prioritisation:} Critical\\		
-		\textbf{Pre-conditions:}
-			\begin{itemize}
-				\item The user should be logged in
-				\item The plant's name should not be null
-				\item The plant's type should not be null
-				\item The plant's age should not be null
-				\item An IoT device should be selected to be associated with the plant
-			\end{itemize}
-		\textbf{Post-conditions:}
-			\begin{itemize}
-				\item The plant should be assigned a unique identifier
-				\item It should be associated with a particular user
-				\item An IoT device ID should be associated with the plant
-				\item The plant should be persisted in the database with all the above information
-			\end{itemize}
-
-		\begin{figure}[H]
-			\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
-			\caption{Use case diagram for create plant}
-		\end{figure}
-		
-		\begin{figure}[H]
-			\includegraphics[width=\linewidth]{images/ServicesContracts/createPlant.jpg}
-			\caption{Services contract diagram for create plant}
-		\end{figure}
-		
-		\paragraph{View Plant Status}\mbox{}\\
-		\textbf{Description:} A registered and logged in user should be able to view the details associated with a particular plant in terms of the readings the associated IoT device has stored in the database.\\
-		\textbf{Prioritisation:} Critical\\		
-		\textbf{Pre-conditions:}
-			\begin{itemize}
-				\item The user should be logged in
-				\item A particular plant should be selected
-			\end{itemize}
-		\textbf{Post-conditions:}
-			\begin{itemize}
-				\item All details associated with a particular plant and gathered by the associated IoT device should be displayed. These details could include:
-				\begin{itemize}
-					\item Temperature
-					\item Humidity
-					\item Light conditions
-					\item Water flow
-					\item Soil moisture
-				\end{itemize}
-			\end{itemize}
-
-		\begin{figure}[H]
-			%\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
-			\caption{Use case diagram for view plant status}
-		\end{figure}
-		
-		\begin{figure}[H]
-			%\includegraphics[width=\linewidth]{images/ServicesContracts/createPlant.jpg}
-			\caption{Services contract diagram for view plant status}
-		\end{figure}		
-	
-\subsubsection{Device Communications Subsystem}
-	
+\subsubsection{Add use cases/service contracts}
 
 \section{Technologies}
 
