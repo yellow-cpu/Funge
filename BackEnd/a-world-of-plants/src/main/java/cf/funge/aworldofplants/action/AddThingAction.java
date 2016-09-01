@@ -6,6 +6,7 @@ import cf.funge.aworldofplants.exception.InternalErrorException;
 import cf.funge.aworldofplants.model.action.AddThingRequest;
 import cf.funge.aworldofplants.model.action.AddThingResponse;
 import com.amazonaws.services.iot.model.CreateThingRequest;
+import com.amazonaws.services.iot.model.CreateThingResult;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.iot.*;
@@ -35,10 +36,10 @@ public class AddThingAction extends AbstractAction {
         CreateThingRequest createThingRequest = new CreateThingRequest();
         createThingRequest.setThingName(input.getThingName());
 
-        awsIotClient.createThing(createThingRequest);
+        CreateThingResult createThingResult = awsIotClient.createThing(createThingRequest);
 
         AddThingResponse output = new AddThingResponse();
-        output.setThingArn("");
+        output.setThingArn(createThingResult.getThingArn());
 
         return getGson().toJson(output);
     }
