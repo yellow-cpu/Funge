@@ -7,13 +7,12 @@
 
 % Paragraph formatting
 \usepackage{indentfirst}
-\setlength{\parindent}{4em}
+\setlength{\parindent}{0em}
 \setlength{\parskip}{1em}
 
 % Header and footer
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-\setcounter{secnumdepth}{4}
 
 \rhead{}
 \lhead{}
@@ -78,8 +77,6 @@
 	The main purpose of the platform is to encourage younger generations to become interested in agriculture and, in doing so, help stimulate South Africa's agricultural industry. We plan to implement gamification on our platform as a way to encourage users to participate.
 	
 	Given enough time, AI learning could be employed to optimise the conditions under which plants grow. By combining automation and AI learning, we could create an interesting challenge for the users: Grow a plant better than our control plant grown with the help of AI.
-
-\cleardoublepage
 
 \section{Background}
 	This project is part of a Software Engineering module (COS 301) for the University of Pretoria. Our client is Julian Hambleton-Jones (AWS) and our project was to create anything we wanted using the AWS IoT platform. What we decided upon was the creation of a network of living plants which are to be analysed and looked after through the use of IoT devices and our software system.
@@ -199,7 +196,13 @@ Figure \ref{fig:data-gathering} shows the components of the data gathering servi
 \end{figure}
 
 \subsubsection{Processing service}
-After the data has been gathered, it will be processed by means of calculating necessary statistics over a set time period. For example, every 12 hours the max, min and average readings from the temperature sensor are calculated and stored using the Database service (see section \ref{sec:database-service}).  
+After the data has been gathered, it will be processed by means of calculating necessary statistics over a set time period. For example, every 12 hours the max, min and average readings from the temperature sensor are calculated and stored using the Database service (see section \ref{sec:database-service}). This is shown at a high level in Figure \ref{fig:processing}
+
+\begin{figure}[h!]
+  \includegraphics[width=\textwidth]{images/services/processing-service.png}
+  \caption{Processing Service}
+  \label{fig:processing}
+\end{figure}
 
 \subsubsection{Business service}
 
@@ -245,7 +248,7 @@ After the data has been gathered, it will be processed by means of calculating n
 			\begin{itemize}
 				\item User Management Subsystem:
 				\begin{itemize}
-					\item Register account
+					\item Register Account
 					\item Login
 				\end{itemize}
 				
@@ -253,17 +256,22 @@ After the data has been gathered, it will be processed by means of calculating n
 				\begin{itemize}
 					\item Create Plant
 					\item View Plant Status
-					\item Configure light settings
 				\end{itemize}
 				
 				\item Device Communications Subsystem
 				\begin{itemize}
-					\item Send sensor readings to Lambda
+					\item Send Updated Settings/Configuration to Device
+					\item Send Readings Summary to Lambda
 				\end{itemize}
 			\end{itemize}
 		
 		\subsubsection{Important}
 			\begin{itemize}
+				\item User Management Subsystem:
+				\begin{itemize}
+					\item Edit Details
+				\end{itemize}
+				
 				\item Plant/Device Management Subsystem:
 				\begin{itemize}
 					\item Update Plant Details
@@ -277,10 +285,8 @@ After the data has been gathered, it will be processed by means of calculating n
 			\begin{itemize}
 				\item User Management Subsystem
 					\begin{itemize}
-						\item Edit details
-						\item View gamification information
+						\item View Gamification Information
 					\end{itemize}
-				
 				\item Device Communications Subsystem
 					\begin{itemize}
 						\item Complex event processing on device communications
@@ -571,7 +577,6 @@ After the data has been gathered, it will be processed by means of calculating n
 		\end{figure}
 	
 \subsubsection{Device Communications Subsystem}
-	
 
 \section{Technologies}
 
