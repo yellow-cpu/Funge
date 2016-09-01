@@ -229,6 +229,14 @@ The Business Service, shown in Figure \ref{fig:business-service}, handles all us
 \subsubsection{Auditability}
 
 \section{Database and Persistence}
+	The database which we are using is AWS DynamoDB. It is a managed, NoSQL database service. Some of the reasons we decided to choose a managed, NoSQL database service include, but are not limited to:
+	\begin{itemize}
+		\item Database operations are able to be triggered and are able to trigger other cloud services based on particular events. This suits our event-driven architecture well
+		\item Automatic data replication over three availability-zones in a single region which ensures fast and redundant access
+		\item It obeys a pay-per-use model
+		\item Through the use of other AWS services security and access control is easy to manage
+		\item "Infinitely" scalable read/write I/O running on IOPS-optimised solid state drives
+	\end{itemize}
 
 \section{Process Specification}
 	In this section, there is an overview of the three main processes of the system, where each process is explained in a broad manner.
