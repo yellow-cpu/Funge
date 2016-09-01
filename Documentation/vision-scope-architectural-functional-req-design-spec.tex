@@ -214,10 +214,22 @@ We will be using a cloud-based, serverless, event-driven micro-services architec
 \section{Database and Persistence}
 
 \section{Process Specification}
-
-\subsection{Server}
-
-\subsection{Frontend}
+	In this section, there is an overview of the three main processes of the system, where each process is explained in a broad manner.
+	
+	\subsection{Backend}
+		The backend consists of three main parts, mainly the database, the events processor and the Internet of Things (IoT) manager.
+		
+		\subsubsection{Database}
+			The database stores the user details, which IoT device is associated with which account, as well as all the details sent by the IoT device in the updates (explained below) into the corresponding sensor detail tables. When a sensor table reaches a certain capacity, the database will trigger the events processor to collect and concatenate data into a more summarized form: hourly data is transformed into daily data, daily into monthly etc.
+		
+		\subsubsection{Events Processor}
+		
+		\subsubsection{IoT Manager}
+		
+	\subsection{Frontend}
+		
+	
+	\subsection{IoT Device}
 
 \section{Functional Requirements}
 	\subsection{Use Case Prioritisation}
