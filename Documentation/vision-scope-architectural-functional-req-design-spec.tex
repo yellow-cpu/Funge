@@ -13,6 +13,7 @@
 % Header and footer
 \usepackage{fancyhdr}
 \pagestyle{fancy}
+\setcounter{secnumdepth}{4}
 
 \rhead{}
 \lhead{}
@@ -291,7 +292,7 @@ The Database Service will use the DynamoDB persistence API to persist user infor
 			\begin{itemize}
 				\item User Management Subsystem:
 				\begin{itemize}
-					\item Edit details
+					\item Update User Details
 				\end{itemize}
 				
 				\item Plant/Device Management Subsystem:
@@ -370,7 +371,7 @@ The Database Service will use the DynamoDB persistence API to persist user infor
 			\caption{Services contract diagram for login}
 		\end{figure}
 		
-	\paragraph{Edit details}\mbox{}\\
+	\paragraph{Update User Details}\mbox{}\\
 		\textbf{Description:} A registered and logged in user should be able to edit details such as their email and password.\\
 		\textbf{Prioritisation:} Important\\		
 		\textbf{Pre-conditions:}
@@ -384,13 +385,13 @@ The Database Service will use the DynamoDB persistence API to persist user infor
 			\end{itemize}
 
 		\begin{figure}[H]
-			%\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
-			\caption{Use case diagram for edit details}
+			\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
+			\caption{Use case diagram for update user details}
 		\end{figure}		
 		
 		\begin{figure}[H]
-			%\includegraphics[width=\linewidth]{images/ServicesContracts/login.jpg}
-			\caption{Services contract diagram for edit details}
+			\includegraphics[width=\linewidth]{images/ServicesContracts/updateUser.jpg}
+			\caption{Services contract diagram for update user details}
 		\end{figure}
 	
 	\paragraph{View Gamification Details/Get User Details}\mbox{}\\
@@ -486,7 +487,7 @@ The Database Service will use the DynamoDB persistence API to persist user infor
 			\end{itemize}
 
 		\begin{figure}[H]
-			%\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
+			\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
 			\caption{Use case diagram for create and associate a virtual 'Thing' with a plant}
 		\end{figure}
 		
@@ -516,7 +517,7 @@ The Database Service will use the DynamoDB persistence API to persist user infor
 			\end{itemize}
 
 		\begin{figure}[H]
-			%\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
+			\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
 			\caption{Use case diagram for view plant status}
 		\end{figure}
 		
@@ -537,16 +538,17 @@ The Database Service will use the DynamoDB persistence API to persist user infor
 		\textbf{Post-conditions:}
 			\begin{itemize}
 				\item The RGB value should be communicated to the device
-				\item The IoT device should subsequently reflect this RGB colour in the wavelengths of the LED strip
+				\item The IoT device should subsequently reflect this RGB colour in the wavelengths of the LED strip, if the RGB value was (0, 0, 0) the lights should be turned off
+				\item A response object indicating whether the action was successful should be returned
 			\end{itemize}
 
 		\begin{figure}[H]
-			%\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
+			\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
 			\caption{Use case diagram for configure light settings}
 		\end{figure}
 		
 		\begin{figure}[H]
-			%\includegraphics[width=\linewidth]{images/ServicesContracts/createPlant.jpg}
+			\includegraphics[width=\linewidth]{images/ServicesContracts/configureLights.jpg}
 			\caption{Services contract diagram for configure light settings}
 		\end{figure}
 		
@@ -558,7 +560,7 @@ The Database Service will use the DynamoDB persistence API to persist user infor
 				\item The user should be logged in
 				\item The plant ID must not be null
 				\item The relevant updated information must be supplied
-				\item A particular plant should be selected
+				\item The plant must exist
 			\end{itemize}
 		\textbf{Post-conditions:}
 			\begin{itemize}
@@ -587,16 +589,18 @@ The Database Service will use the DynamoDB persistence API to persist user infor
 			\end{itemize}
 		\textbf{Post-conditions:}
 			\begin{itemize}
-				\item The configuration should be communicated to and applied on the IoT device
+				\item The configuration should be communicated to and applied on the IoT device, the pump should run for the specified amount of time
+				\item If the pumpTime value was 0 the pump should turn itself off
+				\item A response object indicating whether the action was successful should be returned
 			\end{itemize}
 
 		\begin{figure}[H]
-			%\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
+			\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
 			\caption{Use case diagram for configure pump settings}
 		\end{figure}
 		
 		\begin{figure}[H]
-			%\includegraphics[width=\linewidth]{images/ServicesContracts/updatePlant.jpg}
+			\includegraphics[width=\linewidth]{images/ServicesContracts/configurePump.jpg}
 			\caption{Services contract diagram for configure pump settings}
 		\end{figure}
 	
@@ -616,7 +620,7 @@ The Database Service will use the DynamoDB persistence API to persist user infor
 
 		\begin{figure}[H]
 			\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
-			%\caption{Use case diagram for configure fan settings}
+			\caption{Use case diagram for configure fan settings}
 		\end{figure}
 		
 		\begin{figure}[H]
@@ -635,7 +639,8 @@ The Database Service will use the DynamoDB persistence API to persist user infor
 			\end{itemize}
 		\textbf{Post-conditions:}
 			\begin{itemize}
-				\item The plant and all associated details should be removed from the database
+				\item The plant's entry should be removed from the database
+				\item Any information related to the plant must also be removed from the relevant tables
 			\end{itemize}
 
 		\begin{figure}[H]
@@ -663,7 +668,7 @@ The Database Service will use the DynamoDB persistence API to persist user infor
 			\end{itemize}
 
 		\begin{figure}[H]
-			%\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
+			\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
 			\caption{Use case diagram for send readings summary to Lambda}
 		\end{figure}
 		
@@ -687,7 +692,7 @@ The Database Service will use the DynamoDB persistence API to persist user infor
 			\end{itemize}
 
 		\begin{figure}[H]
-			%\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
+			\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
 			\caption{Use case diagram for Complex Event Processing on Device Communications}
 		\end{figure}
 		
