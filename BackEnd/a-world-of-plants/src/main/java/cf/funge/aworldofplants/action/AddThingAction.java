@@ -5,6 +5,8 @@ import cf.funge.aworldofplants.exception.BadRequestException;
 import cf.funge.aworldofplants.exception.InternalErrorException;
 import cf.funge.aworldofplants.model.action.AddThingRequest;
 import cf.funge.aworldofplants.model.action.AddThingResponse;
+import com.amazonaws.services.iot.model.CreateKeysAndCertificateRequest;
+import com.amazonaws.services.iot.model.CreateKeysAndCertificateResult;
 import com.amazonaws.services.iot.model.CreateThingRequest;
 import com.amazonaws.services.iot.model.CreateThingResult;
 import com.amazonaws.services.lambda.runtime.Context;
@@ -33,10 +35,18 @@ public class AddThingAction extends AbstractAction {
 
         AWSIotClient awsIotClient = new AWSIotClient();
 
+        // Create thing
         CreateThingRequest createThingRequest = new CreateThingRequest();
         createThingRequest.setThingName(input.getThingName());
-
         CreateThingResult createThingResult = awsIotClient.createThing(createThingRequest);
+
+        // Create keys and certificate
+        CreateKeysAndCertificateRequest createKeysAndCertificateRequest = new CreateKeysAndCertificateRequest();
+        createKeysAndCertificateRequest.setSetAsActive(true);
+        CreateKeysAndCertificateResult createKeysAndCertificateResult =  awsIotClient.createKeysAndCertificate(createKeysAndCertificateRequest);
+
+        System.out.println(createKeysAndCertificateResult.getCertificatePem());
+        System.out.println(createKeysAndCertificateResult.getKeyPair());
 
         AddThingResponse output = new AddThingResponse();
         output.setThingArn(createThingResult.getThingArn());
