@@ -189,15 +189,22 @@ We will be using a cloud-based, serverless, event-driven micro-services architec
 \subsection{Services}
 
 \subsubsection{Data gathering service}
+Figure \ref{fig:data-gathering} shows the components of the data gathering service. The Plant Box consists of the plants, sensors and the physical IoT device. The sensors send readings to the IoT device every 10 seconds, which in turn updates its virtual representation on the AWS IoT platform.
 
+\begin{figure}[h!]
+  \includegraphics[width=\textwidth]{images/services/data-gathering-service.png}
+  \caption{Data Gathering Service}
+  \label{fig:data-gathering}
+\end{figure}
 
 \subsubsection{Processing service}
-
+After the data has been gathered, it will be processed by means of calculating necessary statistics over a set time period. For example, every 12 hours the max, min and average readings from the temperature sensor are calculated and stored using the Database service (see section \ref{sec:database-service}).  
 
 \subsubsection{Business service}
 
 
-\subsubsection{Database service}
+\subsubsection{Database service} \label{sec:database-service}
+
 
 \subsubsection{TODO add services here}
 
