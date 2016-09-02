@@ -7,7 +7,7 @@
 
 % Paragraph formatting
 \usepackage{indentfirst}
-\setlength{\parindent}{4em}
+\setlength{\parindent}{0em}
 \setlength{\parskip}{1em}
 
 % Header and footer
@@ -78,8 +78,6 @@
 	The main purpose of the platform is to encourage younger generations to become interested in agriculture and, in doing so, help stimulate South Africa's agricultural industry. We plan to implement gamification on our platform as a way to encourage users to participate.
 	
 	Given enough time, AI learning could be employed to optimise the conditions under which plants grow. By combining automation and AI learning, we could create an interesting challenge for the users: Grow a plant better than our control plant grown with the help of AI.
-
-\cleardoublepage
 
 \section{Background}
 	This project is part of a Software Engineering module (COS 301) for the University of Pretoria. Our client is Julian Hambleton-Jones (AWS) and our project was to create anything we wanted using the AWS IoT platform. What we decided upon was the creation of a network of living plants which are to be analysed and looked after through the use of IoT devices and our software system.
@@ -199,27 +197,78 @@ Figure \ref{fig:data-gathering} shows the components of the data gathering servi
 \end{figure}
 
 \subsubsection{Processing service}
-After the data has been gathered, it will be processed by means of calculating necessary statistics over a set time period. For example, every 12 hours the max, min and average readings from the temperature sensor are calculated and stored using the Database service (see section \ref{sec:database-service}).  
+After the data has been gathered, it will be processed by means of calculating necessary statistics over a set time period. For example, every 12 hours the max, min and average readings from the temperature sensor are calculated and stored using the Database service (see section \ref{sec:database-service}). This is shown at a high level in Figure \ref{fig:processing-service}
+
+\begin{figure}[h!]
+  \includegraphics[width=\textwidth]{images/services/processing-service.png}
+  \caption{Processing Service}
+  \label{fig:processing-service}
+\end{figure}
 
 \subsubsection{Business service}
+The Business Service, shown in Figure \ref{fig:business-service}, handles all user interaction and delegates it to other services. This includes all Web interface functionality such as graphing, gamification and plant management. AWS API Gateway is used to map the Business service to the frontend.
 
+\begin{figure}[h!]
+  \includegraphics[width=\textwidth]{images/services/business-service.png}
+  \caption{Business Service}
+  \label{fig:business-service}
+\end{figure}
 
 \subsubsection{Database service} \label{sec:database-service}
+The Database Service will use the DynamoDB persistence API to persist user information and Achievements as well as plant statistics. This is illustrated at a high level in Figure \ref{fig:database-service}
 
-
-\subsubsection{TODO add services here}
+\begin{figure}[h!]
+  \includegraphics[width=\textwidth]{images/services/database-service.png}
+  \caption{Database Service}
+  \label{fig:database-service}
+\end{figure}
 
 \subsection{Tactics}
 
 \subsubsection{Flexibility}
+\begin{itemize}
+	\item Hot pluggable hardware
+	\item Two-way binding of realtime updates between Web interface and hardware 
+	\item Contract-based-development, which allows easy pluggability of software components via interfaces
+\end{itemize}
 
 \subsubsection{Reliability}
+\begin{itemize}
+	\item Ability to store latest virtual hardware state even if it is disconnected
+	\item Ability to synchronise latest virtual hardware state when the physical hardware reconnects
+	\item Server clustering, which ensures that the backend will never fail
+	\item Database redundancy over multiple data centres to prevent a single point of failure
+\end{itemize}
 
 \subsubsection{Security}
+\begin{itemize}
+	\item User authentication with X.509 certificates to prevent unauthorised access
+	\item Limitation of user access through User Roles with different permissions associated with them
+	\item User passwords are salted and hashed before being sent over the network 
+\end{itemize}
 
 \subsubsection{Auditability}
+\begin{itemize}
+	\item Logging of user activity and resource usage
+	\item Public access to source code and version control, which also provides transparency to users and other developers
+\end{itemize}
+
+\subsubsection{Scalability}
+\begin{itemize}
+	\item Processing power scales dynamically based on demand
+	\item Storage capacity scales dynamically as items are added and removed
+	\item Database read and write speeds scale dynamically
+\end{itemize}
 
 \section{Database and Persistence}
+	The database which we are using is AWS DynamoDB. It is a managed, NoSQL database service. Some of the reasons we decided to choose a managed, NoSQL database service include, but are not limited to:
+	\begin{itemize}
+		\item Database operations are able to be triggered and are able to trigger other cloud services based on particular events. This suits our event-driven architecture well
+		\item Automatic data replication over three availability-zones in a single region which ensures fast and redundant access
+		\item It obeys a pay-per-use model
+		\item Through the use of other AWS services security and access control is easy to manage
+		\item "Infinitely" scalable read/write I/O running on IOPS-optimised solid state drives
+	\end{itemize}
 
 \section{Process Specification}
 	In this section, there is an overview of the three main processes of the system, where each process is explained in a broad manner.
@@ -251,25 +300,32 @@ After the data has been gathered, it will be processed by means of calculating n
 				
 				\item Plant/Device Management Subsystem:
 				\begin{itemize}
-					\item Create Plant
-					\item View Plant Status
+					\item Create plant
+					\item List plants
+					\item Create and associate a virtual 'Thing' with a plant
+					\item View plant status
 					\item Configure light settings
 				\end{itemize}
 				
 				\item Device Communications Subsystem
 				\begin{itemize}
-					\item Send sensor readings to Lambda
+					\item Send readings summary to Lambda
 				\end{itemize}
 			\end{itemize}
 		
 		\subsubsection{Important}
 			\begin{itemize}
+				\item User Management Subsystem:
+				\begin{itemize}
+					\item Update User Details
+				\end{itemize}
+				
 				\item Plant/Device Management Subsystem:
 				\begin{itemize}
-					\item Edit Plant Details
+					\item Update plant details
 					\item Configure pump settings
-					\item Control fan speeds
-					\item Remove Plant
+					\item Configure fan speeds
+					\item Delete plant
 				\end{itemize}
 			\end{itemize}
 			
@@ -277,15 +333,8 @@ After the data has been gathered, it will be processed by means of calculating n
 			\begin{itemize}
 				\item User Management Subsystem
 					\begin{itemize}
-						\item Edit details
-						\item View gamification information
+						\item View gamification information/get user details
 					\end{itemize}
-				
-				\item Plant/Device Management Subsystem:
-					\begin{itemize}
-						\item Control water flow and watering cycle processing
-					\end{itemize}
-				
 				\item Device Communications Subsystem
 					\begin{itemize}
 						\item Complex event processing on device communications
@@ -307,7 +356,7 @@ After the data has been gathered, it will be processed by means of calculating n
 		\textbf{Post-conditions:}
 			\begin{itemize}
 				\item The password must be encrypted using PBKDF2WithHmacSHA1 and salted
-				\item A Cognito identity ID must be created for the user
+				\item An identity ID must be created for the user
 				\item All the above information must be associated with the username provided and stored in a database
 			\end{itemize}
 
@@ -347,9 +396,9 @@ After the data has been gathered, it will be processed by means of calculating n
 			\caption{Services contract diagram for login}
 		\end{figure}
 		
-	\paragraph{Edit details}\mbox{}\\
+	\paragraph{Update User Details}\mbox{}\\
 		\textbf{Description:} A registered and logged in user should be able to edit details such as their email and password.\\
-		\textbf{Prioritisation:} Nice-to-have\\		
+		\textbf{Prioritisation:} Important\\		
 		\textbf{Pre-conditions:}
 			\begin{itemize}
 				\item User must be logged in
@@ -361,16 +410,16 @@ After the data has been gathered, it will be processed by means of calculating n
 			\end{itemize}
 
 		\begin{figure}[H]
-			%\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
-			\caption{Use case diagram for edit details}
+			\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
+			\caption{Use case diagram for update user details}
 		\end{figure}		
 		
 		\begin{figure}[H]
-			%\includegraphics[width=\linewidth]{images/ServicesContracts/login.jpg}
-			\caption{Services contract diagram for edit details}
+			\includegraphics[width=\linewidth]{images/ServicesContracts/updateUser.jpg}
+			\caption{Services contract diagram for update user details}
 		\end{figure}
 	
-	\paragraph{View Gamification Details}\mbox{}\\
+	\paragraph{View Gamification Details/Get User Details}\mbox{}\\
 		\textbf{Description:} A registered and logged in user should be able to view details with regard to the progress they have made. This includes details such as their ranked level and experience points for completing tasks.\\
 		\textbf{Prioritisation:} Nice-to-have\\		
 		\textbf{Pre-conditions:}
@@ -379,17 +428,18 @@ After the data has been gathered, it will be processed by means of calculating n
 			\end{itemize}
 		\textbf{Post-conditions:}
 			\begin{itemize}
-				\item The gamification values associated with the user should be displayed to the user.
+				\item The user's personal details should be returned (username \& email)
+				\item The gamification values associated with the user should be displayed to the user (level and experience)
 			\end{itemize}
 
 		\begin{figure}[H]
-			%\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
-			\caption{Use case diagram for view gamification details}
+			\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
+			\caption{Use case diagram for view gamification details/get user details}
 		\end{figure}
 		
 		\begin{figure}[H]
-			%\includegraphics[width=\linewidth]{images/ServicesContracts/login.jpg}
-			\caption{Services contract diagram for view gamification details}
+			\includegraphics[width=\linewidth]{images/ServicesContracts/getUser.jpg}
+			\caption{Services contract diagram for view gamification details/get user details}
 		\end{figure}
 
 \subsubsection{Plant/Device Management Subsystem}
@@ -422,13 +472,63 @@ After the data has been gathered, it will be processed by means of calculating n
 			\caption{Services contract diagram for create plant}
 		\end{figure}
 		
-		\paragraph{View Plant Status}\mbox{}\\
+	\paragraph{List Plants}\mbox{}\\
+		\textbf{Description:} A registered and logged in user should be able to retrieve a list of all the plants associated with their account.\\
+		\textbf{Prioritisation:} Critical\\		
+		\textbf{Pre-conditions:}
+			\begin{itemize}
+				\item The user should be logged in
+				\item Username must not be null
+			\end{itemize}
+		\textbf{Post-conditions:}
+			\begin{itemize}
+				\item A count of the plants belonging to the supplied username should be returned
+				\item A limit to the amount of plants returnable should be provided
+				\item A response object containing a list of all plants associated with a user and all their individual details should be returned
+			\end{itemize}
+
+		\begin{figure}[H]
+			\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
+			\caption{Use case diagram for list plants}
+		\end{figure}
+		
+		\begin{figure}[H]
+			\includegraphics[width=\linewidth]{images/ServicesContracts/listUserPlants.jpg}
+			\caption{Services contract diagram for list plants}
+		\end{figure}
+	
+	\paragraph{Create and Associate a Virtual 'Thing' With a Plant}\mbox{}\\
+		\textbf{Description:} A registered and logged in user should be able to create a virtual 'Thing' and associate it with a particular plant.\\
+		\textbf{Prioritisation:} Critical\\		
+		\textbf{Pre-conditions:}
+			\begin{itemize}
+				\item The user should be logged in
+				\item A plant ID should be supplied
+				\item The virtual 'Thing' should be associated with a particular plant
+			\end{itemize}
+		\textbf{Post-conditions:}
+			\begin{itemize}
+				\item A newly created 'Thing' should be created
+				\item A relationship between the 'Thing' and a plant should be created and persisted in the database
+			\end{itemize}
+
+		\begin{figure}[H]
+			\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
+			\caption{Use case diagram for create and associate a virtual 'Thing' with a plant}
+		\end{figure}
+		
+		\begin{figure}[H]
+			\includegraphics[width=\linewidth]{images/ServicesContracts/createThing.jpg}
+			\caption{Services contract diagram for create and associate a virtual 'Thing' with a plant}
+		\end{figure}
+		
+	\paragraph{View Plant Status}\mbox{}\\
 		\textbf{Description:} A registered and logged in user should be able to view the details associated with a particular plant in terms of the readings the associated IoT device has stored in the database.\\
 		\textbf{Prioritisation:} Critical\\		
 		\textbf{Pre-conditions:}
 			\begin{itemize}
 				\item The user should be logged in
-				\item A particular plant should be selected
+				\item A valid plantId should be supplied
 			\end{itemize}
 		\textbf{Post-conditions:}
 			\begin{itemize}
@@ -443,24 +543,221 @@ After the data has been gathered, it will be processed by means of calculating n
 			\end{itemize}
 
 		\begin{figure}[H]
-			%\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
+			\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
 			\caption{Use case diagram for view plant status}
 		\end{figure}
 		
 		\begin{figure}[H]
-			%\includegraphics[width=\linewidth]{images/ServicesContracts/createPlant.jpg}
+			\includegraphics[width=\linewidth]{images/ServicesContracts/viewPlant.jpg}
 			\caption{Services contract diagram for view plant status}
+		\end{figure}
+		
+	\paragraph{Configure Light Settings}\mbox{}\\
+		\textbf{Description:} A registered and logged in user should be able to adjust the RGB values of the LED strip associated with their IoT device via the frontend interface.\\
+		\textbf{Prioritisation:} Critical\\		
+		\textbf{Pre-conditions:}
+			\begin{itemize}
+				\item The user should be logged in
+				\item A particular plant should be selected
+				\item An RGB value should be specified
+			\end{itemize}
+		\textbf{Post-conditions:}
+			\begin{itemize}
+				\item The RGB value should be communicated to the device
+				\item The IoT device should subsequently reflect this RGB colour in the wavelengths of the LED strip, if the RGB value was (0, 0, 0) the lights should be turned off
+				\item A response object indicating whether the action was successful should be returned
+			\end{itemize}
+
+		\begin{figure}[H]
+			\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
+			\caption{Use case diagram for configure light settings}
+		\end{figure}
+		
+		\begin{figure}[H]
+			\includegraphics[width=\linewidth]{images/ServicesContracts/configureLights.jpg}
+			\caption{Services contract diagram for configure light settings}
+		\end{figure}
+		
+	\paragraph{Update Plant Details}\mbox{}\\
+		\textbf{Description:} A registered and logged in user should be able to edit the name and type of a particular plant.\\
+		\textbf{Prioritisation:} Important\\		
+		\textbf{Pre-conditions:}
+			\begin{itemize}
+				\item The user should be logged in
+				\item The plant ID must not be null
+				\item The relevant updated information must be supplied
+				\item The plant must exist
+			\end{itemize}
+		\textbf{Post-conditions:}
+			\begin{itemize}
+				\item The plant associated with the supplied plant ID must have its details updated in the database
+				\item A response object indicating the operation was successful must be sent back to the client
+			\end{itemize}
+
+		\begin{figure}[H]
+			\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
+			\caption{Use case diagram for update plant details}
+		\end{figure}
+		
+		\begin{figure}[H]
+			\includegraphics[width=\linewidth]{images/ServicesContracts/updatePlant.jpg}
+			\caption{Services contract diagram for update plant details}
 		\end{figure}		
+		
+	\paragraph{Configure Pump Settings}\mbox{}\\
+		\textbf{Description:} A registered and logged in user should be able to configure the settings of the water pump associated with an IoT device.\\
+		\textbf{Prioritisation:} Important\\		
+		\textbf{Pre-conditions:}
+			\begin{itemize}
+				\item The user should be logged in
+				\item A particular plant should be selected
+				\item The configuration details should be specified
+			\end{itemize}
+		\textbf{Post-conditions:}
+			\begin{itemize}
+				\item The configuration should be communicated to and applied on the IoT device, the pump should run for the specified amount of time
+				\item If the pumpTime value was 0 the pump should turn itself off
+				\item A response object indicating whether the action was successful should be returned
+			\end{itemize}
+
+		\begin{figure}[H]
+			\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
+			\caption{Use case diagram for configure pump settings}
+		\end{figure}
+		
+		\begin{figure}[H]
+			\includegraphics[width=\linewidth]{images/ServicesContracts/configurePump.jpg}
+			\caption{Services contract diagram for configure pump settings}
+		\end{figure}
+	
+	\paragraph{Configure Fan Speeds}\mbox{}\\
+		\textbf{Description:} A registered and logged in user should be able to configure the settings of the fan associated with an IoT device.\\
+		\textbf{Prioritisation:} Important\\		
+		\textbf{Pre-conditions:}
+			\begin{itemize}
+				\item The user should be logged in
+				\item A particular plant should be selected
+				\item The configuration details should be specified
+			\end{itemize}
+		\textbf{Post-conditions:}
+			\begin{itemize}
+				\item The configuration details should be communicated to and applied on the IoT device
+				\item A response object indicating whether the action was successful should be returned
+			\end{itemize}
+
+		\begin{figure}[H]
+			\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
+			\caption{Use case diagram for configure fan settings}
+		\end{figure}
+		
+		\begin{figure}[H]
+			\includegraphics[width=\linewidth]{images/ServicesContracts/configureFan.jpg}
+			\caption{Services contract diagram for configure fan settings}
+		\end{figure}
+	
+	\paragraph{Delete Plant}\mbox{}\\
+		\textbf{Description:} A registered and logged in user should be able to remove a plant associated with their account.\\
+		\textbf{Prioritisation:} Important\\		
+		\textbf{Pre-conditions:}
+			\begin{itemize}
+				\item The user should be logged in
+				\item A particular plant should be selected
+				\item The user should be the owner of the plant
+			\end{itemize}
+		\textbf{Post-conditions:}
+			\begin{itemize}
+				\item The plant's entry should be removed from the database
+				\item Any information related to the plant must also be removed from the relevant tables
+			\end{itemize}
+
+		\begin{figure}[H]
+			\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
+			\caption{Use case diagram for delete plant}
+		\end{figure}
+		
+		\begin{figure}[H]
+			\includegraphics[width=\linewidth]{images/ServicesContracts/deletePlant.jpg}
+			\caption{Services contract diagram for delete plant}
+		\end{figure}
 	
 \subsubsection{Device Communications Subsystem}
-	
+	\paragraph{Send Readings Summary to Lambda}\mbox{}\\
+		\textbf{Description:}An IoT device should send details about the information it has gathered using its sensors to the serverless provider.\\
+		\textbf{Prioritisation:} Critical\\		
+		\textbf{Pre-conditions:}
+			\begin{itemize}
+				\item A connection should be established with the IoT platform
+				\item The device should publish to a particular topic
+			\end{itemize}
+		\textbf{Post-conditions:}
+			\begin{itemize}
+				\item The information gathered should be stored in the database and associated with the plant associated with the IoT device
+			\end{itemize}
 
+		\begin{figure}[H]
+			\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
+			\caption{Use case diagram for send readings summary to Lambda}
+		\end{figure}
+		
+		\begin{figure}[H]
+			%\includegraphics[width=\linewidth]{images/ServicesContracts/deletePlant.jpg}
+			\caption{Services contract diagram for send readings summary to Lambda}
+		\end{figure}
+		
+	\paragraph{Complex Event Processing on Device Communications}\mbox{}\\
+		\textbf{Description:}An IoT device's readings should be intercepted and analysed to determine whether they indicate a complex event has occurred.\\
+		\textbf{Prioritisation:} Critical\\		
+		\textbf{Pre-conditions:}
+			\begin{itemize}
+				\item A connection should be established with the IoT platform
+				\item The device should publish to a particular topic
+				\item The information should be intercepted and analysed in real time
+			\end{itemize}
+		\textbf{Post-conditions:}
+			\begin{itemize}
+				\item According to the event the information indicates the appropriate automated action should take place in terms of controlling some aspect of the device.
+			\end{itemize}
+
+		\begin{figure}[H]
+			\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
+			\caption{Use case diagram for Complex Event Processing on Device Communications}
+		\end{figure}
+		
+		\begin{figure}[H]
+			%\includegraphics[width=\linewidth]{images/ServicesContracts/deletePlant.jpg}
+			\caption{Services contract diagram for complex event processing on device communications}
+		\end{figure}	
+	
 \section{Technologies}
 
 \subsection{Todo add technologies like framework, web container etc}
 
 \section{Initial Design}
+\begin{figure}[H]
+ 	\includegraphics[width=\textwidth]{images/initial-design.png}
+  	\caption{Initial Design of Main Interface}
+\end{figure}
+
+The initial design of the plant management section of the Web interface. Website navigation appears on the left sidebar. Notifications, Achievements and user actions appear on the top navbar. In the main section, users can add a plant and view a list of their current plants with a short overview.
 
 \section{Open Issues}
+\begin{itemize}
+	\item What is the process to be followed when adding a new device?
+	
+	\begin{itemize}
+		\item The device needs the code and certificates uploaded to it
+		\item As much as possible needs to be automated for the user. Detailed steps should be given
+	\end{itemize}
+
+	\item How do you rate the conditions of the plants?
+	
+	Ideas:
+	\begin{itemize}
+		\item Using a colour palette to measure the leaf colour
+		\item Getting the user to enter his analysis of the state of the plant
+	\end{itemize}
+	
+	\item What type of gamification elements are going to be present?
+\end{itemize}
 
 \end{document}
