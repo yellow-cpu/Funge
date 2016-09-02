@@ -233,6 +233,12 @@ The Database Service will use the DynamoDB persistence API to persist user infor
 \end{itemize}
 
 \subsubsection{Reliability}
+\begin{itemize}
+	\item Ability to store latest virtual hardware state even if it is disconnected
+	\item Ability to synchronise latest virtual hardware state when the physical hardware reconnects
+	\item Server clustering, which ensures that the backend will never fail
+	\item Database redundancy over multiple data centres to prevent a single point of failure
+\end{itemize}
 
 \subsubsection{Security}
 
