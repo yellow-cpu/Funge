@@ -241,6 +241,11 @@ The Database Service will use the DynamoDB persistence API to persist user infor
 \end{itemize}
 
 \subsubsection{Security}
+\begin{itemize}
+	\item User authentication with X.509 certificates to prevent unauthorised access
+	\item Limitation of user access through User Roles with different permissions associated with them
+	\item User passwords are salted and hashed before being sent over the network 
+\end{itemize}
 
 \subsubsection{Auditability}
 
