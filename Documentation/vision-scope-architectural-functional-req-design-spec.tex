@@ -200,7 +200,7 @@ Figure \ref{fig:data-gathering} shows the components of the data gathering servi
 After the data has been gathered, it will be processed by means of calculating necessary statistics over a set time period. For example, every 12 hours the max, min and average readings from the temperature sensor are calculated and stored using the Database service (see section \ref{sec:database-service}). This is shown at a high level in Figure \ref{fig:processing-service}
 
 \begin{figure}[h!]
-  \includegraphics[width=\textwidth]{images/services/processing-service.png}
+  \includegraphics[width=\textwidth]{images/Services/processing-service.png}
   \caption{Processing Service}
   \label{fig:processing-service}
 \end{figure}
@@ -209,7 +209,7 @@ After the data has been gathered, it will be processed by means of calculating n
 The Business Service, shown in Figure \ref{fig:business-service}, handles all user interaction and delegates it to other services. This includes all Web interface functionality such as graphing, gamification and plant management. AWS API Gateway is used to map the Business service to the frontend.
 
 \begin{figure}[h!]
-  \includegraphics[width=\textwidth]{images/services/business-service.png}
+  \includegraphics[width=\textwidth]{images/Services/business-service.png}
   \caption{Business Service}
   \label{fig:business-service}
 \end{figure}
@@ -218,7 +218,7 @@ The Business Service, shown in Figure \ref{fig:business-service}, handles all us
 The Database Service will use the DynamoDB persistence API to persist user information and Achievements as well as plant statistics. This is illustrated at a high level in Figure \ref{fig:database-service}
 
 \begin{figure}[h!]
-  \includegraphics[width=\textwidth]{images/services/database-service.png}
+  \includegraphics[width=\textwidth]{images/Services/database-service.png}
   \caption{Database Service}
   \label{fig:database-service}
 \end{figure}
@@ -296,6 +296,7 @@ The Database Service will use the DynamoDB persistence API to persist user infor
 				\begin{itemize}
 					\item Register account
 					\item Login
+					\item Logout
 				\end{itemize}
 				
 				\item Plant/Device Management Subsystem:
@@ -394,6 +395,30 @@ The Database Service will use the DynamoDB persistence API to persist user infor
 		\begin{figure}[H]
 			\includegraphics[width=\linewidth]{images/ServicesContracts/login.jpg}
 			\caption{Services contract diagram for login}
+		\end{figure}
+		
+	\paragraph{Logout}\mbox{}\\
+		\textbf{Description:} A registered user must be able to logout securely from the system.\\
+		\textbf{Prioritisation:} Critical\\		
+		\textbf{Pre-conditions:}
+		\begin{itemize}
+			\item A user must be registered on the system
+			\item The user must be logged into the system
+		\end{itemize}
+		\textbf{Post-conditions:}
+		\begin{itemize}
+			\item The user should be no longer logged into the system and as such not be able to access any functionality from the system except to register an account or log in
+			\item If the user wishes to access their account and the functionality of the system, they should have to log back into the system
+		\end{itemize}
+		
+		\begin{figure}[H]
+			\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
+			\caption{Use case diagram for logout}
+		\end{figure}		
+		
+		\begin{figure}[H]
+			\includegraphics[width=\linewidth]{images/ServicesContracts/logout.jpg}
+			\caption{Services contract diagram for logout}
 		\end{figure}
 		
 	\paragraph{Update User Details}\mbox{}\\
@@ -734,7 +759,7 @@ The Database Service will use the DynamoDB persistence API to persist user infor
 
 \section{Initial Design}
 \begin{figure}[H]
- 	\includegraphics[width=\textwidth]{images/initial-design.png}
+ 	\includegraphics[width=\textwidth]{images/initial-design.PNG}
   	\caption{Initial Design of Main Interface}
 \end{figure}
 
