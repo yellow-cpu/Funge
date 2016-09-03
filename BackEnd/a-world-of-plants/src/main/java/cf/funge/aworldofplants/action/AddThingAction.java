@@ -5,11 +5,16 @@ import cf.funge.aworldofplants.exception.BadRequestException;
 import cf.funge.aworldofplants.exception.InternalErrorException;
 import cf.funge.aworldofplants.model.action.AddThingRequest;
 import cf.funge.aworldofplants.model.action.AddThingResponse;
+import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.iot.model.*;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.iot.*;
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.google.gson.JsonObject;
+import java.io.ByteArrayInputStream;
 
 /**
  * Created by Dillon on 2016-09-01.
@@ -81,6 +86,18 @@ public class AddThingAction extends AbstractAction {
         System.out.println(createKeysAndCertificateResult.getCertificatePem());
         System.out.println(createKeysAndCertificateResult.getKeyPair());
         System.out.println(attachThingPrincipalResult.toString());
+
+        AmazonS3Client amazonS3Client = new AmazonS3Client();
+
+        try {
+            byte[] contentAsBytes = createKeysAndCertificateResult.getCertificatePem().getBytes("UTF-8");
+            ByteArrayInputStream contentsAsStream = new ByteArrayInputStream(contentAsBytes);
+            ObjectMetadata md = new ObjectMetadata();
+            md.setContentLength(contentAsBytes.length);
+            amazonS3Client.putObject(new PutObjectRequest("a-world-of-plants-thing-credentials", input.getThingName() + "-cert.pem.crt", contentsAsStream, md));
+        } catch(AmazonServiceException ex) {
+        } catch(Exception ex) {
+        }
 
         AddThingResponse output = new AddThingResponse();
         output.setThingArn(createThingResult.getThingArn());
