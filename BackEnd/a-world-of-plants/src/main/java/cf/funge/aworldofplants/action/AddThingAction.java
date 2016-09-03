@@ -42,10 +42,40 @@ public class AddThingAction extends AbstractAction {
         createKeysAndCertificateRequest.setSetAsActive(true);
         CreateKeysAndCertificateResult createKeysAndCertificateResult =  awsIotClient.createKeysAndCertificate(createKeysAndCertificateRequest);
 
+        // Create policy
+        String policyName = input.getThingName() +  "-Policy";
+        CreatePolicyRequest createPolicyRequest = new CreatePolicyRequest();
+        createPolicyRequest.setPolicyName(policyName);
+        createPolicyRequest.setPolicyDocument(
+            "{\n" +
+            "  \"Version\": \"2012-10-17\",\n" +
+            "  \"Statement\": [\n" +
+            "    {\n" +
+            "      \"Action\": [\n" +
+            "        \"iot:*\"\n" +
+            "      ],\n" +
+            "      \"Resource\": [\n" +
+            "        \"*\"\n" +
+            "      ],\n" +
+            "      \"Effect\": \"Allow\"\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}"
+        );
+        CreatePolicyResult createPolicyResult = awsIotClient.createPolicy(createPolicyRequest);
+
+        // Attach policy to certificate
+        AttachPrincipalPolicyRequest attachPrincipalPolicyRequest = new AttachPrincipalPolicyRequest();
+        attachPrincipalPolicyRequest.setPolicyName(policyName);
+        attachPrincipalPolicyRequest.setPrincipal(createKeysAndCertificateResult.getCertificateArn());
+        AttachPrincipalPolicyResult attachPrincipalPolicyResult = awsIotClient.attachPrincipalPolicy(attachPrincipalPolicyRequest);
+
         // Attach thing principal request
         AttachThingPrincipalRequest attachThingPrincipalRequest = new AttachThingPrincipalRequest();
         attachThingPrincipalRequest.setThingName(input.getThingName());
         attachThingPrincipalRequest.setPrincipal(createKeysAndCertificateResult.getCertificateArn());
+        //attachThingPrincipalRequest.setPrincipal(createKeysAndCertificateResult.getKeyPair().getPrivateKey());
+        //attachThingPrincipalRequest.setPrincipal(createKeysAndCertificateResult.getKeyPair().getPublicKey());
         AttachThingPrincipalResult attachThingPrincipalResult = awsIotClient.attachThingPrincipal(attachThingPrincipalRequest);
 
         System.out.println(createKeysAndCertificateResult.getCertificatePem());
