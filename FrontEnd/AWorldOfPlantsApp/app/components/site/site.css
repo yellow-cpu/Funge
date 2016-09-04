@@ -420,8 +420,14 @@ table.dataTable thead .sorting:after {
     cursor: pointer;
 }
 
-#a-intelligence {
+#a-things {
     border-right: 3px solid #0088CC;
+    cursor: hand;
+    cursor: pointer;
+}
+
+#a-intelligence {
+    border-right: 3px solid #ff5aef;
     cursor: hand;
     cursor: pointer;
 }
