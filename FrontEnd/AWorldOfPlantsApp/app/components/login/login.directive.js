@@ -40,8 +40,12 @@ angular.module('login').directive('switchToRegister', function ($compile) {
         "password": passwordCheck
       };
 
-      $("#loading").css({
+      $(".loader-container").css({
         'display': 'block'
+      });
+
+      $('#loginBtn').css({
+        'display': 'none'
       });
 
       apigClient.loginPost(params, body)
@@ -68,6 +72,14 @@ angular.module('login').directive('switchToRegister', function ($compile) {
         error = $("<div id='error' class=\"alert alert-danger\">" +
           "<strong>Could not log you in. Please re-enter your credentials</strong></div>");
         error.insertAfter('#password');
+
+        $(".loader-container").css({
+          'display': 'none'
+        });
+
+        $('#loginBtn').css({
+          'display': 'block'
+        });
       });
 
     });

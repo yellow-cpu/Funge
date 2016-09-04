@@ -1,4 +1,6 @@
-/* app css stylesheet */
+.alert-danger {
+  background: rgba(255,255,255,0.75);
+}
 
 .menu {
   list-style: none;
