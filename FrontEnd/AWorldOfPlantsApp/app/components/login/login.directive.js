@@ -3,6 +3,12 @@
 // Register `login` directive
 angular.module('login').directive('switchToRegister', function ($compile) {
   var linkFunction = function (scope, element, attributes) {
+    $("#password").keyup(function(event){
+      if(event.keyCode == 13){
+        $("#loginBtn").click();
+      }
+    });
+
     $('#loginBtn').on('click', function () {
 
       $('#error').remove();
