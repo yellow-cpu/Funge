@@ -1,27 +1,5 @@
-<!--<p>Username: <input type="text" ng-model="$ctrl.user.username"></p>-->
-<!--<p>Password: <input type="text" ng-model="$ctrl.user.password"></p>-->
+<link href="components/register/register.css" rel="stylesheet"/>
 
-<!--<p><b>Username:</b> {{$ctrl.user.username}}</p>-->
-<!--<p><b>Password:</b> {{$ctrl.user.password}}</p>-->
-
-<!--<input type="button" class="btn btn-info" ng-click="$ctrl.registerUser($ctrl.user.username, $ctrl.user.password)" value="Register">-->
-<style>
-    .glowing-border:focus {
-        outline: none;
-        border-color: #ff5139;
-        box-shadow: 0 0 10px #ff5139;
-    }
-
-    .errorCss {
-        outline: none;
-        border-color: #ff5139;
-        box-shadow: 0 0 10px #ff5139
-    }
-
-    .alert-danger {
-        background: rgba(255,255,255,0.75);
-    }
-</style>
 <div id="register">
     <form class="form-signin" action="" method="">
         <input type="text" class="form-control" id="email" placeholder="Email Address" autofocus
@@ -32,13 +10,11 @@
                ng-model="$ctrl.user.password">
         <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password"
                ng-model="$ctrl.user.confirmPassword">
-        <!--<input type="submit" class="btn btn-lg btn-default btn-block" id="signUp" value="Sign Up"
-               ng-click="$ctrl.registerUser($ctrl.user.username, $ctrl.user.password)"/>-->
         <input type="button" class="btn btn-lg btn-default btn-block" id="signUp" value="Sign Up"/>
+        <div class="loader-container btn btn-lg btn-primary btn-block" style="display: none">
+            <span class="loader"><span class="loader-inner"></span></span>
+        </div>
     </form>
-    <div class="active">
-        <img id="loading" style="display: none;" src="images/loading.gif" width="30px" height="30px">
-    </div>
     <div id="tabs">
         <p id="switchToLogin" class="text-center" switch-to-login><a href="">Have an Account?</a></p>
     </div>
