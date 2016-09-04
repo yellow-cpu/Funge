@@ -30,12 +30,18 @@ public class AddThingAction extends AbstractAction {
         if (input == null ||
                 input.getThingName() == null ||
                 input.getThingName().trim().equals("") ||
+                input.getUsername() == null ||
+                input.getUsername().trim().equals("") ||
                 input.getPlantId() == null ||
                 input.getPlantId().trim().equals("")) {
             throw new BadRequestException(ExceptionMessages.EX_INVALID_INPUT);
         }
 
-        AWSIotClient awsIotClient = new AWSIotClient();
+        System.out.println(input.getThingName());
+        System.out.println(input.getUsername());
+        System.out.println(input.getPlantId());
+
+        /*AWSIotClient awsIotClient = new AWSIotClient();
 
         // Create thing
         CreateThingRequest createThingRequest = new CreateThingRequest();
@@ -98,9 +104,10 @@ public class AddThingAction extends AbstractAction {
         } catch(AmazonServiceException ex) {
         } catch(Exception ex) {
         }
-
+*/
         AddThingResponse output = new AddThingResponse();
-        output.setThingArn(createThingResult.getThingArn());
+        //output.setThingArn(createThingResult.getThingArn());
+        output.setThingArn("testArn");
 
         return getGson().toJson(output);
     }
