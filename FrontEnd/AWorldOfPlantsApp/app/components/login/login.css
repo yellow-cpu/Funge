@@ -8,6 +8,12 @@
     background-color: #286090;
 }
 
+#switchToRegister > a{
+    font-weight: bold;
+    color: white;
+    font-size: 1.2em;
+}
+
 .loader-container {
     color: #ffffff;
     background-color: #36465D;

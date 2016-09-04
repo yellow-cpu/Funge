@@ -93,11 +93,6 @@
     border-radius: 50%;
 }
 
-#switchToRegister > a, #switchToLogin > a {
-    color: #FFF;
-    font-weight: bold;
-}
-
 #login > form > input:nth-child(1), #register > form > input {
     margin-bottom: 10px;
     border-radius: 3px;
