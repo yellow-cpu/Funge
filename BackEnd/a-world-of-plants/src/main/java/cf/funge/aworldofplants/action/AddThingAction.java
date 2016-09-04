@@ -2,9 +2,13 @@ package cf.funge.aworldofplants.action;
 
 import cf.funge.aworldofplants.configuration.ExceptionMessages;
 import cf.funge.aworldofplants.exception.BadRequestException;
+import cf.funge.aworldofplants.exception.DAOException;
 import cf.funge.aworldofplants.exception.InternalErrorException;
+import cf.funge.aworldofplants.model.DAOFactory;
 import cf.funge.aworldofplants.model.action.AddThingRequest;
 import cf.funge.aworldofplants.model.action.AddThingResponse;
+import cf.funge.aworldofplants.model.thing.Thing;
+import cf.funge.aworldofplants.model.thing.ThingDAO;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.iot.model.*;
 import com.amazonaws.services.lambda.runtime.Context;
@@ -36,10 +40,6 @@ public class AddThingAction extends AbstractAction {
                 input.getPlantId().trim().equals("")) {
             throw new BadRequestException(ExceptionMessages.EX_INVALID_INPUT);
         }
-
-        System.out.println(input.getThingName());
-        System.out.println(input.getUsername());
-        System.out.println(input.getPlantId());
 
         /*AWSIotClient awsIotClient = new AWSIotClient();
 
@@ -89,10 +89,6 @@ public class AddThingAction extends AbstractAction {
         //attachThingPrincipalRequest.setPrincipal(createKeysAndCertificateResult.getKeyPair().getPublicKey());
         AttachThingPrincipalResult attachThingPrincipalResult = awsIotClient.attachThingPrincipal(attachThingPrincipalRequest);
 
-        System.out.println(createKeysAndCertificateResult.getCertificatePem());
-        System.out.println(createKeysAndCertificateResult.getKeyPair());
-        System.out.println(attachThingPrincipalResult.toString());
-
         AmazonS3Client amazonS3Client = new AmazonS3Client();
 
         try {
@@ -103,8 +99,29 @@ public class AddThingAction extends AbstractAction {
             amazonS3Client.putObject(new PutObjectRequest("a-world-of-plants-thing-credentials", input.getThingName() + "-cert.pem.crt", contentsAsStream, md));
         } catch(AmazonServiceException ex) {
         } catch(Exception ex) {
+        }*/
+
+        ThingDAO dao = DAOFactory.getThingDAO();
+
+        Thing newThing = new Thing();
+        newThing.setThingName(input.getThingName());
+        newThing.setUsername(input.getUsername());
+        newThing.setPlantId(input.getPlantId());
+
+        String thingId;
+
+        try {
+            thingId = dao.createThing(newThing);
+        } catch (final DAOException e) {
+            logger.log("Error while creating new thing\n" + e.getMessage());
+            throw new InternalErrorException(ExceptionMessages.EX_DAO_ERROR);
         }
-*/
+
+        if (thingId == null || thingId.trim().equals("")) {
+            logger.log("ThingID is null or empty");
+            throw new InternalErrorException(ExceptionMessages.EX_DAO_ERROR);
+        }
+
         AddThingResponse output = new AddThingResponse();
         //output.setThingArn(createThingResult.getThingArn());
         output.setThingArn("testArn");
