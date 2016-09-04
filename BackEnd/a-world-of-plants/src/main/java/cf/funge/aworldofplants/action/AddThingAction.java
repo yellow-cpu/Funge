@@ -114,6 +114,7 @@ public class AddThingAction extends AbstractAction {
 
         //ToDo: if thingName already exists throw BadRequestException
         //ToDo: store location of files in database
+        //ToDo: return thing id rather than thing ARN
 
         ThingDAO dao = DAOFactory.getThingDAO();
 

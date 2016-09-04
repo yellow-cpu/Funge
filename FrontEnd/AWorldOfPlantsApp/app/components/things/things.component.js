@@ -12,6 +12,8 @@ angular.module('things').component('things', {
       plantId: ""
     };
 
+    self.plantIdList = [];
+
     var apigClient = apigClientFactory.newClient({
       accessKey: $localStorage.accessKey,
       secretKey: $localStorage.secretKey,

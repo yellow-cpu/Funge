@@ -26,6 +26,7 @@ angular.module('site').directive('site', function ($compile, siteService) {
 
     $('#a-things').on('click', function() {
       $('#side-menu > li > a').removeClass('active');
+      $(this).addClass('active');
       $('#page-wrapper').html($compile('<things></things>')(scope));
     });
 
