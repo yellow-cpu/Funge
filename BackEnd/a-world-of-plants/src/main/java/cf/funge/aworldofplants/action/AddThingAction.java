@@ -26,6 +26,21 @@ import java.io.ByteArrayInputStream;
 public class AddThingAction extends AbstractAction {
     private LambdaLogger logger;
 
+    public Boolean uploadFile(String fileContent, String fileName, AmazonS3Client amazonS3Client) {
+        try {
+            byte[] contentAsBytes = fileContent.getBytes("UTF-8");
+            ByteArrayInputStream contentsAsStream = new ByteArrayInputStream(contentAsBytes);
+            ObjectMetadata md = new ObjectMetadata();
+            md.setContentLength(contentAsBytes.length);
+            amazonS3Client.putObject(new PutObjectRequest("a-world-of-plants-thing-credentials", fileName, contentsAsStream, md));
+            return true;
+        } catch(AmazonServiceException ex) {
+            return false;
+        } catch(Exception ex) {
+            return false;
+        }
+    }
+
     public String handle(JsonObject request, Context lambdaContext) throws BadRequestException, InternalErrorException {
         logger = lambdaContext.getLogger();
 
@@ -41,7 +56,7 @@ public class AddThingAction extends AbstractAction {
             throw new BadRequestException(ExceptionMessages.EX_INVALID_INPUT);
         }
 
-        /*AWSIotClient awsIotClient = new AWSIotClient();
+        AWSIotClient awsIotClient = new AWSIotClient();
 
         // Create thing
         CreateThingRequest createThingRequest = new CreateThingRequest();
@@ -91,15 +106,14 @@ public class AddThingAction extends AbstractAction {
 
         AmazonS3Client amazonS3Client = new AmazonS3Client();
 
-        try {
-            byte[] contentAsBytes = createKeysAndCertificateResult.getCertificatePem().getBytes("UTF-8");
-            ByteArrayInputStream contentsAsStream = new ByteArrayInputStream(contentAsBytes);
-            ObjectMetadata md = new ObjectMetadata();
-            md.setContentLength(contentAsBytes.length);
-            amazonS3Client.putObject(new PutObjectRequest("a-world-of-plants-thing-credentials", input.getThingName() + "-cert.pem.crt", contentsAsStream, md));
-        } catch(AmazonServiceException ex) {
-        } catch(Exception ex) {
-        }*/
+        String path = input.getUsername() + "/" + input.getThingName() + "/" + input.getThingName();
+
+        uploadFile(createKeysAndCertificateResult.getCertificatePem(), path + "-cert.pem.crt", amazonS3Client);
+        uploadFile(createKeysAndCertificateResult.getKeyPair().getPrivateKey(), path + "-private.pem.key", amazonS3Client);
+        uploadFile(createKeysAndCertificateResult.getKeyPair().getPublicKey(), path + "-public.pem.key", amazonS3Client);
+
+        //ToDo: if thingName already exists throw BadRequestException
+        //ToDo: store location of files in database
 
         ThingDAO dao = DAOFactory.getThingDAO();
 
@@ -123,8 +137,7 @@ public class AddThingAction extends AbstractAction {
         }
 
         AddThingResponse output = new AddThingResponse();
-        //output.setThingArn(createThingResult.getThingArn());
-        output.setThingArn("testArn");
+        output.setThingArn(createThingResult.getThingArn());
 
         return getGson().toJson(output);
     }
