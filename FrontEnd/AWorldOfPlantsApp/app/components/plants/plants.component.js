@@ -68,14 +68,19 @@ angular.module('plants').component('plants', {
 
       var body = {};
 
+      $(".loader-container").css({
+        'display': 'block'
+      });
+
       apigClient.plantsUserUsernameGet(params, body)
-        .then(function (result) {
-          console.log("Success: " + JSON.stringify(result));
-          console.log("xxx");
-          self.plants = result.data.plants;
-          $scope.$apply();
-        }).catch(function (result) {
-          console.log("Error: " + JSON.stringify(result));
+          .then(function (result) {
+            $(".loader-container").css({
+              'display': 'none'
+            });
+            self.plants = result.data.plants;
+            $scope.$apply();
+          }).catch(function (result) {
+            console.log("Error: " + JSON.stringify(result));
       });
     };
   }
