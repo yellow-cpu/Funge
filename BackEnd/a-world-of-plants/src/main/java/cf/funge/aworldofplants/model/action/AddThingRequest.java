@@ -5,6 +5,7 @@ package cf.funge.aworldofplants.model.action;
  */
 public class AddThingRequest {
     private String thingName;
+    private String username;
     private String plantId;
 
     public String getThingName() {
@@ -13,6 +14,14 @@ public class AddThingRequest {
 
     public void setThingName(String thingName) {
         this.thingName = thingName;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPlantId() {
