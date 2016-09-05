@@ -122,6 +122,7 @@ public class AddThingAction extends AbstractAction {
         newThing.setThingName(input.getThingName());
         newThing.setUsername(input.getUsername());
         newThing.setPlantId(input.getPlantId());
+        newThing.setColour(input.getColour());
 
         String thingId;
 

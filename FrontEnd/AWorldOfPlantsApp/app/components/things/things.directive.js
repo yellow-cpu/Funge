@@ -48,6 +48,8 @@ directive('createThingDirective', function() {
 
       $('#createThing').css("background-color", scope.$ctrl.selectedColour);
       $('#createThing').css("border-color", scope.$ctrl.selectedColour);
+
+      scope.$ctrl.newThing.colour = scope.$ctrl.selectedColour;
     });
 
     $('#createThing').on('click', function() {

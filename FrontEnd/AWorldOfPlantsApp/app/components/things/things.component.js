@@ -6,17 +6,18 @@ angular.module('things').component('things', {
   controller: function ThingsController($scope, $localStorage, siteService) {
     var self = this;
 
+    self.selectedColour = "";
+
     self.newThing = {
       thingName: "",
       username: $localStorage.username,
-      plantId: ""
+      plantId: "",
+      colour: ""
     };
 
     self.plantIdList = [];
 
     self.customColors = ["#1d9d73", "#297373", "#FF8552", "#DA3E52", "#F9C80E", "#51b749", "#662E9B", "#A33B20", "#236acb", "#F7B32B", "#4C5B5C", "#ff5aef"];
-
-    self.selectedColour = "";
 
     self.colourOptions = {
       size: 30,
@@ -33,6 +34,8 @@ angular.module('things').component('things', {
     self.createThing = function() {
       var params = {};
       var body = self.newThing;
+
+      console.log(body);
 
       apigClient.thingsPost(params, body)
         .then(function (result) {
