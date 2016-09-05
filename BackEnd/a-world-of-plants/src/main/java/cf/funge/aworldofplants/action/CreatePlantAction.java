@@ -52,6 +52,9 @@ public class CreatePlantAction extends AbstractAction {
         newPlant.setPlantName(input.getPlantName());
         newPlant.setPlantAge(input.getPlantAge());
 
+        //ToDo: make plant names unique for users
+        //ToDo: assign colour to each plant
+
         String plantId;
 
         try {

@@ -14,6 +14,9 @@ package cf.funge.aworldofplants.model;
 
 import cf.funge.aworldofplants.model.plant.DDBPlantDAO;
 import cf.funge.aworldofplants.model.plant.PlantDAO;
+import cf.funge.aworldofplants.model.thing.DDBThingDAO;
+import cf.funge.aworldofplants.model.thing.Thing;
+import cf.funge.aworldofplants.model.thing.ThingDAO;
 import cf.funge.aworldofplants.model.user.DDBUserDAO;
 import cf.funge.aworldofplants.model.user.UserDAO;
 
@@ -67,6 +70,21 @@ public class DAOFactory {
         switch (daoType) {
             case DynamoDB:
                 dao = DDBPlantDAO.getInstance();
+                break;
+        }
+
+        return dao;
+    }
+
+    public static ThingDAO getThingDAO() {
+        return getThingDAO(DAOType.DynamoDB);
+    }
+
+    public static ThingDAO getThingDAO(DAOType daoType) {
+        ThingDAO dao = null;
+        switch (daoType) {
+            case DynamoDB:
+                dao = DDBThingDAO.getInstance();
                 break;
         }
 
