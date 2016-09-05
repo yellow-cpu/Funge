@@ -59,6 +59,10 @@
             <label for="name">Plant name:</label>
             <input id="plantName" ng-model="$ctrl.newPlant.plantName" type="text" class="form-control" id="name">
           </div>
+          <div class="form-group">
+            <label for="plantColour">Plant colour:</label>
+            <ngjs-color-picker id="plantColour" selected-color="$ctrl.selectedColour" options="$ctrl.colourOptions" custom-colors="$ctrl.customColors"></ngjs-color-picker>
+          </div>
         </form>
       </div>
       <div class="modal-footer">

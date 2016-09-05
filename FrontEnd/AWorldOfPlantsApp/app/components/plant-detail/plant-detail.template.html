@@ -49,7 +49,7 @@
   </div>
 
   <div class="col-lg-6">
-    <canvas id="live-chart" width="500" height="300"></canvas>
+    <canvas id="live-chart"></canvas>
     <script>
       var canvas = document.getElementById('live-chart');
       var ctx = canvas.getContext('2d');
@@ -57,7 +57,7 @@
         labels: ["test", "test", "test", "test", "test", "test", "test"],
         datasets: [
           {
-            label: "My First dataset",
+            label: "Temperature",
             fill: false,
             lineTension: 0.1,
             backgroundColor: "rgba(75,192,192,0.4)",
@@ -76,7 +76,7 @@
             pointRadius: 1,
             pointHitRadius: 10,
             data: [65, 59, 80, 81, 56, 55, 40],
-            spanGaps: false,
+            spanGaps: false
           }
         ]
       };

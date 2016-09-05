@@ -15,6 +15,13 @@ angular.module('plants').component('plants', {
 
     $scope.plantDetails = {};
 
+    self.customColors = ["#1D9D73", "#297373", "#FF8552", "#DA3E52", "#F9C80E", "#51B749", "#662E9B", "#FF5C33", "#236ACB", "#F7B32B", "#4C5B5C", "#FF5AEF"];
+
+    self.colourOptions = {
+      size: 30,
+      roundCorners: true
+    };
+
     self.timeConverter = function (now){
       var a = new Date(now);
       var year = a.getFullYear();
