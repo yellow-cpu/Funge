@@ -3,6 +3,17 @@
 // Register `things` directive
 angular.
 module('things').
+directive('viewThingDetailsDirective', function ($compile) {
+  var linkFunction = function (scope, element, attributes) {
+    $(document).ready(function () {
+      scope.$ctrl.getThings();
+    });
+  };
+
+  return {
+    link: linkFunction
+  };
+}).
 directive('thingsDirective', function ($compile, $localStorage) {
   var linkFunction = function (scope, element, attributes) {
     $('#newThing').on('click', function () {
