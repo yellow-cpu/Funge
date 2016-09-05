@@ -49,13 +49,14 @@ angular.module('plants').component('plants', {
       });
     };
 
-    self.updateDetails = function(_plantId, _plantType, _plantName, _plantAge) {
+    self.updateDetails = function(_plantId, _plantType, _plantName, _plantAge, _colour) {
       $scope.plantDetails = {
         plantId: _plantId,
         username: $localStorage.username,
         plantType: _plantType,
         plantName: _plantName,
-        plantAge: _plantAge
+        plantAge: _plantAge,
+        colour: _colour
       };
 
       siteService.setPlant($scope.plantDetails);

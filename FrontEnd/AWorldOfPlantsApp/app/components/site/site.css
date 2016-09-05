@@ -502,7 +502,7 @@ table.dataTable thead .sorting:after {
 
 #plantUpdate {
     background-color: #236acb;
-    border-color: #1e3b76;
+    border: none;
 }
 
 #plantUpdate:hover, #plantUpdate:focus {

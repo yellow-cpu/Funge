@@ -24,10 +24,10 @@ directive('createPlantDirective', function() {
       $('.modal-header').css("background-color", scope.$ctrl.selectedColour);
       $('.modal-header').css("border-color", scope.$ctrl.selectedColour);
 
-      $('#createThing').css("background-color", scope.$ctrl.selectedColour);
-      $('#createThing').css("border-color", scope.$ctrl.selectedColour);
+      $('#createPlant').css("background-color", scope.$ctrl.selectedColour);
+      $('#createPlant').css("border-color", scope.$ctrl.selectedColour);
 
-      scope.$ctrl.newThing.colour = scope.$ctrl.selectedColour;
+      scope.$ctrl.newPlant.colour = scope.$ctrl.selectedColour;
     });
 
     $('#createPlant').on('click', function() {
