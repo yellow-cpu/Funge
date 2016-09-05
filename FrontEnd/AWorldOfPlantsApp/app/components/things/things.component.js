@@ -14,7 +14,7 @@ angular.module('things').component('things', {
 
     self.plantIdList = [];
 
-    self.customColors = ["#1d9d73", "#5484ed", "#a4bdfc", "#46d6db", "#7ae7bf", "#51b749", "#fbd75b", "#ffb878", "#ff887c", "#dc2127", "#dbadff", "#e1e1e1"];
+    self.customColors = ["#1d9d73", "#297373", "#FF8552", "#DA3E52", "#F9C80E", "#51b749", "#662E9B", "#A33B20", "#236acb", "#F7B32B", "#4C5B5C", "#ff5aef"];
 
     self.selectedColour = "";
 
