@@ -20,6 +20,7 @@ public class CreatePlantRequest {
     private String plantType;
     private String plantName;
     private String plantAge;
+    private String colour;
 
     public String getUsername() {
         return username;
@@ -51,5 +52,13 @@ public class CreatePlantRequest {
 
     public void setPlantAge(String plantAge) {
         this.plantAge = plantAge;
+    }
+
+    public String getColour() {
+        return colour;
+    }
+
+    public void setColour(String colour) {
+        this.colour = colour;
     }
 }

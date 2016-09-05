@@ -10,7 +10,8 @@ angular.module('plants').component('plants', {
       username: $localStorage.username,
       plantType: "",
       plantName: "",
-      plantAge: Date.now()
+      plantAge: Date.now(),
+      colour: ""
     };
 
     $scope.plantDetails = {};
@@ -85,6 +86,10 @@ angular.module('plants').component('plants', {
               'display': 'none'
             });
             self.plants = result.data.plants;
+
+            console.log(result.data.plants);
+            console.log(self.plants);
+
             $scope.$apply();
           }).catch(function (result) {
             console.log("Error: " + JSON.stringify(result));
