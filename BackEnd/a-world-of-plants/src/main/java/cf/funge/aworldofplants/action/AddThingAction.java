@@ -9,6 +9,8 @@ import cf.funge.aworldofplants.model.action.AddThingRequest;
 import cf.funge.aworldofplants.model.action.AddThingResponse;
 import cf.funge.aworldofplants.model.thing.Thing;
 import cf.funge.aworldofplants.model.thing.ThingDAO;
+import cf.funge.aworldofplants.model.user.User;
+import cf.funge.aworldofplants.model.user.UserDAO;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.iot.model.*;
 import com.amazonaws.services.lambda.runtime.Context;
@@ -90,18 +92,30 @@ public class AddThingAction extends AbstractAction {
         );
         CreatePolicyResult createPolicyResult = awsIotClient.createPolicy(createPolicyRequest);
 
-        // Attach policy to certificate
+        // Attach principal (certificate) to policy
         AttachPrincipalPolicyRequest attachPrincipalPolicyRequest = new AttachPrincipalPolicyRequest();
         attachPrincipalPolicyRequest.setPolicyName(policyName);
         attachPrincipalPolicyRequest.setPrincipal(createKeysAndCertificateResult.getCertificateArn());
         AttachPrincipalPolicyResult attachPrincipalPolicyResult = awsIotClient.attachPrincipalPolicy(attachPrincipalPolicyRequest);
 
+        // Attach principal (user identity) to policy
+        UserDAO dao = DAOFactory.getUserDAO();
+        User user;
+        try {
+            user = dao.getUserByName(input.getUsername());
+        } catch (final DAOException e) {
+            logger.log("Error while fetching user with username " + input.getUsername() + "\n" + e.getMessage());
+            throw new InternalErrorException(ExceptionMessages.EX_DAO_ERROR);
+        }
+        attachPrincipalPolicyRequest = new AttachPrincipalPolicyRequest();
+        attachPrincipalPolicyRequest.setPolicyName(policyName);
+        attachPrincipalPolicyRequest.setPrincipal(user.getIdentity().getIdentityId());
+        attachPrincipalPolicyResult = awsIotClient.attachPrincipalPolicy((attachPrincipalPolicyRequest);
+
         // Attach thing principal request
         AttachThingPrincipalRequest attachThingPrincipalRequest = new AttachThingPrincipalRequest();
         attachThingPrincipalRequest.setThingName(input.getThingName());
         attachThingPrincipalRequest.setPrincipal(createKeysAndCertificateResult.getCertificateArn());
-        //attachThingPrincipalRequest.setPrincipal(createKeysAndCertificateResult.getKeyPair().getPrivateKey());
-        //attachThingPrincipalRequest.setPrincipal(createKeysAndCertificateResult.getKeyPair().getPublicKey());
         AttachThingPrincipalResult attachThingPrincipalResult = awsIotClient.attachThingPrincipal(attachThingPrincipalRequest);
 
         AmazonS3Client amazonS3Client = new AmazonS3Client();
