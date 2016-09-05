@@ -28,9 +28,9 @@
 // your thing name
 #define AWS_IOT_ROOT_CA_FILENAME "root-CA.crt"
 // your root-CA filename
-#define AWS_IOT_CERTIFICATE_FILENAME "22760e4ba9-certificate.pem.crt"
+#define AWS_IOT_CERTIFICATE_FILENAME "cert.pem.crt"
 // your certificate filename
-#define AWS_IOT_PRIVATE_KEY_FILENAME "22760e4ba9-private.pem.key"
+#define AWS_IOT_PRIVATE_KEY_FILENAME "private.pem.key"
 // your private key filename
 //===============================================================
 
