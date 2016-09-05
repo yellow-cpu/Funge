@@ -9,6 +9,33 @@
   </div>
 </div>
 
+<div class="row" view-thing-details-directive>
+  <div ng-repeat="thing in $ctrl.things" class="panel panel-green">
+    <div class="panel-heading">
+      <div class="row">
+        <div class="col-xs-1">
+          <i class="fa fa-pagelines fa-5x"></i>
+        </div>
+        <div class="col-xs-5">
+          <div><b>Thing name:</b> {{thing.thingName}}</div>
+          <div><b>Plant id:</b> {{thing.plantId}}</div>
+        </div>
+        <div class="col-xs-6 text-right">
+          <div class="huge">6</div>
+          <div>Updates!</div>
+        </div>
+      </div>
+    </div>
+    <a class="view-details" ng-click="">
+      <div class="panel-footer" style="background-color: {{thing.colour}}">
+        <span class="pull-left">View Details</span>
+        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+        <div class="clearfix"></div>
+      </div>
+    </a>
+  </div>
+</div>
+
 <div class="modal fade" id="createThingModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" create-thing-directive>
   <div class="modal-dialog" role="document">
     <div class="modal-content">

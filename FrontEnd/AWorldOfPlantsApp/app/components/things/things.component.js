@@ -17,7 +17,7 @@ angular.module('things').component('things', {
 
     self.plantIdList = [];
 
-    self.customColors = ["#1d9d73", "#297373", "#FF8552", "#DA3E52", "#F9C80E", "#51b749", "#662E9B", "#A33B20", "#236acb", "#F7B32B", "#4C5B5C", "#ff5aef"];
+    self.customColors = ["#1D9D73", "#297373", "#FF8552", "#DA3E52", "#F9C80E", "#51B749", "#662E9B", "#FF5C33", "#236ACB", "#F7B32B", "#4C5B5C", "#FF5AEF"];
 
     self.colourOptions = {
       size: 30,
@@ -40,6 +40,24 @@ angular.module('things').component('things', {
       apigClient.thingsPost(params, body)
         .then(function (result) {
           console.log("Success: " + JSON.stringify(result.data));
+        }).catch(function (result) {
+        console.log("Error: " + JSON.stringify(result));
+      });
+    };
+
+    self.getThings = function() {
+      console.log('calling get things');
+      var params = {
+        "username": $localStorage.username
+      };
+
+      var body = {};
+
+      apigClient.thingsUserUsernameGet(params, body)
+        .then(function (result) {
+          self.things = result.data.things;
+          console.log(self.things);
+          $scope.$apply();
         }).catch(function (result) {
         console.log("Error: " + JSON.stringify(result));
       });

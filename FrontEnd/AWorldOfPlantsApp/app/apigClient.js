@@ -407,6 +407,60 @@ apigClientFactory.newClient = function (config) {
     };
     
     
+    apigClient.thingsUserOptions = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
+        
+        var thingsUserOptionsRequest = {
+            verb: 'options'.toUpperCase(),
+            path: pathComponent + uritemplate('/things/user').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(thingsUserOptionsRequest, authType, additionalParams, config.apiKey);
+    };
+    
+    
+    apigClient.thingsUserUsernameGet = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, ['username'], ['body']);
+        
+        var thingsUserUsernameGetRequest = {
+            verb: 'get'.toUpperCase(),
+            path: pathComponent + uritemplate('/things/user/{username}').expand(apiGateway.core.utils.parseParametersToObject(params, ['username'])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(thingsUserUsernameGetRequest, authType, additionalParams, config.apiKey);
+    };
+    
+    
+    apigClient.thingsUserUsernameOptions = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, ['username'], ['body']);
+        
+        var thingsUserUsernameOptionsRequest = {
+            verb: 'options'.toUpperCase(),
+            path: pathComponent + uritemplate('/things/user/{username}').expand(apiGateway.core.utils.parseParametersToObject(params, ['username'])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(thingsUserUsernameOptionsRequest, authType, additionalParams, config.apiKey);
+    };
+    
+    
     apigClient.usersPost = function (params, body, additionalParams) {
         if(additionalParams === undefined) { additionalParams = {}; }
         
