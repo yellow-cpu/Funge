@@ -100,6 +100,10 @@
 	\item \textbf{AWS} Amazon Web Services. A secure cloud services platform offering compute power, database storage, content delivery and other functionality.
 	\item \textbf{Plant Box} The enclosure which contains the plants, with all the monitoring and automation equipment.
 	\item \textbf{Achievements} Gamified awards given to users for completing certain tasks.
+	\item \textbf{IoT} Internet of Things
+	\item \textbf{Thing} An IoT device that has a thing shadow, publishes to topics and is connected to sensors
+	\item \textbf{Thing Shadow} A JSON string that is associated with the state of a thing
+	\item \textbf{IoT Topic} A stream of JSON strings that are published to. A stream can be subscribed to, where the subscriber will receive all JSON messages published to that topic
 \end{itemize}
 
 \section{Architecture Requirements}
@@ -277,16 +281,26 @@ The Database Service will use the DynamoDB persistence API to persist user infor
 		The backend consists of three main parts, mainly the database, the events processor and the Internet of Things (IoT) manager.
 		
 		\subsubsection{Database}
+			
 			The database stores the user details, which IoT device is associated with which account, as well as all the details sent by the IoT device in the updates (explained below) into the corresponding sensor detail tables. When a sensor table reaches a certain capacity, the database will trigger the events processor to collect and concatenate data into a more summarized form: hourly data is transformed into daily data, daily into monthly etc.
 		
 		\subsubsection{Events Processor}
-		
+			
+			Instead of the server running continuously, waiting for input, the main functions of the system are triggered by certain events. This means that the server uses a lot less processing power as it does not run when idle and it can handle simultaneous parallel requests without any explicit multiprocessing.
+			
+			The events that trigger the server include messages sent from the device through IoT and any API RESTfull service calls such as registering a user, adding a new thing or editing plant details. 
+			
 		\subsubsection{IoT Manager}
 		
-	\subsection{Frontend}
+			In order to control the MQTT messages and Internet of Things devices in our system, we are using an IoT manager. The manager authenticates all of the devices (things), controls all of the IoT topics that the things publish to, any rules to be processed on the incoming MQTT messages etc.
 		
+	\subsection{Frontend}
+	
+		By using the web interface, the user can add plants and devices to their account. Once added, they can view a live stream of the status of the plant, graphing the sensor readings. They can also use the interface to update their desired configuration settings for the plant, such as light colours. 
 	
 	\subsection{IoT Device}
+		
+		The IoT devices are connected to sensors that take in readings. The sensor readings are added to JSON strings and sent via MQTT to the IoT manager periodically. The device also receives updates from the IoT manager in the form of shadow updates which will tell the IoT device what configuration to save the configurable devices in (e.g. light colours).
 
 \section{Functional Requirements}
 	\subsection{Use Case Prioritisation}
@@ -720,12 +734,12 @@ The Database Service will use the DynamoDB persistence API to persist user infor
 			\end{itemize}
 
 		\begin{figure}[H]
-			\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
+			\includegraphics[width=\linewidth]{images/UseCases/UpdateShadow.jpg}
 			\caption{Use case diagram for send readings summary to Lambda}
 		\end{figure}
 		
 		\begin{figure}[H]
-			%\includegraphics[width=\linewidth]{images/ServicesContracts/deletePlant.jpg}
+			\includegraphics[width=\linewidth]{images/ServicesContracts/updateShadow.jpg}
 			\caption{Services contract diagram for send readings summary to Lambda}
 		\end{figure}
 		
@@ -741,17 +755,7 @@ The Database Service will use the DynamoDB persistence API to persist user infor
 		\textbf{Post-conditions:}
 			\begin{itemize}
 				\item According to the event the information indicates the appropriate automated action should take place in terms of controlling some aspect of the device.
-			\end{itemize}
-
-		\begin{figure}[H]
-			\includegraphics[width=\linewidth]{images/tempUseCase.jpg}
-			\caption{Use case diagram for Complex Event Processing on Device Communications}
-		\end{figure}
-		
-		\begin{figure}[H]
-			%\includegraphics[width=\linewidth]{images/ServicesContracts/deletePlant.jpg}
-			\caption{Services contract diagram for complex event processing on device communications}
-		\end{figure}	
+			\end{itemize}	
 	
 \section{Technologies}
 

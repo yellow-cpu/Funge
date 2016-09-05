@@ -3,6 +3,12 @@
 // Register `register` directive
 angular.module('register').directive('switchToLogin', function ($compile) {
     var linkFunction = function (scope, element, attributes) {
+        $("#confirmPassword").keyup(function(event){
+            if(event.keyCode == 13){
+                $("#signUp").click();
+            }
+        });
+
         $('#switchToLogin').on('click', function () {
             $('register').animate({
                 opacity: 0,
@@ -69,8 +75,6 @@ angular.module('register').directive('switchToLogin', function ($compile) {
                 return;
             }
 
-            // scope.$ctrl.registerUser(email.val(),username.val(), password.val());
-
             var apigClient = apigClientFactory.newClient();
 
             var params = {};
@@ -80,6 +84,14 @@ angular.module('register').directive('switchToLogin', function ($compile) {
                 "username": username.val(),
                 "password": password.val()
             };
+
+            $(".loader-container").css({
+                'display': 'block'
+            });
+
+            $('#signUp').css({
+                'display': 'none'
+            });
 
             apigClient.usersPost(params, body)
                 .then(function (result) {
@@ -97,6 +109,14 @@ angular.module('register').directive('switchToLogin', function ($compile) {
                 error = $("<div id='error' class=\"alert alert-danger\">" +
                     "<strong>Username or email already in use. Please try again</strong></div>");
                 error.insertAfter('#confirmPassword');
+
+                $(".loader-container").css({
+                    'display': 'none'
+                });
+
+                $('#signUp').css({
+                    'display': 'block'
+                });
             });
         });
     };

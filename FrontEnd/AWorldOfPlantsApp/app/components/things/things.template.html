@@ -1,0 +1,73 @@
+<div class="row" things-directive>
+  <div class="col-lg-12">
+    <h1 class="page-header">
+      Things
+      <button id="newThing" class="btn btn-success pull-right" data-toggle="modal" data-target="#createThingModal">
+        Create New Thing
+      </button>
+    </h1>
+  </div>
+</div>
+
+<div class="loader-container">
+  <span class="loader"><span class="loader-inner"></span></span>
+</div>
+
+<div class="row" view-thing-details-directive>
+  <div ng-repeat="thing in $ctrl.things" class="panel panel-green">
+    <div class="panel-heading">
+      <div class="row">
+        <div class="col-xs-1">
+          <i class="fa fa-pagelines fa-5x"></i>
+        </div>
+        <div class="col-xs-5">
+          <div><b>Thing name:</b> {{thing.thingName}}</div>
+          <div><b>Plant id:</b> {{thing.plantId}}</div>
+        </div>
+        <div class="col-xs-6 text-right">
+          <div class="huge">6</div>
+          <div>Updates!</div>
+        </div>
+      </div>
+    </div>
+    <a class="view-details" ng-click="">
+      <div class="panel-footer" style="background-color: {{thing.colour}}">
+        <span class="pull-left">View Details</span>
+        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+        <div class="clearfix"></div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<div class="modal fade" id="createThingModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" create-thing-directive>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
+        <h4 class="modal-title" id="myModalLabel">Create New Thing</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form">
+          <div class="form-group">
+            <label for="thingName">Thing name:</label>
+            <input id="thingName" ng-model="$ctrl.newThing.thingName" type="text" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="plantId">Plant id:</label>
+            <select id="plantId" type="text" class="form-control" ng-model="$ctrl.newThing.plantId">
+              <option ng-repeat="id in $ctrl.plantIdList" value="{{id}}">{{id}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="thingColour">Thing colour:</label>
+            <ngjs-color-picker id="thingColour" selected-color="$ctrl.selectedColour" options="$ctrl.colourOptions" custom-colors="$ctrl.customColors"></ngjs-color-picker>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button id="createThing" type="button" class="btn btn-success" data-dismiss="modal">Create</button>
+      </div>
+    </div>
+  </div>
+</div>

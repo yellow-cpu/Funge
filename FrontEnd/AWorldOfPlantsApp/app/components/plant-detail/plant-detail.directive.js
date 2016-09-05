@@ -19,4 +19,21 @@ directive('plantDetailDirective', function ($compile) {
   return {
     link: linkFunction
   };
+}).
+directive('statusDirective', function($compile) {
+  var linkFunction = function (scope, element, attributes) {
+    scope.$watch(attributes.ngModel, function (value) {
+      var val = value;
+      if (val == "connected") {
+        var mqttStatus = $('#mqttStatus');
+        mqttStatus.removeClass('alert-danger');
+        mqttStatus.addClass('alert-success');
+        mqttStatus.html('Successfully connected to MQTT client');
+      }
+    });
+  };
+
+  return {
+    link: linkFunction
+  };
 });

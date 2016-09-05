@@ -1,3 +1,8 @@
+<img src="https://github.com/DillonHeins/Funge/blob/master/Documentation/images/AWorldOfPlants.png" width="100" height="100" />
+#Funge - A World of Plants
+
+###[A World of Plants live site](http://funge.cf) 
+
 ### Travis CI
 [![Build Status](https://travis-ci.org/DillonHeins/Funge.svg?branch=master)](https://travis-ci.org/DillonHeins/Funge)
 

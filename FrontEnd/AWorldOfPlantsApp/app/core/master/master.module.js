@@ -4,6 +4,7 @@
 var master = angular.module('master', [
   'ngRoute',
   'ngStorage',
+  'ngjsColorPicker',
   'landing',
   'site',
   'testing'

@@ -8,6 +8,117 @@ angular.
     controller: function TestingController($scope) {
       var self = this;
 
+      AWS.config.region = 'us-east-1';
+      var credentials = new AWS.CognitoIdentityCredentials({
+        IdentityPoolId: 'us-east-1:01d06c3d-957e-4db3-a37b-35d7b3e6bef5',
+      });
+
+
+      function SigV4Utils() {}
+
+      SigV4Utils.sign = function (key, msg) {
+        var hash = CryptoJS.HmacSHA256(msg, key);
+        return hash.toString(CryptoJS.enc.Hex);
+      };
+
+      SigV4Utils.sha256 = function (msg) {
+        var hash = CryptoJS.SHA256(msg);
+        return hash.toString(CryptoJS.enc.Hex);
+      };
+
+      SigV4Utils.getSignatureKey = function (key, dateStamp, regionName, serviceName) {
+        var kDate = CryptoJS.HmacSHA256(dateStamp, 'AWS4' + key);
+        var kRegion = CryptoJS.HmacSHA256(regionName, kDate);
+        var kService = CryptoJS.HmacSHA256(serviceName, kRegion);
+        var kSigning = CryptoJS.HmacSHA256('aws4_request', kService);
+        return kSigning;
+      };
+
+      SigV4Utils.getSignedUrl = function(protocol, host, uri, service, region, accessKey, secretKey, sessionToken) {
+        var time = moment().utc();
+        var dateStamp = time.format('YYYYMMDD');
+        var amzdate = dateStamp + 'T' + time.format('HHmmss') + 'Z';
+        var algorithm = 'AWS4-HMAC-SHA256';
+        var method = 'GET';
+
+        var credentialScope = dateStamp + '/' + region + '/' + service + '/' + 'aws4_request';
+        var canonicalQuerystring = 'X-Amz-Algorithm=AWS4-HMAC-SHA256';
+        canonicalQuerystring += '&X-Amz-Credential=' + encodeURIComponent(accessKey + '/' + credentialScope);
+        canonicalQuerystring += '&X-Amz-Date=' + amzdate;
+        canonicalQuerystring += '&X-Amz-SignedHeaders=host';
+
+        var canonicalHeaders = 'host:' + host + '\n';
+        var payloadHash = SigV4Utils.sha256('');
+        var canonicalRequest = method + '\n' + uri + '\n' + canonicalQuerystring + '\n' + canonicalHeaders + '\nhost\n' + payloadHash;
+
+
+        var stringToSign = algorithm + '\n' + amzdate + '\n' + credentialScope + '\n' + SigV4Utils.sha256(canonicalRequest);
+        var signingKey = SigV4Utils.getSignatureKey(secretKey, dateStamp, region, service);
+        var signature = SigV4Utils.sign(signingKey, stringToSign);
+
+        canonicalQuerystring += '&X-Amz-Signature=' + signature;
+        if (sessionToken) {
+          canonicalQuerystring += '&X-Amz-Security-Token=' + encodeURIComponent(sessionToken);
+        }
+
+        var requestUrl = protocol + '://' + host + uri + '?' + canonicalQuerystring;
+        return requestUrl;
+      }
+
+      function initClient(requestUrl) {
+        var clientId = String(Math.random()).replace('.', '');
+        var client2 = new Paho.MQTT.Client(requestUrl, clientId);
+        var connectOptions = {
+          onSuccess: function () {
+            console.log('connected');
+
+            // subscribe to the topic
+            client2.subscribe('$aws/things/greenThing/shadow/update');
+
+            // publish a lifecycle event
+            var payload = '{"state": {"desired": {"asd": "asd"},"reported": {"asd": "xyz","qwe": "qwe"}}}';
+            var topic = '$aws/things/greenThing/shadow/update';
+
+            try {
+              var message = new Paho.MQTT.Message(payload);
+              message.destinationName = topic;
+              client2.send(message);
+            } catch (e) {
+              this.emit('publishFailed', e);
+            }
+          },
+          useSSL: true,
+          timeout: 3,
+          mqttVersion: 4,
+          onFailure: function () {
+            console.error('connect failed');
+          }
+        };
+        client2.connect(connectOptions);
+
+        client2.onMessageArrived = function (message) {
+
+          try {
+            console.log("msg arrived: " +  message.payloadString);
+          } catch (e) {
+            console.log("error! " + e);
+          }
+
+        };
+      }
+
+      // Getting AWS creds from Cognito is async, so we need to drive the rest of the mqtt client initialization in a callback
+      /*credentials.get(function(err) {
+        if(err) {
+          console.log(err);
+          return;
+        }
+        var requestUrl = SigV4Utils.getSignedUrl('wss', 'a3afwj65bsju7b.iot.us-east-1.amazonaws.com', '/mqtt',
+          'iotdevicegateway', 'us-east-1',
+          "ASIAIKWACGPGIPVDLLIQ", "k6+u8J1qlKyb28PlgUjyChtsgtFXWjgcELpioUzm", "AgoGb3JpZ2luEAwaCXVzLWVhc3QtMSKAAssP/dPf4vtp8Pqnann8vU+wm2U1e993UJEfH3ddFJ9McWjF7EqjZCYXNBLCyYLy+rf9DByMvunrcQW+7m+d1waaBmen8v95PLnpa8R4zNB7caXF/TthigS8ASFd920ODArB81CZIvgQSVWDptPz+1/RYeNv7D36JE6x+HQjul8FHI2Dh/O/nuJhv8vCRLFd81ZS0VCjE8V2dYhTX/E7ThlXbRdaG7Vy3NiJwxIxfJ9oHQi5rPwD2THIejiU+9nu0ydW1bfPsA+dowOVNRKc28oxJtUY6E+TMq8lNijd7tf4DFHejVdP+43Xh3txYuG+jCmKm/I5MIRkxFhBJx7c7z8q7wQIkf//////////ARAAGgwzMzk4OTg4ODQxMDEiDCQWn7LOU+szOOClTCrDBHJJ0i/IlhAZHez7OyqIZWDTM/TnCmrXql2PUZA5R70a0HouppCg/TNftnyvk9kSnjyv27xB418MaRMnDK5IGy1pKlKfb/KTjDsJtLot+kDr4bSiKcE+sBNE870p+fmOP385yWZe6nxo2jb4WUvJxnA0VvrnWel6/CSVS0nV6xuix4+ZY/q7FLrlNC+kxp+xAFIZWQwqNmtziDsw1D1BdJoh7B6DncmMb5Rt2hp/vZ9pRJohtF5BDp5ZZ16ucgYEst57J1TnVnYJSxxicX8KtMOqNnrd7aovgupCGRbtB9n9eN7GI3oOPhhTYZ4TGZKVdAFv/L3+BzvWanM39XBTyzVDx2ocq7tAlJZ7AlrtzGzf3pZ/N4DXg/eluLHI7uydLFvHkd+QDNKZmsOjpY7o55ESqNwhpsG9x8ZPyHLsiiEvZCUaNfvZknVIX6dzofG7a7pEDv9bLqKP4P1ifPyU2m7oZI8/D3vrPbw6PUD9Ap/a6DU3ViPzjElS5y0AmyfwTobWmjRVF08HK73foTdz3ADJR3YvLw40mFFKeC5Fo/5hv5CFMwHwlH++Z4xpaqVXigM9UhNS0Y2hvnc+ABIBnvtF2bvggqTIrq1oBbBUmLvdzkiCY1m35myE2CuTtMhMZ8kE3nFtRv41PtrzX4WBUIRYQlwAPBhi1oi2T831YgVzi+6198BvWnOd3Bc64vkFWIVHormir6xT2XlKo9nqFtUtpWwTOKWgZ0Mjb81SBPguxsYXo10tFR5Z7ELNhA1AcU6tVTDI36u+BQ==");
+        initClient(requestUrl);
+      });*/
+
       function LogMsg(type, content){
         this.type = type;
         this.content = content;
@@ -88,6 +199,7 @@ angular.
 
       self.accessKey = "";
       self.secretKey = "";
+      self.sessionToken = "";
       self.regionName = 'us-east-1';
       self.logs = new LogService();
       self.clients = new ClientControllerCache($scope, self.logs);
@@ -95,17 +207,27 @@ angular.
       
 
       self.createClient = function() {
-        var options = {
+        /*var requestUrl = SigV4Utils.getSignedUrl('wss', 'a3afwj65bsju7b.iot.us-east-1.amazonaws.com', '/mqtt',
+          'iotdevicegateway', 'us-east-1',
+          "ASIAIKWACGPGIPVDLLIQ", "k6+u8J1qlKyb28PlgUjyChtsgtFXWjgcELpioUzm", "AgoGb3JpZ2luEAwaCXVzLWVhc3QtMSKAAssP/dPf4vtp8Pqnann8vU+wm2U1e993UJEfH3ddFJ9McWjF7EqjZCYXNBLCyYLy+rf9DByMvunrcQW+7m+d1waaBmen8v95PLnpa8R4zNB7caXF/TthigS8ASFd920ODArB81CZIvgQSVWDptPz+1/RYeNv7D36JE6x+HQjul8FHI2Dh/O/nuJhv8vCRLFd81ZS0VCjE8V2dYhTX/E7ThlXbRdaG7Vy3NiJwxIxfJ9oHQi5rPwD2THIejiU+9nu0ydW1bfPsA+dowOVNRKc28oxJtUY6E+TMq8lNijd7tf4DFHejVdP+43Xh3txYuG+jCmKm/I5MIRkxFhBJx7c7z8q7wQIkf//////////ARAAGgwzMzk4OTg4ODQxMDEiDCQWn7LOU+szOOClTCrDBHJJ0i/IlhAZHez7OyqIZWDTM/TnCmrXql2PUZA5R70a0HouppCg/TNftnyvk9kSnjyv27xB418MaRMnDK5IGy1pKlKfb/KTjDsJtLot+kDr4bSiKcE+sBNE870p+fmOP385yWZe6nxo2jb4WUvJxnA0VvrnWel6/CSVS0nV6xuix4+ZY/q7FLrlNC+kxp+xAFIZWQwqNmtziDsw1D1BdJoh7B6DncmMb5Rt2hp/vZ9pRJohtF5BDp5ZZ16ucgYEst57J1TnVnYJSxxicX8KtMOqNnrd7aovgupCGRbtB9n9eN7GI3oOPhhTYZ4TGZKVdAFv/L3+BzvWanM39XBTyzVDx2ocq7tAlJZ7AlrtzGzf3pZ/N4DXg/eluLHI7uydLFvHkd+QDNKZmsOjpY7o55ESqNwhpsG9x8ZPyHLsiiEvZCUaNfvZknVIX6dzofG7a7pEDv9bLqKP4P1ifPyU2m7oZI8/D3vrPbw6PUD9Ap/a6DU3ViPzjElS5y0AmyfwTobWmjRVF08HK73foTdz3ADJR3YvLw40mFFKeC5Fo/5hv5CFMwHwlH++Z4xpaqVXigM9UhNS0Y2hvnc+ABIBnvtF2bvggqTIrq1oBbBUmLvdzkiCY1m35myE2CuTtMhMZ8kE3nFtRv41PtrzX4WBUIRYQlwAPBhi1oi2T831YgVzi+6198BvWnOd3Bc64vkFWIVHormir6xT2XlKo9nqFtUtpWwTOKWgZ0Mjb81SBPguxsYXo10tFR5Z7ELNhA1AcU6tVTDI36u+BQ==");
+        initClient(requestUrl);*/
+        /*var options = {
           clientId : this.clientId,
           endpoint: this.endpoint.toLowerCase(),
           accessKey: this.accessKey,
           secretKey: this.secretKey,
+          sessionToken: this.sessionToken,
           regionName: this.regionName
         };
         var client = this.clients.getClient(options);
         if (!client.connected) {
           client.connect(options);
-        }
+        }*/
+
+        var requestUrl = SigV4Utils.getSignedUrl('wss', 'a3afwj65bsju7b.iot.us-east-1.amazonaws.com', '/mqtt',
+          'iotdevicegateway', 'us-east-1',
+          this.accessKey, this.secretKey, this.sessionToken);
+        initClient(requestUrl);
       };
 
       self.removeClient = function(clientCtr) {
