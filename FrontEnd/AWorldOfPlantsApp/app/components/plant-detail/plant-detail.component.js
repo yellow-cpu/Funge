@@ -59,6 +59,8 @@ angular.module('plantDetail').component('plantDetail', {
       return requestUrl;
     };
 
+    self.status = "";
+
     self.client = null;
 
     function initClient(requestUrl) {
@@ -70,23 +72,14 @@ angular.module('plantDetail').component('plantDetail', {
       var connectOptions = {
         onSuccess: function () {
           console.log('connected');
+          self.status = "connected";
+          $scope.$apply();
 
           // subscribe to the topic
           self.client.subscribe('$aws/things/greenThing/shadow/update');
-
-          // publish a lifecycle event
-          var payload = '{"state": {"desired": {"asd": "asd"},"reported": {"asd": "xyz","qwe": "qwe"}}}';
-
-          try {
-            var message = new Paho.MQTT.Message(payload);
-            message.destinationName = topic;
-            self.client.send(message);
-          } catch (e) {
-            this.emit('publishFailed', e);
-          }
         },
         useSSL: true,
-        timeout: 3,
+        timeout: 15,
         mqttVersion: 4,
         onFailure: function () {
           console.error('connect failed');
@@ -104,6 +97,19 @@ angular.module('plantDetail').component('plantDetail', {
 
       };
     }
+
+    self.publish = function (payload) {
+      // publish a lifecycle event
+      //var payload = '{"state": {"desired": {"asd": "asd"},"reported": {"asd": "xyz","qwe": "qwe"}}}';
+
+      try {
+        var message = new Paho.MQTT.Message(payload);
+        message.destinationName = topic;
+        self.client.send(message);
+      } catch (e) {
+        console.log('publishFailed', e);
+      }
+    };
 
     self.requestUrl = SigV4Utils.getSignedUrl(
       'wss',

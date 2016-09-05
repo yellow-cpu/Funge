@@ -548,9 +548,25 @@ table.dataTable thead .sorting:after {
     color: #000;
 }
 
-/*LOADER*/
+.alert-danger {
+    background-color: #d9534f;
+    border: none;
+    color: #FFFFFF;
+    -webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+}
 
-/* Loader */
+.alert-success {
+    background-color: #1d9d73;
+    border: none;
+    color: #FFFFFF;
+    -webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+}
+
+/*LOADER*/
 
 .loader-container {
     color: #ffffff;
