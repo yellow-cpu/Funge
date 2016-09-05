@@ -277,11 +277,18 @@ The Database Service will use the DynamoDB persistence API to persist user infor
 		The backend consists of three main parts, mainly the database, the events processor and the Internet of Things (IoT) manager.
 		
 		\subsubsection{Database}
+			
 			The database stores the user details, which IoT device is associated with which account, as well as all the details sent by the IoT device in the updates (explained below) into the corresponding sensor detail tables. When a sensor table reaches a certain capacity, the database will trigger the events processor to collect and concatenate data into a more summarized form: hourly data is transformed into daily data, daily into monthly etc.
 		
 		\subsubsection{Events Processor}
-		
+			
+			Instead of the server running continuously, waiting for input, the main functions of the system are triggered by certain events. This means that the server uses a lot less processing power as it does not run when idle and it can handle simultaneous parallel requests without any explicit multiprocessing.
+			
+			The events that trigger the server include messages sent from the device through IoT and any API RESTfull service calls such as registering a user, adding a new thing or editing plant details. 
+			
 		\subsubsection{IoT Manager}
+		
+			
 		
 	\subsection{Frontend}
 		
