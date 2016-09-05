@@ -100,6 +100,10 @@
 	\item \textbf{AWS} Amazon Web Services. A secure cloud services platform offering compute power, database storage, content delivery and other functionality.
 	\item \textbf{Plant Box} The enclosure which contains the plants, with all the monitoring and automation equipment.
 	\item \textbf{Achievements} Gamified awards given to users for completing certain tasks.
+	\item \textbf{IoT} Internet of Things
+	\item \textbf{Thing} An IoT device that has a thing shadow, publishes to topics and is connected to sensors
+	\item \textbf{Thing Shadow} A JSON string that is associated with the state of a thing
+	\item \textbf{IoT Topic} A stream of JSON strings that are published to. A stream can be subscribed to, where the subscriber will receive all JSON messages published to that topic
 \end{itemize}
 
 \section{Architecture Requirements}
@@ -288,12 +292,15 @@ The Database Service will use the DynamoDB persistence API to persist user infor
 			
 		\subsubsection{IoT Manager}
 		
-			
+			In order to control the MQTT messages and Internet of Things devices in our system, we are using an IoT manager. The manager authenticates all of the devices (things), controls all of the IoT topics that the things publish to, any rules to be processed on the incoming MQTT messages etc.
 		
 	\subsection{Frontend}
-		
+	
+		By using the web interface, the user can add plants and devices to their account. Once added, they can view a live stream of the status of the plant, graphing the sensor readings. They can also use the interface to update their desired configuration settings for the plant, such as light colours. 
 	
 	\subsection{IoT Device}
+		
+		The IoT devices are connected to sensors that take in readings. The sensor readings are added to JSON strings and sent via MQTT to the IoT manager periodically. The device also receives updates from the IoT manager in the form of shadow updates which will tell the IoT device what configuration to save the configurable devices in (e.g. light colours).
 
 \section{Functional Requirements}
 	\subsection{Use Case Prioritisation}
