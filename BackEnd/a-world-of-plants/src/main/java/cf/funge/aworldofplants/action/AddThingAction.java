@@ -99,10 +99,10 @@ public class AddThingAction extends AbstractAction {
         AttachPrincipalPolicyResult attachPrincipalPolicyResult = awsIotClient.attachPrincipalPolicy(attachPrincipalPolicyRequest);
 
         // Attach principal (user identity) to policy
-        UserDAO dao = DAOFactory.getUserDAO();
+        UserDAO userDAO = DAOFactory.getUserDAO();
         User user;
         try {
-            user = dao.getUserByName(input.getUsername());
+            user = userDAO.getUserByName(input.getUsername());
         } catch (final DAOException e) {
             logger.log("Error while fetching user with username " + input.getUsername() + "\n" + e.getMessage());
             throw new InternalErrorException(ExceptionMessages.EX_DAO_ERROR);
@@ -110,7 +110,7 @@ public class AddThingAction extends AbstractAction {
         attachPrincipalPolicyRequest = new AttachPrincipalPolicyRequest();
         attachPrincipalPolicyRequest.setPolicyName(policyName);
         attachPrincipalPolicyRequest.setPrincipal(user.getIdentity().getIdentityId());
-        attachPrincipalPolicyResult = awsIotClient.attachPrincipalPolicy((attachPrincipalPolicyRequest);
+        attachPrincipalPolicyResult = awsIotClient.attachPrincipalPolicy(attachPrincipalPolicyRequest);
 
         // Attach thing principal request
         AttachThingPrincipalRequest attachThingPrincipalRequest = new AttachThingPrincipalRequest();
@@ -130,7 +130,7 @@ public class AddThingAction extends AbstractAction {
         //ToDo: store location of files in database
         //ToDo: return thing id rather than thing ARN
 
-        ThingDAO dao = DAOFactory.getThingDAO();
+        ThingDAO thingDAO = DAOFactory.getThingDAO();
 
         Thing newThing = new Thing();
         newThing.setThingName(input.getThingName());
@@ -141,7 +141,7 @@ public class AddThingAction extends AbstractAction {
         String thingId;
 
         try {
-            thingId = dao.createThing(newThing);
+            thingId = thingDAO.createThing(newThing);
         } catch (final DAOException e) {
             logger.log("Error while creating new thing\n" + e.getMessage());
             throw new InternalErrorException(ExceptionMessages.EX_DAO_ERROR);
