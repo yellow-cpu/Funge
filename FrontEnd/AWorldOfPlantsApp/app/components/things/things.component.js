@@ -14,6 +14,15 @@ angular.module('things').component('things', {
 
     self.plantIdList = [];
 
+    self.customColors = ["#1d9d73", "#5484ed", "#a4bdfc", "#46d6db", "#7ae7bf", "#51b749", "#fbd75b", "#ffb878", "#ff887c", "#dc2127", "#dbadff", "#e1e1e1"];
+
+    self.selectedColour = "";
+
+    self.colourOptions = {
+      size: 30,
+      roundCorners: true
+    };
+
     var apigClient = apigClientFactory.newClient({
       accessKey: $localStorage.accessKey,
       secretKey: $localStorage.secretKey,

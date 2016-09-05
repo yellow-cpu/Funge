@@ -42,6 +42,14 @@ directive('thingsDirective', function ($compile, $localStorage) {
 }).
 directive('createThingDirective', function() {
   var linkFunction = function (scope, element, attributes) {
+    $('#thingColour > ul').on('click', function () {
+      $('.modal-header').css("background-color", scope.$ctrl.selectedColour);
+      $('.modal-header').css("border-color", scope.$ctrl.selectedColour);
+
+      $('#createThing').css("background-color", scope.$ctrl.selectedColour);
+      $('#createThing').css("border-color", scope.$ctrl.selectedColour);
+    });
+
     $('#createThing').on('click', function() {
       scope.$ctrl.createThing();
       $('#thingName').val('');
