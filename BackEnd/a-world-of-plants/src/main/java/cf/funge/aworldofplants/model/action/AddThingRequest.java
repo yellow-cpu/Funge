@@ -7,6 +7,7 @@ public class AddThingRequest {
     private String thingName;
     private String username;
     private String plantId;
+    private String colour;
 
     public String getThingName() {
         return thingName;
@@ -30,5 +31,13 @@ public class AddThingRequest {
 
     public void setPlantId(String plantId) {
         this.plantId = plantId;
+    }
+
+    public String getColour() {
+        return colour;
+    }
+
+    public void setColour(String colour) {
+        this.colour = colour;
     }
 }

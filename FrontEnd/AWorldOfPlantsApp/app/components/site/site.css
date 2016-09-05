@@ -460,7 +460,7 @@ table.dataTable thead .sorting:after {
 
 .btn-success {
     background-color: #1d9d73;
-    border-color: #1A8A67;
+    border-color: #1d9d73;
 }
 
 .btn-success:hover, .btn-success:focus {
@@ -522,7 +522,7 @@ table.dataTable thead .sorting:after {
 
 .modal-header {
     background-color: #1d9d73;
-    border-color: #1A8A67;
+    border-color: #1d9d73;
     color: #FFFFFF;
     -webkit-border-top-left-radius: 5px;
     -webkit-border-top-right-radius: 5px;
