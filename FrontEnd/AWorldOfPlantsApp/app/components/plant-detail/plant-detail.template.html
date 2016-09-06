@@ -47,10 +47,12 @@
       </div>
     </div>
   </div>
+</div>
 
+<div class="row">
   <div class="col-lg-6">
-    <canvas id="live-chart"></canvas>
-    <script>
+    <canvas id="live-chart" plant-detail-canvas-directive></canvas>
+    <!--<script>
       var canvas = document.getElementById('live-chart');
       var ctx = canvas.getContext('2d');
       var startingData = {
@@ -99,9 +101,12 @@
         chart.update(1000);
       }
 
-      setInterval(function () {
+
+
+      // Test chart animation
+      /*setInterval(function () {
         moveChart(liveChart, [Math.random() * 100, Math.random() * 100]);
-      }, 1000);
-    </script>
+      }, 1000);*/
+    </script>-->
   </div>
 </div>

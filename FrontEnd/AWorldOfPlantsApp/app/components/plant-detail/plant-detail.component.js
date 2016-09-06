@@ -86,16 +86,6 @@ angular.module('plantDetail').component('plantDetail', {
         }
       };
       self.client.connect(connectOptions);
-
-      self.client.onMessageArrived = function (message) {
-
-        try {
-          console.log("msg arrived: " +  message.payloadString);
-        } catch (e) {
-          console.log("error! " + e);
-        }
-
-      };
     }
 
     self.publish = function (payload) {
