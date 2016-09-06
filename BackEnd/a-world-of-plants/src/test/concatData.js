@@ -101,8 +101,8 @@ console.log('Loading function');
 
 					docClient.delete(params, function(data, err)
 					{
-						if (err)	console.log(err);
-						else		console.log(data);
+						if (err)	console.log("Unable to delete item. Error JSON:", JSON.stringify(err, null, 2));
+						else		console.log("Deleted item:", JSON.stringify(data, null, 2));
 					});
 				});
 
@@ -121,7 +121,16 @@ console.log('Loading function');
 							"min":			temperature[key].min,
 							"max":			temperature[key].max
 						}
-					}
+					};
+					
+					docClient.put(params, function(err, data)
+					{
+						if (err) {
+							console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
+						} else {
+							console.log("Added item:", JSON.stringify(data, null, 2));
+						}
+					});
 				}
 
 				// Add humidity to daily table
@@ -139,7 +148,16 @@ console.log('Loading function');
 							"min":			humidity[key].min,
 							"max":			humidity[key].max
 						}
-					}
+					};
+					
+					docClient.put(params, function(err, data)
+					{
+						if (err) {
+							console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
+						} else {
+							console.log("Added item:", JSON.stringify(data, null, 2));
+						}
+					});
 				}
 			}
 		});
