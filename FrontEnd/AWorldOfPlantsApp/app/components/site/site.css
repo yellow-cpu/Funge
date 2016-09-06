@@ -129,7 +129,7 @@ body {
     .sidebar {
         z-index: 1;
         position: fixed;
-        top: 51px;
+        top: 52px;
         left: 225px;
         width: 250px;
         margin-left: -225px;
@@ -378,8 +378,8 @@ table.dataTable thead .sorting:after {
 }
 
 #wrapper > nav {
-    background-color: #1d9d73;
-    border-color: #1A8A67;
+    background-color: #2c2c2c;
+    border-bottom: solid 2px #181818;
     -webkit-box-shadow: 0px 4px 19px -5px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 4px 19px -5px rgba(0,0,0,0.75);
     box-shadow: 0px 4px 19px -5px rgba(0,0,0,0.75);
@@ -387,6 +387,8 @@ table.dataTable thead .sorting:after {
 
 #wrapper > nav > div.navbar-header > a {
     color: #FFF;
+    /*border-right: 3px solid #1A8A67;*/
+    /*padding-right: 93px;*/
 }
 
 #side-menu > li> a {
@@ -450,7 +452,7 @@ table.dataTable thead .sorting:after {
 }
 
 #wrapper > nav > div.navbar-header > a {
-    border-right: 1px solid rgba(255, 255, 255, 0.29);
+    /*border-right: 1px solid rgba(255, 255, 255, 0.29);*/
 }
 
 .view-details, #logout {
