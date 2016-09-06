@@ -88,9 +88,6 @@ angular.module('plants').component('plants', {
             });
             self.plants = result.data.plants;
 
-            console.log(result.data.plants);
-            console.log(self.plants);
-
             $scope.$apply();
           }).catch(function (result) {
             console.log("Error: " + JSON.stringify(result));
