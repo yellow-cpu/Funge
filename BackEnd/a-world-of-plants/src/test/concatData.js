@@ -16,11 +16,13 @@ console.log('Loading function');
 		console.log("----- Scanning table: hourly -----");
 		
 		// Check if the temperature item is in the event
-		docClient.scan({TableName: "hourly"}, function(data, err)
+		docClient.scan({TableName: "hourly"}, function(err, data)
 		{
-			if(err) console.log(err);
+			if(err) console.log("Error in reading table: ", JSON.stringify(err, null, 2));
 			else
 			{
+				console.log(data);
+
 				// Initialize arrays to store concat data
 				var temperature = {};
 				var humidity    = {};
