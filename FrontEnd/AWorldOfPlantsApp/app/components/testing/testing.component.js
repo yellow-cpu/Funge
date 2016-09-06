@@ -73,11 +73,11 @@ angular.
             console.log('connected');
 
             // subscribe to the topic
-            client2.subscribe('$aws/things/testThingamajim/shadow/update');
+            client2.subscribe('$aws/things/greenThing/shadow/update');
 
             // publish a lifecycle event
             var payload = '{"state": {"desired": {"asd": "asd"},"reported": {"asd": "xyz","qwe": "qwe"}}}';
-            var topic = '$aws/things/testThingamajim/shadow/update';
+            var topic = '$aws/things/greenThing/shadow/update';
 
             try {
               var message = new Paho.MQTT.Message(payload);

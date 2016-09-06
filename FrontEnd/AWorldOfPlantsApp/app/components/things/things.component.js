@@ -46,15 +46,21 @@ angular.module('things').component('things', {
     };
 
     self.getThings = function() {
-      console.log('calling get things');
       var params = {
         "username": $localStorage.username
       };
+
+      $(".loader-container").css({
+        'display': 'block'
+      });
 
       var body = {};
 
       apigClient.thingsUserUsernameGet(params, body)
         .then(function (result) {
+          $(".loader-container").css({
+            'display': 'none'
+          });
           self.things = result.data.things;
           console.log(self.things);
           $scope.$apply();

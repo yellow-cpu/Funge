@@ -10,10 +10,18 @@ angular.module('plants').component('plants', {
       username: $localStorage.username,
       plantType: "",
       plantName: "",
-      plantAge: Date.now()
+      plantAge: Date.now(),
+      colour: ""
     };
 
     $scope.plantDetails = {};
+
+    self.customColors = ["#1D9D73", "#297373", "#FF8552", "#DA3E52", "#F9C80E", "#51B749", "#662E9B", "#FF5C33", "#236ACB", "#F7B32B", "#4C5B5C", "#FF5AEF"];
+
+    self.colourOptions = {
+      size: 30,
+      roundCorners: true
+    };
 
     self.timeConverter = function (now){
       var a = new Date(now);
@@ -41,13 +49,14 @@ angular.module('plants').component('plants', {
       });
     };
 
-    self.updateDetails = function(_plantId, _plantType, _plantName, _plantAge) {
+    self.updateDetails = function(_plantId, _plantType, _plantName, _plantAge, _colour) {
       $scope.plantDetails = {
         plantId: _plantId,
         username: $localStorage.username,
         plantType: _plantType,
         plantName: _plantName,
-        plantAge: _plantAge
+        plantAge: _plantAge,
+        colour: _colour
       };
 
       siteService.setPlant($scope.plantDetails);
@@ -78,6 +87,7 @@ angular.module('plants').component('plants', {
               'display': 'none'
             });
             self.plants = result.data.plants;
+
             $scope.$apply();
           }).catch(function (result) {
             console.log("Error: " + JSON.stringify(result));
