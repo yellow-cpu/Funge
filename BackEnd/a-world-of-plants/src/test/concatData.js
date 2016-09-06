@@ -27,7 +27,7 @@ console.log('Loading function');
 				var temperature = {};
 				var humidity    = {};
 				
-				data.Items.foreach(function(record)
+				data.Items.forEach(function(record)
 				{
 					console.log(record);
 					// Add temperature
@@ -101,7 +101,7 @@ console.log('Loading function');
 						}
 					}
 
-					docClient.delete(params, function(data, err)
+					docClient.delete(params, function(err, data)
 					{
 						if (err)	console.log("Unable to delete item. Error JSON:", JSON.stringify(err, null, 2));
 						else		console.log("Deleted item:", JSON.stringify(data, null, 2));
