@@ -21,6 +21,8 @@ import cf.funge.aworldofplants.model.action.CreatePlantRequest;
 import cf.funge.aworldofplants.model.action.CreatePlantResponse;
 import cf.funge.aworldofplants.model.plant.Plant;
 import cf.funge.aworldofplants.model.plant.PlantDAO;
+import cf.funge.aworldofplants.model.timeline.TimelineEvent;
+import cf.funge.aworldofplants.model.timeline.TimelineDAO;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.google.gson.JsonObject;
@@ -45,6 +47,7 @@ public class CreatePlantAction extends AbstractAction {
         }
 
         PlantDAO dao = DAOFactory.getPlantDAO();
+        TimelineDAO timelineDAO = DAOFactory.getTimelineDAO();
 
         Plant newPlant = new Plant();
         newPlant.setUsername(input.getUsername());
@@ -53,10 +56,18 @@ public class CreatePlantAction extends AbstractAction {
         newPlant.setPlantAge(input.getPlantAge());
         newPlant.setColour(input.getColour());
 
+        TimelineEvent timelineEvent = new TimelineEvent();
+        timelineEvent.setUsername(input.getUsername());
+        timelineEvent.setMessage("Created plant with name " + input.getPlantName());
+        timelineEvent.setCategory("Good");
+        timelineEvent.setTimestamp(5);
+        timelineEvent.setPointValue(420);
+
         //ToDo: make plant names unique for users
         //ToDo: assign colour to each plant
 
         String plantId;
+        String timelineEventId;
 
         try {
             plantId = dao.createPlant(newPlant);
@@ -67,6 +78,18 @@ public class CreatePlantAction extends AbstractAction {
 
         if (plantId == null || plantId.trim().equals("")) {
             logger.log("PlantID is null or empty");
+            throw new InternalErrorException(ExceptionMessages.EX_DAO_ERROR);
+        }
+
+        try {
+            timelineEventId = timelineDAO.createTimelineEvent(timelineEvent);
+        } catch (final DAOException e) {
+            logger.log("Error while creating new timeline event\n" + e.getMessage());
+            throw new InternalErrorException(ExceptionMessages.EX_DAO_ERROR);
+        }
+
+        if (timelineEventId == null || timelineEventId.trim().equals("")) {
+            logger.log("TimelineEventId is null or empty");
             throw new InternalErrorException(ExceptionMessages.EX_DAO_ERROR);
         }
 
