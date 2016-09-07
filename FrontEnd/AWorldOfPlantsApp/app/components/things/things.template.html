@@ -28,8 +28,8 @@
             </select>
           </div>
           <div>
-            <b>Files: </b>
-            <a ng-repeat="file in thing.files" href="{{file}}">1</a>
+            <b>Files: </b><br>
+            <a class="a-files" ng-repeat="file in thing.files track by $index" href="{{file}}">{{thing.fileNames[$index]}} <br></a>
           </div>
         </div>
         <div class="col-xs-6 text-right">

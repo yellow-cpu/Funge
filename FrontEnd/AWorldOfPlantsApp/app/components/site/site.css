@@ -434,6 +434,10 @@ table.dataTable thead .sorting:after {
     cursor: pointer;
 }
 
+.a-files {
+    color: #0044CB !important;
+}
+
 #side-menu > li > a:hover, #side-menu > li > a:focus, #side-menu > li > ul > li > a:hover, #side-menu > li > ul > li > a:focus, #side-menu > li > a.active {
     background-color: #212121;
 }
