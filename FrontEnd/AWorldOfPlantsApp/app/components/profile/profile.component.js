@@ -6,8 +6,12 @@ angular.module('profile').component('profile', {
   controller: function ProfileController($scope, $localStorage, siteService) {
     var self = this;
 
+    // User variables
     self.username = $localStorage.username;
     self.email = "";
+
+    // Timeline variables
+    self.timelineEvents = [];
 
     var apigClient = apigClientFactory.newClient({
       accessKey: $localStorage.accessKey,
@@ -32,12 +36,18 @@ angular.module('profile').component('profile', {
       console.log("Error: " + JSON.stringify(result));
     });
 
-    self.test = function() {
+    // Get timeline events of current user
+    self.getTimelineEvents = function() {
       apigClient.timelineUsernameGet(params, body)
           .then(function (result) {
-            console.log("Success: " + JSON.stringify(result));
+            console.log("Successfully retrieved timeline info" + JSON.stringify(result));
+
+            // Set variables to retrieved values
+            self.timelineEvents = result.data.timelineEvents;
+
+            $scope.$apply();
           }).catch(function (result) {
-        console.log("Error: " + JSON.stringify(result));
+        console.log("Error retrieving timeline info: " + JSON.stringify(result));
       });
     };
   }
