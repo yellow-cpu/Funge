@@ -20,15 +20,15 @@ directive('viewPlantsDetailsDirective', function ($compile) {
 }).
 directive('createPlantDirective', function() {
   var linkFunction = function (scope, element, attributes) {
-    $('#plantColour > ul').on('click', function () {
-      $('.modal-header').css("background-color", scope.$ctrl.selectedColour);
-      $('.modal-header').css("border-color", scope.$ctrl.selectedColour);
+      $('#plantColour > ul').on('click', function () {
+        $('.modal-header').css("background-color", scope.$ctrl.selectedColour);
+        $('.modal-header').css("border-color", scope.$ctrl.selectedColour);
 
-      $('#createPlant').css("background-color", scope.$ctrl.selectedColour);
-      $('#createPlant').css("border-color", scope.$ctrl.selectedColour);
+        $('#createPlant').css("background-color", scope.$ctrl.selectedColour);
+        $('#createPlant').css("border-color", scope.$ctrl.selectedColour);
 
-      scope.$ctrl.newPlant.colour = scope.$ctrl.selectedColour;
-    });
+        scope.$ctrl.newPlant.colour = scope.$ctrl.selectedColour;
+      });
 
     $('#createPlant').on('click', function() {
       scope.$ctrl.createPlant();
