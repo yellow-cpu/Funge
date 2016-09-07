@@ -9,6 +9,8 @@ import cf.funge.aworldofplants.model.action.RemoveThingRequest;
 import cf.funge.aworldofplants.model.action.RemoveThingResponse;
 import cf.funge.aworldofplants.model.thing.Thing;
 import cf.funge.aworldofplants.model.thing.ThingDAO;
+import cf.funge.aworldofplants.model.user.User;
+import cf.funge.aworldofplants.model.user.UserDAO;
 import com.amazonaws.services.iot.AWSIotClient;
 import com.amazonaws.services.iot.model.*;
 import com.amazonaws.services.lambda.runtime.Context;
@@ -26,6 +28,14 @@ public class RemoveThingAction extends AbstractAction {
         logger = lambdaContext.getLogger();
 
         RemoveThingRequest input = getGson().fromJson(request, RemoveThingRequest.class);
+
+        if (input == null ||
+                input.getThingName() == null ||
+                input.getThingName().trim().equals("") ||
+                input.getUsername() == null ||
+                input.getUsername().trim().equals("")) {
+            throw new BadRequestException(ExceptionMessages.EX_INVALID_INPUT);
+        }
 
         ThingDAO dao = DAOFactory.getThingDAO();
         Thing thing;
@@ -50,13 +60,21 @@ public class RemoveThingAction extends AbstractAction {
         DetachPrincipalPolicyResult detachPrincipalPolicyResult = awsIotClient.detachPrincipalPolicy(detachPrincipalPolicyRequest);*/
 
         // Detach principal (user identity) from policy
-        System.out.println(lambdaContext.getIdentity().getIdentityId());
+        UserDAO userDAO = DAOFactory.getUserDAO();
+        User user;
+        try {
+            user = userDAO.getUserByName(input.getUsername());
+        } catch (final DAOException e) {
+            logger.log("Error while fetching user with username " + input.getUsername() + "\n" + e.getMessage());
+            throw new InternalErrorException(ExceptionMessages.EX_DAO_ERROR);
+        }
+        System.out.println("USER ID OVER HERE PLS: " + user.getIdentity().getIdentityId());
 
         DetachPrincipalPolicyRequest detachPrincipalPolicyRequest;
         DetachPrincipalPolicyResult detachPrincipalPolicyResult;
         detachPrincipalPolicyRequest = new DetachPrincipalPolicyRequest();
         detachPrincipalPolicyRequest.setPolicyName(policyName);
-        detachPrincipalPolicyRequest.setPrincipal(lambdaContext.getIdentity().getIdentityId());
+        detachPrincipalPolicyRequest.setPrincipal(user.getIdentity().getIdentityId());
         detachPrincipalPolicyResult = awsIotClient.detachPrincipalPolicy(detachPrincipalPolicyRequest);
 
         /*//Detach thing from principal (certificate)
