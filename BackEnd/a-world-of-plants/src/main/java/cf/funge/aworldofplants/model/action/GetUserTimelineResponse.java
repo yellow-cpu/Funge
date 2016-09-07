@@ -1,16 +1,16 @@
 package cf.funge.aworldofplants.model.action;
 
-import cf.funge.aworldofplants.model.thing.Thing;
+import cf.funge.aworldofplants.model.timeline.TimelineEvent;
 
 import java.util.List;
 
 /**
- * Created by Dillon on 2016-09-05.
+ * Created by GP on 07/09/2016.
  */
-public class GetUserThingsResponse {
+public class GetUserTimelineResponse {
     private int count;
     private int pageLimit;
-    private List<Thing> things;
+    private List<TimelineEvent> timelineEvents;
 
     public int getCount() {
         return count;
@@ -28,11 +28,11 @@ public class GetUserThingsResponse {
         this.pageLimit = pageLimit;
     }
 
-    public List<Thing> getThings() {
-        return things;
+    public List<TimelineEvent> getTimelineEvents() {
+        return timelineEvents;
     }
 
-    public void setThings(List<Thing> things) {
-        this.things = things;
+    public void setTimelineEvents(List<TimelineEvent> timelineEvents) {
+        this.timelineEvents = timelineEvents;
     }
 }

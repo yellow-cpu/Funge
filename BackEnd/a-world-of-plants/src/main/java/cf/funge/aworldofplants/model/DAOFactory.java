@@ -17,6 +17,8 @@ import cf.funge.aworldofplants.model.plant.PlantDAO;
 import cf.funge.aworldofplants.model.thing.DDBThingDAO;
 import cf.funge.aworldofplants.model.thing.Thing;
 import cf.funge.aworldofplants.model.thing.ThingDAO;
+import cf.funge.aworldofplants.model.timeline.DDBTimelineDAO;
+import cf.funge.aworldofplants.model.timeline.TimelineDAO;
 import cf.funge.aworldofplants.model.user.DDBUserDAO;
 import cf.funge.aworldofplants.model.user.UserDAO;
 
@@ -85,6 +87,21 @@ public class DAOFactory {
         switch (daoType) {
             case DynamoDB:
                 dao = DDBThingDAO.getInstance();
+                break;
+        }
+
+        return dao;
+    }
+
+    public static TimelineDAO getTimelineDAO() {
+        return getTimelineDAO(DAOType.DynamoDB);
+    }
+
+    public static TimelineDAO getTimelineDAO(DAOType daoType) {
+        TimelineDAO dao = null;
+        switch (daoType) {
+            case DynamoDB:
+                dao = DDBTimelineDAO.getInstance();
                 break;
         }
 

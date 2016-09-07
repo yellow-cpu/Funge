@@ -23,13 +23,22 @@ angular.module('profile').component('profile', {
     var body = {};
 
     apigClient.usersUsernameGet(params, body)
-      .then(function (result) {
-        console.log("Success: " + JSON.stringify(result));
-        self.email = result.data.email;
-        self.username = result.data.username;
-        $scope.$apply();
-      }).catch(function (result) {
-        console.log("Error: " + JSON.stringify(result));
+        .then(function (result) {
+          console.log("Success: " + JSON.stringify(result));
+          self.email = result.data.email;
+          self.username = result.data.username;
+          $scope.$apply();
+        }).catch(function (result) {
+      console.log("Error: " + JSON.stringify(result));
     });
+
+    self.test = function() {
+      apigClient.timelineUsernameGet(params, body)
+          .then(function (result) {
+            console.log("Success: " + JSON.stringify(result));
+          }).catch(function (result) {
+        console.log("Error: " + JSON.stringify(result));
+      });
+    };
   }
 });
