@@ -27,6 +27,10 @@
               <option ng-repeat="id in $ctrl.plantIdList" value="{{id}}" ng-selected="{{id == thing.plantId}}">{{id}}</option>
             </select>
           </div>
+          <div>
+            <b>Files: </b>
+            <a ng-repeat="file in thing.files" href="{{file}}">1</a>
+          </div>
         </div>
         <div class="col-xs-6 text-right">
           <div class="huge">6</div>

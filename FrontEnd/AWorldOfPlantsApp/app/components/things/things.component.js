@@ -82,7 +82,21 @@ angular.module('things').component('things', {
           $(".loader-container").css({
             'display': 'none'
           });
+
           self.things = result.data.things;
+
+          var indexOfFileName = self.things[0].files[0].split('/', 6).join('/').length;
+
+          for (var i = 0; i < self.things.length; ++i) {
+            var fileNames = [];
+            for (var j = 0; j < self.things[i].files.length; ++j) {
+              fileNames.push(self.things[i].files[j].substring(indexOfFileName + 1));
+            }
+            console.log(fileNames);
+            self.things[i].fileNames = fileNames;
+            console.log(self.things[i].fileNames);
+          }
+
           console.log(self.things);
           $scope.$apply();
         }).catch(function (result) {
