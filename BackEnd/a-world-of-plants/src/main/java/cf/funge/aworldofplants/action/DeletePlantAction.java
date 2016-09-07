@@ -1,5 +1,6 @@
 package cf.funge.aworldofplants.action;
 
+import cf.funge.aworldofplants.configuration.ExceptionMessages;
 import cf.funge.aworldofplants.exception.BadRequestException;
 import cf.funge.aworldofplants.exception.DAOException;
 import cf.funge.aworldofplants.exception.InternalErrorException;
@@ -40,6 +41,20 @@ public class DeletePlantAction extends AbstractAction {
             timelineEvent.setCategory("plant-delete");
             timelineEvent.setTimestamp((int) (System.currentTimeMillis() / 1000L));
             timelineEvent.setPointValue(25);
+
+            // Store event in database
+            String timelineEventId;
+            try {
+                timelineEventId = timelineDAO.createTimelineEvent(timelineEvent);
+            } catch (final DAOException e) {
+                logger.log("Error while creating new timeline event\n" + e.getMessage());
+                throw new InternalErrorException(ExceptionMessages.EX_DAO_ERROR);
+            }
+
+            if (timelineEventId == null || timelineEventId.trim().equals("")) {
+                logger.log("TimelineEventId is null or empty");
+                throw new InternalErrorException(ExceptionMessages.EX_DAO_ERROR);
+            }
         } catch (DAOException e) {
             e.printStackTrace();
         }
