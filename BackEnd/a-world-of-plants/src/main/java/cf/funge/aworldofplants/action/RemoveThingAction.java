@@ -76,7 +76,7 @@ public class RemoveThingAction extends AbstractAction {
             logger.log("Error while fetching user with username " + input.getUsername() + "\n" + e.getMessage());
             throw new InternalErrorException(ExceptionMessages.EX_DAO_ERROR);
         }
-
+        System.out.println("USER IDENTITY: " + user.getIdentity().getIdentityId());
         detachPrincipalPolicyRequest = new DetachPrincipalPolicyRequest();
         detachPrincipalPolicyRequest.setPolicyName(policyName);
         detachPrincipalPolicyRequest.setPrincipal(user.getIdentity().getIdentityId());
@@ -113,6 +113,8 @@ public class RemoveThingAction extends AbstractAction {
         AmazonS3Client amazonS3Client = new AmazonS3Client();
         String folderPath = input.getUsername() + "/" + input.getThingName() + "/";
         deleteObjectsInFolder(amazonS3Client, "a-world-of-plants-thing-credentials", folderPath);
+
+        System.out.println(folderPath);
 
         // Remove thing from database
         dao.deleteThing(input.getThingName());
