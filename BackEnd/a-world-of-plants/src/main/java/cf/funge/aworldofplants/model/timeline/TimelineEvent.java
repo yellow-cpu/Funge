@@ -13,6 +13,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 public class TimelineEvent {
     private String timelineEventId;
     private String username;
+    private String title;
     private String message;
     private String category;
     private int timestamp;
@@ -35,6 +36,15 @@ public class TimelineEvent {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    @DynamoDBAttribute(attributeName = "title")
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     @DynamoDBAttribute(attributeName = "message")

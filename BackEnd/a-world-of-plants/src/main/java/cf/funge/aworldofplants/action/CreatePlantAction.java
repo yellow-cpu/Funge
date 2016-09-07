@@ -58,6 +58,7 @@ public class CreatePlantAction extends AbstractAction {
 
         TimelineEvent timelineEvent = new TimelineEvent();
         timelineEvent.setUsername(input.getUsername());
+        timelineEvent.setTitle("CREATED PLANT");
         timelineEvent.setMessage("Created plant with name " + input.getPlantName());
         timelineEvent.setCategory("Good");
         timelineEvent.setTimestamp(5);
