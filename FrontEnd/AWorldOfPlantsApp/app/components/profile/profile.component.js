@@ -6,8 +6,12 @@ angular.module('profile').component('profile', {
   controller: function ProfileController($scope, $localStorage, siteService) {
     var self = this;
 
+    // User variables
     self.username = $localStorage.username;
     self.email = "";
+
+    // Timeline variables
+    self.timelineEvents = [];
 
     var apigClient = apigClientFactory.newClient({
       accessKey: $localStorage.accessKey,
@@ -23,13 +27,28 @@ angular.module('profile').component('profile', {
     var body = {};
 
     apigClient.usersUsernameGet(params, body)
-      .then(function (result) {
-        console.log("Success: " + JSON.stringify(result));
-        self.email = result.data.email;
-        self.username = result.data.username;
-        $scope.$apply();
-      }).catch(function (result) {
-        console.log("Error: " + JSON.stringify(result));
+        .then(function (result) {
+          console.log("Success: " + JSON.stringify(result));
+          self.email = result.data.email;
+          self.username = result.data.username;
+          $scope.$apply();
+        }).catch(function (result) {
+      console.log("Error: " + JSON.stringify(result));
     });
+
+    // Get timeline events of current user
+    self.getTimelineEvents = function() {
+      apigClient.timelineUsernameGet(params, body)
+          .then(function (result) {
+            console.log("Successfully retrieved timeline info" + JSON.stringify(result));
+
+            // Set variables to retrieved values
+            self.timelineEvents = result.data.timelineEvents;
+
+            $scope.$apply();
+          }).catch(function (result) {
+        console.log("Error retrieving timeline info: " + JSON.stringify(result));
+      });
+    };
   }
 });

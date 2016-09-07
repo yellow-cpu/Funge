@@ -1,7 +1,7 @@
 <div class="row" things-directive>
   <div class="col-lg-12">
     <h1 class="page-header">
-      Things
+      Things <button id="helpThing" class="btn btn-warning">Help me <span class="fa fa-exclamation"></span></button>
       <button id="newThing" class="btn btn-success pull-right" data-toggle="modal" data-target="#createThingModal">
         Create New Thing
       </button>
@@ -22,7 +22,15 @@
         </div>
         <div class="col-xs-5">
           <div><b>Thing name:</b> {{thing.thingName}}</div>
-          <div><b>Plant id:</b> {{thing.plantId}}</div>
+          <div><b>Plant id:</b>
+            <select type="text" class="form-control">
+              <option ng-repeat="id in $ctrl.plantIdList" value="{{id}}" ng-selected="{{id == thing.plantId}}">{{id}}</option>
+            </select>
+          </div>
+          <div>
+            <b>Files: </b><br>
+            <a class="a-files" ng-repeat="file in thing.files track by $index" href="{{file}}">{{thing.fileNames[$index]}} <br></a>
+          </div>
         </div>
         <div class="col-xs-6 text-right">
           <div class="huge">6</div>
@@ -30,10 +38,10 @@
         </div>
       </div>
     </div>
-    <a class="view-details" ng-click="">
+    <a class="view-details">
       <div class="panel-footer" style="background-color: {{thing.colour}}">
-        <span class="pull-left">View Details</span>
-        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+        <span class="pull-left"><button class="btn btn-success">Update</button></span>
+        <span class="pull-right"><button class="btn btn-danger">Delete</button></span>
         <div class="clearfix"></div>
       </div>
     </a>

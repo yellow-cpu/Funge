@@ -11,7 +11,7 @@ angular.module('plants').component('plants', {
       plantType: "",
       plantName: "",
       plantAge: Date.now(),
-      colour: ""
+      colour: "#1D9D73"
     };
 
     $scope.plantDetails = {};

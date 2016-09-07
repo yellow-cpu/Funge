@@ -5,10 +5,10 @@ import cf.funge.aworldofplants.configuration.ExceptionMessages;
 import cf.funge.aworldofplants.exception.BadRequestException;
 import cf.funge.aworldofplants.exception.InternalErrorException;
 import cf.funge.aworldofplants.model.DAOFactory;
-import cf.funge.aworldofplants.model.action.GetUserThingsRequest;
-import cf.funge.aworldofplants.model.action.GetUserThingsResponse;
-import cf.funge.aworldofplants.model.thing.Thing;
-import cf.funge.aworldofplants.model.thing.ThingDAO;
+import cf.funge.aworldofplants.model.action.GetUserTimelineRequest;
+import cf.funge.aworldofplants.model.action.GetUserTimelineResponse;
+import cf.funge.aworldofplants.model.timeline.TimelineDAO;
+import cf.funge.aworldofplants.model.timeline.TimelineEvent;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.google.gson.JsonObject;
@@ -16,15 +16,15 @@ import com.google.gson.JsonObject;
 import java.util.List;
 
 /**
- * Created by Dillon on 2016-09-05.
+ * Created by GP on 07/09/2016.
  */
-public class ListUserThingsAction extends AbstractAction {
+public class ListUserTimelineAction extends AbstractAction {
     private static LambdaLogger logger;
 
     public String handle(JsonObject request, Context lambdaContext) throws BadRequestException, InternalErrorException {
         logger = lambdaContext.getLogger();
 
-        GetUserThingsRequest input = getGson().fromJson(request, GetUserThingsRequest.class);
+        GetUserTimelineRequest input = getGson().fromJson(request, GetUserTimelineRequest.class);
 
         if (input == null ||
                 input.getUsername() == null ||
@@ -33,14 +33,14 @@ public class ListUserThingsAction extends AbstractAction {
             throw new BadRequestException(ExceptionMessages.EX_INVALID_INPUT);
         }
 
-        ThingDAO dao = DAOFactory.getThingDAO();
+        TimelineDAO dao = DAOFactory.getTimelineDAO();
 
-        List<Thing> things = dao.getUserThings(DynamoDBConfiguration.SCAN_LIMIT, input.getUsername());
+        List<TimelineEvent> timelineEvents = dao.getUserTimelineEvents(DynamoDBConfiguration.SCAN_LIMIT, input.getUsername());
 
-        GetUserThingsResponse output = new GetUserThingsResponse();
-        output.setCount(things.size());
+        GetUserTimelineResponse output = new GetUserTimelineResponse();
+        output.setCount(timelineEvents.size());
         output.setPageLimit(DynamoDBConfiguration.SCAN_LIMIT);
-        output.setThings(things);
+        output.setTimelineEvents(timelineEvents);
 
         return getGson().toJson(output);
     }

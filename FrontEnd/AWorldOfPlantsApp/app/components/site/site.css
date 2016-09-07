@@ -434,6 +434,10 @@ table.dataTable thead .sorting:after {
     cursor: pointer;
 }
 
+.a-files {
+    color: #0044CB !important;
+}
+
 #side-menu > li > a:hover, #side-menu > li > a:focus, #side-menu > li > ul > li > a:hover, #side-menu > li > ul > li > a:focus, #side-menu > li > a.active {
     background-color: #212121;
 }
@@ -463,6 +467,16 @@ table.dataTable thead .sorting:after {
 .btn-success {
     background-color: #1d9d73;
     border-color: #1d9d73;
+}
+
+.btn-warning {
+    background-color: #d3b335;
+    border-color: #c0a01c;
+}
+
+.btn-warning:hover {
+    background-color: #b8b53d;
+    border-color: #c0a01c;
 }
 
 .btn-success:hover, .btn-success:focus {

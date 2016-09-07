@@ -87,7 +87,6 @@ public class DDBThingDAO implements ThingDAO {
         } catch (DAOException e) {
 
         }
-
         return "Thing deleted successfully";
     }
 

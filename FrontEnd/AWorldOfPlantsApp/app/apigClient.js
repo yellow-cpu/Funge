@@ -53,7 +53,7 @@ apigClientFactory.newClient = function (config) {
 
     
     // extract endpoint and path from url
-    var invokeUrl = 'https://1a0tn4u7m6.execute-api.us-east-1.amazonaws.com/test7';
+    var invokeUrl = 'https://1a0tn4u7m6.execute-api.us-east-1.amazonaws.com/test8';
     var endpoint = /(^https?:\/\/[^\/]+)/g.exec(invokeUrl)[1];
     var pathComponent = invokeUrl.substring(endpoint.length);
 
@@ -458,6 +458,60 @@ apigClientFactory.newClient = function (config) {
         
         
         return apiGatewayClient.makeRequest(thingsUserUsernameOptionsRequest, authType, additionalParams, config.apiKey);
+    };
+    
+    
+    apigClient.timelineOptions = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
+        
+        var timelineOptionsRequest = {
+            verb: 'options'.toUpperCase(),
+            path: pathComponent + uritemplate('/timeline').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(timelineOptionsRequest, authType, additionalParams, config.apiKey);
+    };
+    
+    
+    apigClient.timelineUsernameGet = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, ['username'], ['body']);
+        
+        var timelineUsernameGetRequest = {
+            verb: 'get'.toUpperCase(),
+            path: pathComponent + uritemplate('/timeline/{username}').expand(apiGateway.core.utils.parseParametersToObject(params, ['username'])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(timelineUsernameGetRequest, authType, additionalParams, config.apiKey);
+    };
+    
+    
+    apigClient.timelineUsernameOptions = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, ['username'], ['body']);
+        
+        var timelineUsernameOptionsRequest = {
+            verb: 'options'.toUpperCase(),
+            path: pathComponent + uritemplate('/timeline/{username}').expand(apiGateway.core.utils.parseParametersToObject(params, ['username'])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(timelineUsernameOptionsRequest, authType, additionalParams, config.apiKey);
     };
     
     

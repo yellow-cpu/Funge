@@ -23,4 +23,6 @@ public class DynamoDBConfiguration {
     public static final String PLANT_TABLE_NAME = "plants";
 
     public static final String THING_TABLE_NAME = "things";
+
+    public static final String TIMELINE_TABLE_NAME = "timeline";
 }
