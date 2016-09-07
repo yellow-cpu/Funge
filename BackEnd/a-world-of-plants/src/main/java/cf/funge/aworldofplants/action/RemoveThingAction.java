@@ -83,8 +83,8 @@ public class RemoveThingAction extends AbstractAction {
         // De-activate certificate
         UpdateCertificateRequest updateCertificateRequest = new UpdateCertificateRequest();
         updateCertificateRequest.setCertificateId(certificateId);
-        CertificateStatus certificateStatus = CertificateStatus.INACTIVE;
-        updateCertificateRequest.setNewStatus(certificateStatus);
+        updateCertificateRequest.setNewStatus("INACTIVE");
+        UpdateCertificateResult updateCertificateResult = awsIotClient.updateCertificate(updateCertificateRequest);
 
         // Delete certificate
         DeleteCertificateRequest deleteCertificateRequest = new DeleteCertificateRequest();
