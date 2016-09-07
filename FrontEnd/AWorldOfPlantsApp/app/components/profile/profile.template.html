@@ -1,14 +1,12 @@
 <link href="components/profile/profile.css" rel="stylesheet" />
 
-<div class="row">
+<div class="row" view-timeline-directive>
   <div class="col-lg-12">
     <h1 class="page-header">
       Profile - {{$ctrl.username}} - {{$ctrl.email}}
     </h1>
   </div>
 </div>
-
-<input type="button" ng-click="$ctrl.test()" value="Test Timeline" />
 
 <!-- Cards -->
 <div class="row">
@@ -107,11 +105,25 @@
   <div class="col-lg-12">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <i class="fa fa-clock-o fa-fw"></i> Responsive Timeline
+        <i class="fa fa-clock-o fa-fw"></i> Timeline`
       </div>
       <!-- /.panel-heading -->
       <div class="panel-body">
         <ul class="timeline">
+          <li ng-repeat="event in $ctrl.timelineEvents" class="event" populate-timeline-directive>
+            <div ng-if="event.category == 'plant-create'" class="timeline-badge success"><i class="fa fa-leaf"></i></div>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h4 class="timeline-title">{{event.title}}</h4>
+                <p><small class="text-muted"><i class="fa fa-clock-o"></i> 11 hours ago via Twitter</small>
+                </p>
+              </div>
+              <div class="timeline-body">
+                <p>{{event.message}}</p>
+                <p>You gained {{event.pointValue}} points!</p>
+              </div>
+            </div>
+          </li>
           <li>
             <div class="timeline-badge"><i class="fa fa-check"></i>
             </div>
