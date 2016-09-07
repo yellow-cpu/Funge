@@ -26,6 +26,16 @@ angular.module('profile').component('profile', {
 
     var body = {};
 
+    self.timeConverter = function (now){
+      var a = new Date(now * 1000);
+      var year = a.getFullYear();
+      var month = a.getMonth() + 1;
+      var date = a.getDate();
+      var hour = a.getHours();
+      var min = a.getMinutes();
+      return date + '/' + month + '/' + year + ' at ' + hour + ':' + min;
+    };
+
     apigClient.usersUsernameGet(params, body)
         .then(function (result) {
           console.log("Success: " + JSON.stringify(result));
@@ -44,6 +54,11 @@ angular.module('profile').component('profile', {
 
             // Set variables to retrieved values
             self.timelineEvents = result.data.timelineEvents;
+
+            // Convert timestamps of each event
+            for (var i = 0; i < self.timelineEvents.length; i++) {
+              self.timelineEvents[i].timestamp = self.timeConverter(self.timelineEvents[i].timestamp);
+            }
 
             $scope.$apply();
           }).catch(function (result) {

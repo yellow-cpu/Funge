@@ -1,7 +1,5 @@
 'use strict';
 
-var count = 1;
-
 // Register `profile` directive
 angular.
 module('profile').
@@ -19,12 +17,11 @@ directive('viewTimelineDirective', function ($compile) {
 directive('populateTimelineDirective', function($compile) {
   var linkFunction = function (scope, element, attributes) {
 
-    // Alternate between left and right display of events
-    count++;
-    if (count % 2 == 0) {
+    // Alternate  randomly between left and right display of events
+    var rand = Math.floor((Math.random() * 2) + 1);
+    if (rand % 2 == 0) {
       $('li.event').addClass('timeline-inverted');
     }
-    if (count == 100) count = 1;
   };
 
   return {
