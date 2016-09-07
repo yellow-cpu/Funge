@@ -81,9 +81,12 @@ public class DDBThingDAO implements ThingDAO {
         return "Thing updated successfully";
     }
 
-    public String deleteThing(String thingId) {
-        getMapper().delete(thingId);
+    public String deleteThing(String thingName) {
+        try {
+            getMapper().delete(getThingByName(thingName));
+        } catch (DAOException e) {
 
+        }
         return "Thing deleted successfully";
     }
 

@@ -53,11 +53,11 @@ public class RemoveThingAction extends AbstractAction {
 
         AWSIotClient awsIotClient = new AWSIotClient();
 
-       /* // Detach principal (certificate) from policy
+        // Detach principal (certificate) from policy
         DetachPrincipalPolicyRequest detachPrincipalPolicyRequest = new DetachPrincipalPolicyRequest();
         detachPrincipalPolicyRequest.setPolicyName(policyName);
         detachPrincipalPolicyRequest.setPrincipal(certificateArn);
-        DetachPrincipalPolicyResult detachPrincipalPolicyResult = awsIotClient.detachPrincipalPolicy(detachPrincipalPolicyRequest);*/
+        DetachPrincipalPolicyResult detachPrincipalPolicyResult = awsIotClient.detachPrincipalPolicy(detachPrincipalPolicyRequest);
 
         // Detach principal (user identity) from policy
         UserDAO userDAO = DAOFactory.getUserDAO();
@@ -68,16 +68,13 @@ public class RemoveThingAction extends AbstractAction {
             logger.log("Error while fetching user with username " + input.getUsername() + "\n" + e.getMessage());
             throw new InternalErrorException(ExceptionMessages.EX_DAO_ERROR);
         }
-        System.out.println("USER ID OVER HERE PLS: " + user.getIdentity().getIdentityId());
 
-        DetachPrincipalPolicyRequest detachPrincipalPolicyRequest;
-        DetachPrincipalPolicyResult detachPrincipalPolicyResult;
         detachPrincipalPolicyRequest = new DetachPrincipalPolicyRequest();
         detachPrincipalPolicyRequest.setPolicyName(policyName);
         detachPrincipalPolicyRequest.setPrincipal(user.getIdentity().getIdentityId());
         detachPrincipalPolicyResult = awsIotClient.detachPrincipalPolicy(detachPrincipalPolicyRequest);
 
-        /*//Detach thing from principal (certificate)
+        //Detach thing from principal (certificate)
         DetachThingPrincipalRequest detachThingPrincipalRequest = new DetachThingPrincipalRequest();
         detachThingPrincipalRequest.setThingName(thingName);
         detachThingPrincipalRequest.setPrincipal(certificateArn);
@@ -105,7 +102,7 @@ public class RemoveThingAction extends AbstractAction {
         DeletePolicyResult deletePolicyResult = awsIotClient.deletePolicy(deletePolicyRequest);
 
         // Remove thing from database
-        dao.deleteThing(input.getThingId());*/
+        dao.deleteThing(input.getThingName());
 
         RemoveThingResponse output = new RemoveThingResponse();
         output.setSuccess(true);
