@@ -111,7 +111,8 @@ public class RemoveThingAction extends AbstractAction {
 
         // Delete files from S3
         AmazonS3Client amazonS3Client = new AmazonS3Client();
-        deleteObjectsInFolder(amazonS3Client, "a-world-of-plants-thing-credentials", input.getUsername() + "/" + input.getThingName());
+        String folderPath = input.getUsername() + "/" + input.getThingName() + "/";
+        deleteObjectsInFolder(amazonS3Client, "a-world-of-plants-thing-credentials", folderPath);
 
         // Remove thing from database
         dao.deleteThing(input.getThingName());
