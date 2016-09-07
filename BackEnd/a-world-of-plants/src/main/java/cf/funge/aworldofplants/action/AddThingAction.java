@@ -17,17 +17,14 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.iot.*;
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.PutObjectResult;
 import com.google.gson.JsonObject;
-
-import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
-import java.util.zip.ZipOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Dillon on 2016-09-01.
@@ -41,7 +38,7 @@ public class AddThingAction extends AbstractAction {
             ByteArrayInputStream contentsAsStream = new ByteArrayInputStream(contentAsBytes);
             ObjectMetadata md = new ObjectMetadata();
             md.setContentLength(contentAsBytes.length);
-            amazonS3Client.putObject(new PutObjectRequest("a-world-of-plants-thing-credentials", fileName, contentsAsStream, md));
+            amazonS3Client.putObject(new PutObjectRequest("a-world-of-plants-thing-credentials", fileName, contentsAsStream, md).withCannedAcl(CannedAccessControlList.PublicRead));
             return true;
         } catch(AmazonServiceException ex) {
             return false;
@@ -128,10 +125,14 @@ public class AddThingAction extends AbstractAction {
         AmazonS3Client amazonS3Client = new AmazonS3Client();
 
         String path = input.getUsername() + "/" + input.getThingName() + "/" + input.getThingName();
+        List<String> files = new ArrayList<>();
+        files.add(path + "-cert.pem.crt");
+        files.add(path + "-private.pem.key");
+        files.add(path + "-public.pem.key");
 
-        uploadFile(createKeysAndCertificateResult.getCertificatePem(), path + "-cert.pem.crt", amazonS3Client);
-        uploadFile(createKeysAndCertificateResult.getKeyPair().getPrivateKey(), path + "-private.pem.key", amazonS3Client);
-        uploadFile(createKeysAndCertificateResult.getKeyPair().getPublicKey(), path + "-public.pem.key", amazonS3Client);
+        uploadFile(createKeysAndCertificateResult.getCertificatePem(), files.get(0), amazonS3Client);
+        uploadFile(createKeysAndCertificateResult.getKeyPair().getPrivateKey(), files.get(1), amazonS3Client);
+        uploadFile(createKeysAndCertificateResult.getKeyPair().getPublicKey(), files.get(2), amazonS3Client);
 
         //ToDo: if thingName already exists throw BadRequestException
         //ToDo: store location of files in database
@@ -147,6 +148,7 @@ public class AddThingAction extends AbstractAction {
         newThing.setCertificateArn(createKeysAndCertificateResult.getCertificateArn());
         newThing.setCertificateId(createKeysAndCertificateResult.getCertificateId());
         newThing.setColour(input.getColour());
+        newThing.setFiles(files);
 
         String thingId;
 
