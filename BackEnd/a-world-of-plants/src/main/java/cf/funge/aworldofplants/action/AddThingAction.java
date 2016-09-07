@@ -21,6 +21,9 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.google.gson.JsonObject;
 import java.io.ByteArrayInputStream;
+import java.io.FileOutputStream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 /**
  * Created by Dillon on 2016-09-01.
@@ -34,7 +37,28 @@ public class AddThingAction extends AbstractAction {
             ByteArrayInputStream contentsAsStream = new ByteArrayInputStream(contentAsBytes);
             ObjectMetadata md = new ObjectMetadata();
             md.setContentLength(contentAsBytes.length);
-            amazonS3Client.putObject(new PutObjectRequest("a-world-of-plants-thing-credentials", fileName, contentsAsStream, md));
+
+            ZipInputStream zipStream = new ZipInputStream(contentsAsStream);
+            ZipEntry entry = null;
+            while ((entry = zipStream.getNextEntry()) != null) {
+
+                String entryName = entry.getName();
+
+                FileOutputStream out = new FileOutputStream(entryName);
+
+                byte[] byteBuff = new byte[4096];
+                int bytesRead = 0;
+                while ((bytesRead = zipStream.read(byteBuff)) != -1)
+                {
+                    out.write(byteBuff, 0, bytesRead);
+                }
+
+                out.close();
+                zipStream.closeEntry();
+            }
+            zipStream.close();
+
+            amazonS3Client.putObject(new PutObjectRequest("a-world-of-plants-thing-credentials", fileName, zipStream, md));
             return true;
         } catch(AmazonServiceException ex) {
             return false;

@@ -465,6 +465,16 @@ table.dataTable thead .sorting:after {
     border-color: #1d9d73;
 }
 
+.btn-warning {
+    background-color: #d3b335;
+    border-color: #c0a01c;
+}
+
+.btn-warning:hover {
+    background-color: #b8b53d;
+    border-color: #c0a01c;
+}
+
 .btn-success:hover, .btn-success:focus {
     background-color: #1A8A67;
 }

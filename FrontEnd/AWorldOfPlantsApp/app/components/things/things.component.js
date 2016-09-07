@@ -12,7 +12,7 @@ angular.module('things').component('things', {
       thingName: "",
       username: $localStorage.username,
       plantId: "",
-      colour: ""
+      colour: "#1D9D73"
     };
 
     self.plantIdList = [];
