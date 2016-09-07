@@ -27,8 +27,6 @@ public class RemoveThingAction extends AbstractAction {
 
         RemoveThingRequest input = getGson().fromJson(request, RemoveThingRequest.class);
 
-        System.out.println(input.getThingName());
-
         ThingDAO dao = DAOFactory.getThingDAO();
         Thing thing;
         try {
@@ -43,7 +41,7 @@ public class RemoveThingAction extends AbstractAction {
         String thingName = thing.getThingName();
         String certificateId = thing.getCertificateId();
 
-        /*AWSIotClient awsIotClient = new AWSIotClient();
+        AWSIotClient awsIotClient = new AWSIotClient();
 
         // Detach principal (certificate) from policy
         DetachPrincipalPolicyRequest detachPrincipalPolicyRequest = new DetachPrincipalPolicyRequest();
@@ -85,7 +83,7 @@ public class RemoveThingAction extends AbstractAction {
         DeletePolicyResult deletePolicyResult = awsIotClient.deletePolicy(deletePolicyRequest);
 
         // Remove thing from database
-        dao.deleteThing(input.getThingId());*/
+        dao.deleteThing(input.getThingId());
 
         RemoveThingResponse output = new RemoveThingResponse();
         output.setSuccess(true);
