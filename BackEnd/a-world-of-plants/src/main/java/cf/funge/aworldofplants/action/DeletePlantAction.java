@@ -24,8 +24,6 @@ public class DeletePlantAction extends AbstractAction {
         DeletePlantRequest input = getGson().fromJson(request, DeletePlantRequest.class);
 
         PlantDAO dao = DAOFactory.getPlantDAO();
-        dao.deletePlant(input.getPlantId());
-
         TimelineDAO timelineDAO = DAOFactory.getTimelineDAO();
 
         // Add plant removal timeline event
@@ -58,6 +56,8 @@ public class DeletePlantAction extends AbstractAction {
         } catch (DAOException e) {
             e.printStackTrace();
         }
+
+        dao.deletePlant(input.getPlantId());
 
         DeletePlantResponse output = new DeletePlantResponse();
         output.setPlantId(input.getPlantId());
