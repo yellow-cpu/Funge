@@ -136,6 +136,9 @@ public class AddThingAction extends AbstractAction {
         newThing.setThingName(input.getThingName());
         newThing.setUsername(input.getUsername());
         newThing.setPlantId(input.getPlantId());
+        newThing.setPolicyName(policyName);
+        newThing.setCertificateArn(createKeysAndCertificateResult.getCertificateArn());
+        newThing.setCertificateId(createKeysAndCertificateResult.getCertificateId());
         newThing.setColour(input.getColour());
 
         String thingId;
