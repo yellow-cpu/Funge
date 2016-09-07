@@ -43,19 +43,23 @@ public class RemoveThingAction extends AbstractAction {
 
         AWSIotClient awsIotClient = new AWSIotClient();
 
-        // Detach principal (certificate) from policy
+       /* // Detach principal (certificate) from policy
         DetachPrincipalPolicyRequest detachPrincipalPolicyRequest = new DetachPrincipalPolicyRequest();
         detachPrincipalPolicyRequest.setPolicyName(policyName);
         detachPrincipalPolicyRequest.setPrincipal(certificateArn);
-        DetachPrincipalPolicyResult detachPrincipalPolicyResult = awsIotClient.detachPrincipalPolicy(detachPrincipalPolicyRequest);
+        DetachPrincipalPolicyResult detachPrincipalPolicyResult = awsIotClient.detachPrincipalPolicy(detachPrincipalPolicyRequest);*/
 
         // Detach principal (user identity) from policy
+        System.out.println(lambdaContext.getIdentity().getIdentityId());
+
+        DetachPrincipalPolicyRequest detachPrincipalPolicyRequest;
+        DetachPrincipalPolicyResult detachPrincipalPolicyResult;
         detachPrincipalPolicyRequest = new DetachPrincipalPolicyRequest();
         detachPrincipalPolicyRequest.setPolicyName(policyName);
         detachPrincipalPolicyRequest.setPrincipal(lambdaContext.getIdentity().getIdentityId());
         detachPrincipalPolicyResult = awsIotClient.detachPrincipalPolicy(detachPrincipalPolicyRequest);
 
-        //Detach thing from principal (certificate)
+        /*//Detach thing from principal (certificate)
         DetachThingPrincipalRequest detachThingPrincipalRequest = new DetachThingPrincipalRequest();
         detachThingPrincipalRequest.setThingName(thingName);
         detachThingPrincipalRequest.setPrincipal(certificateArn);
@@ -83,7 +87,7 @@ public class RemoveThingAction extends AbstractAction {
         DeletePolicyResult deletePolicyResult = awsIotClient.deletePolicy(deletePolicyRequest);
 
         // Remove thing from database
-        dao.deleteThing(input.getThingId());
+        dao.deleteThing(input.getThingId());*/
 
         RemoveThingResponse output = new RemoveThingResponse();
         output.setSuccess(true);
