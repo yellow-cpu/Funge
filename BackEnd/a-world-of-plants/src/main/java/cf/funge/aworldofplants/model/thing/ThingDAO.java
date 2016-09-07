@@ -9,6 +9,8 @@ public interface ThingDAO {
 
     Thing getThingByName(String thingName) throws DAOException;
 
+    Thing getThingByPlantId (String plantId) throws DAOException;
+
     List<Thing> getThings(int limit);
 
     List<Thing> getUserThings(int limit, String username);
