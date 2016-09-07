@@ -38,7 +38,7 @@ public class AddThingAction extends AbstractAction {
             ByteArrayInputStream contentsAsStream = new ByteArrayInputStream(contentAsBytes);
             ObjectMetadata md = new ObjectMetadata();
             md.setContentLength(contentAsBytes.length);
-            amazonS3Client.putObject(new PutObjectRequest("a-world-of-plants-thing-credentials", fileName, contentsAsStream, md).withCannedAcl(CannedAccessControlList.PublicRead));
+            amazonS3Client.putObject(new PutObjectRequest("a-world-of-plants-thing-credentials", fileName, contentsAsStream, md));
             return true;
         } catch(AmazonServiceException ex) {
             return false;
@@ -148,6 +148,11 @@ public class AddThingAction extends AbstractAction {
         newThing.setCertificateArn(createKeysAndCertificateResult.getCertificateArn());
         newThing.setCertificateId(createKeysAndCertificateResult.getCertificateId());
         newThing.setColour(input.getColour());
+
+        for (int i = 0; i < files.size(); ++i) {
+            files.set(i, "https://s3.amazonaws.com/a-world-of-plants-thing-credentials/" + files.get(i));
+        }
+
         newThing.setFiles(files);
 
         String thingId;
