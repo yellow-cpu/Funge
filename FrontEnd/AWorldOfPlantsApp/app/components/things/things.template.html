@@ -22,7 +22,11 @@
         </div>
         <div class="col-xs-5">
           <div><b>Thing name:</b> {{thing.thingName}}</div>
-          <div><b>Plant id:</b> {{thing.plantId}}</div>
+          <div><b>Plant id:</b>
+            <select type="text" class="form-control">
+              <option ng-repeat="id in $ctrl.plantIdList" value="{{id}}" ng-selected="{{id == thing.plantId}}">{{id}}</option>
+            </select>
+          </div>
         </div>
         <div class="col-xs-6 text-right">
           <div class="huge">6</div>
@@ -30,10 +34,10 @@
         </div>
       </div>
     </div>
-    <a class="view-details" ng-click="">
+    <a class="view-details">
       <div class="panel-footer" style="background-color: {{thing.colour}}">
-        <span class="pull-left">View Details</span>
-        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+        <span class="pull-left"><button class="btn btn-success">Update</button></span>
+        <span class="pull-right"><button class="btn btn-danger">Delete</button></span>
         <div class="clearfix"></div>
       </div>
     </a>

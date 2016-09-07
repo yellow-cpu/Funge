@@ -31,6 +31,27 @@ angular.module('things').component('things', {
       region: $localStorage.region
     });
 
+    var params = {
+      "username": $localStorage.username
+    };
+
+    var body = {};
+
+    apigClient.plantsUserUsernameGet(params, body)
+      .then(function (result) {
+        var plants = result.data.plants;
+        
+        self.plantIdList = [];
+
+        for (var i = 0; i < plants.length; ++i) {
+          self.plantIdList.push(plants[i].plantId);
+        }
+        
+        $scope.$apply();
+      }).catch(function (result) {
+      console.log("Error: " + JSON.stringify(result));
+    });
+
     self.createThing = function() {
       var params = {};
       var body = self.newThing;
