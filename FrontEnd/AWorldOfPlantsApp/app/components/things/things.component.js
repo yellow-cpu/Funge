@@ -31,6 +31,27 @@ angular.module('things').component('things', {
       region: $localStorage.region
     });
 
+    var params = {
+      "username": $localStorage.username
+    };
+
+    var body = {};
+
+    apigClient.plantsUserUsernameGet(params, body)
+      .then(function (result) {
+        var plants = result.data.plants;
+        
+        self.plantIdList = [];
+
+        for (var i = 0; i < plants.length; ++i) {
+          self.plantIdList.push(plants[i].plantId);
+        }
+        
+        $scope.$apply();
+      }).catch(function (result) {
+      console.log("Error: " + JSON.stringify(result));
+    });
+
     self.createThing = function() {
       var params = {};
       var body = self.newThing;
@@ -61,7 +82,21 @@ angular.module('things').component('things', {
           $(".loader-container").css({
             'display': 'none'
           });
+
           self.things = result.data.things;
+
+          var indexOfFileName = self.things[0].files[0].split('/', 6).join('/').length;
+
+          for (var i = 0; i < self.things.length; ++i) {
+            var fileNames = [];
+            for (var j = 0; j < self.things[i].files.length; ++j) {
+              fileNames.push(self.things[i].files[j].substring(indexOfFileName + 1));
+            }
+            console.log(fileNames);
+            self.things[i].fileNames = fileNames;
+            console.log(self.things[i].fileNames);
+          }
+
           console.log(self.things);
           $scope.$apply();
         }).catch(function (result) {

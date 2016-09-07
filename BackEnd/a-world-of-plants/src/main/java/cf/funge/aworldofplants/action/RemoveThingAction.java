@@ -15,6 +15,8 @@ import com.amazonaws.services.iot.AWSIotClient;
 import com.amazonaws.services.iot.model.*;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.google.gson.JsonObject;
 import org.omg.PortableInterceptor.INACTIVE;
 
@@ -23,6 +25,12 @@ import org.omg.PortableInterceptor.INACTIVE;
  */
 public class RemoveThingAction extends AbstractAction {
     private static LambdaLogger logger;
+
+    void deleteObjectsInFolder(AmazonS3Client amazonS3Client, String bucketName, String folderPath) {
+        for (S3ObjectSummary file : amazonS3Client.listObjects(bucketName, folderPath).getObjectSummaries()){
+            amazonS3Client.deleteObject(bucketName, file.getKey());
+        }
+    }
 
     public String handle(JsonObject request, Context lambdaContext) throws BadRequestException, InternalErrorException {
         logger = lambdaContext.getLogger();
@@ -100,6 +108,11 @@ public class RemoveThingAction extends AbstractAction {
         DeletePolicyRequest deletePolicyRequest = new DeletePolicyRequest();
         deletePolicyRequest.setPolicyName(policyName);
         DeletePolicyResult deletePolicyResult = awsIotClient.deletePolicy(deletePolicyRequest);
+
+        // Delete files from S3
+        AmazonS3Client amazonS3Client = new AmazonS3Client();
+        String folderPath = input.getUsername() + "/" + input.getThingName() + "/";
+        deleteObjectsInFolder(amazonS3Client, "a-world-of-plants-thing-credentials", folderPath);
 
         // Remove thing from database
         dao.deleteThing(input.getThingName());
