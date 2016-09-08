@@ -54,18 +54,22 @@ bool print_log(char* src, int code) {
   }
   return ret;
 }
+IoT_Error_t redResult, greenResult, blueResult;
 
 void msg_callback_delta(char* src, unsigned int len, Message_status_t flag) {
   if(flag == STATUS_NORMAL) {
     // Get the whole delta section
     print_log("getDeltaKeyValue", myClient.getDeltaValueByKey(src, "", JSON_buf, 100));
-    print_log("getDeltaKeyValueRed", myClient.getDeltaValueByKey(src, "red", JSON_buf_red, 100));
-    print_log("getDeltaKeyValueGreen", myClient.getDeltaValueByKey(src, "green", JSON_buf_green, 100));
-    print_log("getDeltaKeyValueBlue", myClient.getDeltaValueByKey(src, "blue", JSON_buf_blue, 100));
-    
-    red = atoi(JSON_buf_red);
-    green = atoi(JSON_buf_green);
-    blue = atoi(JSON_buf_blue);
+    print_log("getDeltaKeyValueRed", redResult = myClient.getDeltaValueByKey(src, "red", JSON_buf_red, 100));
+    print_log("getDeltaKeyValueGreen", greenResult = myClient.getDeltaValueByKey(src, "green", JSON_buf_green, 100));
+    print_log("getDeltaKeyValueBlue", blueResult = myClient.getDeltaValueByKey(src, "blue", JSON_buf_blue, 100));
+
+    if (redResult == NONE_ERROR)
+      red = atoi(JSON_buf_red);
+    if (greenResult == NONE_ERROR)
+      green = atoi(JSON_buf_green);
+    if (blueResult == NONE_ERROR)
+      blue = atoi(JSON_buf_blue);
     
     String payload = "{\"state\":{\"reported\":";
     payload += JSON_buf;
@@ -124,10 +128,10 @@ void loop() {
         Serial.println(" *C");
 
         dtostrf(t, 4, 1, float_buf);
-        dtostrf(test, 4, 1, float_buf2);
+        dtostrf(h, 4, 1, float_buf2);
         float_buf[4] = '\0';
 
-        sprintf(JSON_buf, "{\"state\":{\"reported\":{\"temperature\":%s, \"test\":%s}}}", float_buf, float_buf2);
+        sprintf(JSON_buf, "{\"state\":{\"reported\":{\"temperature\":%s, \"humidity\":%s}}}", float_buf, float_buf2);
         print_log("shadow update", myClient.shadow_update(AWS_IOT_MY_THING_NAME, JSON_buf, strlen(JSON_buf), NULL, 5));
         if(myClient.yield()) {
           Serial.println("Yield failed.");
