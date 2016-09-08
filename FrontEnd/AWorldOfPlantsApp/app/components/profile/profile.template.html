@@ -112,6 +112,7 @@
         <ul class="timeline">
           <li ng-repeat="event in $ctrl.timelineEvents" class="event" populate-timeline-directive>
             <div ng-if="event.category == 'plant-create'" class="timeline-badge success"><i class="fa fa-leaf"></i></div>
+            <div ng-if="event.category == 'plant-delete'" class="timeline-badge danger"><i class="fa fa-leaf"></i></div>
             <div class="timeline-panel">
               <div class="timeline-heading">
                 <h4 class="timeline-title">{{event.title}}</h4>
