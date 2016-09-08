@@ -92,7 +92,7 @@ angular.module('plantDetail').component('plantDetail', {
 
     self.publish = function (payload) {
       // publish a lifecycle event
-      var payload = '{"state": {"desired": {"red": 50, "green": 255, "blue": 100}}}';
+      //var payload = '{"state": {"desired": {"red": 50, "green": 255, "blue": 100}}}';
 
       try {
         var message = new Paho.MQTT.Message(payload);
@@ -105,6 +105,36 @@ angular.module('plantDetail').component('plantDetail', {
     };
 
     self.requestUrl = null;
+
+    // Colour picker
+    self.colour = "";
+
+    self.options = {
+      required: false,
+      disabled: false,
+      round: false,
+      format: 'rgb',
+      hue: true,
+      alpha: false,
+      swatch: true,
+      swatchPos: 'left',
+      swatchBootstrap: false,
+      swatchOnly: false,
+      pos: 'bottom left',
+      case: 'upper',
+      inline: false,
+      placeholder: 'rgb()'
+    };
+
+    self.eventApi = {
+      onChange:  function(api, color, $event) {
+        var colours = color.substring(4, color.length - 1);
+        colours = colours.split(",");
+        console.log(colours[0] + colours[1] + colours[2]);
+
+        self.publish('{"state": {"desired": {red: ' + colours[0] + ', green: ' + colours[1] + ', blue: ' + colours[2] + '}}}');
+      }
+    };
 
     // Set up API calls
 

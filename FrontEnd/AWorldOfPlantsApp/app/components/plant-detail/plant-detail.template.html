@@ -64,7 +64,7 @@
             </a>
           </h4>
         </div>
-        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
           <div class="panel-body">
             <canvas id="live-chart-temperature" plant-detail-canvas-directive></canvas>
           </div>
@@ -81,6 +81,20 @@
         <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
           <div class="panel-body">
             <canvas id="live-chart-humidity" plant-detail-canvas-directive></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default panel-graph">
+        <div class="panel-heading" role="tab" id="headingThree">
+          <h4 class="panel-title">
+            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              Control
+            </a>
+          </h4>
+        </div>
+        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            <color-picker ng-model="$ctrl.color" options="$ctrl.options" event-api="$ctrl.eventApi"></color-picker>
           </div>
         </div>
       </div>

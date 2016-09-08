@@ -164,11 +164,13 @@ directive('plantDetailCanvasDirective', function($compile) {
           try {
             console.log("message arrived: " +  message.payloadString);
 
-            var temperature = JSON.parse(message.payloadString).state.reported.temperature;
-            moveChart(liveChart, [temperature]);
+            if (message.payloadString.indexOf('desired') < 0) {
+              var temperature = JSON.parse(message.payloadString).state.reported.temperature;
+              moveChart(liveChart, [temperature]);
 
-            var humidity = JSON.parse(message.payloadString).state.reported.humidity;
-            moveChart(liveChart2, [humidity]);
+              var humidity = JSON.parse(message.payloadString).state.reported.humidity;
+              moveChart(liveChart2, [humidity]);
+            }
             /*var reported = JSON.parse(message.payloadString).state.reported;
 
             // check if new values
