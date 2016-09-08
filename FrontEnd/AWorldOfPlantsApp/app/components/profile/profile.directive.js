@@ -16,12 +16,11 @@ directive('viewTimelineDirective', function ($compile) {
 // Gets called for every event
 directive('populateTimelineDirective', function($compile) {
   var linkFunction = function (scope, element, attributes) {
-
-    // Alternate  randomly between left and right display of events
-    var rand = Math.floor((Math.random() * 2) + 1);
-    if (rand % 2 == 0) {
-      $('li.event').addClass('timeline-inverted');
-    }
+    $('li.event').each(function(index) {
+      console.log(index);
+      if (index % 2 == 0)
+        $(this).addClass('timeline-inverted');
+    });
   };
 
   return {
