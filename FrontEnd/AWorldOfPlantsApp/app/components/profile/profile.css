@@ -1,7 +1,15 @@
+* {
+    color: white;
+}
+
 .timeline {
     position: relative;
     padding: 20px 0 20px;
     list-style: none;
+}
+
+.timeline-enclosure {
+    background-color: #212121;
 }
 
 .timeline:before {
@@ -38,6 +46,10 @@
 
 .timeline > li:after {
     clear: both;
+}
+
+.timeline-panel {
+    background-color: #2C2C2C;
 }
 
 .timeline > li > .timeline-panel {
