@@ -17,6 +17,7 @@ public class Thing {
     private String policyName;
     private String certificateArn;
     private String certificateId;
+    private String mqttTopic;
     private List<String> files;
     private String colour;
 
@@ -82,6 +83,15 @@ public class Thing {
 
     public void setCertificateId(String certificateId) {
         this.certificateId = certificateId;
+    }
+
+    @DynamoDBAttribute(attributeName = "mqttTopic")
+    public String getMqttTopic() {
+        return mqttTopic;
+    }
+
+    public void setMqttTopic(String mqttTopic) {
+        this.mqttTopic = mqttTopic;
     }
 
     @DynamoDBAttribute(attributeName = "files")

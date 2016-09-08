@@ -2,6 +2,7 @@ package cf.funge.aworldofplants.model.thing;
 
 import cf.funge.aworldofplants.configuration.DynamoDBConfiguration;
 import cf.funge.aworldofplants.exception.DAOException;
+import cf.funge.aworldofplants.model.user.User;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig;
@@ -47,6 +48,23 @@ public class DDBThingDAO implements ThingDAO {
         }
 
         return getMapper().load(Thing.class, thingName);
+    }
+
+    public Thing getThingByPlantId (String plantId) throws DAOException {
+        if (plantId == null || plantId.trim().equals("")) {
+            throw new DAOException("Cannot lookup null or empty plantId");
+        }
+
+        Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
+        eav.put(":val1", new AttributeValue().withS(plantId));
+
+        DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
+                .withFilterExpression("plantId = :val1")
+                .withExpressionAttributeValues(eav);
+
+        List<Thing> scanResult = getMapper().scan(Thing.class, scanExpression);
+
+        return scanResult.get(0);
     }
 
     public List<Thing> getThings(int limit) {

@@ -147,6 +147,7 @@ public class AddThingAction extends AbstractAction {
         newThing.setPolicyName(policyName);
         newThing.setCertificateArn(createKeysAndCertificateResult.getCertificateArn());
         newThing.setCertificateId(createKeysAndCertificateResult.getCertificateId());
+        newThing.setMqttTopic("$aws/things/" + input.getThingName() + "/shadow/update");
         newThing.setColour(input.getColour());
 
         for (int i = 0; i < files.size(); ++i) {
