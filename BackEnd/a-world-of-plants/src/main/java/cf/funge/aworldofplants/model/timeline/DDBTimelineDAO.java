@@ -2,10 +2,16 @@ package cf.funge.aworldofplants.model.timeline;
 
 import cf.funge.aworldofplants.configuration.DynamoDBConfiguration;
 import cf.funge.aworldofplants.exception.DAOException;
+import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
+import com.amazonaws.services.dynamodbv2.document.DynamoDB;
+import com.amazonaws.services.dynamodbv2.document.Table;
+import com.amazonaws.services.dynamodbv2.document.spec.QuerySpec;
+import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 
 import java.util.HashMap;
@@ -81,12 +87,27 @@ public class DDBTimelineDAO implements TimelineDAO {
         Map<String, AttributeValue> eav = new HashMap<>();
         eav.put(":val1", new AttributeValue().withS(username));
 
-        DynamoDBScanExpression expression = new DynamoDBScanExpression()
+        TimelineEvent timelineEvent = new TimelineEvent();
+        timelineEvent.setTimelineEventId("90e0f75b-d64f-4537-9c0a-e6996903f42c");
+
+        DynamoDBQueryExpression<TimelineEvent> expression = new DynamoDBQueryExpression<TimelineEvent>()
                 .withFilterExpression("username = :val1")
                 .withExpressionAttributeValues(eav);
         expression.setLimit(limit);
 
-        List<TimelineEvent> scanResult = getMapper().scan(TimelineEvent.class, expression);
+        expression.setHashKeyValues(timelineEvent);
+
+        List<TimelineEvent> scanResult = getMapper().query(TimelineEvent.class, expression);
+
+//        Map<String, AttributeValue> eav = new HashMap<>();
+//        eav.put(":val1", new AttributeValue().withS(username));
+
+//        DynamoDBScanExpression expression = new DynamoDBScanExpression()
+//                .withFilterExpression("username = :val1")
+//                .withExpressionAttributeValues(eav);
+//        expression.setLimit(limit);
+//
+//        List<TimelineEvent> scanResult = getMapper().scan(TimelineEvent.class, expression);
 
         return scanResult;
     }
