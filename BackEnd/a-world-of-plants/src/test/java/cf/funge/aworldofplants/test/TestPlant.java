@@ -2,20 +2,20 @@ package cf.funge.aworldofplants.test;
 
 import cf.funge.aworldofplants.RequestRouter;
 import cf.funge.aworldofplants.exception.BadRequestException;
+import cf.funge.aworldofplants.exception.DAOException;
 import cf.funge.aworldofplants.exception.InternalErrorException;
 import cf.funge.aworldofplants.model.action.CreatePlantRequest;
 import cf.funge.aworldofplants.model.action.CreatePlantResponse;
-import com.amazonaws.services.iot.model.CreatePolicyResult;
-import com.amazonaws.services.lambda.runtime.ClientContext;
-import com.amazonaws.services.lambda.runtime.CognitoIdentity;
-import com.amazonaws.services.lambda.runtime.Context;
-import com.amazonaws.services.lambda.runtime.LambdaLogger;
+import cf.funge.aworldofplants.model.plant.DDBPlantDAO;
+import cf.funge.aworldofplants.model.plant.Plant;
+import cf.funge.aworldofplants.model.plant.PlantDAO;
 import org.junit.Test;
-import org.springframework.context.annotation.Bean;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -80,5 +80,28 @@ public class TestPlant extends cf.funge.aworldofplants.test.Test {
         createPlantResponse.setPlantId(plantId);
 
         assertEquals(createPlantResponse.getPlantId(), plantId);
+    }
+
+    @Test
+    public void testDDBPlantDAOCreatePlant() {
+        Plant plant = new Plant();
+        String result = "";
+
+        try {
+            result = mockPlantDAO().createPlant(plant);
+        } catch (DAOException e) {
+
+        }
+
+        assertEquals(result, "test-plant-id");
+    }
+
+    @Test
+    public void testDDBPlantDAOGetUserPlants() {
+        List<Plant> result = new ArrayList<>();
+
+        result = mockPlantDAO().getUserPlants(50, "dill");
+
+        assertEquals(result.size(), 1);
     }
 }

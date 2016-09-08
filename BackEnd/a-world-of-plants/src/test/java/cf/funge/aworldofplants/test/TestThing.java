@@ -3,8 +3,8 @@ package cf.funge.aworldofplants.test;
 import cf.funge.aworldofplants.RequestRouter;
 import cf.funge.aworldofplants.exception.BadRequestException;
 import cf.funge.aworldofplants.exception.InternalErrorException;
-import cf.funge.aworldofplants.model.action.CreatePlantRequest;
-import cf.funge.aworldofplants.model.action.CreatePlantResponse;
+import cf.funge.aworldofplants.model.action.AddThingRequest;
+import cf.funge.aworldofplants.model.action.AddThingResponse;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -45,11 +45,30 @@ public class TestThing extends cf.funge.aworldofplants.test.Test{
 
     @Test
     public void testAddThingRequest() {
+        String plantId = "test-plant-id";
+        String username = "dill";
+        String thingName = "testThing";
+        String colour = "#FFFFFF";
 
+        AddThingRequest addThingRequest = new AddThingRequest();
+        addThingRequest.setPlantId(plantId);
+        addThingRequest.setThingName(thingName);
+        addThingRequest.setUsername(username);
+        addThingRequest.setColour(colour);
+
+        assertEquals(addThingRequest.getPlantId(), plantId);
+        assertEquals(addThingRequest.getUsername(),username);
+        assertEquals(addThingRequest.getThingName(), thingName);
+        assertEquals(addThingRequest.getColour(), colour);
     }
 
     @Test
     public void testAddThingResponse() {
+        String thingArn = "test-thing-arn";
 
+        AddThingResponse addThingResponse = new AddThingResponse();
+        addThingResponse.setThingArn(thingArn);
+
+        assertEquals(addThingResponse.getThingArn(), thingArn);
     }
 }
