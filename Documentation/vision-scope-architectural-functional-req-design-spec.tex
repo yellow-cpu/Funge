@@ -655,7 +655,7 @@ AWS API Gateway will be used expose the system's API and map it to the serverles
 \section{Architecture Design}
 
 \subsection{Infrastructure}
-We will be using a cloud-based, serverless, event-driven micro-services architecture. By using a micro-services approach, we will be able to develop different parts of the system concurrently, due to the loose coupling between components. This also allows more efficient unit testing because different parts of the system can be mocked independently. 
+We will be using a cloud-based, serverless, event-driven micro-services architecture. By using a micro-services approach, the system will be able to develop different parts of the system concurrently, due to the loose coupling between components. This also allows more efficient unit testing because different parts of the system can be mocked independently. 
 
 \subsection{Services}
 
@@ -696,7 +696,7 @@ The Database Service will use the DynamoDB persistence API to persist user infor
 \end{figure}
 
 \section{Database and Persistence}
-	The database which we are using is AWS DynamoDB. It is a managed, NoSQL database service. Some of the reasons we decided to choose a managed, NoSQL database service include, but are not limited to:
+	The database which the system is using is AWS DynamoDB. It is a managed, NoSQL database service. Some of the reasons we decided to choose a managed, NoSQL database service include, but are not limited to:
 	\begin{itemize}
 		\item Database operations are able to be triggered and are able to trigger other cloud services based on particular events. This suits our event-driven architecture well
 		\item Automatic data replication over three availability-zones in a single region which ensures fast and redundant access
@@ -723,7 +723,7 @@ The Database Service will use the DynamoDB persistence API to persist user infor
 			
 		\subsubsection{IoT Manager}
 		
-			In order to control the MQTT messages and Internet of Things devices in our system, we are using an IoT manager. The manager authenticates all of the devices (things), controls all of the IoT topics that the things publish to, any rules to be processed on the incoming MQTT messages etc.
+			In order to control the MQTT messages and Internet of Things devices in our system,  is using an IoT manager. The manager authenticates all of the devices (things), controls all of the IoT topics that the things publish to, any rules to be processed on the incoming MQTT messages etc.
 		
 	\subsection{Frontend}
 	
