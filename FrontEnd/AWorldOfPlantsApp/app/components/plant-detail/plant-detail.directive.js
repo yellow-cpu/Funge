@@ -116,15 +116,24 @@ directive('plantDetailCanvasDirective', function($compile) {
       chart.update(1000);
     };
 
-    /*scope.$ctrl.client.onMessageArrived = function (message) {
-      try {
-        var temperature = JSON.parse(message.payloadString).state.reported.temperature;
-        moveChart(liveChart, [temperature]);
-        console.log("message arrived: " +  message.payloadString);
-      } catch (e) {
-        console.log("error! " + e);
+    scope.$watch(attributes.ngModel, function (value) {
+      var val = value;
+      if (val == 'connected') {
+        scope.$ctrl.client.onMessageArrived = function (message) {
+          try {
+            var temperature = JSON.parse(message.payloadString).state.reported.temperature;
+            moveChart(liveChart, [temperature]);
+            console.log("message arrived: " +  message.payloadString);
+          } catch (e) {
+            console.log("error! " + e);
+          }
+        };
       }
-    };*/
+    });
+
+    /*setTimeout(function(){
+
+    }, 3000);*/
   };
 
   return {

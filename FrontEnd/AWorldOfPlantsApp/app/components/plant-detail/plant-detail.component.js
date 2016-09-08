@@ -92,11 +92,11 @@ angular.module('plantDetail').component('plantDetail', {
 
     self.publish = function (payload) {
       // publish a lifecycle event
-      //var payload = '{"state": {"desired": {"asd": "asd"},"reported": {"asd": "xyz","qwe": "qwe"}}}';
+      var payload = '{"state": {"desired": {"temperature": "20"},"reported": {"temperature": "12"}}}';
 
       try {
         var message = new Paho.MQTT.Message(payload);
-        message.destinationName = topic;
+        message.destinationName = self.thing.mqttTopic;
         self.client.send(message);
       } catch (e) {
         console.log('publishFailed', e);
