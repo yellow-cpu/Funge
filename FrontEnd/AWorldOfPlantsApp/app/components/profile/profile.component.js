@@ -69,6 +69,15 @@ angular.module('profile').component('profile', {
             // Set variables to retrieved values
             self.timelineEvents = result.data.timelineEvents;
 
+              // Sort events according to timestamp
+              self.timelineEvents.sort(function(a, b) {
+                  var keyA = a.timestamp;
+                  var keyB = b.timestamp;
+                  if(keyA < keyB) return -1;
+                  if(keyA > keyB) return 1;
+                  return 0;
+              });
+
             // Convert timestamps of each event
             for (var i = 0; i < self.timelineEvents.length; i++) {
               self.timelineEvents[i].timestamp = self.timeConverter(self.timelineEvents[i].timestamp);
