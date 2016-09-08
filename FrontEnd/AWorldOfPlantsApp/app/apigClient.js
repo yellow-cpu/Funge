@@ -53,7 +53,7 @@ apigClientFactory.newClient = function (config) {
 
     
     // extract endpoint and path from url
-    var invokeUrl = 'https://1a0tn4u7m6.execute-api.us-east-1.amazonaws.com/test8';
+    var invokeUrl = 'https://1a0tn4u7m6.execute-api.us-east-1.amazonaws.com/test9';
     var endpoint = /(^https?:\/\/[^\/]+)/g.exec(invokeUrl)[1];
     var pathComponent = invokeUrl.substring(endpoint.length);
 
@@ -404,6 +404,60 @@ apigClientFactory.newClient = function (config) {
         
         
         return apiGatewayClient.makeRequest(thingsOptionsRequest, authType, additionalParams, config.apiKey);
+    };
+    
+    
+    apigClient.thingsPlantOptions = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
+        
+        var thingsPlantOptionsRequest = {
+            verb: 'options'.toUpperCase(),
+            path: pathComponent + uritemplate('/things/plant').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(thingsPlantOptionsRequest, authType, additionalParams, config.apiKey);
+    };
+    
+    
+    apigClient.thingsPlantPlantidGet = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, ['plantid'], ['body']);
+        
+        var thingsPlantPlantidGetRequest = {
+            verb: 'get'.toUpperCase(),
+            path: pathComponent + uritemplate('/things/plant/{plantid}').expand(apiGateway.core.utils.parseParametersToObject(params, ['plantid'])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(thingsPlantPlantidGetRequest, authType, additionalParams, config.apiKey);
+    };
+    
+    
+    apigClient.thingsPlantPlantidOptions = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, ['plantid'], ['body']);
+        
+        var thingsPlantPlantidOptionsRequest = {
+            verb: 'options'.toUpperCase(),
+            path: pathComponent + uritemplate('/things/plant/{plantid}').expand(apiGateway.core.utils.parseParametersToObject(params, ['plantid'])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(thingsPlantPlantidOptionsRequest, authType, additionalParams, config.apiKey);
     };
     
     
