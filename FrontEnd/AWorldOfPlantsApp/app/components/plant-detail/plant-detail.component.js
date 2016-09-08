@@ -63,7 +63,9 @@ angular.module('plantDetail').component('plantDetail', {
 
     self.client = null;
 
-    function initClient(requestUrl) {
+    function initClient(requestUrl, mqttTopic) {
+      console.log(mqttTopic);
+
       var clientId = String(Math.random()).replace('.', '');
       self.client = new Paho.MQTT.Client(requestUrl, clientId);
       var topic = '$aws/things/greenThing/shadow/update';
@@ -76,7 +78,7 @@ angular.module('plantDetail').component('plantDetail', {
           $scope.$apply();
 
           // subscribe to the topic
-          self.client.subscribe('$aws/things/greenThing/shadow/update');
+          self.client.subscribe(mqttTopic);
         },
         useSSL: true,
         timeout: 15,
@@ -101,18 +103,7 @@ angular.module('plantDetail').component('plantDetail', {
       }
     };
 
-    self.requestUrl = SigV4Utils.getSignedUrl(
-      'wss',
-      'a3afwj65bsju7b.iot.us-east-1.amazonaws.com',
-      '/mqtt',
-      'iotdevicegateway',
-      $localStorage.region,
-      $localStorage.accessKey,
-      $localStorage.secretKey,
-      $localStorage.sessionToken
-    );
-
-    initClient(self.requestUrl);
+    self.requestUrl = null;
 
     // Set up API calls
 
@@ -124,6 +115,33 @@ angular.module('plantDetail').component('plantDetail', {
     });
 
     self.plantDetails = siteService.getPlant();
+
+    var params = {
+      "plantid": self.plantDetails.plantId
+    };
+
+    var body = {};
+
+    apigClient.thingsPlantPlantidGet(params, body)
+      .then(function (result) {
+        console.log("Success: " + JSON.stringify(result));
+        self.thing = result.data;
+
+        self.requestUrl = SigV4Utils.getSignedUrl(
+          'wss',
+          'a3afwj65bsju7b.iot.us-east-1.amazonaws.com',
+          '/mqtt',
+          'iotdevicegateway',
+          $localStorage.region,
+          $localStorage.accessKey,
+          $localStorage.secretKey,
+          $localStorage.sessionToken
+        );
+
+        initClient(self.requestUrl, self.thing.mqttTopic);
+      }).catch(function (result) {
+      console.log("Error: " + JSON.stringify(result));
+    });
 
     self.updatePlant = function() {
       var params = {};

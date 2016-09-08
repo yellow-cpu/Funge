@@ -40,7 +40,6 @@ directive('statusDirective', function($compile) {
 directive('plantDetailCanvasDirective', function($compile) {
   var linkFunction = function (scope, element, attributes) {
     var canvas = document.getElementById('live-chart');
-    console.log(canvas);
     var ctx = canvas.getContext('2d');
     var startingData = {
       labels: [],
@@ -117,7 +116,7 @@ directive('plantDetailCanvasDirective', function($compile) {
       chart.update(1000);
     };
 
-    scope.$ctrl.client.onMessageArrived = function (message) {
+    /*scope.$ctrl.client.onMessageArrived = function (message) {
       try {
         var temperature = JSON.parse(message.payloadString).state.reported.temperature;
         moveChart(liveChart, [temperature]);
@@ -125,7 +124,7 @@ directive('plantDetailCanvasDirective', function($compile) {
       } catch (e) {
         console.log("error! " + e);
       }
-    };
+    };*/
   };
 
   return {
