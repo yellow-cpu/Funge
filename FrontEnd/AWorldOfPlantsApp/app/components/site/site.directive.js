@@ -10,18 +10,13 @@ angular.module('site').directive('site', function ($compile, siteService) {
     $('#a-dashboard').on('click', function() {
       $('#side-menu > li > a').removeClass('active');
       $(this).addClass('active');
-      $('#page-wrapper').html($compile('<dashboard></dashboard>')(scope));
+      $('#page-wrapper').html($compile('<profile></profile>')(scope));
     });
 
     $('#a-plants').on('click', function() {
       $('#side-menu > li > a').removeClass('active');
       $(this).addClass('active');
       $('#page-wrapper').html($compile('<plants></plants>')(scope));
-    });
-
-    $('#a-profile').on('click', function() {
-      $('#side-menu > li > a').removeClass('active');
-      $('#page-wrapper').html($compile('<profile></profile>')(scope));
     });
 
     $('#a-things').on('click', function() {

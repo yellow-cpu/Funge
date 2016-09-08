@@ -17,9 +17,9 @@
 /* Loader */
 
 .loader-container {
+    background-color: #36465D;
     color: #ffffff;
     border: 0;
-    text-align: center;
 }
 
 .loader-container:hover {

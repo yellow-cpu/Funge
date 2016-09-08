@@ -46,11 +46,25 @@ angular.module('profile').component('profile', {
       console.log("Error: " + JSON.stringify(result));
     });
 
+    $(".timeline-wrapper").css({
+      'display': 'none'
+    });
+
+    $(".loader-container").css({
+        'display': 'block'
+    });
+
     // Get timeline events of current user
     self.getTimelineEvents = function() {
       apigClient.timelineUsernameGet(params, body)
           .then(function (result) {
-            console.log("Successfully retrieved timeline info" + JSON.stringify(result));
+            $(".loader-container").css({
+              'display': 'none'
+            });
+
+            $(".timeline-wrapper").css({
+              'display': 'block'
+            });
 
             // Set variables to retrieved values
             self.timelineEvents = result.data.timelineEvents;
