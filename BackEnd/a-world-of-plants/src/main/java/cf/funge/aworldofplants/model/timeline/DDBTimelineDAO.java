@@ -87,10 +87,15 @@ public class DDBTimelineDAO implements TimelineDAO {
         Map<String, AttributeValue> eav = new HashMap<>();
         eav.put(":val1", new AttributeValue().withS(username));
 
+        TimelineEvent timelineEvent = new TimelineEvent();
+        timelineEvent.setTimelineEventId("90e0f75b-d64f-4537-9c0a-e6996903f42c");
+
         DynamoDBQueryExpression<TimelineEvent> expression = new DynamoDBQueryExpression<TimelineEvent>()
                 .withFilterExpression("username = :val1")
                 .withExpressionAttributeValues(eav);
         expression.setLimit(limit);
+
+        expression.setHashKeyValues(timelineEvent);
 
         List<TimelineEvent> scanResult = getMapper().query(TimelineEvent.class, expression);
 
@@ -102,7 +107,7 @@ public class DDBTimelineDAO implements TimelineDAO {
 //                .withExpressionAttributeValues(eav);
 //        expression.setLimit(limit);
 //
-//        List<TimelineEvent> scanResult = getMapper().query(TimelineEvent.class, expression);
+//        List<TimelineEvent> scanResult = getMapper().scan(TimelineEvent.class, expression);
 
         return scanResult;
     }
