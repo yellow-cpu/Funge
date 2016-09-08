@@ -75,6 +75,8 @@ directive('plantDetailCanvasDirective', function($compile) {
       data: startingData
     });
 
+    var charts = [];
+
     var timeConverter = function (now){
       var a = new Date(now);
       var hour = a.getHours();
@@ -116,13 +118,25 @@ directive('plantDetailCanvasDirective', function($compile) {
       chart.update(1000);
     };
 
+    var hasValue = function(obj, key, value) {
+      return obj.hasOwnProperty(key) && obj[key] == value;
+    };
+
+    var chartTypes = [{"name": "temperature", "value": "30"}];
+
     scope.$watch(attributes.ngModel, function (value) {
       var val = value;
       if (val == 'connected') {
         scope.$ctrl.client.onMessageArrived = function (message) {
           try {
-            var temperature = JSON.parse(message.payloadString).state.reported.temperature;
-            moveChart(liveChart, [temperature]);
+            //var temperature = JSON.parse(message.payloadString).state.reported.temperature;
+            //moveChart(liveChart, [temperature]);
+            /*var reported = JSON.parse(message.payloadString).state.reported;
+
+            for (var i = 0; i < reported.length; ++i) {
+              console.log("x" + reported[i]);
+            };*/
+
             console.log("message arrived: " +  message.payloadString);
           } catch (e) {
             console.log("error! " + e);
@@ -130,10 +144,6 @@ directive('plantDetailCanvasDirective', function($compile) {
         };
       }
     });
-
-    /*setTimeout(function(){
-
-    }, 3000);*/
   };
 
   return {
