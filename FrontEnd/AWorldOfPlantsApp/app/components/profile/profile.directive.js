@@ -17,7 +17,6 @@ directive('viewTimelineDirective', function ($compile) {
 directive('populateTimelineDirective', function($compile) {
   var linkFunction = function (scope, element, attributes) {
     $('li.event').each(function(index) {
-      console.log(index);
       if (index % 2 == 0)
         $(this).addClass('timeline-inverted');
     });
