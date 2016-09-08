@@ -2,14 +2,18 @@ package cf.funge.aworldofplants.test;
 
 import cf.funge.aworldofplants.RequestRouter;
 import cf.funge.aworldofplants.exception.BadRequestException;
+import cf.funge.aworldofplants.exception.DAOException;
 import cf.funge.aworldofplants.exception.InternalErrorException;
 import cf.funge.aworldofplants.model.action.AddThingRequest;
 import cf.funge.aworldofplants.model.action.AddThingResponse;
+import cf.funge.aworldofplants.model.thing.Thing;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -70,5 +74,28 @@ public class TestThing extends cf.funge.aworldofplants.test.Test{
         addThingResponse.setThingArn(thingArn);
 
         assertEquals(addThingResponse.getThingArn(), thingArn);
+    }
+
+    @Test
+    public void testDDBPlantDAOCreateThing() {
+        Thing thing = new Thing();
+        String result = "";
+
+        try {
+            result = mockThingDAO().createThing(thing);
+        } catch (DAOException e) {
+
+        }
+
+        assertEquals(result, "test-thing-arn");
+    }
+
+    @Test
+    public void testDDBPlantDAOGetUserThings() {
+        List<Thing> result = new ArrayList<>();
+
+        result = mockThingDAO().getUserThings(50, "dill");
+
+        assertEquals(result.size(), 1);
     }
 }
