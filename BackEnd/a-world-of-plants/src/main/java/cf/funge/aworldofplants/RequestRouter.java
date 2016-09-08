@@ -20,6 +20,7 @@ import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.apache.commons.io.IOUtils;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.InputStream;
