@@ -7,8 +7,12 @@ import cf.funge.aworldofplants.exception.InternalErrorException;
 import cf.funge.aworldofplants.model.DAOFactory;
 import cf.funge.aworldofplants.model.action.AddThingRequest;
 import cf.funge.aworldofplants.model.action.AddThingResponse;
+import cf.funge.aworldofplants.model.plant.Plant;
+import cf.funge.aworldofplants.model.plant.PlantDAO;
 import cf.funge.aworldofplants.model.thing.Thing;
 import cf.funge.aworldofplants.model.thing.ThingDAO;
+import cf.funge.aworldofplants.model.timeline.TimelineDAO;
+import cf.funge.aworldofplants.model.timeline.TimelineEvent;
 import cf.funge.aworldofplants.model.user.User;
 import cf.funge.aworldofplants.model.user.UserDAO;
 import com.amazonaws.AmazonServiceException;
@@ -17,18 +21,13 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.iot.*;
 import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.amazonaws.services.s3.model.PutObjectResult;
 import com.google.gson.JsonObject;
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Dillon on 2016-09-01.
- */
 public class AddThingAction extends AbstractAction {
     private LambdaLogger logger;
 
@@ -172,6 +171,40 @@ public class AddThingAction extends AbstractAction {
 
         AddThingResponse output = new AddThingResponse();
         output.setThingArn(createThingResult.getThingArn());
+
+        // Add thing timeline event
+        TimelineDAO timelineDAO = DAOFactory.getTimelineDAO();
+        PlantDAO plantDAO = DAOFactory.getPlantDAO();
+        try {
+            // Get the plant associated with the thing
+            Plant plant = plantDAO.getPlantById(input.getPlantId());
+
+            TimelineEvent timelineEvent = new TimelineEvent();
+            timelineEvent.setUsername(input.getUsername());
+            timelineEvent.setTitle("Created a Plant Box");
+            timelineEvent.setMessage("You created a new Plant Box called " + input.getThingName() +
+                    " and associated it with your " + plant.getPlantType() + " called " + plant.getPlantName() +
+                    ".");
+            timelineEvent.setCategory("thing-create");
+            timelineEvent.setTimestamp((int) (System.currentTimeMillis() / 1000L));
+            timelineEvent.setPointValue(75);
+
+            // Store event in database
+            String timelineEventId;
+            try {
+                timelineEventId = timelineDAO.createTimelineEvent(timelineEvent);
+            } catch (final DAOException e) {
+                logger.log("Error while creating new timeline event\n" + e.getMessage());
+                throw new InternalErrorException(ExceptionMessages.EX_DAO_ERROR);
+            }
+
+            if (timelineEventId == null || timelineEventId.trim().equals("")) {
+                logger.log("TimelineEventId is null or empty");
+                throw new InternalErrorException(ExceptionMessages.EX_DAO_ERROR);
+            }
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
 
         return getGson().toJson(output);
     }
