@@ -39,8 +39,10 @@ directive('statusDirective', function($compile) {
 }).
 directive('plantDetailCanvasDirective', function($compile) {
   var linkFunction = function (scope, element, attributes) {
-    var canvas = document.getElementById('live-chart');
+    var canvas = document.getElementById('live-chart-temperature');
+    var canvas2 = document.getElementById('live-chart-humidity');
     var ctx = canvas.getContext('2d');
+    var ctx2 = canvas2.getContext('2d');
     var startingData = {
       labels: [],
       datasets: [
@@ -70,9 +72,43 @@ directive('plantDetailCanvasDirective', function($compile) {
     };
     var latestLabel = startingData.labels[6];
 
+    var startingData2 = {
+      labels: [],
+      datasets: [
+        {
+          label: "Humidity",
+          fill: false,
+          lineTension: 0.1,
+          backgroundColor: "rgba(75,192,192,0.4)",
+          borderColor: "rgba(75,192,192,1)",
+          borderCapStyle: 'butt',
+          borderDash: [],
+          borderDashOffset: 0.0,
+          borderJoinStyle: 'miter',
+          pointBorderColor: "rgba(75,192,192,1)",
+          pointBackgroundColor: "#fff",
+          pointBorderWidth: 1,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: "rgba(75,192,192,1)",
+          pointHoverBorderColor: "rgba(220,220,220,1)",
+          pointHoverBorderWidth: 2,
+          pointRadius: 1,
+          pointHitRadius: 10,
+          data: [],
+          spanGaps: false
+        }
+      ]
+    };
+    var latestLabel2 = startingData2.labels[6];
+
     var liveChart = new Chart(ctx, {
       type: "line",
       data: startingData
+    });
+
+    var liveChart2 = new Chart(ctx2, {
+      type: "line",
+      data: startingData2
     });
 
     var charts = [];
@@ -118,26 +154,40 @@ directive('plantDetailCanvasDirective', function($compile) {
       chart.update(1000);
     };
 
-    var hasValue = function(obj, key, value) {
-      return obj.hasOwnProperty(key) && obj[key] == value;
-    };
-
-    var chartTypes = [{"name": "temperature", "value": "30"}];
+    var values = {};
+    var graphs = [];
 
     scope.$watch(attributes.ngModel, function (value) {
       var val = value;
       if (val == 'connected') {
         scope.$ctrl.client.onMessageArrived = function (message) {
           try {
-            //var temperature = JSON.parse(message.payloadString).state.reported.temperature;
-            //moveChart(liveChart, [temperature]);
+            console.log("message arrived: " +  message.payloadString);
+
+            var temperature = JSON.parse(message.payloadString).state.reported.temperature;
+            moveChart(liveChart, [temperature]);
+
+            var humidity = JSON.parse(message.payloadString).state.reported.humidity;
+            moveChart(liveChart2, [humidity]);
             /*var reported = JSON.parse(message.payloadString).state.reported;
 
-            for (var i = 0; i < reported.length; ++i) {
-              console.log("x" + reported[i]);
-            };*/
+            // check if new values
+            jQuery.each(reported, function(key, val) {
+              if (values[key] == null) {
+                // new key
+                values[key] = val;
 
-            console.log("message arrived: " +  message.payloadString);
+                // create new graph
+
+              }
+            });
+
+            // update graphs
+            var i = 0;
+            jQuery.each(values, function(key, val) {
+              moveChart(chart[i], [val]);
+              ++i;
+            });*/
           } catch (e) {
             console.log("error! " + e);
           }
