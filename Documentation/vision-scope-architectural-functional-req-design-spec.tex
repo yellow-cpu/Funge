@@ -163,6 +163,12 @@
 \subsection{Use Case/Service Contracts}
 
 \subsubsection{User Management Subsystem}
+
+	\begin{figure}[H]
+		\includegraphics[width=\linewidth]{images/UseCases/UserManagement.jpg}
+		\caption{Use Case Diagram for the User Management Subsystem}
+	\end{figure}
+
 \paragraph{Register Account}\mbox{}\\
 \textbf{Description:} A user must register an account before being able to access the system so that they may associated devices and plants with their account.\\
 \textbf{Prioritisation:} Critical\\		
@@ -177,12 +183,7 @@
 	\item The password must be encrypted using PBKDF2WithHmacSHA1 and salted
 	\item An identity ID must be created for the user
 	\item All the above information must be associated with the username provided and stored in a database
-\end{itemize}
-
-\begin{figure}[H]
-	\includegraphics[width=\linewidth]{images/UseCases/RegisterAccount.jpg}
-	\caption{Use case diagram for registering an account}
-\end{figure}	
+\end{itemize}	
 
 \begin{figure}[H]
 	\includegraphics[width=\linewidth]{images/ServicesContracts/register.jpg}
@@ -203,12 +204,7 @@
 \begin{itemize}
 	\item The user should be given temporary user credentials in a response object
 	\item The user should be given access to their information and redirected to their dashboard
-\end{itemize}
-
-\begin{figure}[H]
-	\includegraphics[width=\linewidth]{images/UseCases/Login.jpg}
-	\caption{Use case diagram for login}
-\end{figure}		
+\end{itemize}	
 
 \begin{figure}[H]
 	\includegraphics[width=\linewidth]{images/ServicesContracts/login.jpg}
@@ -227,12 +223,7 @@
 \begin{itemize}
 	\item The user should be no longer logged into the system and as such not be able to access any functionality from the system except to register an account or log in
 	\item If the user wishes to access their account and the functionality of the system, they should have to log back into the system
-\end{itemize}
-
-\begin{figure}[H]
-	\includegraphics[width=\linewidth]{images/UseCases/Logout.jpg}
-	\caption{Use case diagram for logout}
-\end{figure}		
+\end{itemize}	
 
 \begin{figure}[H]
 	\includegraphics[width=\linewidth]{images/ServicesContracts/logout.jpg}
@@ -250,12 +241,7 @@
 \textbf{Post-conditions:}
 \begin{itemize}
 	\item The values of the edited details should be reflected in the database
-\end{itemize}
-
-\begin{figure}[H]
-	\includegraphics[width=\linewidth]{images/UseCases/EditDetails.jpg}
-	\caption{Use case diagram for update user details}
-\end{figure}		
+\end{itemize}	
 
 \begin{figure}[H]
 	\includegraphics[width=\linewidth]{images/ServicesContracts/updateUser.jpg}
@@ -276,16 +262,17 @@
 \end{itemize}
 
 \begin{figure}[H]
-	\includegraphics[width=\linewidth]{images/UseCases/ViewGamificationInformation.jpg}
-	\caption{Use case diagram for view gamification details/get user details}
-\end{figure}
-
-\begin{figure}[H]
 	\includegraphics[width=\linewidth]{images/ServicesContracts/getUser.jpg}
 	\caption{Services contract diagram for view gamification details/get user details}
 \end{figure}
 
 \subsubsection{Plant/Device Management Subsystem}
+
+	\begin{figure}[H]
+		\includegraphics[width=\linewidth]{images/UseCases/Plant_DeviceManagement.jpg}
+		\caption{Use Case Diagram for the Plant/Device Management Subsystem}
+	\end{figure}
+
 \paragraph{Create Plant}\mbox{}\\
 \textbf{Description:} A registered and logged in user should be able to create a virtual plant to be associated with a device monitoring a plant. This plant should have a name as well as a plant type.\\
 \textbf{Prioritisation:} Critical\\		
@@ -304,11 +291,6 @@
 	\item An IoT device ID should be associated with the plant
 	\item The plant should be persisted in the database with all the above information
 \end{itemize}
-
-\begin{figure}[H]
-	\includegraphics[width=\linewidth]{images/UseCases/createPlant.jpg}
-	\caption{Use case diagram for create plant}
-\end{figure}
 
 \begin{figure}[H]
 	\includegraphics[width=\linewidth]{images/ServicesContracts/createPlant.jpg}
@@ -331,11 +313,6 @@
 \end{itemize}
 
 \begin{figure}[H]
-	\includegraphics[width=\linewidth]{images/UseCases/listPlants.jpg}
-	\caption{Use case diagram for list plants}
-\end{figure}
-
-\begin{figure}[H]
 	\includegraphics[width=\linewidth]{images/ServicesContracts/listUserPlants.jpg}
 	\caption{Services contract diagram for list plants}
 \end{figure}
@@ -354,11 +331,6 @@
 	\item A newly created 'Thing' should be created
 	\item A relationship between the 'Thing' and a plant should be created and persisted in the database
 \end{itemize}
-
-\begin{figure}[H]
-	\includegraphics[width=\linewidth]{images/UseCases/createThing.jpg}
-	\caption{Use case diagram for create and associate a virtual 'Thing' with a plant}
-\end{figure}
 
 \begin{figure}[H]
 	\includegraphics[width=\linewidth]{images/ServicesContracts/createThing.jpg}
@@ -386,11 +358,6 @@
 \end{itemize}
 
 \begin{figure}[H]
-	\includegraphics[width=\linewidth]{images/UseCases/viewPlant.jpg}
-	\caption{Use case diagram for view plant status}
-\end{figure}
-
-\begin{figure}[H]
 	\includegraphics[width=\linewidth]{images/ServicesContracts/viewPlant.jpg}
 	\caption{Services contract diagram for view plant status}
 \end{figure}
@@ -410,11 +377,6 @@
 	\item The IoT device should subsequently reflect this RGB colour in the wavelengths of the LED strip, if the RGB value was (0, 0, 0) the lights should be turned off
 	\item A response object indicating whether the action was successful should be returned
 \end{itemize}
-
-\begin{figure}[H]
-	\includegraphics[width=\linewidth]{images/UseCases/configureLights.jpg}
-	\caption{Use case diagram for configure light settings}
-\end{figure}
 
 \begin{figure}[H]
 	\includegraphics[width=\linewidth]{images/ServicesContracts/configureLights.jpg}
@@ -438,11 +400,6 @@
 \end{itemize}
 
 \begin{figure}[H]
-	\includegraphics[width=\linewidth]{images/UseCases/updatePlant.jpg}
-	\caption{Use case diagram for update plant details}
-\end{figure}
-
-\begin{figure}[H]
 	\includegraphics[width=\linewidth]{images/ServicesContracts/updatePlant.jpg}
 	\caption{Services contract diagram for update plant details}
 \end{figure}		
@@ -462,11 +419,6 @@
 	\item If the pumpTime value was 0 the pump should turn itself off
 	\item A response object indicating whether the action was successful should be returned
 \end{itemize}
-
-\begin{figure}[H]
-	\includegraphics[width=\linewidth]{images/UseCases/configurePump.jpg}
-	\caption{Use case diagram for configure pump settings}
-\end{figure}
 
 \begin{figure}[H]
 	\includegraphics[width=\linewidth]{images/ServicesContracts/configurePump.jpg}
@@ -489,11 +441,6 @@
 \end{itemize}
 
 \begin{figure}[H]
-	\includegraphics[width=\linewidth]{images/UseCases/configureFan.jpg}
-	\caption{Use case diagram for configure fan settings}
-\end{figure}
-
-\begin{figure}[H]
 	\includegraphics[width=\linewidth]{images/ServicesContracts/configureFan.jpg}
 	\caption{Services contract diagram for configure fan settings}
 \end{figure}
@@ -514,16 +461,17 @@
 \end{itemize}
 
 \begin{figure}[H]
-	\includegraphics[width=\linewidth]{images/UseCases/deletePlant.jpg}
-	\caption{Use case diagram for delete plant}
-\end{figure}
-
-\begin{figure}[H]
 	\includegraphics[width=\linewidth]{images/ServicesContracts/deletePlant.jpg}
 	\caption{Services contract diagram for delete plant}
 \end{figure}
 
 \subsubsection{Device Communications Subsystem}
+	
+	\begin{figure}[H]
+		\includegraphics[width=\linewidth]{images/UseCases/DeviceCommunications.jpg}
+		\caption{Use Case Diagram for the Device Communications Subsystem}
+	\end{figure}
+	
 \paragraph{Send Readings Summary to Lambda}\mbox{}\\
 \textbf{Description:}An IoT device should send details about the information it has gathered using its sensors to the serverless provider.\\
 \textbf{Prioritisation:} Critical\\		
@@ -536,11 +484,6 @@
 \begin{itemize}
 	\item The information gathered should be stored in the database and associated with the plant associated with the IoT device
 \end{itemize}
-
-\begin{figure}[H]
-	\includegraphics[width=\linewidth]{images/UseCases/UpdateShadow.jpg}
-	\caption{Use case diagram for send readings summary to Lambda}
-\end{figure}
 
 \begin{figure}[H]
 	\includegraphics[width=\linewidth]{images/ServicesContracts/updateShadow.jpg}
