@@ -132,7 +132,7 @@ angular.module('plantDetail').component('plantDetail', {
         colours = colours.split(",");
         console.log(colours[0] + colours[1] + colours[2]);
 
-        self.publish('{"state": {"desired": {red: ' + colours[0] + ', green: ' + colours[1] + ', blue: ' + colours[2] + '}}}');
+        self.publish('{"state": {"desired": {"red": ' + colours[0] + ', "green": ' + colours[1] + ', "blue": ' + colours[2] + '}}}');
       }
     };
 
