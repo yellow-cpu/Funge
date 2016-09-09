@@ -13,9 +13,6 @@
 ### Burndown.io
 http://burndown.io/#DillonHeins/Funge
 
-# Funge
-## COS301 Main Project
----
 ### Members
 | Student Number| Name            |
 | ------------- |:--------------- |
