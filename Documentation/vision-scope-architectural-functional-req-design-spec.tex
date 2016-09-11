@@ -3,7 +3,7 @@
 \usepackage[margin=4cm, includefoot]{geometry}
 \usepackage{graphicx}
 \usepackage{float}
-\usepackage{hyperref}
+\usepackage[hidelinks]{hyperref}
 
 % Paragraph formatting
 \usepackage{indentfirst}
@@ -677,15 +677,54 @@ The Database Service will use the DynamoDB persistence API to persist user infor
 	
 	
 \section{Technologies}
+	\subsection{Overview}
+	The system uses the Amazon WebServices SDK and APIs.
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\textwidth]{images/AWSMap.png}
+		\caption{Communication between AWS services}
+	\end{figure}
+	
+	\subsection{Frameworks}
+	\subsubsection{Internet of Things}
+	AWS IoT is a managed cloud platform that lets connected devices easily and securely interact with cloud applications and other devices.
 
-	\subsection{Framework}
-	
-	\subsection{Build Tool}
-	
-	\subsection{Continuous Integration}
-	
-	\subsection{Communication}
+	The system uses the IoT platform to connect to Lambda (explained below) using the MQTT protocol. As part of the project, the system is required to use the AWS IoT platform.
+	\subsubsection{Lambda}
+	AWS Lambda lets the system run code without provisioning or managing servers. You pay only for the compute time you consume - there is no charge when your code is not running. With Lambda, you can run code for virtually any type of application or backend service - all with zero administration. Code can just be uploaded and Lambda takes care of everything required to run and scale the code with high availability. The code can be set up to automatically trigger from other AWS services or to be called directly from any web or mobile app.
 
+	Lambda will form the largest part of the backend. All messages will be sent from IoT to Lambda, using MQTT, and that event will trigger a response and the web interface can access Lambda through the API Gateway, negating the need for a server to be constantly listening. Lambda can then perform operations on DynamoDB, but can also respond to events triggered when data in DynamoDB is changed or added. 
+	\subsubsection{DynamoDB}
+	Amazon DynamoDB is a fast and flexible NoSQL database service which has built in Java support. Because it is a NoSQL database, Java objects can be pushed or pulled using the API. It intergrates with AWS Lambda, allowing Lambda to respond to events in the database. It can also be easily accessed through the API Gateway, allowing for fast read-write operations from the client interface.
+	\subsubsection{API Gateway}
+	Amazon API Gateway is a fully managed service that makes it easy for developers to create, publish, maintain, monitor, and secure APIs at any scale. The system can easily and quickly create an API that acts as a “front door” for the user interface to access data from DynamoDB or trigger events in Lambda by exposing RESTful services to the API. Amazon API Gateway handles all the tasks involved in accepting and processing up to hundreds of thousands of concurrent API calls, including traffic management, authorization and access control, monitoring, and API version management.
+	\subsubsection{JavaScript SDK}
+	The AWS SDK for JavaScript enables the system to directly access AWS services from JavaScript code running in the browser. The system can authenticate users, store data in DynamoDB and trigger Lambda events. It is simple to deploy and uses the same API as the other components, meaning function migration becomes trivial.
+	\subsubsection{CloudWatch}
+	CloudWatch is a monitoring device for all AWS services. The project uses this to log access to the API Gateway, IoT, and Lambda functions, so that a historical audit of all connections is kept. CloudWatch also has an alarm service, which can trigger custom events (e.g. a Lambda function fails)
+	\subsubsection{Cognito}
+	Cognito is used for user authentication and to manage user pools.
+	
+	\subsection{Build Tool and Continuous Integration}
+	Travis CI is used for the build and continuous integration pipeline. As code is pushed through version control, Travis CI pulls the latest code, runs all tests and if successful, deploys the code live.
+
+	\subsection{Languages}
+	For the frontend:
+	\begin{itemize}
+		\item HTML5, JQuery, Bootstrap
+		\item AngularJS
+	\end{itemize}
+	
+	For the backend:
+	\begin{itemize}
+		\item Java 8
+		\item NodeJS for mocking of devices
+	\end{itemize}
+	
+	For the hardware:
+	\begin{itemize}
+		\item Processing for Arduino
+	\end{itemize}
 \section{Initial Design}
 \begin{figure}[H]
  	\includegraphics[width=\textwidth]{images/initial-design.PNG}
