@@ -700,11 +700,8 @@ The Database Service will use the DynamoDB persistence API to persist user infor
 	\subsubsection{Cognito}
 	Cognito is used for user authentication and to manage user pools.
 	
-	\subsection{Build Tool}
-	
-	\subsection{Continuous Integration}
-	
-	\subsection{Communication}
+	\subsection{Build Tool and Continuous Integration}
+	Travis CI is used for the build and continuous integration pipeline. As code is pushed through version control, Travis CI pulls the latest code, runs all tests and if successful, deploys the code live.
 
 \section{Initial Design}
 \begin{figure}[H]
