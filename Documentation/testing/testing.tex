@@ -306,9 +306,25 @@
 	\subsection{Plant Management}
 		\subsubsection{Create Plant}
 		
+		\textbf{Pre-conditions:}
+		\begin{itemize}
+			\item The user should be logged in
+			\item The plant's name should not be null
+			\item The plant's type should not be null
+			\item The plant's age should not be null
+			\item An IoT device should be selected to be associated with the plant
+		\end{itemize}
+		\textbf{Post-conditions:}
+		\begin{itemize}
+			\item The plant should be assigned a unique identifier
+			\item It should be associated with a particular user
+			\item An IoT device ID should be associated with the plant
+			\item The plant should be persisted in the database with all the above information
+		\end{itemize}
+			
 		\paragraph{Condition: Authenticated}
 		\subparagraph{Objective}
-		Test that a plant can be added while authenticated.
+		Test that a plant can be added while the user is authenticated.
 		
 		\subparagraph{Input}
 		\begin{itemize}
@@ -327,15 +343,43 @@
 		Test that a plant cannot be added when the user is not authenticated.
 		
 		\subparagraph{Input}
-		\item Username: "FakeTestUser"
-		\item Plant name: "TestPlant"
-		\item Plant type: "TestType"
-		\item Plant age: 0
-		\item Colour: "Red"
+		\begin{itemize}
+			\item Username: "FakeTestUser"
+			\item Plant name: "TestPlant"
+			\item Plant type: "TestType"
+			\item Plant age: 0
+			\item Colour: "Red"
+		\end{itemize}
 		
 		\subparagraph{Outcome}
 		A plant is not created.
 		
+		\subsubsection{Delete Plant}
+		
+		\paragraph{Condition: Authenticated}
+		\subparagraph{Objective}
+		Test that a plant can be deleted while the user is authenticated.
+		
+		\subparagraph{Input}
+		\begin{itemize}
+			\item Username: "TestUser"
+			\item Plant ID: 1
+		\end{itemize}
+		
+		\subparagraph{Outcome}
+		The plant is deleted.
+		
+		\paragraph{Condition: Not Authenticated}
+		\subparagraph{Objective}
+		Test that a plant cannot be deleted when the user is not authenticated.
+		
+		\begin{itemize}
+			\item Username: "TestFakeUser"
+			\item Plant ID: 1
+		\end{itemize}
+		
+		\subparagraph{Outcome}
+		A plant is not deleted.
 		
 	\subsection{Front End}
 		\subsubsection{Test Plan}
