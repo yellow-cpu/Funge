@@ -84,22 +84,6 @@ public class DDBTimelineDAO implements TimelineDAO {
         if (limit <= 0 || limit > DynamoDBConfiguration.SCAN_LIMIT)
             limit = DynamoDBConfiguration.SCAN_LIMIT;
 
-//        Map<String, AttributeValue> eav = new HashMap<>();
-//        eav.put(":val1", new AttributeValue().withS(username));
-//
-//        TimelineEvent timelineEvent = new TimelineEvent();
-//        // I need to specify a hashkey but it's supposed to fetch all? I don't understand
-//        timelineEvent.setTimelineEventId("90e0f75b-d64f-4537-9c0a-e6996903f42c");
-//
-//        DynamoDBQueryExpression<TimelineEvent> expression = new DynamoDBQueryExpression<TimelineEvent>()
-//                .withFilterExpression("username = :val1")
-//                .withExpressionAttributeValues(eav);
-//        expression.setLimit(limit);
-//
-//        expression.setHashKeyValues(timelineEvent);
-//
-//        List<TimelineEvent> scanResult = getMapper().query(TimelineEvent.class, expression);
-
         Map<String, AttributeValue> eav = new HashMap<>();
         eav.put(":val1", new AttributeValue().withS(username));
 
