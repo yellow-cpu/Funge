@@ -4,6 +4,8 @@
 \usepackage[margin=2cm, left=2cm, includefoot]{geometry}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{indentfirst}
+\usepackage{listings}
 \usepackage{hyperref}
 \usepackage{color}
 
@@ -56,16 +58,81 @@
 
 \textit{Disclaimer: The system is still under development. All documentation will be updated as the system progresses}
 
-\section{Introduction}
-	This user manual will help you familiarise yourself with the ins and outs of the User Interface, from registration and login to creating, viewing and managing your own growing plants.
-	A World of Plants has been designed to make independent agriculture a fun and personalised experience. Compete to unlock new rewards or progress at your own leisure. Follow the plant suggestions to-the-letter or follow your own intuition. It's all up to you.
-	Welcome to A World of Plants. 
-
 \section{System Overview}
+	A World of Plants makes use of networked hardware devices to allow users to use the Internet to monitor and control the environment of living plants in real time.
+	
+	The system has been designed to make independent agriculture a fun and personalised experience. Compete to unlock new rewards or progress at your own leisure. Follow the plant suggestions to-the-letter or follow your own intuition. It's all up to you.
+	
+	Welcome to A World of Plants.
 
 \section{System Configuration}
 
 \section{Installation}
+	\subsection{User Installation}
+		The software can be found at \url{http://www.funge.cf}
+		
+		There is no installation necessary if you are an ordinary user, it is as simple as visiting the above listed website and registering.
+		
+		Registration can be done as follows:
+		\begin{itemize}
+			\item Visit \url{http://funge.cf}
+			\item Select "Need an Account?"
+			\item Enter the relevant details
+			\item After selecting the "Sign Up" button you should be logged in automatically
+		\end{itemize}
+	
+	\subsection{Software Developer Installation}
+		The software can be found at \url{https://github.com/DillonHeins/Funge}
+		\subsubsection{Initial Set Up}
+			\begin{itemize}
+				\item Set up an AWS account by visiting:
+					\begin{itemize}
+						\item \url{https://aws.amazon.com/}
+					\end{itemize}
+				\item Download and install the AWS command line interface:
+					\begin{itemize}
+						\item Additional information can be located at \url{https://aws.amazon.com/cli/}
+					\end{itemize}
+				\item Install Java Development Kit 8:
+					\begin{itemize}
+						\item \url{http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html}
+					\end{itemize}
+				\item Install Apache Maven. Instructions on how to download, install and run Maven can be located at:
+					\begin{itemize}
+						\item \url{https://maven.apache.org/}
+					\end{itemize}
+			\end{itemize}
+		\subsubsection{Java Backend Installation}
+			\begin{itemize}
+				\item Navigate to BackEnd/a-world-of-plants
+				\item Open a command line window on your operating system of choice
+				\item Run the command:
+				\begin{itemize}
+					\item 
+\begin{lstlisting}
+mvn test package
+\end{lstlisting}
+					\item This command will first test the code to ensure it is running accordingly and it will then package the software into a .jar file
+				\end{itemize}
+				\item Navigate to BackEnd/a-world-of-plants/target
+				\item In order to upload the .jar to AWS S3 and deploy it to AWS Lambda run the following commands:
+					\begin{itemize}
+						\item 
+\begin{lstlisting}
+aws s3 cp jarname.jar s3://bucket-name
+\end{lstlisting}
+
+						\item
+\begin{lstlisting}
+aws lambda update-function-code --function-name function 
+\--s3-bucket bucket-name --s3-key jarname.jar
+\end{lstlisting}
+					\end{itemize}	
+			\end{itemize}
+		\subsubsection{AngularJS Frontend Installation}
+			\begin{itemize}
+				
+			\end{itemize}
 
 \section{Getting Started}
 
