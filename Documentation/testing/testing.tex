@@ -356,6 +356,18 @@
 		
 		\subsubsection{Delete Plant}
 		
+		\textbf{Pre-conditions:}
+		\begin{itemize}
+			\item The user should be logged in
+			\item A particular plant should be selected
+			\item The user should be the owner of the plant
+		\end{itemize}
+		\textbf{Post-conditions:}
+		\begin{itemize}
+			\item The plant's entry should be removed from the database
+			\item Any information related to the plant must also be removed from the relevant tables
+		\end{itemize}
+		
 		\paragraph{Condition: Authenticated}
 		\subparagraph{Objective}
 		Test that a plant can be deleted while the user is authenticated.
