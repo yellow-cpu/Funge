@@ -1,7 +1,7 @@
 \documentclass{article}
 
 \usepackage{lipsum}
-\usepackage[margin=2cm, left=2cm, includefoot]{geometry}
+\usepackage[margin=4cm, includefoot]{geometry}
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{indentfirst}
@@ -25,10 +25,10 @@
 
 \begin{titlepage}
 	\begin{center}
-		\line(1,0){500}\\
+		\line(1,0){400}\\
 		[6mm]
 		\huge{\bfseries User Manual}\\
-		\line(1,0){500}\\
+		\line(1,0){400}\\
 		[5mm]
 		\includegraphics[width=150px]{../images/AWorldOfPlants.png}
 		\\
@@ -38,7 +38,7 @@
 		\large\textbf{Client:}\\Julian Hambleton-Jones\\
 		[3mm]
 		\large \textbf{Team:}\\Funge\\
-		\line(1,0){500}\\
+		\line(1,0){400}\\
 		[5mm]
 		\large \textbf{Team Members:}\\
 		[3mm]
@@ -147,9 +147,30 @@ aws lambda update-function-code --function-name function
 					\end{itemize}	
 			\end{itemize}
 		\subsubsection{AngularJS Frontend Installation}
+			Navigate to FrontEnd/AWorldOfPlantsApp
 			\begin{itemize}
-				
+				\item To run the AngularJS App locally:
+					\begin{itemize}
+						\item Open a command line interface on your operating system of choice
+						\item Run the command:
+							\begin{itemize}
+								\item 
+\begin{lstlisting}
+npm install
+\end{lstlisting}
+							\end{itemize}
+						\item Navigate to http://localhost:8000 in your browser
+					\end{itemize}
+				\item To deploy the AngularJS App to S3 run the command:
+					\begin{itemize}
+						\item
+\begin{lstlisting}
+aws s3 cp app s3://website.com --recursive --exclude "*.log"
+\end{lstlisting}
+					\end{itemize}
 			\end{itemize}
+	\subsubsection{ Installation}
+		
 
 \section{Getting Started}
 
