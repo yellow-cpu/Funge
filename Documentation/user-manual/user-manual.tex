@@ -4,14 +4,10 @@
 \usepackage[margin=4cm, includefoot]{geometry}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{indentfirst}
 \usepackage{listings}
 \usepackage{hyperref}
 \usepackage{color}
-
-% Paragraph formatting
-\usepackage{indentfirst}
-\setlength{\parindent}{0em}
-\setlength{\parskip}{1em}
 
 % Header and footer
 \usepackage{fancyhdr}
@@ -172,57 +168,81 @@ npm install
 aws s3 cp app s3://website.com --recursive --exclude "*.log"
 \end{lstlisting}
 					\end{itemize}
-			\end{itemize}
-	\subsubsection{ Installation}
-		
+			\end{itemize}		
 
 \section{Getting Started}
-	\subsection{Landing Page}
-	\subsubsection{Logging in}
-		\textcolor{red}{(1)} The first page you'll encounter is the login page. If you already have an account, enter your username and password in the appropriate blocks and click ``Sign In''.
+
+\section{Using the System}
+
+\section{Troubleshooting}
+	The system has been designed to return varying HTTP status codes depending on whether an operation was successful or not. If a user would like to see more detail with regard to these codes they may open the developer console on their preferred browser. However, the system automatically responds to these codes and handles them accordingly.\\
+	
+	The details of these HTTP status codes are listed below:
+	\begin{itemize}
+		\item 200 - success
+			\begin{itemize}
+				\item This is the code returned when all operations are functioning as expected
+				\item The system should continue without any problems or user intervention
+			\end{itemize}
+		\item 400 - client error
+			\begin{itemize}
+				\item This code is associated with bad requests
+				\item A bad request occurs whenever a request fails validation, i.e. when a client formats the request in a manner that the system was not expecting
+				\item This could occur when the user enters incorrect details or when a page is requested that does not exist
+			\end{itemize}
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{../images/UserManual/400error.png}
+				\caption{Incorrect User Details Error}
+			\end{figure}
+		\item 500 - server error
+			\begin{itemize}
+				\item This occurs when an internal error occurs on the server. The server will attempt to resolve this issue without user intervention as best as possible.
+				\item The user may be notified if the error affects them
+			\end{itemize}
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{../images/UserManual/500error.png}
+				\caption{Error Establishing Connection to Plant Box}
+			\end{figure}
+	\end{itemize}
+
+\section{Landing Page}
+	\subsection{Logging in}
+		\textcolor{red}{(1)} The first page you'll encounter is the login page. If you already have an account, enter your username and password in the appropriate blocks and click "Sign In".
 		\newline
 		\textcolor{red}{(2)} If you'd like to find out more about A World of Plants, you can scroll down to our information page. Scroll back up when you're ready to login or register.
 		\newline
-		\textcolor{red}{(3)} If you have not yet registered, click on ``Need an account?'' to navigate to the account registration.
+		\textcolor{red}{(3)} If you have not yet registered, click on "Need an account?" to navigate to the account registration.
 		\begin{figure}[H]
 			\includegraphics[width=\textwidth]{../images/UserManual/login.PNG}
 			\caption{Login Page}
 		\end{figure}				
 		
-	\subsubsection{Account Registration}
-		\textcolor{red}{(1)} If you do not yet have an account, enter your email, the username you'd like to be known by, and your password (twice) and click the ``Sign Up'' button.
+	\subsection{Account Registration}
+		\textcolor{red}{(1)} If you do not yet have an account, enter your email, the username you'd like to be known by, and your password (twice) and click the "Sign Up" button.
 		\newline
-		\textcolor{red}{(2)} If you already have an account and would like to log in, click on ``Have an Account?'' to navigate to the user login.
+		\textcolor{red}{(2)} If you already have an account and would like to log in, click on "Have an Account?" to navigate to the user login.
 		\newline
 		\begin{figure}[H]
 			\includegraphics[width=\textwidth]{../images/UserManual/registration.PNG}
 			\caption{Registration Page}
 		\end{figure}
 		
-	\subsection{Main Site}
-	\subsubsection{Navbar}
+\section{Main Site}
+	\subsection{Navbar}
 	All pages on the main site will display the navbar at the top.
-		\paragraph{Actions}
+		\subsubsection{User Actions}
 		\textcolor{red}{(1)} To access your user actions, click on your username at the right of the navbar. From here, you can either navigate to your profile or log out.
 		\begin{figure}[H]
 			\includegraphics[width=\textwidth]{../images/UserManual/navbar-user-actions.PNG}
 			\caption{Navbar User Actions}
 		\end{figure}
-
-\section{Using the System}
-	\subsection{Dashboard}
-	The Dashboard provides a quick summary of everything you've been working on. From here, you can see how many plants and Plant Boxes you have, your score, as well as a timeline of your recent activity.
-	\begin{figure}[H]
-		\includegraphics[width=\textwidth]{../images/UserManual/timeline.png}
-		\caption{Dashboard Timeline}
-	\end{figure}
-
+		
 	\subsection{Plants}
-	To access your plants, click on ``Plants'' in the sidebar. This page will display a summary of all your current plants.
+	To access your plants, click on "Plants" in the sidebar. This page will display a summary of all your current plants.
 	\newline
-	\textcolor{red}{(1)} To add a new plant, click on the ``Create New Plant'' button on the top right. See \hyperref[sec:creating-a-plant]{Creating a Plant} for more information.
+	\textcolor{red}{(1)} To add a new plant, click on the "Create New Plant" button on the top right. See \hyperref[sec:creating-a-plant]{Creating a Plant} for more information.
 	\newline
-	\textcolor{red}{(2)} To view more information or change some of the details for a specific plant, click on ``View Details'' for the plant of your choice. See \hyperref[sec:plant-details]{Plant Details} for more information.
+	\textcolor{red}{(2)} To view more information or change some of the details for a specific plant, click on "View Details" for the plant of your choice. See \hyperref[sec:plant-details]{Plant Details} for more information.
 	\begin{figure}[H]
 		\includegraphics[width=\textwidth]{../images/UserManual/plants.PNG}
 		\caption{Plants View}
@@ -230,7 +250,7 @@ aws s3 cp app s3://website.com --recursive --exclude "*.log"
 		
 		\subsubsection{Creating a Plant}
 		\label{sec:creating-a-plant}
-		To create a plant, enter the plant's unique details and then click on ``Create''.
+		To create a plant, enter the plant's unique details and then click on "Create".
 		\begin{figure}[H]
 			\includegraphics[width=\textwidth]{../images/UserManual/create-plant.PNG}
 			\caption{Creating a Plant}
@@ -240,14 +260,12 @@ aws s3 cp app s3://website.com --recursive --exclude "*.log"
 	\label{sec:plant-details}
 	From here you can get an overview of all of your plant's details.
 	\newline
-	\textcolor{red}{(1)} To update plant details such as the plant's name or category, make your desired changes and then click the ``Update'' button.
+	\textcolor{red}{(1)} To update plant details such as the plant's name or category, make your desired changes and then click the "Update" button.
 	\newline
-	\textcolor{red}{(2)} If you'd like to delete your plant, click on the red ``Delete'' button. \textbf{This is permanent}, so be careful.
+	\textcolor{red}{(2)} If you'd like to delete your plant, click on the red "Delete" button. \textbf{This is permanent}, so be careful.
 	\begin{figure}[H]
 		\includegraphics[width=\textwidth]{../images/UserManual/plant-details.PNG}
 		\caption{Plant Details}
 	\end{figure}
-
-\section{Troubleshooting}
 
 \end{document}
