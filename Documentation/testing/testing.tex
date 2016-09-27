@@ -1,14 +1,19 @@
 \documentclass{article}
 
-\usepackage{lipsum}
-\usepackage[margin=2cm, left=2cm, includefoot]{geometry}
+\usepackage[margin=4cm, includefoot]{geometry}
 \usepackage{graphicx}
 \usepackage{float}
-\usepackage{hyperref}
+\usepackage[hidelinks]{hyperref}
+
+% Paragraph formatting
+\usepackage{indentfirst}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
 
 % Header and footer
 \usepackage{fancyhdr}
 \pagestyle{fancy}
+\setcounter{secnumdepth}{4}
 
 \rhead{}
 \lhead{}
@@ -16,6 +21,7 @@
 \fancyfoot[R]{\thepage}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
+%enewcommand{\footrulewidth}{0pt}
 %
 
 \begin{document}
@@ -57,230 +63,685 @@
 
 \section{Introduction}
 	In order to test our system, we need to do unit tests, integration and system tests and performance and stress tests. There are two main halves, namely the back end and front end.
-
-\section{IoT Back End}
-	\subsection{Test Plan}
-		In order to fully test the IoT back end component of the project, we need to ensure that a number of connections are in place and are working as expected:
+	
+	\subsection{Purpose}
+	
+	\subsection{Scope}
+		
+	\subsection{Test Environment}
+	
+		The properties of the testing environment are as follows:
 		\begin{itemize}
-			\item{From the device to IoT}
-			\item{From IoT to Lambda}
-			\item{From Lambda to DynamoDB}
-			\\
-			\item{From API Gateway to Lambda}
-			\item{From Lambda to the device's shadow via IoT}
-			\item{From the shadow to the device}
+			\item Programming Languages:
+				\begin{itemize}
+					\item Java
+					\item NodeJS
+					\item AngularJS
+					\item JavaScript
+					\item HTML5
+				\end{itemize}
+			\item Testing Frameworks:
+				\begin{itemize}
+					\item JUnit
+					\item Mockito
+					\item Spring (dependency injection)
+					\item Travis (integration)
+					\item Karma
+					\item Protractor
+				\end{itemize}
+			\item Coding Environments:
+				\begin{itemize}
+					\item IntelliJ IDEA
+					\item AWS Lambda Inline Console
+					\item Arduino IDE
+				\end{itemize}
+			\item Operating System:
+				\begin{itemize}
+					\item Java Virtual Machine (JVM)
+					\item OS not known
+				\end{itemize}
+			\item Internet Browsers:
+				\begin{itemize}
+					\item Internet Explorer
+					\item Firefox
+					\item Chrome
+					\item Opera
+					\item Safari
+				\end{itemize}
+		\end{itemize}
+	
+	\subsection{Assumptions and Dependencies}
+		During testing, it is assumed that:
+		\begin{itemize}
+			\item A reliable internet connection is established and used
+			\item The AWS services are up and running
+			\item The device used for testing is configured and connected to the internet
 		\end{itemize}
 		
-		These connections are made up of the device (Arduino), IoT, Lambda and the API Gateway. Each of these parts must be tested individually and then together as a whole. This will be laid out in the sections below.
-		
-		Currently, there is no automated processes to test the use cases below, and the testing has to be done manually. The test are performed whenever a change is made to the respective subsystem, so the testing is done during development and not on a separate schedule. Later on in development, the tests will be automated.
-	\subsection{Scope}
-		 The scope of this section of the testing encompasses the above mentioned parts and how they interoperate. This includes the following subsystems and use-cases:
-		 \begin{itemize}
-		 	\item Plant/Device Management
-				\begin{itemize}
-					\item Edit Plant Configuration/Settings
-				\end{itemize}
-		 	\item Device Communications
-			 	\begin{itemize}
-			 		\item Send Updated Settings/Configuration to Device
-			 		\item Send Readings Summary to Lambda
-			 	\end{itemize}
-		 \end{itemize}
-		 
-	\subsection{Testing Strategy}
-		\subsubsection{Unit Testing}
-			\textbf{Device Mocking:}
-			In order to test the functionality of the device, we have created a mock device using the AWS IoT Device SDK for JavaScript, and have coded the mock device using NodeJS. The mock device is not currently handled by a testing environment and has to be managed manually via the terminal. The mock device makes use of npm to retrieve the AWS IoT Device SDK for JavaScript so that the mock device can connect to IoT.
-			\begin{itemize}
-				\item Pre-conditions:
-					\begin{itemize}
-						\item The device should have the correct certificates created and linked
-						\item A corresponding thing should have been created on IoT for the device
-					\end{itemize}
-				\item The device should connect
-				\item The device should send an update message
-				\item The device should listen for a response
-				\item The device should retrieve any shadow updates from IoT
-				\item Post-conditions:
-					\begin{itemize}
-						\item The device should have connected successfully
-						\item The package should have been delivered 
-						\item Any shadow updates should have been applied ot the device
-					\end{itemize}
-			\end{itemize}
-			
-			\textbf{IoT rule test:}
-			\\
-			When the mock device test is run, it will send an MQTT message to the IoT platform. From here, we can check whether the device shadow has been updated and if the rule has been triggered. If the shadow is updated, then the connection was successful. If the connection was successful but the rule was not triggered, then the rule is not working. We still need to automate this process. Because IoT is on the AWS servers, there is not (so far as we are aware) any testing framework that can trigger and test this use case, and the test has to be performed manually.
-			\begin{itemize}
-				\item Pre-conditions:
-				\begin{itemize}
-					\item A test thing must have been created
-					\item An IoT rule that corresponds to the test thing must have been created
-				\end{itemize}
-				\item An MQTT message should be sent on the corresponding topic to the rule.
-				\item The rule should react to the topic
-				\item Post-conditions:
-				\begin{itemize}
-					\item The rule has been executed
-				\end{itemize}
-			\end{itemize}
-			
-			\textbf{Lambda Function Test:}
-			\\
-			The AWS Lambda console has testing integrated into the platform. We have written a test package to send to Lambda that simulates the messages sent from an IoT device through an IoT rule. The test runs a mock DynamoDB database and will return if the test was successful or not. We can also use the logging feature to check the test results. We still need to automate this process.
-			\begin{itemize}
-				\item Pre-conditions:
-				\begin{itemize}
-					\item The Lambda function has been created
-					\item A test case has been written and stored in the integrated testing component of AWS Lambda
-				\end{itemize}
-				\item The test case is run using the AWS Lambda testing interface on the Lambda console
-				\item Post-conditions:
-				\begin{itemize}
-					\item The Lambda function should have run
-				\end{itemize}
-			\end{itemize}
-			
-			\textbf{API Gateway and Thing Shadows:}
-			\\
-			Because we have not yet implemented the thing shadow interface and functionality, there is no testing for the API Gateway connection or thing shadow yet.
-			
-			\subsubsection{System and Integration Testing}
-			\begin{itemize}
-				\item{Communication between a device and IoT}
-					\begin{itemize}
-						\item Pre-conditions: 
-						\begin{itemize}
-							\item A device exists and is connected to the internet
-							\item A thing has been created that relates to the device
-							\item The device has the correct credentials
-							\item There is an IoT rule subscribed to the topic related for the thing
-						\end{itemize}
-						\item The device should be able to send a message to IoT
-						\item IoT should be able to pick up the message and fire a rule
-						\item IoT should be able to change the shadow of the thing
-						\item The thing shadow should update the device
-						\item Post-conditions:
-						\begin{itemize}
-							\item An IoT rule has been fired by the device
-							\item The thing shadow has been updated
-							\item The device is synchronised with the thing shadow
-						\end{itemize}
-					\end{itemize}
-				\item{Communication between IoT and Lambda}
-				\begin{itemize}
-					\item Pre-conditions: 
-					\begin{itemize}
-						\item There is an IoT rule that triggers a Lambda function
-						\item The Lambda function that is to be triggered exists
-					\end{itemize}
-					\item An IoT rule should be able to be triggered
-					\item The rule should be able to trigger a Lambda function
-					\item The data from the rule should be sent to the Lambda function 
-					\item The Lambda function should receive the data from the rule
-					\item The Lambda function should execute correctly
-					\item Post-conditions:
-					\begin{itemize}
-						\item An IoT rule triggers a Lambda function
-						\item Data is sent from an IoT rule to a Lambda function
-						\item A Lambda function retrieves data from an IoT rule
-					\end{itemize}
-				\end{itemize}
-				
-				\item{Communication between Lambda and DynamoDB}
-				\begin{itemize}
-					\item Pre-conditions: 
-					\begin{itemize}
-						\item There is a Lambda function that uses DynamoDB
-					\end{itemize}
-					\item A Lambda function is triggered
-					\item The Lambda function saves an item in a DynamoDB table
-					\item The Lambda function correctly retrieves a saved item
-					\item Post-conditions:
-					\begin{itemize}
-						\item An item is saved in a DynamoDB table from a Lambda function
-						\item An item is retrieved by a Lambda function from DynamoDB
-					\end{itemize}
-				\end{itemize}
-			\end{itemize}
-			
-			\subsubsection{Performance and Stress Testing}
-			There is no testing for performance or stress testing as of yet.
+		The testing requires the following dependencies:
+		\begin{itemize}
+			\item AWS SDK
+		\end{itemize}
+
 \newpage
 
-\section{Front End}
-	\subsection{Test Plan}
-	The focus of front-end tests will be to ensure that all AngularJS components integrate correctly with their dependant components, as well as with the Java backend (which in turn will communicate with the AWS services). \href{http://www.protractortest.org/#/}{Protractor} will be used for end-to-end (e2e) integration tests, and \href{https://karma-runner.github.io/1.0/index.html}{Karma} will be used for unit testing each Angular component. Integration tests form the backbone of any frontend system and will be as extensive and complete as possible. User scenarios will be simulated and run via Protractor to test all possible user interaction. Unit tests will be run on all critical frontend components.
-	
-	Test creation will form part of the daily design and implementation workflow. It is not a separate "phase" - as soon as new functionality is added or changed, accompanying tests should be created and executed. If a bug or error is detected outside of testing, the error or bug will be immediately fixed and an accompanying test will be added. Test automation will be implemented to ensure that all tests are executed every time a new commit is made. 
+\section{Test Items}
+	\subsection{Functional Features to be Tested}
+		\begin{itemize}
+			\item Database Management
+				 \begin{itemize}
+				 	\item Persist to Database
+				 	\item Query Database
+				 	\item Remove from Database
+				 \end{itemize}
+			\item User Management Subsystem
+				\begin{itemize}
+					\item Register User
+					\item Login
+					\item Create User Session
+					\item Logout
+					\item Terminate Session
+					\item Update User
+				\end{itemize}
+			\item Plant/Device Management Subsystem
+				\begin{itemize}
+					\item Create Plant
+					\item Delete Plant
+					\item List Plants
+					\item View Plant
+					\item Subscribe to Topic
+					\item Update Plant
+					\item Create Thing
+					\item Configure Lights
+					\item Configure Pump
+					\item Configure Fan
+				\end{itemize}
+			\item Device Communications Subsystem
+				\begin{itemize}
+					\item Update Thing Shadow
+					\item Update Web Interface
+				\end{itemize}
+		\end{itemize}
+	\subsection{Non-Functional Features to be Tested}
+		\begin{itemize}
+			\item Usability
+		\end{itemize}
 		
-	\subsection{Test Scenarios}
-		\subsubsection{Unit Testing}
-			\textit{Unit tests will only be written for critical frontend components if the need arises}
-		\subsubsection{Integration (end-to-end) Testing}
-			Basic application necessities:			
+\section{Test Cases}
+	\subsection{Database Management}
+		\subsubsection{Persist to Database}
+			\textbf{Pre-conditions:}
 			\begin{itemize}
-				\item Application should have a title
-				\item Application should not allow a user unauthorised access to the site
+				\item DynamoDB is running
+				\item The correct table(s) have been created
 			\end{itemize}
-			Landing Page:
+			\textbf{Post-conditions:}
 			\begin{itemize}
-			 \item \textit{Pre-conditions:} 
-				\begin{itemize}
-					\item User accesses web application via frontend
-					\item User is not logged in
-				\end{itemize}
+				\item A new entry has been entered into the correct table in the database
 			\end{itemize}
-			\begin{itemize}
-				\item Login
+			
+			\paragraph{Condition: Correct Key Fields and Unique Keys}
+				\subparagraph{Objective}
+					To test if data is persisted to the database if the correct key fields have been filled in (minimum requirements for an insertion) and a unique key pair is given.
 				
-				\begin{itemize}
-					\item \textit{Pre-conditions:}
+				\subparagraph{Input}
 					\begin{itemize}
-						\item User must not be logged in
-						\item User must already have an account
+						\item Table Name: "testTable"
+						\item Key1 Value: "uniqueKey1"
+						\item Key2 Value: "uniqueKey2"
 					\end{itemize}
-					\item \textit{Post-conditions:}
-					\begin{itemize}
-						\item User must be logged in
-					\end{itemize}						 
-					\item User should be able to switch to registration form if they do not have an account
-					\item User should be able to log in if they have entered the correct credentials and be redirected to the main site dashboard
-					\item User should not be logged in if they enter no credentials or the incorrect credentials and an appropriate error message should be displayed
+				
+				\subparagraph{Outcome}
+					A new record is created in the "testTable" table with the correct keys.
+			
+			\paragraph{Condition: Correct Key Fields but Non-Unique Keys}	
+				\subparagraph{Objective}
+					To test if data is persisted to the database if the correct key fields have been filled in (minimum requirements for an insertion) but a non-unique key pair is given.
 					
+				\subparagraph{Input}
+					\begin{itemize}
+						\item Table Name: "testTable"
+						\item Key1 Value: "nonUniqueKey1"
+						\item Key2 Value: "nonUniqueKey2"
+					\end{itemize}
+					
+				\subparagraph{Outcome}
+					No new record is created in the "testTable".
+				
+			\paragraph{Condition: Not All Key Fields Given}
+				\subparagraph{Objective}
+					To test if data is persisted to the database if the correct key fields have not been filled in (minimum requirements for an insertion).
+					
+				\subparagraph{Input}
+				\begin{itemize}
+					\item Table Name: "testTable"
+					\item Key1 Value: "uniqueKey1"
+					\item Key2 Value: none
 				\end{itemize}
 				
-				\item Registration
-				\begin{itemize}
-					\item \textit{Pre-conditions:}
-					\begin{itemize}
-						\item User must not be logged in
-						\item User must have navigated to the registration form
-						\item User must not have an account
-						\item User's email or username must not already be in use
-					\end{itemize}
-					\item \textit{Post-conditions:}
-					\begin{itemize}
-						\item User must have an account registered on the system backend
-						\item User must be logged in
-					\end{itemize}
-					\item User should be able to switch to the login form if they already have an account
-					\item User should have their details saved in the backend and be automatically logged in if they have entered all their details and their details are not already on the system
-					\item User should not have their details registered if they do not enter all the required information or if their username or email is already on the system
-				\end{itemize}				 
-			\end{itemize}
-			Main site:
+				\subparagraph{Outcome}
+					No new record is created in the "testTable" table.
+			
+		\subsubsection{Query Database}
+			\textbf{Pre-conditions:}
 			\begin{itemize}
-				\item Navbar
+				\item DynamoDB is running
+				\item The correct table(s) have been created
+				\item There is a record created in the table
+			\end{itemize}
+			\textbf{Post-conditions:}
+			\begin{itemize}
+				\item One or more records is retrieved from the database
+			\end{itemize}
+			
+			\paragraph{Condition: Authorised Role}
+				\subparagraph{Objective}
+					To test if data can be retrieved from the database via a query using the correct permission role
+				
+				\subparagraph{Input}
+					\begin{itemize}
+						\item Table Name: "testTable"
+						\item Key1 Value: "key1"
+						\item Key2 Value: "key2"
+						\item Role: "databaseQueryRole"
+					\end{itemize}
+			
+				\subparagraph{Outcome}
+					A record with the same key values as the input is retrieved from the database.
+			
+			\paragraph{Condition: Unauthorised Role}
+				\subparagraph{Objective}
+					To test if data can be retrieved from the database via a query using an incorrect permission role
+				
+				\subparagraph{Input}
+					\begin{itemize}
+						\item Table Name: "testTable"
+						\item Key1 Value: "key1"
+						\item Key2 Value: "key2"
+						\item Role: "generalRole"
+					\end{itemize}
+				
+				\subparagraph{Outcome}
+					No record is retrieved from the database.
+		
+		\subsubsection{Remove from Database}
+			\textbf{Pre-conditions:}
+			\begin{itemize}
+				\item DynamoDB is running
+				\item The correct table(s) have been created
+				\item There is a record created in the table
+			\end{itemize}
+			\textbf{Post-conditions:}
+			\begin{itemize}
+				\item A record is removed from the database
+			\end{itemize}
+			
+			\paragraph{Condition: Authorised Role}
+				\subparagraph{Objective}
+					To test if data can be deleted from the database via a query using the correct permission role
+				
+				\subparagraph{Input}
 				\begin{itemize}
-					\item \textit{Pre-conditions:}
+					\item Table Name: "testTable"
+					\item Key1 Value: "key1"
+					\item Key2 Value: "key2"
+					\item Role: "databaseDeleteRole"
+				\end{itemize}
+				
+				\subparagraph{Outcome}
+					A record with the same key values as the input is deleted from the database.
+				
+				\paragraph{Condition: Unauthorised Role}
+				\subparagraph{Objective}
+					To test if data can be deleted from the database via a query using an incorrect permission role
+				
+				\subparagraph{Input}
+				\begin{itemize}
+					\item Table Name: "testTable"
+					\item Key1 Value: "key1"
+					\item Key2 Value: "key2"
+					\item Role: "generalRole"
+				\end{itemize}
+				
+				\subparagraph{Outcome}
+				No record is deleted from the database
+	
+	\subsection{User Management}
+		\subsubsection{Register User}
+			\textbf{Pre-conditions:}
+			\begin{itemize}
+				\item AWS is up and running
+			\end{itemize}
+			\textbf{Post-conditions:}
+			\begin{itemize}
+				\item A new user is registered and logged in to the system
+			\end{itemize}
+			
+			\paragraph{Condition: Unique User Name Email Provided}
+			\subparagraph{Objective}
+				To test if a new user can be registered using a unique user name email address.
+				
+			\subparagraph{Input}
+			\begin{itemize}
+				\item Email Address: "unique@email.com"
+				\item User Name: "UniqueUser"
+				\item Password: "pass123"
+			\end{itemize}
+			
+			\subparagraph{Outcome}
+				A new user is created and logged into the system.
+		
+		\subsubsection{Login}
+		\textbf{Pre-conditions:}
+		\begin{itemize}
+			\item 
+		\end{itemize}
+		\textbf{Post-conditions:}
+		\begin{itemize}
+			\item 
+		\end{itemize}
+		
+		\paragraph{Condition: }
+		\subparagraph{Objective}
+		
+		\subparagraph{Input}
+		\begin{itemize}
+			\item 
+		\end{itemize}
+		
+		\subparagraph{Outcome}
+		
+		\subsubsection{Create User Session}
+		\textbf{Pre-conditions:}
+		\begin{itemize}
+			\item 
+		\end{itemize}
+		\textbf{Post-conditions:}
+		\begin{itemize}
+			\item 
+		\end{itemize}
+		
+		\paragraph{Condition: }
+		\subparagraph{Objective}
+		
+		\subparagraph{Input}
+		\begin{itemize}
+			\item 
+		\end{itemize}
+		
+		\subparagraph{Outcome}
+		
+		\subsubsection{Logout}
+		\textbf{Pre-conditions:}
+		\begin{itemize}
+			\item 
+		\end{itemize}
+		\textbf{Post-conditions:}
+		\begin{itemize}
+			\item 
+		\end{itemize}
+		
+		\paragraph{Condition: }
+		\subparagraph{Objective}
+		
+		\subparagraph{Input}
+		\begin{itemize}
+			\item 
+		\end{itemize}
+		
+		\subparagraph{Outcome}
+		
+		\subsubsection{Terminate Session}
+		\textbf{Pre-conditions:}
+		\begin{itemize}
+			\item 
+		\end{itemize}
+		\textbf{Post-conditions:}
+		\begin{itemize}
+			\item 
+		\end{itemize}
+		
+		\paragraph{Condition: }
+		\subparagraph{Objective}
+		
+		\subparagraph{Input}
+		\begin{itemize}
+			\item 
+		\end{itemize}
+		
+		\subparagraph{Outcome}
+		
+		\subsubsection{Update User}
+		\textbf{Pre-conditions:}
+		\begin{itemize}
+			\item 
+		\end{itemize}
+		\textbf{Post-conditions:}
+		\begin{itemize}
+			\item 
+		\end{itemize}
+		
+		\paragraph{Condition: }
+		\subparagraph{Objective}
+		
+		\subparagraph{Input}
+		\begin{itemize}
+			\item 
+		\end{itemize}
+		
+		\subparagraph{Outcome}
+		
+	
+	\subsection{Plant Management}
+		\subsubsection{Create Plant}
+		
+		\textbf{Pre-conditions:}
+		\begin{itemize}
+			\item The user should be logged in
+			\item The plant's name should not be null
+			\item The plant's type should not be null
+			\item The plant's age should not be null
+			\item An IoT device should be selected to be associated with the plant
+		\end{itemize}
+		\textbf{Post-conditions:}
+		\begin{itemize}
+			\item The plant should be assigned a unique identifier
+			\item It should be associated with a particular user
+			\item An IoT device ID should be associated with the plant
+			\item The plant should be persisted in the database with all the above information
+		\end{itemize}
+			
+		\paragraph{Condition: Authenticated}
+		\subparagraph{Objective}
+		Test that a plant can be added while the user is authenticated.
+		
+		\subparagraph{Input}
+		\begin{itemize}
+			\item Username: "TestUser"
+			\item Plant name: "TestPlant"
+			\item Plant type: "TestType"
+			\item Plant age: 0
+			\item Colour: "Red"
+		\end{itemize}
+		
+		\subparagraph{Outcome}
+		A plant is created.
+		
+		\paragraph{Condition: Not Authenticated}
+		\subparagraph{Objective}
+		Test that a plant cannot be added when the user is not authenticated.
+		
+		\subparagraph{Input}
+		\begin{itemize}
+			\item Username: "FakeTestUser"
+			\item Plant name: "TestPlant"
+			\item Plant type: "TestType"
+			\item Plant age: 0
+			\item Colour: "Red"
+		\end{itemize}
+		
+		\subparagraph{Outcome}
+		A plant is not created.
+		
+		\subsubsection{Delete Plant}
+		
+		\textbf{Pre-conditions:}
+		\begin{itemize}
+			\item The user should be logged in
+			\item A particular plant should be selected
+			\item The user should be the owner of the plant
+		\end{itemize}
+		\textbf{Post-conditions:}
+		\begin{itemize}
+			\item The plant's entry should be removed from the database
+			\item Any information related to the plant must also be removed from the relevant tables
+		\end{itemize}
+		
+		\paragraph{Condition: Authenticated}
+		\subparagraph{Objective}
+		Test that a plant can be deleted while the user is authenticated.
+		
+		\subparagraph{Input}
+		\begin{itemize}
+			\item Username: "TestUser"
+			\item Plant ID: 1
+		\end{itemize}
+		
+		\subparagraph{Outcome}
+		The plant is deleted.
+		
+		\paragraph{Condition: Not Authenticated}
+		\subparagraph{Objective}
+		Test that a plant cannot be deleted when the user is not authenticated.
+		
+		\begin{itemize}
+			\item Username: "TestFakeUser"
+			\item Plant ID: 1
+		\end{itemize}
+		
+		\subparagraph{Outcome}
+		A plant is not deleted.
+		
+	\subsection{Front End}
+		\subsubsection{Test Plan}
+		The focus of front-end tests will be to ensure that all AngularJS components integrate correctly with their dependant components, as well as with the Java backend (which in turn will communicate with the AWS services). \href{http://www.protractortest.org/#/}{Protractor} will be used for end-to-end (e2e) integration tests, and \href{https://karma-runner.github.io/1.0/index.html}{Karma} will be used for unit testing each Angular component. Integration tests form the backbone of any frontend system and will be as extensive and complete as possible. User scenarios will be simulated and run via Protractor to test all possible user interaction. Unit tests will be run on all critical frontend components.
+		
+		Test creation will form part of the daily design and implementation workflow. It is not a separate "phase" - as soon as new functionality is added or changed, accompanying tests should be created and executed. If a bug or error is detected outside of testing, the error or bug will be immediately fixed and an accompanying test will be added. Test automation will be implemented to ensure that all tests are executed every time a new commit is made. 
+			
+		\subsubsection{Test Scenarios}
+			\paragraph{Unit Testing}
+				\textit{Unit tests will only be written for critical frontend components if the need arises}
+			\paragraph{Integration (end-to-end) Testing}
+				Basic application necessities:			
+				\begin{itemize}
+					\item Application should have a title
+					\item Application should not allow a user unauthorised access to the site
+				\end{itemize}
+				Landing Page:
+				\begin{itemize}
+				 \item \textit{Pre-conditions:} 
+					\begin{itemize}
+						\item User accesses web application via frontend
+						\item User is not logged in
+					\end{itemize}
+				\end{itemize}
+				\begin{itemize}
+					\item Login
+					
+					\begin{itemize}
+						\item \textit{Pre-conditions:}
+						\begin{itemize}
+							\item User must not be logged in
+							\item User must already have an account
+						\end{itemize}
+						\item \textit{Post-conditions:}
 						\begin{itemize}
 							\item User must be logged in
+						\end{itemize}						 
+						\item User should be able to switch to registration form if they do not have an account
+						\item User should be able to log in if they have entered the correct credentials and be redirected to the main site dashboard
+						\item User should not be logged in if they enter no credentials or the incorrect credentials and an appropriate error message should be displayed
+						
+					\end{itemize}
+					
+					\item Registration
+					\begin{itemize}
+						\item \textit{Pre-conditions:}
+						\begin{itemize}
+							\item User must not be logged in
+							\item User must have navigated to the registration form
+							\item User must not have an account
+							\item User's email or username must not already be in use
 						\end{itemize}
-					\item If the user clicks "Logout", the user's credentials are immediately discarded and the user is redirected back to the landing page. \textit{Postcondition: The user is logged out and cannot access the site anymore}
+						\item \textit{Post-conditions:}
+						\begin{itemize}
+							\item User must have an account registered on the system backend
+							\item User must be logged in
+						\end{itemize}
+						\item User should be able to switch to the login form if they already have an account
+						\item User should have their details saved in the backend and be automatically logged in if they have entered all their details and their details are not already on the system
+						\item User should not have their details registered if they do not enter all the required information or if their username or email is already on the system
+					\end{itemize}				 
 				\end{itemize}
+				Main site:
+				\begin{itemize}
+					\item Navbar
+					\begin{itemize}
+						\item \textit{Pre-conditions:}
+							\begin{itemize}
+								\item User must be logged in
+							\end{itemize}
+						\item If the user clicks "Logout", the user's credentials are immediately discarded and the user is redirected back to the landing page. \textit{Postcondition: The user is logged out and cannot access the site anymore}
+					\end{itemize}
+				\end{itemize}
+	
+	\subsection{Device Communications}
+	\subsubsection{Test Plan}
+	In order to fully test the IoT back end component of the project, we need to ensure that a number of connections are in place and are working as expected:
+	\begin{itemize}
+		\item{From the device to IoT}
+		\item{From IoT to Lambda}
+		\item{From Lambda to DynamoDB}
+		\\
+		\item{From API Gateway to Lambda}
+		\item{From Lambda to the device's shadow via IoT}
+		\item{From the shadow to the device}
+	\end{itemize}
+	
+	These connections are made up of the device (Arduino), IoT, Lambda and the API Gateway. Each of these parts must be tested individually and then together as a whole. This will be laid out in the sections below.
+	
+	Currently, there is no automated processes to test the use cases below, and the testing has to be done manually. The test are performed whenever a change is made to the respective subsystem, so the testing is done during development and not on a separate schedule. Later on in development, the tests will be automated.
+	\subsubsection{Scope}
+	The scope of this section of the testing encompasses the above mentioned parts and how they interoperate. This includes the following subsystems and use-cases:
+	\begin{itemize}
+		\item Device Communications
+		\begin{itemize}
+			\item Update Thing Shadow
+			\item Update Web Interface
+		\end{itemize}
+	\end{itemize}
+	
+	\subsubsection{Testing Strategy}
+	\paragraph{Unit Testing}
+	\subparagraph{Device Mocking:}
+	In order to test the functionality of the device, we have created a mock device using the AWS IoT Device SDK for JavaScript, and have coded the mock device using NodeJS. The mock device is not currently handled by a testing environment and has to be managed manually via the terminal. The mock device makes use of npm to retrieve the AWS IoT Device SDK for JavaScript so that the mock device can connect to IoT.
+	\begin{itemize}
+		\item Pre-conditions:
+		\begin{itemize}
+			\item The device should have the correct certificates created and linked
+			\item A corresponding thing should have been created on IoT for the device
+		\end{itemize}
+		\item The device should connect
+		\item The device should send an update message
+		\item The device should listen for a response
+		\item The device should retrieve any shadow updates from IoT
+		\item Post-conditions:
+		\begin{itemize}
+			\item The device should have connected successfully
+			\item The package should have been delivered 
+			\item Any shadow updates should have been applied ot the device
+		\end{itemize}
+	\end{itemize}
+	
+	\subparagraph{IoT rule test:}
+	When the mock device test is run, it will send an MQTT message to the IoT platform. From here, we can check whether the device shadow has been updated and if the rule has been triggered. If the shadow is updated, then the connection was successful. If the connection was successful but the rule was not triggered, then the rule is not working. We still need to automate this process. Because IoT is on the AWS servers, there is not (so far as we are aware) any testing framework that can trigger and test this use case, and the test has to be performed manually.
+	\begin{itemize}
+		\item Pre-conditions:
+		\begin{itemize}
+			\item A test thing must have been created
+			\item An IoT rule that corresponds to the test thing must have been created
+		\end{itemize}
+		\item An MQTT message should be sent on the corresponding topic to the rule.
+		\item The rule should react to the topic
+		\item Post-conditions:
+		\begin{itemize}
+			\item The rule has been executed
+		\end{itemize}
+	\end{itemize}
+	
+	\subparagraph{Lambda Function Test:}
+	The AWS Lambda console has testing integrated into the platform. We have written a test package to send to Lambda that simulates the messages sent from an IoT device through an IoT rule. The test runs a mock DynamoDB database and will return if the test was successful or not. We can also use the logging feature to check the test results. We still need to automate this process.
+	\begin{itemize}
+		\item Pre-conditions:
+		\begin{itemize}
+			\item The Lambda function has been created
+			\item A test case has been written and stored in the integrated testing component of AWS Lambda
+		\end{itemize}
+		\item The test case is run using the AWS Lambda testing interface on the Lambda console
+		\item Post-conditions:
+		\begin{itemize}
+			\item The Lambda function should have run
+		\end{itemize}
+	\end{itemize}
+	
+	\subparagraph{API Gateway and Thing Shadows:}
+	Because we have not yet implemented the thing shadow interface and functionality, there is no testing for the API Gateway connection or thing shadow yet.
+	
+	\paragraph{System and Integration Testing}
+	\begin{itemize}
+		\item{Communication between a device and IoT}
+		\begin{itemize}
+			\item Pre-conditions: 
+			\begin{itemize}
+				\item A device exists and is connected to the internet
+				\item A thing has been created that relates to the device
+				\item The device has the correct credentials
+				\item There is an IoT rule subscribed to the topic related for the thing
 			\end{itemize}
+			\item The device should be able to send a message to IoT
+			\item IoT should be able to pick up the message and fire a rule
+			\item IoT should be able to change the shadow of the thing
+			\item The thing shadow should update the device
+			\item Post-conditions:
+			\begin{itemize}
+				\item An IoT rule has been fired by the device
+				\item The thing shadow has been updated
+				\item The device is synchronised with the thing shadow
+			\end{itemize}
+		\end{itemize}
+		\item{Communication between IoT and Lambda}
+		\begin{itemize}
+			\item Pre-conditions: 
+			\begin{itemize}
+				\item There is an IoT rule that triggers a Lambda function
+				\item The Lambda function that is to be triggered exists
+			\end{itemize}
+			\item An IoT rule should be able to be triggered
+			\item The rule should be able to trigger a Lambda function
+			\item The data from the rule should be sent to the Lambda function 
+			\item The Lambda function should receive the data from the rule
+			\item The Lambda function should execute correctly
+			\item Post-conditions:
+			\begin{itemize}
+				\item An IoT rule triggers a Lambda function
+				\item Data is sent from an IoT rule to a Lambda function
+				\item A Lambda function retrieves data from an IoT rule
+			\end{itemize}
+		\end{itemize}
+		
+		\item{Communication between Lambda and DynamoDB}
+		\begin{itemize}
+			\item Pre-conditions: 
+			\begin{itemize}
+				\item There is a Lambda function that uses DynamoDB
+			\end{itemize}
+			\item A Lambda function is triggered
+			\item The Lambda function saves an item in a DynamoDB table
+			\item The Lambda function correctly retrieves a saved item
+			\item Post-conditions:
+			\begin{itemize}
+				\item An item is saved in a DynamoDB table from a Lambda function
+				\item An item is retrieved by a Lambda function from DynamoDB
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+\section{Item Pass/Fail Criteria}
+
+\section{Test Deliverables}
+
+\section{Report}
+
+TODO
+
 
 \end{document}
