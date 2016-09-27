@@ -823,25 +823,28 @@
 			
 			\paragraph{Register User (TC 3.2.1)}
 				\begin{enumerate}
-					\item 
+					\item A new user is registered and logged in when the user provides a unique email address and user name
+					\item A new user is not registered when the user provides a non-unique email address or user name
 				\end{enumerate}
 				\subparagraph{Result: } Pass
 			
 			\paragraph{Login (TC 3.2.2)}
 				\begin{enumerate}
-					\item 
+					\item A user is logged in when they provide the correct login details
+					\item A user is not logged in when they provide incorrect login details and cannot access any page except the login and register pages
 				\end{enumerate}
 				\subparagraph{Result: } Pass
 			
 			\paragraph{Logout (TC 3.2.3)}
 				\begin{enumerate}
-					\item 
+					\item A logged in user is logged out and their session is terminated, allowing them to only access the login and register pages until they log in again
 				\end{enumerate}
 				\subparagraph{Result: } Pass
 			
 			\paragraph{Update User (TC 3.2.4)}
 				\begin{enumerate}
-					\item 
+					\item The user details are updated and persisted in the database when that user is logged in
+					\item The user details are not updated if that user is not logged in
 				\end{enumerate}
 				\subparagraph{Result: } Pass
 			
