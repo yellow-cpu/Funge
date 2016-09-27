@@ -742,6 +742,45 @@
 	\subparagraph{Outcome}
 	The desired state is not updated.
 	
+	\subsubsection{Configure Fan}
+	\textbf{Pre-conditions:}
+	\begin{itemize}
+		\item The user should be logged in
+		\item A particular plant should be selected
+		\item The configuration details should be specified
+	\end{itemize}
+	\textbf{Post-conditions:}
+	\begin{itemize}
+		\item The configuration details should be communicated to and applied on the IoT device
+		\item A response object indicating whether the action was successful should be returned
+	\end{itemize}
+	
+	\paragraph{Condition: Authenticated}
+	\subparagraph{Objective}
+	Test that the fan can be updated when a user is authenticated.
+	\subparagraph{Input}
+	\begin{itemize}
+		\item Username: "TestUser"
+		\item PlantId: 1
+		\item fanSpeed: 10
+	\end{itemize}
+	
+	\subparagraph{Outcome}
+	The desired state is updated to reflect the new fan configuration.
+	
+	\paragraph{Condition: Not Authenticated}
+	\subparagraph{Objective}
+	Test that the fan cannot be updated when a user is not authenticated.
+	\subparagraph{Input}
+	\begin{itemize}
+		\item Username: "TestFakeUser"
+		\item PlantId: 1
+		\item fanSpeed: 10
+	\end{itemize}
+	
+	\subparagraph{Outcome}
+	The desired state is not updated.
+	
 	\subsection{Front End}
 		\subsubsection{Test Plan}
 		The focus of front-end tests will be to ensure that all AngularJS components integrate correctly with their dependant components, as well as with the Java backend (which in turn will communicate with the AWS services). \href{http://www.protractortest.org/#/}{Protractor} will be used for end-to-end (e2e) integration tests, and \href{https://karma-runner.github.io/1.0/index.html}{Karma} will be used for unit testing each Angular component. Integration tests form the backbone of any frontend system and will be as extensive and complete as possible. User scenarios will be simulated and run via Protractor to test all possible user interaction. Unit tests will be run on all critical frontend components.
