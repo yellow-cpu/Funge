@@ -662,7 +662,46 @@
 	\subparagraph{Outcome}
 	The plant details belonging are not updated.
 		
-
+	\subsubsection{Configure Lights}
+	\textbf{Pre-conditions:}
+	\begin{itemize}
+		\item The user should be logged in
+		\item A particular plant should be selected
+		\item An RGB value should be specified
+	\end{itemize}
+	\textbf{Post-conditions:}
+	\begin{itemize}
+		\item The RGB value should be communicated to the device
+		\item The IoT device should subsequently reflect this RGB colour in the wavelengths of the LED strip, if the RGB value was (0, 0, 0) the lights should be turned off
+		\item A response object indicating whether the action was successful should be returned
+	\end{itemize}
+	
+	\paragraph{Condition: Authenticated}
+	\subparagraph{Objective}
+	Test that the lights can be updated when a user is authenticated.
+	\subparagraph{Input}
+	\begin{itemize}
+		\item Username: "TestUser"
+		\item PlantId: 1
+		\item RGB value: (255, 0, 0)
+	\end{itemize}
+	
+	\subparagraph{Outcome}
+	The desired state is updated to reflect the new light configuration.
+	
+	\paragraph{Condition: Not Authenticated}
+	\subparagraph{Objective}
+	Test that the lights cannot be updated when a user is not authenticated.
+	\subparagraph{Input}
+	\begin{itemize}
+		\item Username: "TestFakeUser"
+		\item PlantId: 1
+		\item RGB value: (255, 0, 0)
+	\end{itemize}
+	
+	\subparagraph{Outcome}
+	The desired state is not updated.
+	
 	\subsection{Front End}
 		\subsubsection{Test Plan}
 		The focus of front-end tests will be to ensure that all AngularJS components integrate correctly with their dependant components, as well as with the Java backend (which in turn will communicate with the AWS services). \href{http://www.protractortest.org/#/}{Protractor} will be used for end-to-end (e2e) integration tests, and \href{https://karma-runner.github.io/1.0/index.html}{Karma} will be used for unit testing each Angular component. Integration tests form the backbone of any frontend system and will be as extensive and complete as possible. User scenarios will be simulated and run via Protractor to test all possible user interaction. Unit tests will be run on all critical frontend components.
