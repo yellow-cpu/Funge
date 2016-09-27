@@ -243,34 +243,68 @@
 						\item Table Name: "testTable"
 						\item Key1 Value: "key1"
 						\item Key2 Value: "key2"
+						\item Role: "databaseQueryRole"
 					\end{itemize}
 			
 				\subparagraph{Outcome}
 					A record with the same key values as the input is retrieved from the database.
 			
 			\paragraph{Condition: Unauthorised Role}
+				\subparagraph{Objective}
+					To test if data can be retrieved from the database via a query using an incorrect permission role
+				
+				\subparagraph{Input}
+					\begin{itemize}
+						\item Table Name: "testTable"
+						\item Key1 Value: "key1"
+						\item Key2 Value: "key2"
+						\item Role: "generalRole"
+					\end{itemize}
+				
+				\subparagraph{Outcome}
+					No record is retrieved from the database.
 		
 		\subsubsection{Remove from Database}
 			\textbf{Pre-conditions:}
 			\begin{itemize}
-				\item 
+				\item DynamoDB is running
+				\item The correct table(s) have been created
+				\item There is a record created in the table
 			\end{itemize}
 			\textbf{Post-conditions:}
 			\begin{itemize}
-				\item 
+				\item A record is removed from the database
 			\end{itemize}
 			
-			\paragraph{Condition: }
+			\paragraph{Condition: Authorised Role}
 				\subparagraph{Objective}
-				
+					To test if data can be deleted from the database via a query using the correct permission role
 				
 				\subparagraph{Input}
-					\begin{itemize}
-						\item 
-					\end{itemize}
+				\begin{itemize}
+					\item Table Name: "testTable"
+					\item Key1 Value: "key1"
+					\item Key2 Value: "key2"
+					\item Role: "databaseDeleteRole"
+				\end{itemize}
 				
 				\subparagraph{Outcome}
-		
+					A record with the same key values as the input is deleted from the database.
+				
+				\paragraph{Condition: Unauthorised Role}
+				\subparagraph{Objective}
+					To test if data can be deleted from the database via a query using an incorrect permission role
+				
+				\subparagraph{Input}
+				\begin{itemize}
+					\item Table Name: "testTable"
+					\item Key1 Value: "key1"
+					\item Key2 Value: "key2"
+					\item Role: "generalRole"
+				\end{itemize}
+				
+				\subparagraph{Outcome}
+				No record is deleted from the database
 	
 	\subsection{Plant Management}
 		\subsubsection{Create Plant}
