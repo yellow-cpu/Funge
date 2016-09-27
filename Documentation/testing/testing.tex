@@ -397,36 +397,54 @@
 					\item If the user wishes to access their account and the functionality of the system, they should have to log back into the system
 				\end{itemize}
 			
-			\paragraph{Condition: }
+			\paragraph{Condition: User is logged in}
 				\subparagraph{Objective}
-				
+					To test if the user is logged out (session authorisation removed).
+					
 				\subparagraph{Input}
 					\begin{itemize}
-						\item 
+						\item User Session
 					\end{itemize}
 				
 				\subparagraph{Outcome}
-			
+					The user session is terminated and the user cannot access any page except for the Login and Register pages.
+					
 		\subsubsection{Update User}
-		\textbf{Pre-conditions:}
-		\begin{itemize}
-			\item 
-		\end{itemize}
-		\textbf{Post-conditions:}
-		\begin{itemize}
-			\item 
-		\end{itemize}
+			\textbf{Pre-conditions:}
+				\begin{itemize}
+					\item User must be logged in
+					\item User editing details should be the owner of those details
+				\end{itemize}
+			\textbf{Post-conditions:}
+				\begin{itemize}
+					\item The values of the edited details should be reflected in the database
+				\end{itemize}
 		
-		\paragraph{Condition: }
-		\subparagraph{Objective}
-		
-		\subparagraph{Input}
-		\begin{itemize}
-			\item 
-		\end{itemize}
-		
-		\subparagraph{Outcome}
-		
+			\paragraph{Condition: User is logged in}
+				\subparagraph{Objective}
+					To test if the user details can be edited by the user if the user is logged in.
+					
+				\subparagraph{Input}
+					\begin{itemize}
+						\item User Session
+						\item Update Details Request
+					\end{itemize}
+				
+				\subparagraph{Outcome}
+					The user details are changed in the database and are reflected on the user details page.
+			
+			\paragraph{Condition: User is logged in}
+				\subparagraph{Objective}
+					To test if the user details can be edited by a user if the user is not logged in.
+				
+				\subparagraph{Input}
+					\begin{itemize}
+						\item Bad User Session
+						\item Update Details Request
+					\end{itemize}
+				
+				\subparagraph{Outcome}
+					The user details are not changed in the database.
 	
 	\subsection{Plant Management}
 		\subsubsection{Create Plant}
