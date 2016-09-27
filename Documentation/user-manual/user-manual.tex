@@ -1,14 +1,18 @@
 \documentclass{article}
 
 \usepackage{lipsum}
-\usepackage[margin=4cm, includefoot]{geometry}
+\usepackage[left=4cm, right=4cm, top=2cm, bottom=2cm, includefoot]{geometry}
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{indentfirst}
 \usepackage{listings}
 \usepackage{hyperref}
 \usepackage{color}
-\setcounter{secnumdepth}{4}
+
+% Paragraph formatting
+\usepackage{indentfirst}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
 
 % Header and footer
 \usepackage{fancyhdr}
@@ -52,8 +56,9 @@
 
 \cleardoublepage
 \thispagestyle{empty}
-\tableofcontents
 \input{../version_table.tex}
+\cleardoublepage
+\tableofcontents
 \cleardoublepage
 \setcounter{page}{1}
 
@@ -172,61 +177,8 @@ aws s3 cp app s3://website.com --recursive --exclude "*.log"
 			\end{itemize}		
 
 \section{Getting Started}
-
-\section{Using the System}
-
-\section{Troubleshooting}
-
-\subsection{Web-interface Troubleshooting}
-	The system has been designed to return varying HTTP status codes depending on whether an operation was successful or not. If a user would like to see more detail with regard to these codes they may open the developer console on their preferred browser. However, the system automatically responds to these codes and handles them accordingly.\\
-	
-	The details of these HTTP status codes are listed below:
-	\begin{itemize}
-		\item 200 - Success
-			\begin{itemize}
-				\item This is the code returned when all operations are functioning as expected
-				\item The system should continue without any problems or user intervention
-			\end{itemize}
-		\item 400 - Client Error
-			\begin{itemize}
-				\item This code is associated with bad requests
-				\item A bad request occurs whenever a request fails validation, i.e. when a client formats the request in a manner that the system was not expecting
-				\item This could occur when the user enters incorrect details or when a page is requested that does not exist
-			\end{itemize}
-			\begin{figure}[H]
-				\includegraphics[width=\textwidth]{../images/UserManual/400error.png}
-				\caption{Incorrect User Details Error}
-			\end{figure}
-		\item 500 - Server Error
-			\begin{itemize}
-				\item This occurs when an internal error occurs on the server. The server will attempt to resolve this issue without user intervention as best as possible
-				\item The user may be notified if the error affects them
-				\item Some examples of this error would be:
-				\begin{itemize}
-					\item Inability to create a new user in the database
-					\item Inability to create a new plant or plant box in the database
-					\item Not all the necessary details have been supplied for the creation of a user/plant/plant box
-					\item There is a network error with regard to connecting to the plant box (Note: future functionality will ensure the client continues to retry to connect to the plant box without user intervention)
-				\end{itemize}
-				\item The interface has been designed to ensure all input is validated before being sent through so as to minimise the possibility of these errors occurring
-			\end{itemize}
-			\begin{figure}[H]
-				\includegraphics[width=\textwidth]{../images/UserManual/500error.png}
-				\caption{Error Establishing Connection to Plant Box}
-			\end{figure}
-	\end{itemize}
-
-	In conclusion the user will be notified of any errors which they may need to address with detailed descriptions via the interface when the system is unable to handle them itself.
-	
-	\subsection{Plant Box Troubleshooting}
-		\subsubsection{Problem: Published messages are not being received}
-			\paragraph{Message formatting may be incorrect}
-				Ensure that the messages being passed to 
-			\paragraph{MQTT client may be disconnected}
-				
-		
-\section{Landing Page}
-	\subsection{Logging in}
+	\subsection{Landing Page}
+	\subsubsection{Logging in}
 		\textcolor{red}{(1)} The first page you'll encounter is the login page. If you already have an account, enter your username and password in the appropriate blocks and click "Sign In".
 		\newline
 		\textcolor{red}{(2)} If you'd like to find out more about A World of Plants, you can scroll down to our information page. Scroll back up when you're ready to login or register.
@@ -237,7 +189,7 @@ aws s3 cp app s3://website.com --recursive --exclude "*.log"
 			\caption{Login Page}
 		\end{figure}				
 		
-	\subsection{Account Registration}
+	\subsubsection{Account Registration}
 		\textcolor{red}{(1)} If you do not yet have an account, enter your email, the username you'd like to be known by, and your password (twice) and click the "Sign Up" button.
 		\newline
 		\textcolor{red}{(2)} If you already have an account and would like to log in, click on "Have an Account?" to navigate to the user login.
@@ -247,16 +199,24 @@ aws s3 cp app s3://website.com --recursive --exclude "*.log"
 			\caption{Registration Page}
 		\end{figure}
 		
-\section{Main Site}
-	\subsection{Navbar}
+\subsection{Main Site}
+	\subsubsection{Navbar}
 	All pages on the main site will display the navbar at the top.
-		\subsubsection{User Actions}
+		\paragraph{User Actions}
 		\textcolor{red}{(1)} To access your user actions, click on your username at the right of the navbar. From here, you can either navigate to your profile or log out.
 		\begin{figure}[H]
 			\includegraphics[width=\textwidth]{../images/UserManual/navbar-user-actions.PNG}
 			\caption{Navbar User Actions}
 		\end{figure}
-		
+
+\section{Using the System}
+	\subsection{Dashboard}
+	The Dashboard provides a quick summary of your activities through a timeline, as well as info about your plants, Plant Boxes and score.
+	\begin{figure}[H]
+		\includegraphics[width=\textwidth]{../images/UserManual/timeline.png}
+		\caption{User Timeline}
+	\end{figure}
+
 	\subsection{Plants}
 	To access your plants, click on "Plants" in the sidebar. This page will display a summary of all your current plants.
 	\newline
@@ -287,5 +247,48 @@ aws s3 cp app s3://website.com --recursive --exclude "*.log"
 		\includegraphics[width=\textwidth]{../images/UserManual/plant-details.PNG}
 		\caption{Plant Details}
 	\end{figure}
+	
+	From the Plant Details, you can also view realtime graphs of the currently selected plant's temperature and humidity, as well as directly change the colour and intensity of your Plant Box's lights.
+	
+	\begin{figure}[H]
+		\includegraphics[width=\textwidth]{../images/UserManual/lights.png}
+		\caption{Lights Control}
+	\end{figure}	
+	
+	\begin{figure}[H]
+		\includegraphics[width=\textwidth]{../images/UserManual/temperature.png}
+		\caption{Temperature Graph}
+	\end{figure}
+
+\section{Troubleshooting}
+	The system has been designed to return varying HTTP status codes depending on whether an operation was successful or not. If a user would like to see more detail with regard to these codes they may open the developer console on their preferred browser. However, the system automatically responds to these codes and handles them accordingly.\\
+	
+	The details of these HTTP status codes are listed below:
+	\begin{itemize}
+		\item 200 - success
+			\begin{itemize}
+				\item This is the code returned when all operations are functioning as expected
+				\item The system should continue without any problems or user intervention
+			\end{itemize}
+		\item 400 - client error
+			\begin{itemize}
+				\item This code is associated with bad requests
+				\item A bad request occurs whenever a request fails validation, i.e. when a client formats the request in a manner that the system was not expecting
+				\item This could occur when the user enters incorrect details or when a page is requested that does not exist
+			\end{itemize}
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{../images/UserManual/400error.png}
+				\caption{Incorrect User Details Error}
+			\end{figure}
+		\item 500 - server error
+			\begin{itemize}
+				\item This occurs when an internal error occurs on the server. The server will attempt to resolve this issue without user intervention as best as possible.
+				\item The user may be notified if the error affects them
+			\end{itemize}
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{../images/UserManual/500error.png}
+				\caption{Error Establishing Connection to Plant Box}
+			\end{figure}
+	\end{itemize}    
 
 \end{document}
