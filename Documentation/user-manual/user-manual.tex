@@ -1,7 +1,7 @@
 \documentclass{article}
 
 \usepackage{lipsum}
-\usepackage[margin=4cm, includefoot]{geometry}
+\usepackage[left=4cm, right=4cm, top=2cm, bottom=2cm, includefoot]{geometry}
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{listings}
@@ -247,6 +247,18 @@ aws s3 cp app s3://website.com --recursive --exclude "*.log"
 		\includegraphics[width=\textwidth]{../images/UserManual/plant-details.PNG}
 		\caption{Plant Details}
 	\end{figure}
+	
+	From the Plant Details, you can also view realtime graphs of the currently selected plant's temperature and humidity, as well as directly change the colour and intensity of your Plant Box's lights.
+	
+	\begin{figure}[H]
+		\includegraphics[width=\textwidth]{../images/UserManual/lights.png}
+		\caption{Lights Control}
+	\end{figure}	
+	
+	\begin{figure}[H]
+		\includegraphics[width=\textwidth]{../images/UserManual/temperature.png}
+		\caption{Temperature Graph}
+	\end{figure}    
 
 \section{Troubleshooting}
 
