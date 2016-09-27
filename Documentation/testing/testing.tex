@@ -514,6 +514,7 @@
 		\subparagraph{Objective}
 		Test that a plant cannot be deleted when the user is not authenticated.
 		
+		\subparagraph{Input}
 		\begin{itemize}
 			\item Username: "TestFakeUser"
 			\item Plant ID: 1
@@ -521,6 +522,43 @@
 		
 		\subparagraph{Outcome}
 		A plant is not deleted.
+		
+		\subsubsection{List Plants}
+		
+		\textbf{Pre-conditions:}
+		\begin{itemize}
+			\item The user should be logged in
+			\item Username must not be null
+		\end{itemize}
+		\textbf{Post-conditions:}
+		\begin{itemize}
+			\item A count of the plants belonging to the supplied username should be returned
+			\item A limit to the amount of plants returnable should be provided
+			\item A response object containing a list of all plants associated with a user and all their individual details should be returned
+		\end{itemize}
+		
+		\paragraph{Condition: Authenticated}
+		\subparagraph{Objective}
+		Test that a list of plants can be retrieved when the user is authenticated.
+		\subparagraph{Input}
+		\begin{itemize}
+			\item Username: "TestUser"
+		\end{itemize}
+		
+		\subparagraph{Outcome}
+		A list of plants belonging to the user is returned.
+		
+		\paragraph{Condition: Not Authenticated}
+		\subparagraph{Objective}
+		Test that a list of plants cannot be retrieved when the user is not authenticated.
+		\subparagraph{Input}
+		\begin{itemize}
+			\item Username: "TestFakeUser"
+		\end{itemize}
+		
+		\subparagraph{Outcome}
+		A plant list is not returned.
+
 		
 	\subsection{Front End}
 		\subsubsection{Test Plan}
