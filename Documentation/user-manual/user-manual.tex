@@ -328,9 +328,15 @@ aws s3 cp app s3://website.com --recursive --exclude "*.log"
 	In conclusion the user will be notified of any errors which they may need to address with detailed descriptions via the interface when the system is unable to handle them itself.
 	
 	\subsection{Plant Box Troubleshooting}
+		\subsubsection{Problem: Device cannot connect to AWS IoT platform}
+			\paragraph{Device may not have been set up correctly:} 
+				Ensure your \colorbox{cyan}{\lstinline[basicstyle=\ttfamily\color{white}]|aws_iot_config.h|} file has been set up with the correct details in terms of the AWS IoT MQTT host, port, etc.
+			\paragraph{Device does not have the correct certificates and/or keys:}
+				Download the corresponding files associated with your Plant Box via the user interface and ensure they are present on your Plant Box's hardware device
+				
 		\subsubsection{Problem: Published messages are not being received}
 			\paragraph{Message formatting may be incorrect:}
-				Ensure that the messages being passed to the MQTT client obey the following format:
+				Ensure that the messages being passed from the Plant Box to the MQTT client obey the following format:
 \begin{lstlisting}
 {
   "state": {
@@ -345,6 +351,7 @@ aws s3 cp app s3://website.com --recursive --exclude "*.log"
   }
 }
 \end{lstlisting}
-			\paragraph{MQTT client may be disconnected}
+			\paragraph{Plant Box may be disconnected:} Ensure you see the message "Successfully connected to MQTT client" on a Plant's Details page
+			\paragraph{Plant Box may not be powered on:} Ensure the Plant Box's hardware device is plugged in and receiving power
 
 \end{document}
