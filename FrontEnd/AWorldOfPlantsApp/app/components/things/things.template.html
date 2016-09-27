@@ -1,9 +1,9 @@
 <div class="row" things-directive>
   <div class="col-lg-12">
     <h1 class="page-header">
-      Things <button id="helpThing" class="btn btn-warning">Help me <span class="fa fa-exclamation"></span></button>
+      Plant Boxes <button id="helpThing" class="btn btn-warning">Help me <span class="fa fa-exclamation"></span></button>
       <button id="newThing" class="btn btn-success pull-right" data-toggle="modal" data-target="#createThingModal">
-        Create New Thing
+        Create New Plant Box
       </button>
     </h1>
   </div>
@@ -21,7 +21,7 @@
           <i class="fa fa-pagelines fa-5x"></i>
         </div>
         <div class="col-xs-5">
-          <div><b>Thing name:</b> {{thing.thingName}}</div>
+          <div><b>Plant Box name:</b> {{thing.thingName}}</div>
           <div><b>Plant id:</b>
             <select type="text" class="form-control">
               <option ng-repeat="id in $ctrl.plantIdList" value="{{id}}" ng-selected="{{id == thing.plantId}}">{{id}}</option>
@@ -58,7 +58,7 @@
       <div class="modal-body">
         <form role="form">
           <div class="form-group">
-            <label for="thingName">Thing name:</label>
+            <label for="thingName">Plant Box name:</label>
             <input id="thingName" ng-model="$ctrl.newThing.thingName" type="text" class="form-control">
           </div>
           <div class="form-group">
@@ -68,7 +68,7 @@
             </select>
           </div>
           <div class="form-group">
-            <label for="thingColour">Thing colour:</label>
+            <label for="thingColour">Plant Box colour:</label>
             <ngjs-color-picker id="thingColour" selected-color="$ctrl.selectedColour" options="$ctrl.colourOptions" custom-colors="$ctrl.customColors"></ngjs-color-picker>
           </div>
         </form>
