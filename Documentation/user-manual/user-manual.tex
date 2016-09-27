@@ -104,6 +104,8 @@
 			\item After selecting the "Sign Up" button you should be logged in automatically
 		\end{itemize}
 	
+\cleardoublepage
+
 	\subsection{Software Developer Installation}
 		The software can be found at \url{https://github.com/DillonHeins/Funge}
 		\subsubsection{Initial Set Up}
@@ -152,6 +154,9 @@ aws lambda update-function-code --function-name function
 \end{lstlisting}
 					\end{itemize}	
 			\end{itemize}
+
+\cleardoublepage		
+
 		\subsubsection{AngularJS Frontend Installation}
 			Navigate to FrontEnd/AWorldOfPlantsApp
 			\begin{itemize}
@@ -201,7 +206,7 @@ aws s3 cp app s3://website.com --recursive --exclude "*.log"
 		
 \subsection{Main Site}
 	\subsubsection{Navbar}
-	All pages on the main site will display the navbar at the top.
+	All pages on the main site will display the navbar at the top as well as along the left side.
 		\paragraph{User Actions}
 		\textcolor{red}{(1)} To access your user actions, click on your username at the right of the navbar. From here, you can either navigate to your profile or log out.
 		\begin{figure}[H]
@@ -209,7 +214,16 @@ aws s3 cp app s3://website.com --recursive --exclude "*.log"
 			\caption{Navbar User Actions}
 		\end{figure}
 
+\cleardoublepage
+
 \section{Using the System}
+	All the top level items under this section can be directly or indirectly accessed via the left-sided navigation bar.
+	
+	\begin{figure}[H]
+		\includegraphics[width=\textwidth]{../images/UserManual/side-navbar.png}
+		\caption{Side Navbar}
+	\end{figure}	
+	
 	\subsection{Dashboard}
 	The Dashboard provides a quick summary of your activities through a timeline, as well as info about your plants, Plant Boxes and score.
 	\begin{figure}[H]
@@ -260,6 +274,8 @@ aws s3 cp app s3://website.com --recursive --exclude "*.log"
 		\caption{Temperature Graph}
 	\end{figure}
 	
+\cleardoublepage
+
 	\subsection{Plant Boxes}
 	To access your Plant Boxes, click on ``Plant Boxes'' in the sidebar. This page will display all existing Plant Boxes.
 	\newline
@@ -306,6 +322,9 @@ aws s3 cp app s3://website.com --recursive --exclude "*.log"
 				\includegraphics[width=\textwidth]{../images/UserManual/400error.png}
 				\caption{Incorrect User Details Error}
 			\end{figure}
+			
+\cleardoublepage
+
 		\item 500 - Server Error
 			\begin{itemize}
 				\item This occurs when an internal error occurs on the server. The server will attempt to resolve this issue without user intervention as best as possible
@@ -326,6 +345,8 @@ aws s3 cp app s3://website.com --recursive --exclude "*.log"
 	\end{itemize}
 
 	In conclusion the user will be notified of any errors which they may need to address with detailed descriptions via the interface when the system is unable to handle them itself.
+	
+\cleardoublepage	
 	
 	\subsection{Plant Box Troubleshooting}
 		\subsubsection{Problem: Device cannot connect to AWS IoT platform}
