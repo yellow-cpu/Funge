@@ -4,10 +4,14 @@
 \usepackage[margin=4cm, includefoot]{geometry}
 \usepackage{graphicx}
 \usepackage{float}
-\usepackage{indentfirst}
 \usepackage{listings}
 \usepackage{hyperref}
 \usepackage{color}
+
+% Paragraph formatting
+\usepackage{indentfirst}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
 
 % Header and footer
 \usepackage{fancyhdr}
@@ -173,49 +177,52 @@ aws s3 cp app s3://website.com --recursive --exclude "*.log"
 		
 
 \section{Getting Started}
-
-\section{Using the System}
-
-\section{Troubleshooting}
-
-\section{Landing Page}
-	\subsection{Logging in}
-		\textcolor{red}{(1)} The first page you'll encounter is the login page. If you already have an account, enter your username and password in the appropriate blocks and click "Sign In".
+	\subsection{Landing Page}
+	\subsubsection{Logging in}
+		\textcolor{red}{(1)} The first page you'll encounter is the login page. If you already have an account, enter your username and password in the appropriate blocks and click ``Sign In''.
 		\newline
 		\textcolor{red}{(2)} If you'd like to find out more about A World of Plants, you can scroll down to our information page. Scroll back up when you're ready to login or register.
 		\newline
-		\textcolor{red}{(3)} If you have not yet registered, click on "Need an account?" to navigate to the account registration.
+		\textcolor{red}{(3)} If you have not yet registered, click on ``Need an account?'' to navigate to the account registration.
 		\begin{figure}[H]
 			\includegraphics[width=\textwidth]{../images/UserManual/login.PNG}
 			\caption{Login Page}
 		\end{figure}				
 		
-	\subsection{Account Registration}
-		\textcolor{red}{(1)} If you do not yet have an account, enter your email, the username you'd like to be known by, and your password (twice) and click the "Sign Up" button.
+	\subsubsection{Account Registration}
+		\textcolor{red}{(1)} If you do not yet have an account, enter your email, the username you'd like to be known by, and your password (twice) and click the ``Sign Up'' button.
 		\newline
-		\textcolor{red}{(2)} If you already have an account and would like to log in, click on "Have an Account?" to navigate to the user login.
+		\textcolor{red}{(2)} If you already have an account and would like to log in, click on ``Have an Account?'' to navigate to the user login.
 		\newline
 		\begin{figure}[H]
 			\includegraphics[width=\textwidth]{../images/UserManual/registration.PNG}
 			\caption{Registration Page}
 		\end{figure}
 		
-\section{Main Site}
-	\subsection{Navbar}
+	\subsection{Main Site}
+	\subsubsection{Navbar}
 	All pages on the main site will display the navbar at the top.
-		\subsubsection{User Actions}
+		\paragraph{Actions}
 		\textcolor{red}{(1)} To access your user actions, click on your username at the right of the navbar. From here, you can either navigate to your profile or log out.
 		\begin{figure}[H]
 			\includegraphics[width=\textwidth]{../images/UserManual/navbar-user-actions.PNG}
 			\caption{Navbar User Actions}
 		\end{figure}
-		
+
+\section{Using the System}
+	\subsection{Dashboard}
+	The Dashboard provides a quick summary of everything you've been working on. From here, you can see how many plants and Plant Boxes you have, your score, as well as a timeline of your recent activity.
+	\begin{figure}[H]
+		\includegraphics[width=\textwidth]{../images/UserManual/timeline.png}
+		\caption{Dashboard Timeline}
+	\end{figure}
+
 	\subsection{Plants}
-	To access your plants, click on "Plants" in the sidebar. This page will display a summary of all your current plants.
+	To access your plants, click on ``Plants'' in the sidebar. This page will display a summary of all your current plants.
 	\newline
-	\textcolor{red}{(1)} To add a new plant, click on the "Create New Plant" button on the top right. See \hyperref[sec:creating-a-plant]{Creating a Plant} for more information.
+	\textcolor{red}{(1)} To add a new plant, click on the ``Create New Plant'' button on the top right. See \hyperref[sec:creating-a-plant]{Creating a Plant} for more information.
 	\newline
-	\textcolor{red}{(2)} To view more information or change some of the details for a specific plant, click on "View Details" for the plant of your choice. See \hyperref[sec:plant-details]{Plant Details} for more information.
+	\textcolor{red}{(2)} To view more information or change some of the details for a specific plant, click on ``View Details'' for the plant of your choice. See \hyperref[sec:plant-details]{Plant Details} for more information.
 	\begin{figure}[H]
 		\includegraphics[width=\textwidth]{../images/UserManual/plants.PNG}
 		\caption{Plants View}
@@ -223,7 +230,7 @@ aws s3 cp app s3://website.com --recursive --exclude "*.log"
 		
 		\subsubsection{Creating a Plant}
 		\label{sec:creating-a-plant}
-		To create a plant, enter the plant's unique details and then click on "Create".
+		To create a plant, enter the plant's unique details and then click on ``Create''.
 		\begin{figure}[H]
 			\includegraphics[width=\textwidth]{../images/UserManual/create-plant.PNG}
 			\caption{Creating a Plant}
@@ -233,12 +240,14 @@ aws s3 cp app s3://website.com --recursive --exclude "*.log"
 	\label{sec:plant-details}
 	From here you can get an overview of all of your plant's details.
 	\newline
-	\textcolor{red}{(1)} To update plant details such as the plant's name or category, make your desired changes and then click the "Update" button.
+	\textcolor{red}{(1)} To update plant details such as the plant's name or category, make your desired changes and then click the ``Update'' button.
 	\newline
-	\textcolor{red}{(2)} If you'd like to delete your plant, click on the red "Delete" button. \textbf{This is permanent}, so be careful.
+	\textcolor{red}{(2)} If you'd like to delete your plant, click on the red ``Delete'' button. \textbf{This is permanent}, so be careful.
 	\begin{figure}[H]
 		\includegraphics[width=\textwidth]{../images/UserManual/plant-details.PNG}
 		\caption{Plant Details}
 	\end{figure}
+
+\section{Troubleshooting}
 
 \end{document}
