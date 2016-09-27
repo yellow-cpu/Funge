@@ -84,6 +84,7 @@
 				\begin{itemize}
 					\item JUnit
 					\item Mockito
+					\item Maven
 					\item Spring (dependency injection)
 					\item Travis (integration)
 					\item Karma
@@ -994,13 +995,81 @@
 			\end{itemize}
 		\end{itemize}
 	\end{itemize}
-\section{Item Pass/Fail Criteria}
+
+	\subsection{Usability}
 
 \section{Test Deliverables}
-
-\section{Report}
-
-TODO
+	Through the implementation of this testing plan, the following artefacts are generated:
+	\begin{itemize}
+		\item Test Plan
+		\item Test Report
+		\item Maven Testing Logs
+	\end{itemize}
+	
+\section{Unit Test Report}
+	\subsection{Detailed Test Results}
+		\subsubsection{Overview of Test Results}
+		\subsubsection{Functional Requirements Test Results}
+			For each of the functional requirements test cases, the following results (along with the reasons for the results) were generated:
+			
+			\paragraph{Persist to Database (TC 3.1.1)}
+				\begin{enumerate}
+					\item The correct key fields and unique keys added a new record in the correct table
+					\item The correct key fields but non-unique keys failed to add a new record in the table
+					\item Incorrect key fields failed to add a new record in the table
+				\end{enumerate}
+				\subparagraph{Result: } Pass
+			
+			\paragraph{Query Database (TC 3.1.2)}
+				\begin{enumerate}
+					\item An authorised role is able to query the database and retrieve a record
+					\item An unauthorised role is unable to query the database
+				\end{enumerate}
+			
+				\subparagraph{Result: } Pass
+			
+			\paragraph{Remove from Database (TC 3.1.3)}
+				\begin{enumerate}
+					\item An authorised role is able to delete a record from the database
+					\item An unauthorised role is unable to delete a record from the database
+				\end{enumerate}
+				\subparagraph{Result: } Pass
+			
+			\paragraph{Register User (TC 3.2.1)}
+				\begin{enumerate}
+					\item A new user is registered and logged in when the user provides a unique email address and user name
+					\item A new user is not registered when the user provides a non-unique email address or user name
+				\end{enumerate}
+				\subparagraph{Result: } Pass
+			
+			\paragraph{Login (TC 3.2.2)}
+				\begin{enumerate}
+					\item A user is logged in when they provide the correct login details
+					\item A user is not logged in when they provide incorrect login details and cannot access any page except the login and register pages
+				\end{enumerate}
+				\subparagraph{Result: } Pass
+			
+			\paragraph{Logout (TC 3.2.3)}
+				\begin{enumerate}
+					\item A logged in user is logged out and their session is terminated, allowing them to only access the login and register pages until they log in again
+				\end{enumerate}
+				\subparagraph{Result: } Pass
+			
+			\paragraph{Update User (TC 3.2.4)}
+				\begin{enumerate}
+					\item The user details are updated and persisted in the database when that user is logged in
+					\item The user details are not updated if that user is not logged in
+				\end{enumerate}
+				\subparagraph{Result: } Pass
+			
+		\subsubsection{Non-Functional Requirements Test Results}
+			\paragraph{Test Case 1}
+				\begin{enumerate}
+					\item 
+				\end{enumerate}
+				\subparagraph{Result: } Pass
+	\subsection{Other}
+	\subsection{Conclusion and Recommendations}
 
 
 \end{document}
