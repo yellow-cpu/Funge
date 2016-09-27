@@ -346,85 +346,67 @@
 					A new user is created and logged into the system.
 		
 		\subsubsection{Login}
-		\textbf{Pre-conditions:}
-		\begin{itemize}
-			\item 
-		\end{itemize}
-		\textbf{Post-conditions:}
-		\begin{itemize}
-			\item 
-		\end{itemize}
-		
-		\paragraph{Condition: }
-		\subparagraph{Objective}
-		
-		\subparagraph{Input}
-		\begin{itemize}
-			\item 
-		\end{itemize}
-		
-		\subparagraph{Outcome}
-		
-		\subsubsection{Create User Session}
-		\textbf{Pre-conditions:}
-		\begin{itemize}
-			\item 
-		\end{itemize}
-		\textbf{Post-conditions:}
-		\begin{itemize}
-			\item 
-		\end{itemize}
-		
-		\paragraph{Condition: }
-		\subparagraph{Objective}
-		
-		\subparagraph{Input}
-		\begin{itemize}
-			\item 
-		\end{itemize}
-		
-		\subparagraph{Outcome}
-		
-		\subsubsection{Logout}
-		\textbf{Pre-conditions:}
-		\begin{itemize}
-			\item 
-		\end{itemize}
-		\textbf{Post-conditions:}
-		\begin{itemize}
-			\item 
-		\end{itemize}
-		
-		\paragraph{Condition: }
-		\subparagraph{Objective}
-		
-		\subparagraph{Input}
-		\begin{itemize}
-			\item 
-		\end{itemize}
-		
-		\subparagraph{Outcome}
-		
-		\subsubsection{Terminate Session}
-		\textbf{Pre-conditions:}
-		\begin{itemize}
-			\item 
-		\end{itemize}
-		\textbf{Post-conditions:}
-		\begin{itemize}
-			\item 
-		\end{itemize}
-		
-		\paragraph{Condition: }
-		\subparagraph{Objective}
-		
-		\subparagraph{Input}
-		\begin{itemize}
-			\item 
-		\end{itemize}
-		
-		\subparagraph{Outcome}
-		
+			\textbf{Pre-conditions:}
+				\begin{itemize}
+					\item Username must not be null
+					\item Password must not be null
+					\item User account associated with username must exist
+					\item The password after being hashed and salted must match that of the provided username
+				\end{itemize}
+			\textbf{Post-conditions:}
+				\begin{itemize}
+					\item The user should be given temporary user credentials in a response object
+					\item The user should be given access to their information and redirected to their dashboard
+				\end{itemize}
+			
+			\paragraph{Condition: Correct Login Details}
+				\subparagraph{Objective}
+					To test if the user can log in with correct log in details (user name and password).
+					
+				\subparagraph{Input}
+					\begin{itemize}
+						\item User Name: "User1"
+						\item Password: "correctPass"
+					\end{itemize}
+			
+				\subparagraph{Outcome}
+					A user is logged in an a session is created.
+			
+			\paragraph{Condition: Incorrect Login Details}
+				\subparagraph{Objective}
+					To test if the user can log in with incorrect log in details (user name and password).
+				
+				\subparagraph{Input}
+					\begin{itemize}
+						\item User Name: "User1"
+						\item Password: "incorrectPass"
+					\end{itemize}
+				
+				\subparagraph{Outcome}
+					No user is logged in.
+					
+		\subsubsection{Logout}		
+			\textbf{Pre-conditions:}
+				\begin{itemize}
+					\item A user must be registered on the system
+					\item The user must be logged into the system
+				\end{itemize}
+			\textbf{Post-conditions:}
+				\begin{itemize}
+					\item The user should be no longer logged into the system and as such not be able to access any functionality from the system except to register an account or log in
+					\item If the user wishes to access their account and the functionality of the system, they should have to log back into the system
+				\end{itemize}
+			
+			\paragraph{Condition: }
+				\subparagraph{Objective}
+				
+				\subparagraph{Input}
+					\begin{itemize}
+						\item 
+					\end{itemize}
+				
+				\subparagraph{Outcome}
+			
 		\subsubsection{Update User}
 		\textbf{Pre-conditions:}
 		\begin{itemize}
