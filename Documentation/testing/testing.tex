@@ -1,13 +1,19 @@
 \documentclass{article}
 
-\usepackage[margin=2cm, left=2cm, includefoot]{geometry}
+\usepackage[margin=4cm, includefoot]{geometry}
 \usepackage{graphicx}
 \usepackage{float}
-\usepackage{hyperref}
+\usepackage[hidelinks]{hyperref}
+
+% Paragraph formatting
+\usepackage{indentfirst}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
 
 % Header and footer
 \usepackage{fancyhdr}
 \pagestyle{fancy}
+\setcounter{secnumdepth}{4}
 
 \rhead{}
 \lhead{}
@@ -15,6 +21,7 @@
 \fancyfoot[R]{\thepage}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
+%enewcommand{\footrulewidth}{0pt}
 %
 
 \begin{document}
@@ -165,46 +172,83 @@
 		\subsubsection{Persist to Database}
 			\textbf{Pre-conditions:}
 			\begin{itemize}
-				\item 
+				\item DynamoDB is running
+				\item The correct table(s) have been created
 			\end{itemize}
 			\textbf{Post-conditions:}
 			\begin{itemize}
-				\item 
+				\item A new entry has been entered into the correct table in the database
 			\end{itemize}
 			
-			\paragraph{Condition: }
+			\paragraph{Condition: Correct Key Fields and Unique Keys}
 				\subparagraph{Objective}
-				
+					To test if data is persisted to the database if the correct key fields have been filled in (minimum requirements for an insertion) and a unique key pair is given.
 				
 				\subparagraph{Input}
 					\begin{itemize}
-						\item 
+						\item Table Name: "testTable"
+						\item Key1 Value: "uniqueKey1"
+						\item Key2 Value: "uniqueKey2"
 					\end{itemize}
 				
 				\subparagraph{Outcome}
+					A new record is created in the "testTable" table with the correct keys.
+			
+			\paragraph{Condition: Correct Key Fields but Non-Unique Keys}	
+				\subparagraph{Objective}
+					To test if data is persisted to the database if the correct key fields have been filled in (minimum requirements for an insertion) but a non-unique key pair is given.
+					
+				\subparagraph{Input}
+					\begin{itemize}
+						\item Table Name: "testTable"
+						\item Key1 Value: "nonUniqueKey1"
+						\item Key2 Value: "nonUniqueKey2"
+					\end{itemize}
+					
+				\subparagraph{Outcome}
+					No new record is created in the "testTable".
 				
+			\paragraph{Condition: Not All Key Fields Given}
+				\subparagraph{Objective}
+					To test if data is persisted to the database if the correct key fields have not been filled in (minimum requirements for an insertion).
+					
+				\subparagraph{Input}
+				\begin{itemize}
+					\item Table Name: "testTable"
+					\item Key1 Value: "uniqueKey1"
+					\item Key2 Value: none
+				\end{itemize}
+				
+				\subparagraph{Outcome}
+					No new record is created in the "testTable" table.
 			
 		\subsubsection{Query Database}
 			\textbf{Pre-conditions:}
 			\begin{itemize}
-				\item 
+				\item DynamoDB is running
+				\item The correct table(s) have been created
+				\item There is a record created in the table
 			\end{itemize}
 			\textbf{Post-conditions:}
 			\begin{itemize}
-				\item 
+				\item One or more records is retrieved from the database
 			\end{itemize}
 			
-			\paragraph{Condition: }
+			\paragraph{Condition: Authorised Role}
 				\subparagraph{Objective}
-				
+					To test if data can be retrieved from the database via a query using the correct permission role
 				
 				\subparagraph{Input}
 					\begin{itemize}
-						\item 
+						\item Table Name: "testTable"
+						\item Key1 Value: "key1"
+						\item Key2 Value: "key2"
 					\end{itemize}
 			
 				\subparagraph{Outcome}
-		
+					A record with the same key values as the input is retrieved from the database.
+			
+			\paragraph{Condition: Unauthorised Role}
 		
 		\subsubsection{Remove from Database}
 			\textbf{Pre-conditions:}
