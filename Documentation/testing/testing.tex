@@ -318,119 +318,133 @@
 			\end{itemize}
 			
 			\paragraph{Condition: Unique User Name Email Provided}
-			\subparagraph{Objective}
-				To test if a new user can be registered using a unique user name email address.
+				\subparagraph{Objective}
+					To test if a new user can be registered using a unique user name email address.
+					
+				\subparagraph{Input}
+				\begin{itemize}
+					\item Email Address: "unique@email.com"
+					\item User Name: "UniqueUser"
+					\item Password: "pass123"
+				\end{itemize}
 				
-			\subparagraph{Input}
-			\begin{itemize}
-				\item Email Address: "unique@email.com"
-				\item User Name: "UniqueUser"
-				\item Password: "pass123"
-			\end{itemize}
-			
-			\subparagraph{Outcome}
-				A new user is created and logged into the system.
+				\subparagraph{Outcome}
+					A new user is created and logged into the system.
+					
+			\paragraph{Condition: User Name or Email Taken}
+				\subparagraph{Objective}
+					To test if a new user can be registered using a unique user name email address.
+				
+				\subparagraph{Input}
+					\begin{itemize}
+						\item Email Address: "unique@email.com"
+						\item User Name: "UniqueUser"
+						\item Password: "pass123"
+					\end{itemize}
+				
+				\subparagraph{Outcome}
+					A new user is created and logged into the system.
 		
 		\subsubsection{Login}
-		\textbf{Pre-conditions:}
-		\begin{itemize}
-			\item 
-		\end{itemize}
-		\textbf{Post-conditions:}
-		\begin{itemize}
-			\item 
-		\end{itemize}
-		
-		\paragraph{Condition: }
-		\subparagraph{Objective}
-		
-		\subparagraph{Input}
-		\begin{itemize}
-			\item 
-		\end{itemize}
-		
-		\subparagraph{Outcome}
-		
-		\subsubsection{Create User Session}
-		\textbf{Pre-conditions:}
-		\begin{itemize}
-			\item 
-		\end{itemize}
-		\textbf{Post-conditions:}
-		\begin{itemize}
-			\item 
-		\end{itemize}
-		
-		\paragraph{Condition: }
-		\subparagraph{Objective}
-		
-		\subparagraph{Input}
-		\begin{itemize}
-			\item 
-		\end{itemize}
-		
-		\subparagraph{Outcome}
-		
-		\subsubsection{Logout}
-		\textbf{Pre-conditions:}
-		\begin{itemize}
-			\item 
-		\end{itemize}
-		\textbf{Post-conditions:}
-		\begin{itemize}
-			\item 
-		\end{itemize}
-		
-		\paragraph{Condition: }
-		\subparagraph{Objective}
-		
-		\subparagraph{Input}
-		\begin{itemize}
-			\item 
-		\end{itemize}
-		
-		\subparagraph{Outcome}
-		
-		\subsubsection{Terminate Session}
-		\textbf{Pre-conditions:}
-		\begin{itemize}
-			\item 
-		\end{itemize}
-		\textbf{Post-conditions:}
-		\begin{itemize}
-			\item 
-		\end{itemize}
-		
-		\paragraph{Condition: }
-		\subparagraph{Objective}
-		
-		\subparagraph{Input}
-		\begin{itemize}
-			\item 
-		\end{itemize}
-		
-		\subparagraph{Outcome}
-		
+			\textbf{Pre-conditions:}
+				\begin{itemize}
+					\item Username must not be null
+					\item Password must not be null
+					\item User account associated with username must exist
+					\item The password after being hashed and salted must match that of the provided username
+				\end{itemize}
+			\textbf{Post-conditions:}
+				\begin{itemize}
+					\item The user should be given temporary user credentials in a response object
+					\item The user should be given access to their information and redirected to their dashboard
+				\end{itemize}
+			
+			\paragraph{Condition: Correct Login Details}
+				\subparagraph{Objective}
+					To test if the user can log in with correct log in details (user name and password).
+					
+				\subparagraph{Input}
+					\begin{itemize}
+						\item User Name: "User1"
+						\item Password: "correctPass"
+					\end{itemize}
+			
+				\subparagraph{Outcome}
+					A user is logged in an a session is created.
+			
+			\paragraph{Condition: Incorrect Login Details}
+				\subparagraph{Objective}
+					To test if the user can log in with incorrect log in details (user name and password).
+				
+				\subparagraph{Input}
+					\begin{itemize}
+						\item User Name: "User1"
+						\item Password: "incorrectPass"
+					\end{itemize}
+				
+				\subparagraph{Outcome}
+					No user is logged in.
+					
+		\subsubsection{Logout}		
+			\textbf{Pre-conditions:}
+				\begin{itemize}
+					\item A user must be registered on the system
+					\item The user must be logged into the system
+				\end{itemize}
+			\textbf{Post-conditions:}
+				\begin{itemize}
+					\item The user should be no longer logged into the system and as such not be able to access any functionality from the system except to register an account or log in
+					\item If the user wishes to access their account and the functionality of the system, they should have to log back into the system
+				\end{itemize}
+			
+			\paragraph{Condition: User is logged in}
+				\subparagraph{Objective}
+					To test if the user is logged out (session authorisation removed).
+					
+				\subparagraph{Input}
+					\begin{itemize}
+						\item User Session
+					\end{itemize}
+				
+				\subparagraph{Outcome}
+					The user session is terminated and the user cannot access any page except for the Login and Register pages.
+					
 		\subsubsection{Update User}
-		\textbf{Pre-conditions:}
-		\begin{itemize}
-			\item 
-		\end{itemize}
-		\textbf{Post-conditions:}
-		\begin{itemize}
-			\item 
-		\end{itemize}
+			\textbf{Pre-conditions:}
+				\begin{itemize}
+					\item User must be logged in
+					\item User editing details should be the owner of those details
+				\end{itemize}
+			\textbf{Post-conditions:}
+				\begin{itemize}
+					\item The values of the edited details should be reflected in the database
+				\end{itemize}
 		
-		\paragraph{Condition: }
-		\subparagraph{Objective}
-		
-		\subparagraph{Input}
-		\begin{itemize}
-			\item 
-		\end{itemize}
-		
-		\subparagraph{Outcome}
-		
+			\paragraph{Condition: User is logged in}
+				\subparagraph{Objective}
+					To test if the user details can be edited by the user if the user is logged in.
+					
+				\subparagraph{Input}
+					\begin{itemize}
+						\item User Session
+						\item Update Details Request
+					\end{itemize}
+				
+				\subparagraph{Outcome}
+					The user details are changed in the database and are reflected on the user details page.
+			
+			\paragraph{Condition: User is logged in}
+				\subparagraph{Objective}
+					To test if the user details can be edited by a user if the user is not logged in.
+				
+				\subparagraph{Input}
+					\begin{itemize}
+						\item Bad User Session
+						\item Update Details Request
+					\end{itemize}
+				
+				\subparagraph{Outcome}
+					The user details are not changed in the database.
 	
 	\subsection{Plant Management}
 		\subsubsection{Create Plant}
