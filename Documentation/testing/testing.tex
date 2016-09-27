@@ -558,6 +558,49 @@
 		
 		\subparagraph{Outcome}
 		A plant list is not returned.
+		
+		\subsubsection{View Plant}
+		
+		\textbf{Pre-conditions:}
+		\begin{itemize}
+			\item The user should be logged in
+			\item A valid plantId should be supplied
+		\end{itemize}
+		\textbf{Post-conditions:}
+		\begin{itemize}
+			\item All details associated with a particular plant and gathered by the associated IoT device should be displayed. These details could include:
+			\begin{itemize}
+				\item Temperature
+				\item Humidity
+				\item Light conditions
+				\item Water flow
+				\item Soil moisture
+			\end{itemize}
+		\end{itemize}
+		
+		\paragraph{Condition: Authenticated}
+		\subparagraph{Objective}
+		Test that plant details can be retrieved when the user is authenticated.
+		\subparagraph{Input}
+		\begin{itemize}
+			\item Username: "TestUser"
+			\item PlantId: 1
+		\end{itemize}
+		
+		\subparagraph{Outcome}
+		The plant details belonging to the specified ID and user are returned.
+		
+		\paragraph{Condition: Not Authenticated}
+		\subparagraph{Objective}
+		Test that plant details cannot be retrieved when the user is not authenticated.
+		\subparagraph{Input}
+		\begin{itemize}
+			\item Username: "TestFakeUser"
+			\item PlantId: 1
+		\end{itemize}
+		
+		\subparagraph{Outcome}
+		The plant details are not returned.
 
 		
 	\subsection{Front End}
