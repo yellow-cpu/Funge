@@ -62,11 +62,38 @@
 \textit{Disclaimer: The system is still under development. All documentation will be updated as the system progresses}
 
 \section{Introduction}
-	In order to test our system, we need to do unit tests, integration and system tests and performance and stress tests. There are two main halves, namely the back end and front end.
+	The Internet of Things (IoT) is a development of the Internet which involves the networking of every day physical devices allowing them to send and receive data. These devices are embedded with electronics, sensors, software as well as some form of Internet or network connectivity.
+	
+	IoT is a relatively new development and has a large possibility of becoming a ubiquitous technology as well as allowing us to view the world from a different perspective. The potential it contains for innovation is endless.
+	
+	We as a group were given the opportunity to use the Amazon Web Services (AWS) IoT platform to create an IoT project of our own desires. This document details our 'A World of Things' project.
+	
+	A remote, real-time plant monitoring and environment control system is implemented using a cloud based, micro-services, Platform as a Service (PaaS) architecture, with the front-end interface using the Model-View-Controller (MVC) model.
+	
+	In order to ensure that our system runs as expected and meets all of the functional and non-functional requirements, it is important to fully test the system. A testing plan has therefore been drawn up and implemented.
 	
 	\subsection{Purpose}
-	
+		This document lays out the testing plan for our system (technologies used, unit tests etc.) as well as the testing report, detailing the results and artefacts produced by the implementation of this plan.
+		
 	\subsection{Scope}
+		This document contains two main sections, the testing plan (Sections 2 to 4) and the Unit Test Report (Section 5).
+		
+		Inside the testing plan, the testing items have been identified (Section 2). The functional features (2.1) are the functional use cases from the system and have been taken from the Architectural and Functional Requirements Design Specification document, where they are explained in greater detail.
+		
+		Section 2.2 explains the non-functional features that will be tested. \textit{This will be added to and expanded on later.}
+		
+		Section 3 goes into greater detail about each of the use cases, listing the pre- and post-conditions of each test, and the different conditions that will be tested, including the objective, input and expected outcome of each condition.
+		
+		The test deliverables are outlined in section 4.
+		
+		The Unit Test Report (Section 5) includes the following:
+		\begin{itemize}
+			\item A detailed overview (5.1) of each of each of the tests, naming which tests passed and which failed, along with the reasons for the results achieved.
+			\item Other artefacts generated from the testing plan (5.2)
+			\item A final conclusion and some recommendation (5.3) for further testing.
+		\end{itemize}
+		
+		\textit{At a later stage, this document will also include the usability report.}
 		
 	\subsection{Test Environment}
 	
@@ -127,7 +154,11 @@
 \newpage
 
 \section{Test Items}
+	In order to fully test our system, the testing plan needs to detail the different sections of the system that need to be tested. There are two different kinds of items that need to be tested: functional and non-functional features of the system.
+	
 	\subsection{Functional Features to be Tested}
+		The following test items are the functional use cases of the system and have been taken from the Architectural and Functional Requirements Design Specification document, where they are explained in greater detail. The functional features fall into four subsystems, namely database management, user management, plant/device management and device communications.
+		
 		\begin{itemize}
 			\item Database Management
 				 \begin{itemize}
@@ -163,12 +194,15 @@
 					\item Update Web Interface
 				\end{itemize}
 		\end{itemize}
-	\subsection{Non-Functional Features to be Tested}
+	\subsection{Non-Functional Features to be Tested} 
+		\textit{This section has not been fully planned yet and will be completed in later versions of this document}
 		\begin{itemize}
 			\item Usability
 		\end{itemize}
 		
 \section{Test Cases}
+	This section of the testing plan will detail each of the tests that will be performed, naming their pre- and post-conditions, the different conditions to be tested, and the objective, input and expected outcome of each of those conditions. The items are grouped into the different subsystems that they fall under.
+	
 	\subsection{Database Management}
 		\subsubsection{Persist to Database}
 			\textbf{Pre-conditions:}
@@ -997,6 +1031,7 @@
 	\end{itemize}
 
 	\subsection{Usability}
+		\textit{This section will be completed in later versions of this document}
 
 \section{Test Deliverables}
 	Through the implementation of this testing plan, the following artefacts are generated:
@@ -1006,9 +1041,13 @@
 		\item Maven Testing Logs
 	\end{itemize}
 	
+\newpage
+	
 \section{Unit Test Report}
 	\subsection{Detailed Test Results}
 		\subsubsection{Overview of Test Results}
+			All of the functional requirements test cases have been implemented and each of the tests have passed. This is because of the continuous testing methodology that has been adopted, meaning that tests are constantly been written and ensures that only working code is merged with the main branch of the code (the branch that was tested).
+		
 		\subsubsection{Functional Requirements Test Results}
 			For each of the functional requirements test cases, the following results (along with the reasons for the results) were generated:
 			
@@ -1062,12 +1101,64 @@
 				\end{enumerate}
 				\subparagraph{Result: } Pass
 			
-		\subsubsection{Non-Functional Requirements Test Results}
-			\paragraph{Test Case 1}
+			\paragraph{Create Plant (TC 3.3.1)}
 				\begin{enumerate}
-					\item 
+					\item An authenticated user was able to create a plant and persist it to the database.
+					\item An unauthenticated user was not able to create a plant.
 				\end{enumerate}
 				\subparagraph{Result: } Pass
+				
+			\paragraph{Delete Plant (TC 3.3.2)}
+				\begin{enumerate}
+					\item An authenticated user was able to delete a plant that belonged to them and remove it from the database.
+					\item An unauthenticated user was not able to delete a plant.
+				\end{enumerate}
+				\subparagraph{Result: } Pass
+				
+			\paragraph{List Plants (TC 3.3.3)}
+				\begin{enumerate}
+					\item An authenticated user was able to view all plants that belonged to them.
+					\item An unauthenticated user was not able to view any plant details.
+				\end{enumerate}
+				\subparagraph{Result: } Pass
+				
+			\paragraph{View Plant (TC 3.3.4)}
+				\begin{enumerate}
+					\item An authenticated user was able to view a specific plant's details.
+					\item An unauthenticated user was not able to view any plant details. 
+				\end{enumerate}
+				\subparagraph{Result: } Pass
+				
+			\paragraph{Update Plant (TC 3.3.5)}
+				\begin{enumerate}
+					\item An authenticated user was able to update a specific plant's details.
+					\item An unauthenticated user was not able to update any plant details.
+				\end{enumerate}
+				\subparagraph{Result: } Pass
+				
+			\paragraph{Configure Lights (TC 3.3.6)}
+				\begin{enumerate}
+					\item An authenticated user was able to update the device state for the light configuration of a plant that belonged to them.
+					\item An unauthenticated user was not able to update the device state.
+				\end{enumerate}
+				\subparagraph{Result: } Pass
+				
+			\paragraph{Configure Pump (TC 3.3.7)}
+				\begin{enumerate}
+					\item An authenticated user was able to update the device state for the pump configuration of a plant that belonged to .
+					\item An unauthenticated user was not able to update the device state.
+				\end{enumerate}
+				\subparagraph{Result: } Pass
+				
+			\paragraph{Configure Fan (TC 3.3.8)}
+				\begin{enumerate}
+					\item An authenticated user was able to update the device state for the fan configuration of a plant that belonged to .
+					\item An unauthenticated user was not able to update the device state.
+				\end{enumerate}
+				\subparagraph{Result: } Pass
+			
+		\subsubsection{Non-Functional Requirements Test Results}
+			\textit{This has not been implemented and will be completed in later versions of this document}
 	\subsection{Other}
 		\subsubsection{Build Log}
 		The following build log was generated by Travis CI that shows the Maven build and testing process.
@@ -1080,6 +1171,8 @@
 			\caption{The running of tests}
 		\end{figure}
 	\subsection{Conclusion and Recommendations}
-
+		The system passes all functional requirements that were tested, however there are still some requirements that have not yet been implemented and therefore are not tested yet. The non-functional requirements still need to be tested and will appear in later versions of this document. 
+		
+		It is believed that the tests are sufficiently accurate, but more conditions will be added at a later stage to ensure that the tests are robust enough to find any bugs that there might be in the system.
 
 \end{document}
