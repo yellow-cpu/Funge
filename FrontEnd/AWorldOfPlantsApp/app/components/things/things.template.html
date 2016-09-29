@@ -5,6 +5,9 @@
       <button id="newThing" class="btn btn-success pull-right" data-toggle="modal" data-target="#createThingModal">
         Create New Plant Box
       </button>
+      <button ng-click="$ctrl.removeThing()">
+        Delete Thing
+      </button>
     </h1>
   </div>
 </div>
@@ -41,7 +44,7 @@
     <a class="view-details">
       <div class="panel-footer" style="background-color: {{thing.colour}}">
         <span class="pull-left"><button class="btn btn-success">Update</button></span>
-        <span class="pull-right"><button class="btn btn-danger">Delete</button></span>
+        <span class="pull-right"><button class="btn btn-danger thingDelete">Delete</button></span>
         <div class="clearfix"></div>
       </div>
     </a>

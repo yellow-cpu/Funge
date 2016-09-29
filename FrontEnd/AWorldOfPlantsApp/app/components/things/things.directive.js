@@ -8,6 +8,10 @@ directive('thingsDirective', function ($compile, $localStorage) {
     $(document).ready(function () {
       scope.$ctrl.getThings();
     });
+
+    $('.thingDelete').on('click', function () {
+      alert('asd');
+    });
   };
 
   return {

@@ -52,6 +52,22 @@ angular.module('things').component('things', {
       console.log("Error: " + JSON.stringify(result));
     });
 
+    self.removeThing = function () {
+      var params = {};
+
+      var body = {
+        "thingName": "blueThing",
+        "username": "dill"
+      };
+
+      apigClient.thingsDeletePost(params, body)
+        .then(function (result) {
+          console.log(result.data);
+        }).catch(function (result) {
+          console.log("Error: " + JSON.stringify(result));
+      });
+    };
+
     self.createThing = function() {
       var params = {};
       var body = self.newThing;
