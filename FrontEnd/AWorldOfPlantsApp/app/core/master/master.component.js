@@ -14,9 +14,10 @@ angular.
   });
 
 master.run(function($rootScope, $localStorage) {
+    // Prevent unauthorised user from accessing site
     $rootScope.$on("$routeChangeStart", function () {
         if ($localStorage.loggedIn) {
-            //window.location.replace("#!/site");
+            window.location.replace("#!/site");
         }
         else {
             window.location.replace("#!/landing");
