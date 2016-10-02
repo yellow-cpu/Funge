@@ -1,6 +1,6 @@
 <link href="components/register/register.css" rel="stylesheet"/>
 
-<div id="register">
+<div id="register" register>
     <form class="form-signin" action="" method="">
         <input type="text" class="form-control" id="email" placeholder="Email Address" autofocus
                ng-model="$ctrl.user.email">
@@ -16,6 +16,6 @@
         </div>
     </form>
     <div id="tabs">
-        <p id="switchToLogin" class="text-center" switch-to-login><a href="">Have an Account?</a></p>
+        <p id="switchToLogin" class="text-center"><a ui-sref="landing.login">Have an Account?</a></p>
     </div>
 </div>

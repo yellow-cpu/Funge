@@ -2,7 +2,7 @@
 
 // Define the `master` module
 var master = angular.module('master', [
-  'ngRoute',
+  'ui.router',
   'ngStorage',
   'ngjsColorPicker',
   'color.picker',

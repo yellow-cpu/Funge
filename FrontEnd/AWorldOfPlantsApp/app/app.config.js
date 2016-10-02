@@ -1,19 +1,28 @@
+// Configure routing for the app
 angular.
   module('aWorldOfPlantsApp').
-  config(['$locationProvider', '$routeProvider',
-    function config($locationProvider, $routeProvider) {
-      $locationProvider.hashPrefix('!');
+    config(function($stateProvider, $urlRouterProvider) {
 
-      $routeProvider.
-      when ('/site', {
-        template: '<site></site>'
-      }).
-      when ('/landing', {
-        template: '<landing></landing>'
-      }).
-      when ('/testing', {
-        template: '<testing></testing>'
-      }).
-      otherwise('/landing');
-    }
-  ]);
+    // Default location
+    $urlRouterProvider.otherwise('/landing/login');
+
+    $stateProvider
+
+    // Landing page
+        .state('landing', {
+            url: '/landing',
+            template: '<landing></landing>'
+        })
+
+        // Nested login page in landing page
+        .state('landing.login', {
+            url: '/login',
+            template: '<login></login>'
+        })
+
+        // Nested register page in landing page
+        .state('landing.register', {
+            url: '/register',
+            template: '<register></register>'
+        });
+});

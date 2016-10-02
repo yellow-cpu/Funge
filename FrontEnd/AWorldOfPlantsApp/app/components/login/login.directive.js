@@ -1,7 +1,7 @@
 'use strict';
 
 // Register `login` directive
-angular.module('login').directive('switchToRegister', function ($compile) {
+angular.module('login').directive('login', function ($compile) {
   var linkFunction = function (scope, element, attributes) {
     $("#password").keyup(function(event){
       if(event.keyCode == 13){
@@ -86,16 +86,6 @@ angular.module('login').directive('switchToRegister', function ($compile) {
         $('#loginBtn').css({
           'display': 'block'
         });
-      });
-
-    });
-
-    $('#switchToRegister').on('click', function () {
-      $('login').animate({
-        height: 'toggle',
-        opacity: 0
-      }, 500, function () {
-        $('#my-tab-content').html($compile('<register></register>')(scope));
       });
 
     });
