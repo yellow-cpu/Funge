@@ -1,18 +1,8 @@
 'use strict';
 
 // Register `register` directive
-angular.module('register').directive('attemptRegister', function ($compile) {
+angular.module('register').directive('attemptRegister', function ($state) {
     var linkFunction = function (scope, element, attributes) {
-        $('#switchToLogin').on('click', function () {
-            $('register').animate({
-                opacity: 0,
-                height: "toggle"
-            }, 500, function () {
-                $('#my-tab-content').html($compile('<login></login>')(scope));
-
-            });
-        });
-
         $('#signUp').on('click', function () {
 
             var email = $('#email');
@@ -97,7 +87,8 @@ angular.module('register').directive('attemptRegister', function ($compile) {
 
                     scope.$ctrl.saveLogin(identityId, credentials.accessKey, credentials.secretKey, credentials.sessionToken, 'us-east-1', username);
 
-                    window.location.replace("#!/site");
+                    // Navigate to site
+                    $state.go('site.profile');
                 }).catch(function (result) {
                 console.log("Error: " + JSON.stringify(result));
                 error = $("<div id='error' class=\"alert alert-danger\">" +
