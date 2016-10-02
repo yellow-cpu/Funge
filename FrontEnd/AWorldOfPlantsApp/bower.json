@@ -25,7 +25,7 @@
     "ngjs-color-picker": "^1.0.5",
     "chart.js": "npm:chart.js#^2.2.2",
     "angular-color-picker": "angularjs-color-picker#^2.4.5",
-    "angular-ui-router": "1.0.0"
+    "angular-ui-router": "0.3.1"
   },
   "resolutions": {
     "angular": "~1.5.0"
