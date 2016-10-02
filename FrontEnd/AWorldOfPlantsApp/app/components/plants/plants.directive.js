@@ -3,15 +3,15 @@
 // Register `plants` directive
 angular.
 module('plants').
-directive('viewPlantsDetailsDirective', function ($compile) {
+directive('viewPlantsDetailsDirective', function ($state) {
   var linkFunction = function (scope, element, attributes) {
     $(document).ready(function() {
       scope.$ctrl.getPlants();
     });
 
-    scope.$ctrl.viewDetails = function() {
-      $('#page-wrapper').html($compile('<plant-detail></plant-detail>')(scope));
-    };
+    // scope.$ctrl.viewDetails = function() {
+    //   $state.go('site.plants.plant');
+    // };
   };
 
   return {

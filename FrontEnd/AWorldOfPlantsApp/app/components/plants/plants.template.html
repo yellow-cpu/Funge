@@ -32,7 +32,7 @@
         </div>
       </div>
     </div>
-    <a class="view-details" ng-click="$ctrl.updateDetails(plant.plantId, plant.plantType, plant.plantName, plant.plantAge, plant.colour)">
+    <a class="view-details" ng-click="$ctrl.updateDetails(plant.plantId, plant.plantType, plant.plantName, plant.plantAge, plant.colour)" ui-sref="site.plant-detail({plantId: plant.plantId})">
       <div class="panel-footer" style="background-color: {{plant.colour}}">
         <span class="pull-left">View Details</span>
         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>

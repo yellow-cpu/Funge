@@ -9,7 +9,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#!/site">A World of Plants</a>
+      <a class="navbar-brand" ui-sref=".profile">A World of Plants</a>
     </div>
 
     <ul class="nav navbar-top-links navbar-right">
@@ -19,10 +19,10 @@
       <div class="sidebar-nav navbar-collapse">
         <ul class="nav" id="side-menu">
           <li>
-            <a id="a-dashboard" class="active"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+            <a id="a-dashboard" ui-sref=".profile" ui-sref-active="active"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
           </li>
           <li>
-            <a id="a-plants"><i class="fa fa-leaf fa-fw"></i> Plants</a>
+            <a id="a-plants" ui-sref=".plants" ui-sref-active="active"><i class="fa fa-leaf fa-fw"></i> Plants</a>
           </li>
           <li>
             <a id="a-control"><i class="fa fa-cogs fa-fw"></i> Control<span class="fa arrow"></span></a>
@@ -37,7 +37,7 @@
             <!-- /.nav-second-level -->
           </li>
           <li>
-            <a id="a-things"><i class="fa fa-plug fa-fw"></i> Plant Boxes</a>
+            <a id="a-things" ui-sref=".things" ui-sref-active="active"><i class="fa fa-plug fa-fw"></i> Plant Boxes</a>
           </li>
           <li>
             <a id="a-intelligence"><i class="fa fa-terminal fa-fw"></i> Intelligence</a>

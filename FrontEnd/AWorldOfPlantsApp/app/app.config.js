@@ -41,6 +41,13 @@ angular.
                 template: '<plants></plants>',
                 needAdmin: 'true'
             })
+            // Nested plant details in site
+            .state('site.plant-detail', {
+                url: '/plants/plant-detail/{plantId}',
+                template: '<plant-detail></plant-detail>',
+                needAdmin: 'true'
+
+            })
             // Nested things page in site
             .state('site.things', {
                 url: '/things',
@@ -49,7 +56,6 @@ angular.
             })
 })
     .controller('routingCtrl', ['$scope', function ($scope) { }])
-    // TODO: Prevent unauthorised access
     .run(['$rootScope', '$state', '$stateParams', '$localStorage',
         function ($rootScope, $state, $stateParams, $localStorage) {
             $rootScope.$on('$stateChangeStart', function(e, to) {

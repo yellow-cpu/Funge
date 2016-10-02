@@ -60,7 +60,7 @@ angular.module('plants').component('plants', {
       };
 
       siteService.setPlant($scope.plantDetails);
-      self.viewDetails();
+      // self.viewDetails();
     };
 
     var apigClient = apigClientFactory.newClient({
