@@ -25,4 +25,10 @@ angular.
             url: '/register',
             template: '<register></register>'
         });
-});
+})
+    .controller('landingCtrl', ['$scope', function ($scope) { }])
+    .run(['$rootScope', '$state', '$stateParams',
+        function ($rootScope, $state, $stateParams) {
+            $rootScope.$state = $state;
+            $rootScope.$stateParams = $stateParams;
+        }]);
