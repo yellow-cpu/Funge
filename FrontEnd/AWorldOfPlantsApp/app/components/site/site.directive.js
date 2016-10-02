@@ -6,6 +6,11 @@ angular.module('site').directive('site', function ($state, siteService) {
     $(document).ready(function() {
       $('#side-menu').metisMenu();
     });
+    
+    $('#logout').on('click', function () {
+      siteService.logout();
+      $state.go('landing.login');
+    });
   };
 
   return {
