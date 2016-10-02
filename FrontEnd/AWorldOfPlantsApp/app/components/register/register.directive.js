@@ -1,7 +1,7 @@
 'use strict';
 
 // Register `register` directive
-angular.module('register').directive('register', function ($compile) {
+angular.module('register').directive('attemptRegister', function ($compile) {
     var linkFunction = function (scope, element, attributes) {
         $('#switchToLogin').on('click', function () {
             $('register').animate({

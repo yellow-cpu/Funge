@@ -1,12 +1,12 @@
 <link href="components/login/login.css" rel="stylesheet">
 
-<div id="login" login>
+<div id="login">
     <form class="form-signin" action="" method="">
         <input id="username" type="text" class="form-control" placeholder="Username" required autofocus
                ng-model="$ctrl.user.username">
         <input id="password" type="password" class="form-control" placeholder="Password" required
                ng-model="$ctrl.user.password">
-        <input id="loginBtn" type="button" class="btn btn-lg btn-primary btn-block" value="Sign In" />
+        <input attempt-login id="loginBtn" type="button" class="btn btn-lg btn-primary btn-block" value="Sign In" />
         <div class="loader-container btn btn-lg btn-primary btn-block" style="display: none">
             <span class="loader"><span class="loader-inner"></span></span>
         </div>

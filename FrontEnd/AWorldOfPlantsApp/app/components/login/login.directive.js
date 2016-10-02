@@ -1,7 +1,7 @@
 'use strict';
 
 // Register `login` directive
-angular.module('login').directive('login', function ($compile) {
+angular.module('login').directive('attemptLogin', function ($state) {
   var linkFunction = function (scope, element, attributes) {
     $("#password").keyup(function(event){
       if(event.keyCode == 13){
@@ -31,8 +31,6 @@ angular.module('login').directive('login', function ($compile) {
         error.insertAfter('#password');
         return;
       }
-
-      // scope.$ctrl.loginUser(usernameCheck, passwordCheck);
 
       // Logging user in
       console.log("Attempting to log user in...");
@@ -72,7 +70,8 @@ angular.module('login').directive('login', function ($compile) {
 
           scope.$ctrl.saveLogin(identityId, credentials.accessKey, credentials.secretKey, credentials.sessionToken, 'us-east-1', username);
 
-          window.location.replace("#!/site");
+          // Navigate to site
+          $state.go('site.profile');
         }).catch(function (result) {
         console.log("Error: " + JSON.stringify(result));
         error = $("<div id='error' class=\"alert alert-danger\">" +

@@ -1,7 +1,7 @@
 'use strict';
 
 // Register `site` directive
-angular.module('site').directive('site', function ($compile, siteService) {
+angular.module('site').directive('site', function ($state, siteService) {
   var linkFunction = function(scope, element, attributes) {
     $(document).ready(function() {
       $('#side-menu').metisMenu();
@@ -10,23 +10,24 @@ angular.module('site').directive('site', function ($compile, siteService) {
     $('#a-dashboard').on('click', function() {
       $('#side-menu > li > a').removeClass('active');
       $(this).addClass('active');
-      $('#page-wrapper').html($compile('<profile></profile>')(scope));
+      $state.go('site.profile');
     });
 
     $('#a-plants').on('click', function() {
       $('#side-menu > li > a').removeClass('active');
       $(this).addClass('active');
-      $('#page-wrapper').html($compile('<plants></plants>')(scope));
+      $state.go('site.plants');
     });
 
     $('#a-things').on('click', function() {
       $('#side-menu > li > a').removeClass('active');
       $(this).addClass('active');
-      $('#page-wrapper').html($compile('<things></things>')(scope));
+      $state.go('site.things');
     });
 
     $('#logout').on('click', function () {
       siteService.logout();
+      $state.go('landing.login');
     });
   };
 

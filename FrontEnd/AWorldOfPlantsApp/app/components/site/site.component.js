@@ -15,7 +15,6 @@ angular.
     var logout = function() {
       $localStorage.$reset();
       console.log("Local storage reset.");
-      window.location.replace("#!/landing");
     };
 
     var plant = {};

@@ -1,6 +1,6 @@
 <link href="components/register/register.css" rel="stylesheet"/>
 
-<div id="register" register>
+<div id="register">
     <form class="form-signin" action="" method="">
         <input type="text" class="form-control" id="email" placeholder="Email Address" autofocus
                ng-model="$ctrl.user.email">
@@ -10,7 +10,7 @@
                ng-model="$ctrl.user.password">
         <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password"
                ng-model="$ctrl.user.confirmPassword">
-        <input type="button" class="btn btn-lg btn-default btn-block" id="signUp" value="Sign Up"/>
+        <input attempt-register type="button" class="btn btn-lg btn-default btn-block" id="signUp" value="Sign Up"/>
         <div class="loader-container btn btn-lg btn-primary btn-block" style="display: none">
             <span class="loader"><span class="loader-inner"></span></span>
         </div>
