@@ -31,6 +31,23 @@ angular.module('things').component('things', {
       region: $localStorage.region
     });
 
+    self.updateDetails = function(_thingName, _username, _colour, _plantId) {
+      var parms = {};
+      var body = {
+        "thingName":_thingName,
+        "colour":_colour,
+        "plantId":_plantId,
+        "username":_username
+      };
+
+      apigClient.thingsUpdatePost(parms, body)
+        .then(function (result) {
+        console.log(result);
+      }).catch(function (result) {
+        console.log("Error: " + JSON.stringify(result));
+      });
+    };
+
     var params = {
       "username": $localStorage.username
     };

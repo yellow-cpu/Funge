@@ -26,7 +26,7 @@
         <div class="col-xs-5">
           <div><b>Plant Box name:</b> {{thing.thingName}}</div>
           <div><b>Plant:</b>
-            <select type="text" class="form-control">
+            <select ng-model="plantSelect" type="text" class="form-control">
               <option ng-repeat="p in $ctrl.plantList" value="{{p.plantId}}" ng-selected="{{p.plantId == thing.plantId}}">{{p.plantName}}</option>
             </select>
           </div>
@@ -43,7 +43,7 @@
     </div>
     <a class="view-details">
       <div class="panel-footer" style="background-color: {{thing.colour}}">
-        <span class="pull-left"><button class="btn btn-success">Update</button></span>
+        <span class="pull-left"><button class="btn btn-success" ng-click="$ctrl.updateDetails(thing.thingName, thing.username, thing.colour, plantSelect)">Update</button></span>
         <span class="pull-right"><button class="btn btn-danger thingDelete">Delete</button></span>
         <div class="clearfix"></div>
       </div>
