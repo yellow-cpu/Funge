@@ -44,7 +44,6 @@ angular.module('things').component('things', {
         self.plantList = [];
 
         for (var i = 0; i < plants.length; ++i) {
-          //var obj = {plantId: plants[i].plantId, name: plants[i]}
           self.plantList.push(plants[i]);
         }
         $scope.$apply();
