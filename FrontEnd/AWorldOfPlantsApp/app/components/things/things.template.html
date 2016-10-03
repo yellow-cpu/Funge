@@ -25,9 +25,9 @@
         </div>
         <div class="col-xs-5">
           <div><b>Plant Box name:</b> {{thing.thingName}}</div>
-          <div><b>Plant id:</b>
+          <div><b>Plant:</b>
             <select type="text" class="form-control">
-              <option ng-repeat="id in $ctrl.plantIdList" value="{{id}}" ng-selected="{{id == thing.plantId}}">{{id}}</option>
+              <option ng-repeat="p in $ctrl.plantList" value="{{p.plantId}}" ng-selected="{{p.plantId == thing.plantId}}">{{p.plantName}}</option>
             </select>
           </div>
           <div>
@@ -65,9 +65,9 @@
             <input id="thingName" ng-model="$ctrl.newThing.thingName" type="text" class="form-control">
           </div>
           <div class="form-group">
-            <label for="plantId">Plant id:</label>
+            <label for="plantId">Plant:</label>
             <select id="plantId" type="text" class="form-control" ng-model="$ctrl.newThing.plantId">
-              <option ng-repeat="id in $ctrl.plantIdList" value="{{id}}">{{id}}</option>
+              <option ng-repeat="p in $ctrl.plantList" value="{{p.plantId}}">{{p.plantName}}</option>
             </select>
           </div>
           <div class="form-group">
