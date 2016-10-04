@@ -14,7 +14,8 @@ angular.module('profile').component('profile', {
     self.timelineEvents = [];
 
     // Card variables
-    self.numPlants = 0;
+    self.numPlants      = 0;
+    self.numPlantBoxes  = 0;
 
     var apigClient = apigClientFactory.newClient({
       accessKey: $localStorage.accessKey,
@@ -101,25 +102,24 @@ angular.module('profile').component('profile', {
       'display': 'none'
     });
 
-    // Count the number of plants belonging to the user
-    self.countPlants = function() {
+    // Generate the values for the cards
+    self.generateCards = function() {
+
       var params = {
           "username": $localStorage.username
       };
-
       var body = {};
 
+      // Count the number of plants belonging to the user
       apigClient.plantsUserUsernameGet(params, body)
         .then(function (result) {
           self.numPlants = result.data.plants.length;
 
-          $("#numPlants").html(self.numPlants);
-
-          $("#card-plant").find(".card-loader").css({
+          $("#card-plants").find(".card-loader").css({
             'display': 'none'
           });
 
-          $("#card-plant").find(".card").css({
+          $("#card-plants").find(".card").css({
             'display': 'block'
           });
 
@@ -128,6 +128,19 @@ angular.module('profile').component('profile', {
         console.log("Error: " + JSON.stringify(result));
       });
 
+      // Count the number of plant boxes
+      apigClient.thingsUserUsernameGet(params, body)
+        .then(function (result) {
+          self.numPlantBoxes = result.data.things.length;
+
+          $("#card-plant-boxes").find(".card-loader").css({
+            'display': 'none'
+          });
+
+          $("#card-plant-boxes").find(".card").css({
+            'display': 'block'
+          });
+        });
     };
   }
 });

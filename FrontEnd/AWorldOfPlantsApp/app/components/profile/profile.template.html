@@ -11,7 +11,7 @@
 <!-- Cards -->
 <div class="row" populate-cards-directive>
     <div class="col-lg-3 col-md-6">
-        <div class="panel panel-green" id="card-plant">
+        <div class="panel panel-green" id="card-plants">
             <div class="panel-heading">
                 <div class="card-loader">
                     <span class="loader"><span class="loader-inner"></span></span>
@@ -21,13 +21,13 @@
                         <i class="fa fa-leaf fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge" id="numPlants">{{ $ctrl.numPlants }}</div>
-                        <div>Plants</div>
+                        <div class="huge">{{ $ctrl.numPlants }}</div>
+                        <div>Plants!</div>
                     </div>
                 </div>
             </div>
-            <a href="#">
-                <div class="panel-footer card-plant-footer">
+            <a href="#/site/plants">
+                <div class="panel-footer card-plants-footer">
                     <span class="pull-left">View Details</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                     <div class="clearfix"></div>
@@ -36,20 +36,23 @@
         </div>
     </div>
     <div class="col-lg-3 col-md-6">
-        <div class="panel panel-green">
+        <div class="panel panel-green" id="card-plant-boxes">
             <div class="panel-heading">
-                <div class="row">
+                <div class="card-loader">
+                    <span class="loader"><span class="loader-inner"></span></span>
+                </div>
+                <div class="row card">
                     <div class="col-xs-3">
                         <i class="fa fa-tasks fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">12</div>
-                        <div>New Tasks!</div>
+                        <div class="huge">{{ $ctrl.numPlantBoxes }}</div>
+                        <div>Plant Boxes!</div>
                     </div>
                 </div>
             </div>
-            <a href="#">
-                <div class="panel-footer">
+            <a href="#/site/things">
+                <div class="panel-footer card-plant-boxes-footer">
                     <span class="pull-left">View Details</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                     <div class="clearfix"></div>
@@ -58,7 +61,7 @@
         </div>
     </div>
     <div class="col-lg-3 col-md-6">
-        <div class="panel panel-green">
+        <div class="panel panel-green" id="card-score">
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-3">
@@ -71,7 +74,7 @@
                 </div>
             </div>
             <a href="#">
-                <div class="panel-footer">
+                <div class="panel-footer card-score-footer">
                     <span class="pull-left">View Details</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                     <div class="clearfix"></div>

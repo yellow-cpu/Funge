@@ -2,8 +2,19 @@
     color: white;
 }
 
-.card-plant-footer {
+.card-loader {
+    display: inline-block;
+    text-align: center;
+    margin-top: 9px;
+    margin-bottom:8px;
+}
+
+.card-plants-footer {
     background-color: #f99406;
+}
+
+.card-plant-boxes-footer{
+    background-color: #0088cc;
 }
 
 .timeline {
