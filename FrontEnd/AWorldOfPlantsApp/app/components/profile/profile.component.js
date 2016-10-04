@@ -13,6 +13,9 @@ angular.module('profile').component('profile', {
     // Timeline variables
     self.timelineEvents = [];
 
+    // Card variables
+    self.numPlants = 0;
+
     var apigClient = apigClientFactory.newClient({
       accessKey: $localStorage.accessKey,
       secretKey: $localStorage.secretKey,
@@ -87,6 +90,35 @@ angular.module('profile').component('profile', {
             $scope.$apply();
           }).catch(function (result) {
         console.log("Error retrieving timeline info: " + JSON.stringify(result));
+      });
+    };
+
+    self.countPlants = function() {
+      var params = {
+          "username": $localStorage.username
+      };
+
+      var body = {};
+
+      /*
+      $(".loader-container").css({
+        'display': 'block'
+      });
+      */
+
+      apigClient.plantsUserUsernameGet(params, body)
+        .then(function (result) {
+          $(".loader-container").css({
+            'display': 'none'
+          });
+          self.numPlants = result.data.plants.length;
+          $("#numPlants").html(numPlants);
+
+          console.log(self.plants);
+
+          $scope.$apply();
+        }).catch(function (result) {
+        console.log("Error: " + JSON.stringify(result));
       });
     };
   }

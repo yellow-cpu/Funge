@@ -25,4 +25,14 @@ directive('populateTimelineDirective', function($compile) {
   return {
     link: linkFunction
   };
+}).
+// Populate data for the cards
+directive('populateCardsDirective', function($compile) {
+  var linkFunction = function (scope, element, attributes) {
+    scope.$ctrl.countPlants();
+  };
+
+  return {
+    link: linkFunction
+  };
 });
