@@ -9,11 +9,14 @@
 </div>
 
 <!-- Cards -->
-<div class="row" populateCardsDirective>
+<div class="row" populate-cards-directive>
     <div class="col-lg-3 col-md-6">
-        <div class="panel panel-green">
+        <div class="panel panel-green" id="card-plant">
             <div class="panel-heading">
-                <div class="row">
+                <div class="card-loader">
+                    <span class="loader"><span class="loader-inner"></span></span>
+                </div>
+                <div class="row card">
                     <div class="col-xs-3">
                         <i class="fa fa-leaf fa-5x"></i>
                     </div>
@@ -24,7 +27,7 @@
                 </div>
             </div>
             <a href="#">
-                <div class="panel-footer">
+                <div class="panel-footer card-plant-footer">
                     <span class="pull-left">View Details</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                     <div class="clearfix"></div>

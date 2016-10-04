@@ -93,37 +93,41 @@ angular.module('profile').component('profile', {
       });
     };
 
+    $(".card-loader").css({
+      'display': 'block'
+    });
+
+    $(".card").css({
+      'display': 'none'
+    });
+
     // Count the number of plants belonging to the user
     self.countPlants = function() {
       var params = {
           "username": $localStorage.username
       };
-      console.log("************************");
 
       var body = {};
 
-      /*
-      $(".loader-container").css({
-        'display': 'block'
-      });
-      */
-
       apigClient.plantsUserUsernameGet(params, body)
         .then(function (result) {
-          /*
-          $(".loader-container").css({
+          self.numPlants = result.data.plants.length;
+
+          $("#numPlants").html(self.numPlants);
+
+          $("#card-plant").find(".card-loader").css({
             'display': 'none'
           });
-          */
-          self.numPlants = result.data.plants.length;
-          $("#numPlants").html(numPlants);
 
-          console.log("*****" + self.plants + "*****");
+          $("#card-plant").find(".card").css({
+            'display': 'block'
+          });
 
           $scope.$apply();
         }).catch(function (result) {
         console.log("Error: " + JSON.stringify(result));
       });
+
     };
   }
 });

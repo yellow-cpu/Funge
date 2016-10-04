@@ -2,6 +2,10 @@
     color: white;
 }
 
+.card-plant-footer {
+    background-color: #f99406;
+}
+
 .timeline {
     position: relative;
     padding: 20px 0 20px;
