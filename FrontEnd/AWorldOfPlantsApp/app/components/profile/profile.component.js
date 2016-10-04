@@ -93,10 +93,12 @@ angular.module('profile').component('profile', {
       });
     };
 
+    // Count the number of plants belonging to the user
     self.countPlants = function() {
       var params = {
           "username": $localStorage.username
       };
+      console.log("************************");
 
       var body = {};
 
@@ -108,13 +110,15 @@ angular.module('profile').component('profile', {
 
       apigClient.plantsUserUsernameGet(params, body)
         .then(function (result) {
+          /*
           $(".loader-container").css({
             'display': 'none'
           });
+          */
           self.numPlants = result.data.plants.length;
           $("#numPlants").html(numPlants);
 
-          console.log(self.plants);
+          console.log("*****" + self.plants + "*****");
 
           $scope.$apply();
         }).catch(function (result) {
