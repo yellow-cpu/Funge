@@ -68,12 +68,12 @@ angular.module('things').component('things', {
       console.log("Error: " + JSON.stringify(result));
     });
 
-    self.removeThing = function () {
+    self.removeThing = function (_thingName, _username) {
       var params = {};
 
       var body = {
-        "thingName": "blueThing",
-        "username": "dill"
+        "thingName": _thingName,
+        "username": _username
       };
 
       apigClient.thingsDeletePost(params, body)

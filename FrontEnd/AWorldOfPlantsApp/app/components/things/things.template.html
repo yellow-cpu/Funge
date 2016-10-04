@@ -44,7 +44,7 @@
     <a class="view-details">
       <div class="panel-footer" style="background-color: {{thing.colour}}">
         <span class="pull-left"><button class="btn btn-success" ng-click="$ctrl.updateDetails(thing.thingName, thing.username, thing.colour, plantSelect)">Update</button></span>
-        <span class="pull-right"><button class="btn btn-danger thingDelete">Delete</button></span>
+        <span class="pull-right"><button class="btn btn-danger thingDelete" ng-click="$ctrl.removeThing(thing.thingName, thing.username)">Delete</button></span>
         <div class="clearfix"></div>
       </div>
     </a>
