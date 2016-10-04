@@ -16,6 +16,7 @@ angular.module('profile').component('profile', {
     // Card variables
     self.numPlants      = 0;
     self.numPlantBoxes  = 0;
+    self.points         = 0;
 
     var apigClient = apigClientFactory.newClient({
       accessKey: $localStorage.accessKey,
@@ -58,6 +59,14 @@ angular.module('profile').component('profile', {
         'display': 'block'
     });
 
+    $(".card-loader").css({
+      'display': 'block'
+    });
+
+    $(".card").css({
+      'display': 'none'
+    });
+
     // Get timeline events of current user
     self.getTimelineEvents = function() {
       apigClient.timelineUsernameGet(params, body)
@@ -88,27 +97,29 @@ angular.module('profile').component('profile', {
               self.timelineEvents[i].timestamp = self.timeConverter(self.timelineEvents[i].timestamp);
             }
 
+            // Calculate score
+            self.timelineEvents.forEach(function(event){
+              console.log("**********");
+              console.log(event);
+              self.points += event.pointValue;
+            });
+
+            $("#card-score").find(".card-loader").css({
+              'display': 'none'
+            });
+
+            $("#card-score").find(".card").css({
+              'display': 'block'
+            });
+
             $scope.$apply();
           }).catch(function (result) {
         console.log("Error retrieving timeline info: " + JSON.stringify(result));
       });
     };
 
-    $(".card-loader").css({
-      'display': 'block'
-    });
-
-    $(".card").css({
-      'display': 'none'
-    });
-
     // Generate the values for the cards
     self.generateCards = function() {
-
-      var params = {
-          "username": $localStorage.username
-      };
-      var body = {};
 
       // Count the number of plants belonging to the user
       apigClient.plantsUserUsernameGet(params, body)
@@ -133,6 +144,8 @@ angular.module('profile').component('profile', {
         .then(function (result) {
           self.numPlantBoxes = result.data.things.length;
 
+          console.log(self.numPlantBoxes);
+
           $("#card-plant-boxes").find(".card-loader").css({
             'display': 'none'
           });
@@ -141,6 +154,8 @@ angular.module('profile').component('profile', {
             'display': 'block'
           });
         });
+
+
     };
   }
 });

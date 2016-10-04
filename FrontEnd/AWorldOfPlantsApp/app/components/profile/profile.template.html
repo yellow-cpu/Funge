@@ -63,13 +63,16 @@
     <div class="col-lg-3 col-md-6">
         <div class="panel panel-green" id="card-score">
             <div class="panel-heading">
-                <div class="row">
+                <div class="card-loader">
+                    <span class="loader"><span class="loader-inner"></span></span>
+                </div>
+                <div class="row card">
                     <div class="col-xs-3">
-                        <i class="fa fa-shopping-cart fa-5x"></i>
+                        <i class="fa fa-flag fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">124</div>
-                        <div>New Orders!</div>
+                        <div class="huge">{{ $ctrl.points }}</div>
+                        <div>Points!</div>
                     </div>
                 </div>
             </div>
