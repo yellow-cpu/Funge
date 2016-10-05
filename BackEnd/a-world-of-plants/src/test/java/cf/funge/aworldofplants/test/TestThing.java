@@ -68,12 +68,15 @@ public class TestThing extends cf.funge.aworldofplants.test.Test{
 
     @Test
     public void testAddThingResponse() {
-        String thingArn = "test-thing-arn";
+        String thingName = "test-thing-name";
+        Thing thing = new Thing();
+
+        thing.setThingName(thingName);
 
         AddThingResponse addThingResponse = new AddThingResponse();
-        addThingResponse.setThingArn(thingArn);
+        addThingResponse.setThing(thing);
 
-        assertEquals(addThingResponse.getThingArn(), thingArn);
+        assertEquals(addThingResponse.getThing().getThingName(), thingName);
     }
 
     @Test

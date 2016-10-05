@@ -169,8 +169,17 @@ public class AddThingAction extends AbstractAction {
             throw new InternalErrorException(ExceptionMessages.EX_DAO_ERROR);
         }
 
+        Thing returnedThing;
+
+        try {
+            returnedThing = thingDAO.getThingByName(input.getThingName());
+        } catch (final DAOException e) {
+            logger.log("Error while returning new thing after creation\n" + e.getMessage());
+            throw new InternalErrorException(ExceptionMessages.EX_DAO_ERROR);
+        }
+
         AddThingResponse output = new AddThingResponse();
-        output.setThingArn(createThingResult.getThingArn());
+        output.setThing(returnedThing);
 
         // Add thing timeline event
         TimelineDAO timelineDAO = DAOFactory.getTimelineDAO();

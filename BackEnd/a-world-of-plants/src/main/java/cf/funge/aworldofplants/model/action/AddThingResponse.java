@@ -1,16 +1,18 @@
 package cf.funge.aworldofplants.model.action;
 
+import cf.funge.aworldofplants.model.thing.Thing;
+
 /**
  * Created by Dillon on 2016-09-01.
  */
 public class AddThingResponse {
-    private String thingArn;
+    private Thing thing;
 
-    public String getThingArn() {
-        return thingArn;
+    public Thing getThing() {
+        return thing;
     }
 
-    public void setThingArn(String thingArn) {
-        this.thingArn = thingArn;
+    public void setThing(Thing thing) {
+        this.thing = thing;
     }
 }

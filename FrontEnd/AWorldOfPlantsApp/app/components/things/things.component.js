@@ -92,6 +92,8 @@ angular.module('things').component('things', {
 
       apigClient.thingsPost(params, body)
         .then(function (result) {
+          console.log(result);
+
           console.log("Success: " + JSON.stringify(result.data));
         }).catch(function (result) {
         console.log("Error: " + JSON.stringify(result));
