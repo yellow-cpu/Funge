@@ -95,8 +95,17 @@ public class CreatePlantAction extends AbstractAction {
             throw new InternalErrorException(ExceptionMessages.EX_DAO_ERROR);
         }
 
+        Plant returnedPlant;
+
+        try {
+            returnedPlant = dao.getPlantById(plantId);
+        } catch (final DAOException e) {
+            logger.log("Error while getting newly created plant by plantId\n" + e.getMessage());
+            throw new InternalErrorException(ExceptionMessages.EX_DAO_ERROR);
+        }
+
         CreatePlantResponse output = new CreatePlantResponse();
-        output.setPlantId(plantId);
+        output.setPlant(returnedPlant);
 
         return getGson().toJson(output);
     }

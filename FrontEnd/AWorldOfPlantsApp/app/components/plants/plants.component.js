@@ -43,6 +43,8 @@ angular.module('plants').component('plants', {
 
       apigClient.plantsPost(params, body)
         .then(function (result) {
+          console.log(result);
+
           console.log("Success: " + JSON.stringify(result.data));
         }).catch(function (result) {
         console.log("Error: " + JSON.stringify(result));
