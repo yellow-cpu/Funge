@@ -15,7 +15,7 @@ angular.module('things').component('things', {
       colour: "#1D9D73"
     };
 
-    self.plantIdList = [];
+    self.plantList = [];
 
     self.customColors = ["#1D9D73", "#297373", "#FF8552", "#DA3E52", "#F9C80E", "#51B749", "#662E9B", "#FF5C33", "#236ACB", "#F7B32B", "#4C5B5C", "#FF5AEF"];
 
@@ -31,6 +31,23 @@ angular.module('things').component('things', {
       region: $localStorage.region
     });
 
+    self.updateDetails = function(_thingName, _username, _colour, _plantId) {
+      var parms = {};
+      var body = {
+        "thingName":_thingName,
+        "colour":_colour,
+        "plantId":_plantId,
+        "username":_username
+      };
+
+      apigClient.thingsUpdatePost(parms, body)
+        .then(function (result) {
+        console.log(result);
+      }).catch(function (result) {
+        console.log("Error: " + JSON.stringify(result));
+      });
+    };
+
     var params = {
       "username": $localStorage.username
     };
@@ -41,23 +58,22 @@ angular.module('things').component('things', {
       .then(function (result) {
         var plants = result.data.plants;
         
-        self.plantIdList = [];
+        self.plantList = [];
 
         for (var i = 0; i < plants.length; ++i) {
-          self.plantIdList.push(plants[i].plantId);
+          self.plantList.push(plants[i]);
         }
-        
         $scope.$apply();
       }).catch(function (result) {
       console.log("Error: " + JSON.stringify(result));
     });
 
-    self.removeThing = function () {
+    self.removeThing = function (_thingName, _username) {
       var params = {};
 
       var body = {
-        "thingName": "blueThing",
-        "username": "dill"
+        "thingName": _thingName,
+        "username": _username
       };
 
       apigClient.thingsDeletePost(params, body)
@@ -102,9 +118,8 @@ angular.module('things').component('things', {
           self.things = result.data.things;
 
           if (self.things.length >= 1) {
-            var indexOfFileName = self.things[0].files[0].split('/', 6).join('/').length;
-
             for (var i = 0; i < self.things.length; ++i) {
+              var indexOfFileName = self.things[i].files[i].split('/', 6).join('/').length;
               var fileNames = [];
               for (var j = 0; j < self.things[i].files.length; ++j) {
                 fileNames.push(self.things[i].files[j].substring(indexOfFileName + 1));

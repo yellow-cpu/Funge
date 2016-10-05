@@ -35,6 +35,12 @@ directive('createThingDirective', function() {
       $('#thingName').val('');
       $('#plantId').val('');
     });
+
+    $('#updateThing').on('click', function() {
+      alert("test");
+      scope.$ctrl.changeThing();
+    });
+
   };
 
   return {

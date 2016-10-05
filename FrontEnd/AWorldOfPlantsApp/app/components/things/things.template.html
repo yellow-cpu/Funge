@@ -5,9 +5,6 @@
       <button id="newThing" class="btn btn-success pull-right" data-toggle="modal" data-target="#createThingModal">
         Create New Plant Box
       </button>
-      <button ng-click="$ctrl.removeThing()">
-        Delete Thing
-      </button>
     </h1>
   </div>
 </div>
@@ -25,9 +22,9 @@
         </div>
         <div class="col-xs-5">
           <div><b>Plant Box name:</b> {{thing.thingName}}</div>
-          <div><b>Plant id:</b>
-            <select type="text" class="form-control">
-              <option ng-repeat="id in $ctrl.plantIdList" value="{{id}}" ng-selected="{{id == thing.plantId}}">{{id}}</option>
+          <div><b>Plant:</b>
+            <select ng-model="plantSelect" type="text" class="form-control">
+              <option ng-repeat="p in $ctrl.plantList" value="{{p.plantId}}" ng-selected="{{p.plantId == thing.plantId}}">{{p.plantName}}</option>
             </select>
           </div>
           <div>
@@ -43,8 +40,8 @@
     </div>
     <a class="view-details">
       <div class="panel-footer" style="background-color: {{thing.colour}}">
-        <span class="pull-left"><button class="btn btn-success">Update</button></span>
-        <span class="pull-right"><button class="btn btn-danger thingDelete">Delete</button></span>
+        <span class="pull-left"><button class="btn btn-success" ng-click="$ctrl.updateDetails(thing.thingName, thing.username, thing.colour, plantSelect)">Update</button></span>
+        <span class="pull-right"><button class="btn btn-danger thingDelete" ng-click="$ctrl.removeThing(thing.thingName, thing.username)">Delete</button></span>
         <div class="clearfix"></div>
       </div>
     </a>
@@ -65,9 +62,9 @@
             <input id="thingName" ng-model="$ctrl.newThing.thingName" type="text" class="form-control">
           </div>
           <div class="form-group">
-            <label for="plantId">Plant id:</label>
+            <label for="plantId">Plant:</label>
             <select id="plantId" type="text" class="form-control" ng-model="$ctrl.newThing.plantId">
-              <option ng-repeat="id in $ctrl.plantIdList" value="{{id}}">{{id}}</option>
+              <option ng-repeat="p in $ctrl.plantList" value="{{p.plantId}}">{{p.plantName}}</option>
             </select>
           </div>
           <div class="form-group">
