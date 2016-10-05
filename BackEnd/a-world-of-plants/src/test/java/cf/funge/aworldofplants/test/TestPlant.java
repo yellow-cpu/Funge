@@ -74,12 +74,15 @@ public class TestPlant extends cf.funge.aworldofplants.test.Test {
 
     @Test
     public void testCreatePlantResponse() {
+        Plant plant = new Plant();
         String plantId = "test-plant-id";
 
-        CreatePlantResponse createPlantResponse = new CreatePlantResponse();
-        createPlantResponse.setPlantId(plantId);
+        plant.setPlantId(plantId);
 
-        assertEquals(createPlantResponse.getPlantId(), plantId);
+        CreatePlantResponse createPlantResponse = new CreatePlantResponse();
+        createPlantResponse.setPlant(plant);
+
+        assertEquals(createPlantResponse.getPlant().getPlantId(), plantId);
     }
 
     @Test
