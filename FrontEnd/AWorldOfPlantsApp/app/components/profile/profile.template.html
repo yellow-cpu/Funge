@@ -141,7 +141,31 @@
                             <div class="timeline-body">
                                 <p>{{event.message}}</p>
                                 <p>You gained {{event.pointValue}} points!</p>
-                                <a twitter data-text="{{event.message}}"></a>
+                                <button class="btn btn-success"
+                                   socialshare
+                                   socialshare-provider="twitter"
+                                   socialshare-text="{{event.message}}"
+                                   socialshare-hashtags="plants, IoT"
+                                   socialshare-url="http://funge.cf">
+                                    <i class="fa fa-twitter"></i>
+                                </button>
+                                <button class="btn btn-primary"
+                                   socialshare
+                                   socialshare-provider="facebook"
+                                   socialshare-via="117134758752316"
+                                   socialshare-type="feed"
+                                   socialshare-text="A World of Plants!"
+                                   socialshare-description="{{event.message}}"
+                                   socialshare-media="https://raw.githubusercontent.com/DillonHeins/Funge/master/Documentation/images/AWorldOfPlants.png"
+                                   socialshare-url="http://funge.cf">
+                                    <i class="fa fa-facebook"></i>
+                                </button>
+                                <button class="btn btn-danger"
+                                   socialshare
+                                   socialshare-provider="google"
+                                   socialshare-url="http://funge.cf">
+                                    <i class="fa fa-google-plus"></i>
+                                </button>
                             </div>
                         </div>
                     </li>

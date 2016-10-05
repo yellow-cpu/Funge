@@ -35,22 +35,4 @@ directive('populateCardsDirective', function($compile) {
   return {
     link: linkFunction
   };
-})
-.directive('twitter', [
-  function() {
-    return {
-      link: function(scope, element, attr) {
-        setTimeout(function() {
-          twttr.widgets.createShareButton(
-            "http://funge.cf",
-            element[0],
-            function(el) {}, {
-              count: 'none',
-              text: attr.text
-            }
-          );
-        });
-      }
-    }
-  }
-]);
+});
