@@ -131,6 +131,8 @@
                                 class="fa fa-leaf"></i></div>
                         <div ng-if="event.category == 'thing-create'" class="timeline-badge success"><i
                                 class="fa fa-plug"></i></div>
+                        <div ng-if="event.category == 'thing-delete'" class="timeline-badge danger"><i
+                                class="fa fa-plug"></i></div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
                                 <h4 class="timeline-title">{{event.title}}</h4>
@@ -140,7 +142,7 @@
                             </div>
                             <div class="timeline-body">
                                 <p>{{event.message}}</p>
-                                <p>You gained {{event.pointValue}} points!</p>
+                                <p ng-if="event.pintValue > 0">You gained {{event.pointValue}} points!</p>
                                 <button class="btn btn-success"
                                    socialshare
                                    socialshare-provider="twitter"
