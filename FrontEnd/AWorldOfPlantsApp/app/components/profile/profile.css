@@ -68,7 +68,8 @@
     position: relative;
     width: 46%;
     padding: 20px;
-    border: 1px solid #d4d4d4;
+    background-color: white;
+    color: #757575;
     border-radius: 2px;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     -webkit-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
@@ -222,7 +223,7 @@
 }
 
 .spinner > div {
-    background-color: #ffffff;
+    background-color: #757575;
     height: 100%;
     width: 6px;
     display: inline-block;
