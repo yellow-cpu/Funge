@@ -53,7 +53,12 @@
         <form role="form">
           <div class="form-group">
             <label for="type">Plant type:</label>
-            <input id="plantType" ng-model="$ctrl.newPlant.plantType" type="text" class="form-control" id="type">
+              <ui-select id="plantType" ng-model="$ctrl.newPlant.plantType">
+              <ui-select-match placeholder="Select or search for a plant type...">{{$select.selected}}</ui-select-match>
+              <ui-select-choices repeat="t in getPlantTypes($select.search) | filter: $select.search">
+                <div ng-bind="t"></div>
+              </ui-select-choices>
+              </ui-select>
           </div>
           <div class="form-group">
             <label for="name">Plant name:</label>

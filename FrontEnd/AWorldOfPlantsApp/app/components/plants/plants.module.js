@@ -1,4 +1,4 @@
 'use strict';
 
 // Define the `plants` module
-angular.module('plants', []);
+angular.module('plants', ['ui.select']);

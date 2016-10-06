@@ -55,7 +55,7 @@ angular.module('profile').component('profile', {
       'display': 'none'
     });
 
-    $(".loader-container").css({
+    /*$(".loader-container").css({
         'display': 'block'
     });
 
@@ -65,7 +65,7 @@ angular.module('profile').component('profile', {
 
     $(".card").css({
       'display': 'none'
-    });
+    });*/
 
     // Get timeline events of current user
     self.getTimelineEvents = function() {
@@ -104,11 +104,11 @@ angular.module('profile').component('profile', {
               self.points += event.pointValue;
             });
 
-            $("#card-score").find(".card-loader").css({
+            $("#card-score").find(".spinner").css({
               'display': 'none'
             });
 
-            $("#card-score").find(".card").css({
+            $("#card-score").find(".value").css({
               'display': 'block'
             });
 
@@ -126,11 +126,11 @@ angular.module('profile').component('profile', {
         .then(function (result) {
           self.numPlants = result.data.plants.length;
 
-          $("#card-plants").find(".card-loader").css({
+          $("#card-plants").find("div.spinner").css({
             'display': 'none'
           });
 
-          $("#card-plants").find(".card").css({
+          $("#card-plants").find(".value").css({
             'display': 'block'
           });
 
@@ -146,11 +146,11 @@ angular.module('profile').component('profile', {
 
           console.log(self.numPlantBoxes);
 
-          $("#card-plant-boxes").find(".card-loader").css({
+          $("#card-plant-boxes").find("div.spinner").css({
             'display': 'none'
           });
 
-          $("#card-plant-boxes").find(".card").css({
+          $("#card-plant-boxes").find(".value").css({
             'display': 'block'
           });
         });
