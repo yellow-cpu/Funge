@@ -11,9 +11,9 @@ angular.
       var mousewheelevt = (/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "mousewheel" //FF doesn't recognize mousewheel as of FF3.x
       $('html').bind(mousewheelevt, function(e){
 
-        var evt = window.event || e //equalize event object
+        var evt = window.event || e; //equalize event object
         evt = evt.originalEvent ? evt.originalEvent : evt; //convert to originalEvent if possible
-        var delta = evt.detail ? evt.detail*(-40) : evt.wheelDelta //check for detail first, because it is used by Opera and FF
+        var delta = evt.detail ? evt.detail*(-40) : evt.wheelDelta; //check for detail first, because it is used by Opera and FF
 
         if(delta > 0) {
           //scroll up
@@ -38,6 +38,13 @@ angular.
         navigation: true,
         navigationPosition: 'right',
         scrollingSpeed: 1000
+      };
+
+      // Remove 2nd section if working on small screens
+      if ($(window).width() <= 736) {
+          $('.arrow').remove();
+          $('.section2').remove();
+          $('div#firstfooter').hide();
       }
     }
   });

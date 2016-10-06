@@ -98,5 +98,19 @@ angular.module('plants').component('plants', {
             console.log("Error: " + JSON.stringify(result));
       });
     };
+
+    $scope.getPlantTypes = function(search) {
+      if (self.plants === undefined) self.plants = []
+      $scope.plantTypes = self.plants.map(x => x.plantType).sort();
+
+      var newTypes = $scope.plantTypes.slice();
+
+      if (search && newTypes.indexOf(search) === -1) {
+        newTypes.unshift(search);
+      }
+
+      return newTypes;
+    }
+
   }
 });
