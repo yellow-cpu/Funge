@@ -8,5 +8,6 @@ var master = angular.module('master', [
   'color.picker',
   'landing',
   'site',
+  '720kb.socialshare',
   'testing'
 ]);

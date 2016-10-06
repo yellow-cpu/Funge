@@ -12,17 +12,19 @@
  */
 package cf.funge.aworldofplants.model.action;
 
+import cf.funge.aworldofplants.model.plant.Plant;
+
 /**
  * Bean for the plant creation response.
  */
 public class CreatePlantResponse {
-    private String plantId;
+    private Plant plant;
 
-    public String getPlantId() {
-        return plantId;
+    public Plant getPlant() {
+        return plant;
     }
 
-    public void setPlantId(String plantId) {
-        this.plantId = plantId;
+    public void setPlant(Plant plant) {
+        this.plant = plant;
     }
 }

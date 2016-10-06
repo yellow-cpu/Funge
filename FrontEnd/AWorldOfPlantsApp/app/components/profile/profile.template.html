@@ -3,7 +3,7 @@
 <div class="row" view-timeline-directive>
     <div class="col-lg-12">
         <h1 class="page-header">
-            {{$ctrl.username}} <span class="pull-right">{{$ctrl.email}}</span>
+            Dashboard - {{$ctrl.username}} <span class="pull-right">{{$ctrl.email}}</span>
         </h1>
     </div>
 </div>
@@ -11,82 +11,100 @@
 <!-- Cards -->
 <div class="row" populate-cards-directive>
     <div class="col-lg-3 col-md-6">
-        <div class="panel panel-green" id="card-plants">
+        <div class="panel panel-yellow" id="card-plants">
             <div class="panel-heading">
-                <div class="card-loader">
-                    <span class="loader"><span class="loader-inner"></span></span>
-                </div>
                 <div class="row card">
                     <div class="col-xs-3">
                         <i class="fa fa-leaf fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">{{ $ctrl.numPlants }}</div>
-                        <div>Plants!</div>
+                        <div class="huge">
+                            <div class="value" style="display: none;">
+                                {{ $ctrl.numPlants }}
+                            </div>
+                            <div class="spinner">
+                                <div class="rect1"></div>
+                                <div class="rect2"></div>
+                                <div class="rect3"></div>
+                                <div class="rect4"></div>
+                                <div class="rect5"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <a href="#/site/plants">
                 <div class="panel-footer card-plants-footer">
-                    <span class="pull-left">View Details</span>
-                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <span class="pull-left">Plants!</span>
                     <div class="clearfix"></div>
                 </div>
             </a>
         </div>
     </div>
     <div class="col-lg-3 col-md-6">
-        <div class="panel panel-green" id="card-plant-boxes">
+        <div class="panel panel-yellow" id="card-plant-boxes">
             <div class="panel-heading">
-                <div class="card-loader">
-                    <span class="loader"><span class="loader-inner"></span></span>
-                </div>
                 <div class="row card">
                     <div class="col-xs-3">
                         <i class="fa fa-tasks fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">{{ $ctrl.numPlantBoxes }}</div>
-                        <div>Plant Boxes!</div>
+                        <div class="huge">
+                            <div class="value" style="display: none;">
+                                {{ $ctrl.numPlantBoxes }}
+                            </div>
+                            <div class="spinner">
+                                <div class="rect1"></div>
+                                <div class="rect2"></div>
+                                <div class="rect3"></div>
+                                <div class="rect4"></div>
+                                <div class="rect5"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <a href="#/site/things">
                 <div class="panel-footer card-plant-boxes-footer">
-                    <span class="pull-left">View Details</span>
-                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <span class="pull-left">Plant Boxes!</span>
                     <div class="clearfix"></div>
                 </div>
             </a>
         </div>
     </div>
     <div class="col-lg-3 col-md-6">
-        <div class="panel panel-green" id="card-score">
+        <div class="panel panel-yellow" id="card-score">
             <div class="panel-heading">
-                <div class="card-loader">
-                    <span class="loader"><span class="loader-inner"></span></span>
-                </div>
                 <div class="row card">
                     <div class="col-xs-3">
                         <i class="fa fa-flag fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">{{ $ctrl.points }}</div>
-                        <div>Points!</div>
+                        <div class="huge">
+                            <div class="value" style="display: none;">
+                                {{ $ctrl.points }}
+                            </div>
+                            <div class="spinner">
+                                <div class="rect1"></div>
+                                <div class="rect2"></div>
+                                <div class="rect3"></div>
+                                <div class="rect4"></div>
+                                <div class="rect5"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <a href="#">
                 <div class="panel-footer card-score-footer">
-                    <span class="pull-left">View Details</span>
-                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <span class="pull-left">Points!</span>
                     <div class="clearfix"></div>
                 </div>
             </a>
         </div>
     </div>
     <div class="col-lg-3 col-md-6">
-        <div class="panel panel-green" id="card-streak">
+        <div class="panel panel--yellow" id="card-streak">
             <div class="panel-heading">
                 <div class="card-loader">
                     <span class="loader"><span class="loader-inner"></span></span>
@@ -120,8 +138,8 @@
 <!-- Timeline -->
 <div class="row timeline-wrapper">
     <div class="col-lg-12">
-        <div class="panel panel-green timeline-enclosure">
-            <div class="panel-footer">
+        <div class="panel panel-yellow timeline-enclosure">
+            <div class="panel-heading">
                 <i class="fa fa-clock-o fa-fw"></i> Timeline
             </div>
             <!-- /.panel-heading -->
@@ -134,6 +152,8 @@
                                 class="fa fa-leaf"></i></div>
                         <div ng-if="event.category == 'thing-create'" class="timeline-badge success"><i
                                 class="fa fa-plug"></i></div>
+                        <div ng-if="event.category == 'thing-delete'" class="timeline-badge danger"><i
+                                class="fa fa-plug"></i></div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
                                 <h4 class="timeline-title">{{event.title}}</h4>
@@ -143,7 +163,52 @@
                             </div>
                             <div class="timeline-body">
                                 <p>{{event.message}}</p>
-                                <p>You gained {{event.pointValue}} points!</p>
+                                <p ng-if="event.pointValue > 0">
+                                    <button type="button" class="btn btn-primary"><span class="badge">+{{event.pointValue}}</span> points!</button>
+                                </p>
+                                <br>
+                                <button class="btn btn-twitter"
+                                   socialshare
+                                   socialshare-provider="twitter"
+                                   socialshare-text="{{event.message}}"
+                                   socialshare-hashtags="plants, IoT"
+                                   socialshare-url="http://funge.cf">
+                                    <i class="fa fa-twitter"></i>
+                                </button>
+                                <button class="btn btn-facebook"
+                                   socialshare
+                                   socialshare-provider="facebook"
+                                   socialshare-via="117134758752316"
+                                   socialshare-type="feed"
+                                   socialshare-text="A World of Plants!"
+                                   socialshare-description="{{event.message}}"
+                                   socialshare-media="https://raw.githubusercontent.com/DillonHeins/Funge/master/Documentation/images/AWorldOfPlants.png"
+                                   socialshare-url="http://funge.cf">
+                                    <i class="fa fa-facebook"></i>
+                                </button>
+                                <button class="btn btn-pinterest"
+                                   socialshare
+                                   socialshare-provider="pinterest"
+                                   socialshare-text="{{event.message}}"
+                                   socialshare-media="https://raw.githubusercontent.com/DillonHeins/Funge/master/Documentation/images/AWorldOfPlants.png"
+                                   socialshare-url="http://funge.cf">
+                                    <i class="fa fa-pinterest"></i>
+                                </button>
+                                <button class="btn btn-tumblr"
+                                   socialshare
+                                   socialshare-provider="tumblr"
+                                   socialshare-text="{{event.message}}"
+                                   socialshare-media="https://raw.githubusercontent.com/DillonHeins/Funge/master/Documentation/images/AWorldOfPlants.png"
+                                   socialshare-url="http://funge.cf">
+                                    <i class="fa fa-tumblr"></i>
+                                </button>
+                                <button class="btn btn-telegram"
+                                   socialshare
+                                   socialshare-provider="telegram"
+                                   socialshare-text="{{event.message}}"
+                                   socialshare-url="http://funge.cf">
+                                    <img width="15" valign="middle" style="margin-top:-3px;" src="/images/telegram.png">
+                                </button>
                             </div>
                         </div>
                     </li>

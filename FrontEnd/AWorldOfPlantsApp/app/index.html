@@ -1,113 +1,113 @@
 <!DOCTYPE html>
-    <html lang="en" ng-app="aWorldOfPlantsApp">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>A World of Plants</title>
+<html lang="en" ng-app="aWorldOfPlantsApp">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>A World of Plants</title>
 
-    <!--<div>Icons made by <a href="http://www.flaticon.com/authors/roundicons" title="Roundicons">Roundicons</a> from-->
-        <!--<a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by-->
-        <!--<a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0"-->
-           <!--target="_blank">CC 3.0 BY</a>
-    </div>-->
-    <link rel="icon" href="/images/favicon.png" type="image/png" sizes="16x16">
+        <!--<div>Icons made by <a href="http://www.flaticon.com/authors/roundicons" title="Roundicons">Roundicons</a> from-->
+            <!--<a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by-->
+            <!--<a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0"-->
+               <!--target="_blank">CC 3.0 BY</a>
+        </div>-->
+        <link rel="icon" href="/images/favicon.png" type="image/png" sizes="16x16">
 
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
-    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
+        <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
 
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="bower_components/metisMenu/dist/metisMenu.min.css">
-    <link rel="stylesheet" href="bower_components/morris.js/morris.css">
-    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="bower_components/ngjs-color-picker/css/ngjs-color-picker.css">
-    <link rel="stylesheet" href="bower_components/angular-color-picker/dist/angularjs-color-picker.min.css" />
-    <link rel="stylesheet" href="bower_components/angular-color-picker/dist/themes/angularjs-color-picker-bootstrap.min.css" />
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="bower_components/metisMenu/dist/metisMenu.min.css">
+        <link rel="stylesheet" href="bower_components/morris.js/morris.css">
+        <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="bower_components/ngjs-color-picker/css/ngjs-color-picker.css">
+        <link rel="stylesheet" href="bower_components/angular-color-picker/dist/angularjs-color-picker.min.css" />
+        <link rel="stylesheet" href="bower_components/angular-color-picker/dist/themes/angularjs-color-picker-bootstrap.min.css" />
+        <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css" />
 
-    <link rel="stylesheet" href="bower_components/fullpage.js/jquery.fullPage.css">
-    <link rel="stylesheet" href="app.css">
-    <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
-    <script src="bower_components/aws-sdk-js/dist/aws-sdk.js"></script>
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="bower_components/fullpage.js/vendors/jquery.slimscroll.min.js"></script>
-    <script src="bower_components/fullpage.js/jquery.fullPage.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/angular-fullpage.js/angular-fullpage.js"></script>
-    <script src="bower_components/metisMenu/dist/metisMenu.min.js"></script>
-    <script src="bower_components/raphael/raphael.min.js"></script>
-    <script src="bower_components/morris.js/morris.min.js"></script>
-    <script src="bower_components/ngstorage/ngStorage.min.js"></script>
-    <script src="bower_components/ngjs-color-picker/js/ngjs-color-picker.js"></script>
-    <script src="bower_components/chart.js/dist/Chart.min.js"></script>
-    <script src="bower_components/tinycolor/dist/tinycolor-min.js"></script>
-    <script src="bower_components/angular-color-picker/dist/angularjs-color-picker.min.js"></script>
-    <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+        <link rel="stylesheet" href="bower_components/fullpage.js/jquery.fullPage.css">
+        <link rel="stylesheet" href="app.css">
+        <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+        <script src="bower_components/aws-sdk-js/dist/aws-sdk.js"></script>
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+        <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="bower_components/fullpage.js/vendors/jquery.slimscroll.min.js"></script>
+        <script src="bower_components/fullpage.js/jquery.fullPage.js"></script>
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="bower_components/angular-fullpage.js/angular-fullpage.js"></script>
+        <script src="bower_components/metisMenu/dist/metisMenu.min.js"></script>
+        <script src="bower_components/raphael/raphael.min.js"></script>
+        <script src="bower_components/morris.js/morris.min.js"></script>
+        <script src="bower_components/ngstorage/ngStorage.min.js"></script>
+        <script src="bower_components/ngjs-color-picker/js/ngjs-color-picker.js"></script>
+        <script src="bower_components/chart.js/dist/Chart.min.js"></script>
+        <script src="bower_components/tinycolor/dist/tinycolor-min.js"></script>
+        <script src="bower_components/angular-color-picker/dist/angularjs-color-picker.min.js"></script>
+        <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+        <script src="bower_components/angular-socialshare/dist/angular-socialshare.min.js"></script>
+        <script src="bower_components/angular-ui-select/dist/select.js"></script>
+        <script src="http://platform.twitter.com/widgets.js"></script>
 
-    <!-- Morris Charts JavaScript -->
-    <!--<script src="core/js/morris-data.js"></script>-->
-    <!-- Custom Theme JavaScript -->
-    <!--<script src="core/js/sb-admin-2.js"></script>-->
+        <script type="text/javascript" src="bower_components/moment/min/moment.min.js"></script>
+        <script type="text/javascript" src="bower_components/paho-mqtt-js/mqttws31.js"></script>
+        <script type="text/javascript" src="bower_components/cryptojslib/rollups/sha256.js"></script>
+        <script type="text/javascript" src="bower_components/cryptojslib/rollups/hmac-sha256.js"></script>
 
-    <script type="text/javascript" src="bower_components/moment/min/moment.min.js"></script>
-    <script type="text/javascript" src="bower_components/paho-mqtt-js/mqttws31.js"></script>
-    <script type="text/javascript" src="bower_components/cryptojslib/rollups/sha256.js"></script>
-    <script type="text/javascript" src="bower_components/cryptojslib/rollups/hmac-sha256.js"></script>
+        <script src="app.module.js"></script>
+        <script src="app.config.js"></script>
+        <script src="components/register/register.module.js"></script>
+        <script src="components/register/register.component.js"></script>
+        <script src="components/register/register.directive.js"></script>
+        <script src="components/login/login.module.js"></script>
+        <script src="components/login/login.component.js"></script>
+        <script src="components/login/login.directive.js"></script>
+        <script src="core/master/master.module.js"></script>
+        <script src="core/master/master.component.js"></script>
+        <script src="core/master/master.directive.js"></script>
+        <script src="components/landing/landing.module.js"></script>
+        <script src="components/landing/landing.component.js"></script>
+        <script src="components/site/site.module.js"></script>
+        <script src="components/site/site.component.js"></script>
+        <script src="components/site/site.directive.js"></script>
+        <script src="components/plants/plants.module.js"></script>
+        <script src="components/plants/plants.component.js"></script>
+        <script src="components/plants/plants.directive.js"></script>
+        <script src="components/plant-detail/plant-detail.module.js"></script>
+        <script src="components/plant-detail/plant-detail.component.js"></script>
+        <script src="components/plant-detail/plant-detail.directive.js"></script>
+        <script src="components/profile/profile.module.js"></script>
+        <script src="components/profile/profile.component.js"></script>
+        <script src="components/profile/profile.directive.js"></script>
+        <script src="components/things/things.module.js"></script>
+        <script src="components/things/things.component.js"></script>
+        <script src="components/things/things.directive.js"></script>
+        <script src="components/testing/testing.module.js"></script>
+        <script src="components/testing/testing.component.js"></script>
+        <script src="components/testing/testing.directive.js"></script>
+        <!-- Move out of dist folder -->
+        <script type="text/javascript" src="core/apig/axios/axios.standalone.js"></script>
+        <script type="text/javascript" src="core/apig/CryptoJS/rollups/hmac-sha256.js"></script>
+        <script type="text/javascript" src="core/apig/CryptoJS/rollups/sha256.js"></script>
+        <script type="text/javascript" src="core/apig/CryptoJS/components/hmac.js"></script>
+        <script type="text/javascript" src="core/apig/CryptoJS/components/enc-base64.js"></script>
+        <script type="text/javascript" src="core/apig/url-template/url-template.js"></script>
+        <script type="text/javascript" src="core/apig/apiGatewayCore/sigV4Client.js"></script>
+        <script type="text/javascript" src="core/apig/apiGatewayCore/apiGatewayClient.js"></script>
+        <script type="text/javascript" src="core/apig/apiGatewayCore/simpleHttpClient.js"></script>
+        <script type="text/javascript" src="core/apig/apiGatewayCore/utils.js"></script>
+        <script type="text/javascript" src="apigClient.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
 
-    <script src="app.module.js"></script>
-    <script src="app.config.js"></script>
-    <script src="components/register/register.module.js"></script>
-    <script src="components/register/register.component.js"></script>
-    <script src="components/register/register.directive.js"></script>
-    <script src="components/login/login.module.js"></script>
-    <script src="components/login/login.component.js"></script>
-    <script src="components/login/login.directive.js"></script>
-    <script src="core/master/master.module.js"></script>
-    <script src="core/master/master.component.js"></script>
-    <script src="core/master/master.directive.js"></script>
-    <script src="components/landing/landing.module.js"></script>
-    <script src="components/landing/landing.component.js"></script>
-    <script src="components/site/site.module.js"></script>
-    <script src="components/site/site.component.js"></script>
-    <script src="components/site/site.directive.js"></script>
-    <script src="components/plants/plants.module.js"></script>
-    <script src="components/plants/plants.component.js"></script>
-    <script src="components/plants/plants.directive.js"></script>
-    <script src="components/plant-detail/plant-detail.module.js"></script>
-    <script src="components/plant-detail/plant-detail.component.js"></script>
-    <script src="components/plant-detail/plant-detail.directive.js"></script>
-    <script src="components/profile/profile.module.js"></script>
-    <script src="components/profile/profile.component.js"></script>
-    <script src="components/profile/profile.directive.js"></script>
-    <script src="components/things/things.module.js"></script>
-    <script src="components/things/things.component.js"></script>
-    <script src="components/things/things.directive.js"></script>
-    <script src="components/testing/testing.module.js"></script>
-    <script src="components/testing/testing.component.js"></script>
-    <script src="components/testing/testing.directive.js"></script>
-    <!-- Move out of dist folder -->
-    <script type="text/javascript" src="core/apig/axios/axios.standalone.js"></script>
-    <script type="text/javascript" src="core/apig/CryptoJS/rollups/hmac-sha256.js"></script>
-    <script type="text/javascript" src="core/apig/CryptoJS/rollups/sha256.js"></script>
-    <script type="text/javascript" src="core/apig/CryptoJS/components/hmac.js"></script>
-    <script type="text/javascript" src="core/apig/CryptoJS/components/enc-base64.js"></script>
-    <script type="text/javascript" src="core/apig/url-template/url-template.js"></script>
-    <script type="text/javascript" src="core/apig/apiGatewayCore/sigV4Client.js"></script>
-    <script type="text/javascript" src="core/apig/apiGatewayCore/apiGatewayClient.js"></script>
-    <script type="text/javascript" src="core/apig/apiGatewayCore/simpleHttpClient.js"></script>
-    <script type="text/javascript" src="core/apig/apiGatewayCore/utils.js"></script>
-    <script type="text/javascript" src="apigClient.js"></script>
-  </head>
-  <body>
-    <!--[if lt IE 7]>
-        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
+        <!-- In production use:
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+        -->
 
-    <!-- In production use:
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
-    -->
-
-    <master></master>
-
+        <!-- Master component. Contains all other components -->
+        <master></master>
   </body>
 </html>

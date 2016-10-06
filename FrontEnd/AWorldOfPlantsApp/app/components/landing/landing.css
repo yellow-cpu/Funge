@@ -108,7 +108,7 @@
 
 .arrow {
     position: fixed;
-    bottom: 1030px;
+    bottom: 55%;
     left: 50%;
     margin-left:-20px;
 }
@@ -227,7 +227,6 @@ body {
     .container {
         width: 1200px;
     }
-
 }
 
 @media screen and (min-width: 737px) and (max-width: 1200px) {
@@ -253,7 +252,6 @@ body {
     .container {
         width: 1000px;
     }
-
 }
 
 @media screen and (max-width: 736px) {
@@ -279,7 +277,6 @@ body {
     .container {
         width: 100% !important;
     }
-
 }
 
 /* Grid */
@@ -1402,4 +1399,8 @@ footer {
 
 .wrapper {
     padding: 7em 0 20em 0;
+}
+
+.heading {
+    color: white;
 }

@@ -68,12 +68,12 @@ angular.module('things').component('things', {
       console.log("Error: " + JSON.stringify(result));
     });
 
-    self.removeThing = function () {
+    self.removeThing = function (_thingName, _username) {
       var params = {};
 
       var body = {
-        "thingName": "blueThing",
-        "username": "dill"
+        "thingName": _thingName,
+        "username": _username
       };
 
       apigClient.thingsDeletePost(params, body)
@@ -93,10 +93,30 @@ angular.module('things').component('things', {
       apigClient.thingsPost(params, body)
         .then(function (result) {
           console.log("Success: " + JSON.stringify(result.data));
+
+          var tempArr = formatFiles([result.data.thing]);
+          self.things.push(tempArr[0]);
+          $scope.$apply();
         }).catch(function (result) {
         console.log("Error: " + JSON.stringify(result));
       });
     };
+
+    var formatFiles = function(thingArr) {
+      var tempThingArr = thingArr;
+
+      for (var i = 0; i < tempThingArr.length; ++i) {
+        var indexOfFileName = tempThingArr[i].files[i].split('/', 6).join('/').length;
+        var fileNames = [];
+        for (var j = 0; j < tempThingArr[i].files.length; ++j) {
+          fileNames.push(tempThingArr[i].files[j].substring(indexOfFileName + 1));
+        }
+        tempThingArr[i].fileNames = fileNames;
+      }
+
+      return tempThingArr;
+    };
+
 
     self.getThings = function() {
       var params = {
@@ -118,9 +138,9 @@ angular.module('things').component('things', {
           self.things = result.data.things;
 
           if (self.things.length >= 1) {
-            var indexOfFileName = self.things[0].files[0].split('/', 6).join('/').length;
-
-            for (var i = 0; i < self.things.length; ++i) {
+            formatFiles(self.things);
+            /*for (var i = 0; i < self.things.length; ++i) {
+              var indexOfFileName = self.things[i].files[i].split('/', 6).join('/').length;
               var fileNames = [];
               for (var j = 0; j < self.things[i].files.length; ++j) {
                 fileNames.push(self.things[i].files[j].substring(indexOfFileName + 1));
@@ -128,7 +148,7 @@ angular.module('things').component('things', {
               console.log(fileNames);
               self.things[i].fileNames = fileNames;
               console.log(self.things[i].fileNames);
-            }
+            }*/
           }
 
           console.log(self.things);
