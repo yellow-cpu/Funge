@@ -7,8 +7,11 @@ import cf.funge.aworldofplants.exception.InternalErrorException;
 import cf.funge.aworldofplants.model.DAOFactory;
 import cf.funge.aworldofplants.model.action.RemoveThingRequest;
 import cf.funge.aworldofplants.model.action.RemoveThingResponse;
+import cf.funge.aworldofplants.model.plant.Plant;
 import cf.funge.aworldofplants.model.thing.Thing;
 import cf.funge.aworldofplants.model.thing.ThingDAO;
+import cf.funge.aworldofplants.model.timeline.TimelineDAO;
+import cf.funge.aworldofplants.model.timeline.TimelineEvent;
 import cf.funge.aworldofplants.model.user.User;
 import cf.funge.aworldofplants.model.user.UserDAO;
 import com.amazonaws.services.iot.AWSIotClient;
@@ -46,11 +49,36 @@ public class RemoveThingAction extends AbstractAction {
         }
 
         ThingDAO dao = DAOFactory.getThingDAO();
+        TimelineDAO timelineDAO = DAOFactory.getTimelineDAO();
+
         Thing thing;
         try {
             thing = dao.getThingByName(input.getThingName());
         } catch (final DAOException e) {
             logger.log("Error while fetching thing with name " + input.getThingName() + "\n" + e.getMessage());
+            throw new InternalErrorException(ExceptionMessages.EX_DAO_ERROR);
+        }
+
+        // Add thing removal timeline event
+        TimelineEvent timelineEvent = new TimelineEvent();
+        timelineEvent.setUsername(thing.getUsername());
+        timelineEvent.setTitle("Removed a Plant Box");
+        timelineEvent.setMessage("You removed your plant box called " + thing.getThingName());
+        timelineEvent.setCategory("thing-delete");
+        timelineEvent.setTimestamp((int) (System.currentTimeMillis() / 1000L));
+        timelineEvent.setPointValue(0);
+
+        // Store event in database
+        String timelineEventId;
+        try {
+            timelineEventId = timelineDAO.createTimelineEvent(timelineEvent);
+        } catch (final DAOException e) {
+            logger.log("Error while creating new timeline event\n" + e.getMessage());
+            throw new InternalErrorException(ExceptionMessages.EX_DAO_ERROR);
+        }
+
+        if (timelineEventId == null || timelineEventId.trim().equals("")) {
+            logger.log("TimelineEventId is null or empty");
             throw new InternalErrorException(ExceptionMessages.EX_DAO_ERROR);
         }
 
