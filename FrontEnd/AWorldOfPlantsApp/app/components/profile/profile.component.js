@@ -17,6 +17,7 @@ angular.module('profile').component('profile', {
     self.numPlants      = 0;
     self.numPlantBoxes  = 0;
     self.points         = 0;
+    self.streak         = 0;
 
     var apigClient = apigClientFactory.newClient({
       accessKey: $localStorage.accessKey,
@@ -92,17 +93,39 @@ angular.module('profile').component('profile', {
               });
               self.timelineEvents.reverse();
 
-            // Convert timestamps of each event
+            var today   = new Date(Date.now());
+            today.setHours(0);
+            today.setMinutes(0);
+            today.setSeconds(0);
+            today.setMilliseconds(0);
+            var day   = 24 * 60 * 60 * 1000;
+
+            // For each event...
             for (var i = 0; i < self.timelineEvents.length; i++) {
+              var eventDate = new Date(self.timelineEvents[i].timestamp * 1000);
+              // Convert timestamps of each event
               self.timelineEvents[i].timestamp = self.timeConverter(self.timelineEvents[i].timestamp);
+
+              var event = self.timelineEvents[i];
+
+              // Add score for each event to total points
+              self.points += event.pointValue;
+
+              // Increase streak and display if a streak is found
+              if( event.category == "streak" &&
+                  self.streak == 0 &&
+                  today - eventDate <= day &&
+                  today.getDay() != eventDate.getDay())
+              {
+                // TODO increase streak
+                self.streak = event.streak + 1;
+              }
             }
 
-            // Calculate score
-            self.timelineEvents.forEach(function(event){
-              console.log("**********");
-              console.log(event);
-              self.points += event.pointValue;
-            });
+            if(self.streak == 0)
+            {
+              // TODO start new streak
+            }
 
             $("#card-score").find(".spinner").css({
               'display': 'none'
@@ -118,9 +141,23 @@ angular.module('profile').component('profile', {
       });
     };
 
+    // Change numPlantBoxes
+    self.updateNumPlantBoxes = function (num){
+      self.numPlantBoxes = num;
+
+      console.log(self.numPlantBoxes);
+
+      $("#card-plant-boxes").find("div.spinner").css({
+        'display': 'none'
+      });
+
+      $("#card-plant-boxes").find(".value").css({
+        'display': 'block'
+      });
+    };
+
     // Generate the values for the cards
     self.generateCards = function() {
-
       // Count the number of plants belonging to the user
       apigClient.plantsUserUsernameGet(params, body)
         .then(function (result) {
@@ -142,20 +179,8 @@ angular.module('profile').component('profile', {
       // Count the number of plant boxes
       apigClient.thingsUserUsernameGet(params, body)
         .then(function (result) {
-          self.numPlantBoxes = result.data.things.length;
-
-          console.log(self.numPlantBoxes);
-
-          $("#card-plant-boxes").find("div.spinner").css({
-            'display': 'none'
-          });
-
-          $("#card-plant-boxes").find(".value").css({
-            'display': 'block'
-          });
+          self.updateNumPlantBoxes(result.data.things.length);
         });
-
-
     };
   }
 });
