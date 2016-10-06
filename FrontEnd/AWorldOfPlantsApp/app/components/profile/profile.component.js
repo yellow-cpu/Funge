@@ -117,17 +117,15 @@ angular.module('profile').component('profile', {
                   today - eventDate <= day &&
                   today.getDay() != eventDate.getDay())
               {
-                // increase streak
+                // TODO increase streak
                 self.streak = event.streak + 1;
               }
             }
 
             if(self.streak == 0)
             {
-              // start new streak
+              // TODO start new streak
             }
-
-
 
             $("#card-score").find(".spinner").css({
               'display': 'none'
