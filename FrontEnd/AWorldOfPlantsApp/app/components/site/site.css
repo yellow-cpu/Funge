@@ -659,3 +659,27 @@ table.dataTable thead .sorting:after {
     -moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
     box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
 }
+
+.btn-facebook {
+    background-color: #3b5998;
+}
+
+.btn-twitter {
+    background-color: #1da1f3;
+}
+
+.btn-pinterest {
+    background-color: #bd081c;
+}
+
+.btn-tumblr {
+    background-color: #36465d;
+}
+
+.btn-telegram {
+    background-color: #2fa6de;
+}
+
+.btn-facebook, .btn-twitter, .btn-pinterest, .btn-tumblr, .btn-telegram {
+    width: 3em;
+}

@@ -142,8 +142,8 @@
                             </div>
                             <div class="timeline-body">
                                 <p>{{event.message}}</p>
-                                <p ng-if="event.pintValue > 0">You gained {{event.pointValue}} points!</p>
-                                <button class="btn btn-success"
+                                <p ng-if="event.pointValue > 0">You gained {{event.pointValue}} points!</p>
+                                <button class="btn btn-twitter"
                                    socialshare
                                    socialshare-provider="twitter"
                                    socialshare-text="{{event.message}}"
@@ -151,7 +151,7 @@
                                    socialshare-url="http://funge.cf">
                                     <i class="fa fa-twitter"></i>
                                 </button>
-                                <button class="btn btn-primary"
+                                <button class="btn btn-facebook"
                                    socialshare
                                    socialshare-provider="facebook"
                                    socialshare-via="117134758752316"
@@ -162,11 +162,28 @@
                                    socialshare-url="http://funge.cf">
                                     <i class="fa fa-facebook"></i>
                                 </button>
-                                <button class="btn btn-danger"
+                                <button class="btn btn-pinterest"
                                    socialshare
-                                   socialshare-provider="google"
+                                   socialshare-provider="pinterest"
+                                   socialshare-text="{{event.message}}"
+                                   socialshare-media="https://raw.githubusercontent.com/DillonHeins/Funge/master/Documentation/images/AWorldOfPlants.png"
                                    socialshare-url="http://funge.cf">
-                                    <i class="fa fa-google-plus"></i>
+                                    <i class="fa fa-pinterest"></i>
+                                </button>
+                                <button class="btn btn-tumblr"
+                                   socialshare
+                                   socialshare-provider="tumblr"
+                                   socialshare-text="{{event.message}}"
+                                   socialshare-media="https://raw.githubusercontent.com/DillonHeins/Funge/master/Documentation/images/AWorldOfPlants.png"
+                                   socialshare-url="http://funge.cf">
+                                    <i class="fa fa-tumblr"></i>
+                                </button>
+                                <button class="btn btn-telegram"
+                                   socialshare
+                                   socialshare-provider="telegram"
+                                   socialshare-text="{{event.message}}"
+                                   socialshare-url="http://funge.cf">
+                                    <img width="15" valign="middle" style="margin-top:-3px;" src="/images/telegram.png">
                                 </button>
                             </div>
                         </div>
