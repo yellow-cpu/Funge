@@ -118,6 +118,21 @@ angular.module('profile').component('profile', {
       });
     };
 
+    // Change numPlantBoxes
+    self.updateNumPlantBoxes = function (num){
+      self.numPlantBoxes = num;
+
+      console.log(self.numPlantBoxes);
+
+      $("#card-plant-boxes").find("div.spinner").css({
+        'display': 'none'
+      });
+
+      $("#card-plant-boxes").find(".value").css({
+        'display': 'block'
+      });
+    };
+
     // Generate the values for the cards
     self.generateCards = function() {
 
@@ -142,17 +157,8 @@ angular.module('profile').component('profile', {
       // Count the number of plant boxes
       apigClient.thingsUserUsernameGet(params, body)
         .then(function (result) {
-          self.numPlantBoxes = result.data.things.length;
+          self.updateNumPlantBoxes(result.data.things.length);
 
-          console.log(self.numPlantBoxes);
-
-          $("#card-plant-boxes").find("div.spinner").css({
-            'display': 'none'
-          });
-
-          $("#card-plant-boxes").find(".value").css({
-            'display': 'block'
-          });
         });
 
 
