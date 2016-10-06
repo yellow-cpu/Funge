@@ -5,7 +5,7 @@
  */
 
 body {
-    background-color: #ebeff2;
+    background-color: #FFFFFF;
 }
 
 #wrapper {
@@ -14,7 +14,7 @@ body {
 
 #page-wrapper {
     padding: 0 15px;
-    background-color: #ebeff2;
+    background-color: #fffff;
 }
 
 @media(min-width:768px) {
@@ -134,7 +134,7 @@ body {
         width: 250px;
         margin-left: -225px;
         border: none;
-        background-color: #009688;
+        background-color: #38474f;
         border-radius: 0;
         overflow-y: auto;
         bottom: 0;
@@ -309,19 +309,16 @@ table.dataTable thead .sorting:after {
     font-size: 40px;
 }
 
-.panel-green {
-    border: none;
-}
-
 .panel-green .panel-heading {
-    color: #fff;
-    background-color: #2c2c2c;
+    color: #757575;
+    background-color: #FFFFFF;
     border: none;
 }
 
 .panel-footer {
     border: none;
     background-color: #236acb;
+    border-radius: 0px;
 }
 
 .panel-green a {
@@ -378,7 +375,7 @@ table.dataTable thead .sorting:after {
 }
 
 #wrapper > nav {
-    background-color: #009688;
+    background-color: #38474f;
     border-bottom: none;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     -webkit-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
@@ -400,13 +397,13 @@ table.dataTable thead .sorting:after {
 }
 
 #a-dashboard {
-    border-left: 3px solid #0044CB;
+    border-right: 3px solid #0f9d58;
     cursor: hand;
     cursor: pointer;
 }
 
 #a-plants {
-    border-left: 3px solid #F99406;
+    border-right: 3px solid #ffc107;
     cursor: hand;
     cursor: pointer;
 }
@@ -417,7 +414,7 @@ table.dataTable thead .sorting:after {
 }
 
 #a-things {
-    border-left: 3px solid #0088CC;
+    border-right: 3px solid #db4437;
     cursor: hand;
     cursor: pointer;
 }
@@ -427,7 +424,7 @@ table.dataTable thead .sorting:after {
 }
 
 #side-menu > li > a:hover, #side-menu > li > a:focus, #side-menu > li > ul > li > a:hover, #side-menu > li > ul > li > a:focus, #side-menu > li > a.active {
-    background-color: #007062;
+    background-color: #455a64;
 }
 
 #wrapper > nav > ul > li > a, #side-menu > li > ul > li > a {
@@ -439,8 +436,8 @@ table.dataTable thead .sorting:after {
 }
 
 .page-header {
-    color: #FFF;
-    border-color: #1A8A67;
+    color: #757575;
+    border: none;
 }
 
 #wrapper > nav > div.navbar-header > a {
@@ -472,10 +469,11 @@ table.dataTable thead .sorting:after {
 }
 
 .panel-green {
-    background-color: #2c2c2c;
-    -webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
-    box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+    border: none;
+    border-radius: 0px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    -webkit-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    -moz-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
 .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
