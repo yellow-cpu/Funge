@@ -99,8 +99,6 @@ angular.module('profile').component('profile', {
 
             // Calculate score
             self.timelineEvents.forEach(function(event){
-              console.log("**********");
-              console.log(event);
               self.points += event.pointValue;
             });
 
