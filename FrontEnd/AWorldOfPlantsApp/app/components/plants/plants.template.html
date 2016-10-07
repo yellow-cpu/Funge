@@ -16,8 +16,8 @@
 <div view-plants-details-directive>
   <a class="view-details"
      ng-click="$ctrl.updateDetails(plant.plantId, plant.plantType, plant.plantName, plant.plantAge, plant.colour)"
-     ui-sref="site.plant-detail({plantId: plant.plantId})"
-     ng-repeat="plant in $ctrl.plants track by $index">
+     ng-repeat="plant in $ctrl.plants track by plant.plantId"
+     ui-sref="site.plant-detail({plantId: plant.plantId})">
     <div ng-attr-class="{{$odd && 'panel panel-green col-md-5 col-md-offset-2' || 'panel panel-green col-md-5'}}">
       <div class="panel-heading">
         <div class="row">
