@@ -116,16 +116,59 @@ angular.module('profile').component('profile', {
                   self.streak == 0 &&
                   today - eventDate <= day &&
                   today.getDay() != eventDate.getDay())
-              {
-                // TODO increase streak
-                self.streak = event.streak + 1;
+                {
+                  var eventStreak = event.message.slice(13, event.message.indexOf(' ', 13));
+                  self.streak = eventStreak + 1;
+                  var params = {};
+                  var body = {
+                    username: $localStorage.username,
+                    streak: self.streak,
+                    timestamp: Date.now() / 1000
+                  };
+
+                  apigClient.timelineStreakOptions(params, body)
+                    .then(function (result) {
+                      console.log("Success: " + JSON.stringify(result.data));
+
+                      $("#card-streak").find(".spinner").css({
+                        'display': 'none'
+                      });
+
+                      $("#card-streak").find(".value").css({
+                        'display': 'block'
+                      });
+                    }).catch(function (result) {
+                    console.log("Error: " + JSON.stringify(result));
+                });
               }
             }
 
             if(self.streak == 0)
             {
-              // TODO start new streak
+              self.streak = 1;
+              var params = {};
+              var body = {
+                username: $localStorage.username,
+                streak: self.streak,
+                timestamp: Date.now() / 1000
+              };
+
+              apigClient.timelineStreakOptions(params, body)
+                .then(function (result) {
+                  console.log("Success: " + JSON.stringify(result.data));
+
+                  $("#card-streak").find(".spinner").css({
+                    'display': 'none'
+                  });
+
+                  $("#card-streak").find(".value").css({
+                    'display': 'block'
+                  });
+                }).catch(function (result) {
+                console.log("Error: " + JSON.stringify(result));
+              });
             }
+
 
             $("#card-score").find(".spinner").css({
               'display': 'none'

@@ -5,12 +5,8 @@ import cf.funge.aworldofplants.exception.BadRequestException;
 import cf.funge.aworldofplants.exception.DAOException;
 import cf.funge.aworldofplants.exception.InternalErrorException;
 import cf.funge.aworldofplants.model.DAOFactory;
-import cf.funge.aworldofplants.model.action.CreatePlantRequest;
-import cf.funge.aworldofplants.model.action.CreatePlantResponse;
 import cf.funge.aworldofplants.model.action.UpdateStreakRequest;
 import cf.funge.aworldofplants.model.action.UpdateStreakResponse;
-import cf.funge.aworldofplants.model.plant.Plant;
-import cf.funge.aworldofplants.model.plant.PlantDAO;
 import cf.funge.aworldofplants.model.timeline.TimelineDAO;
 import cf.funge.aworldofplants.model.timeline.TimelineEvent;
 import com.amazonaws.services.lambda.runtime.Context;
@@ -47,8 +43,8 @@ public class UpdateStreakAction extends AbstractAction
         timelineEvent.setUsername(input.getUsername());
         timelineEvent.setTitle("Created a Plant");
         timelineEvent.setMessage("You are on a " + streak + " day streak! Log in tomorrow to continue your streak!");
-        timelineEvent.setCategory("plant-create");
-        timelineEvent.setTimestamp((int) (System.currentTimeMillis() / 1000L));
+        timelineEvent.setCategory("streak");
+        timelineEvent.setTimestamp(input.getTimestamp());
         timelineEvent.setPointValue(points);
 
         String timelineEventId;
