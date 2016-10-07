@@ -416,7 +416,7 @@ table.dataTable thead .sorting:after {
 }
 
 .a-files {
-    color: #0044CB !important;
+    color: #4285f4 !important;
 }
 
 #side-menu > li > a:hover, #side-menu > li > a:focus, #side-menu > li > ul > li > a:hover, #side-menu > li > ul > li > a:focus, #side-menu > li > a.active {
@@ -488,37 +488,15 @@ table.dataTable thead .sorting:after {
     -moz-box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 
-.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
-    background-color: #282828;
-    color: #9a9a9a;
-}
-
-.form-control {
+.form-control, .input-group-addon {
     border-radius: 2px;
-}
-
-.input-group-addon {
-    background-color: #212121;
-    border-color: #1c1c1c;
-    color: #fff;
 }
 
 #plantDetailsPanel > .panel-heading {
     background-color: #236acb;
     border-color: #1e3b76;
-}
-
-#plantDetailsPanel {
-    border-color: #1c1c1c;
-}
-
-#plantUpdate {
-    background-color: #236acb;
-    border: none;
-}
-
-#plantUpdate:hover, #plantUpdate:focus {
-    background-color: #1e3b76;
+    border-radius: 0px;
+    color: white;
 }
 
 .modal-body {
@@ -561,21 +539,23 @@ table.dataTable thead .sorting:after {
 }
 
 .alert-danger {
-    background-color: #d9534f;
+    background-color: #db4437;
     border: none;
+    border-radius: 0px;
     color: #FFFFFF;
-    -webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
-    box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    -webkit-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    -moz-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
 .alert-success {
-    background-color: #1d9d73;
+    background-color: #0f9d58;
     border: none;
+    border-radius: 0px;
     color: #FFFFFF;
-    -webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
-    box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    -webkit-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    -moz-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
 /*LOADER*/
@@ -649,11 +629,10 @@ table.dataTable thead .sorting:after {
 }
 
 .panel-graph {
-    background-color: #2c2c2c;
     border: none;
-    -webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
-    box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    -webkit-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    -moz-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
 .btn-facebook {
@@ -686,6 +665,14 @@ table.dataTable thead .sorting:after {
     border-radius: 0px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.btn-material-green {
+    color: #0f9d58;
+}
+
+.btn-material-red {
+    color: #db4437;
 }
 
 .btn-material:hover {

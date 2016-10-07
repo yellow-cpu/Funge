@@ -16,8 +16,8 @@
 <div view-plants-details-directive>
   <a class="view-details"
      ng-click="$ctrl.updateDetails(plant.plantId, plant.plantType, plant.plantName, plant.plantAge, plant.colour)"
-     ui-sref="site.plant-detail({plantId: plant.plantId})"
-     ng-repeat="plant in $ctrl.plants track by $index">
+     ng-repeat="plant in $ctrl.plants track by plant.plantId"
+     ui-sref="site.plant-detail({plantId: plant.plantId})">
     <div ng-attr-class="{{$odd && 'panel panel-green col-md-5 col-md-offset-2' || 'panel panel-green col-md-5'}}">
       <div class="panel-heading">
         <div class="row">
@@ -66,7 +66,7 @@
             <label for="plantType">Plant type:</label>
               <ui-select id="plantType" ng-model="$ctrl.newPlant.plantType">
               <ui-select-match placeholder="Select or search for a plant type...">{{$select.selected}}</ui-select-match>
-              <ui-select-choices repeat="t in getPlantTypes($select.search) | filter: $select.search">
+              <ui-select-choices repeat="t in getPlantTypes($select.search) | filter: $select.search track by $index">
                 <div ng-bind="t"></div>
               </ui-select-choices>
               </ui-select>

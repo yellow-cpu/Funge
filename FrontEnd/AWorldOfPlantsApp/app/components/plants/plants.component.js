@@ -34,6 +34,9 @@ angular.module('plants').component('plants', {
       return date + '/' + month + '/' + year + 'T' + hour + ':' + min + ':' + sec;
     };
 
+    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
+      "November", "December"];
+
     self.createPlant = function() {
       console.log(self.newPlant);
 
@@ -45,7 +48,15 @@ angular.module('plants').component('plants', {
         .then(function (result) {
           console.log("Success: " + JSON.stringify(result.data));
 
-          self.plants.push(result.data.plant);
+          var createdPlant = result.data.plant;
+
+          createdPlant.plantDay = createdPlant.plantAge.substring(0, createdPlant.plantAge.indexOf('/'));
+          createdPlant.plantMonth = months[createdPlant.plantAge.split('/')[1] - 1];
+          createdPlant.plantYear = createdPlant.plantAge.split('/')[2];
+          createdPlant.plantYear = createdPlant.plantYear.substring(0, createdPlant.plantYear.indexOf('T'));
+
+          self.plants.push(createdPlant);
+
           $scope.$apply();
         }).catch(function (result) {
         console.log("Error: " + JSON.stringify(result));
@@ -72,9 +83,6 @@ angular.module('plants').component('plants', {
       sessionToken: $localStorage.sessionToken,
       region: $localStorage.region
     });
-
-    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
-      "November", "December"];
 
     self.getPlants = function() {
       var params = {
