@@ -27,7 +27,7 @@
           <div style="border-left: 2px solid {{thing.colour}}; padding-left: 5px;"><h2>{{thing.thingName}}</h2></div>
           <div style="border-left: 2px solid {{thing.colour}}; padding-left: 5px;">
             <select ng-model="plantSelect" type="text" class="form-control">
-              <option ng-repeat="p in $ctrl.plantList" value="{{p.plantId}}" ng-selected="{{p.plantId == thing.plantId}}">{{p.plantName}}</option>
+              <option ng-repeat="p in $ctrl.plantList" value="{{p.plantId}}" ng-selected="p.plantId == thing.plantId">{{p.plantName}}</option>
             </select>
           </div>
           <!--<div><b>Plant Box name:</b> {{thing.thingName}}</div>
