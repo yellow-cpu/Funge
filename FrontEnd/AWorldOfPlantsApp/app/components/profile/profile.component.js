@@ -127,6 +127,7 @@ angular.module('profile').component('profile', {
               // TODO start new streak
             }
 
+
             $("#card-score").find(".spinner").css({
               'display': 'none'
             });
@@ -157,7 +158,7 @@ angular.module('profile').component('profile', {
     };
 
     // Generate the values for the cards
-    self.generateCards = function() {
+    self.gen+rateCards = function() {
       // Count the number of plants belonging to the user
       apigClient.plantsUserUsernameGet(params, body)
         .then(function (result) {
