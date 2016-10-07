@@ -2,7 +2,7 @@
   <div class="col-lg-12">
     <h1 class="page-header">
       Plant Boxes <button id="helpThing" class="btn btn-warning">Help me <span class="fa fa-exclamation"></span></button>
-      <button id="newThing" class="btn btn-success pull-right" data-toggle="modal" data-target="#createThingModal">
+      <button id="newThing" class="btn btn-material pull-right" data-toggle="modal" data-target="#createThingModal">
         Create New Plant Box
       </button>
     </h1>
@@ -14,14 +14,23 @@
 </div>
 
 <div class="row" view-thing-details-directive>
-  <div ng-repeat="thing in $ctrl.things" class="panel panel-green">
+  <div ng-repeat="thing in $ctrl.things" class="panel panel-yellow">
     <div class="panel-heading">
       <div class="row">
         <div class="col-xs-1">
-          <i class="fa fa-pagelines fa-5x"></i>
+          <span class="fa-stack fa-3x">
+              <i class="fa fa-circle fa-stack-2x" style="color: {{thing.colour}};"></i>
+              <strong class="fa-stack-1x text-primary" style="color: white;">{{ thing.thingName | limitTo : 1 : 0}}</strong>
+            </span>
         </div>
         <div class="col-xs-5">
-          <div><b>Plant Box name:</b> {{thing.thingName}}</div>
+          <div style="border-left: 2px solid {{thing.colour}}; padding-left: 5px;"><h2>{{thing.thingName}}</h2></div>
+          <div style="border-left: 2px solid {{thing.colour}}; padding-left: 5px;">
+            <select ng-model="plantSelect" type="text" class="form-control">
+              <option ng-repeat="p in $ctrl.plantList" value="{{p.plantId}}" ng-selected="{{p.plantId == thing.plantId}}">{{p.plantName}}</option>
+            </select>
+          </div>
+          <!--<div><b>Plant Box name:</b> {{thing.thingName}}</div>
           <div><b>Plant:</b>
             <select ng-model="plantSelect" type="text" class="form-control">
               <option ng-repeat="p in $ctrl.plantList" value="{{p.plantId}}" ng-selected="{{p.plantId == thing.plantId}}">{{p.plantName}}</option>
@@ -30,18 +39,18 @@
           <div>
             <b>Files: </b><br>
             <a class="a-files" ng-repeat="file in thing.files track by $index" href="{{file}}">{{thing.fileNames[$index]}} <br></a>
-          </div>
+          </div>-->
         </div>
         <div class="col-xs-6 text-right">
-          <div class="huge">6</div>
-          <div>Updates!</div>
+          <!--<div class="huge">6</div>
+          <div>Updates!</div>-->
         </div>
       </div>
     </div>
     <a class="view-details">
       <div class="panel-footer" style="background-color: {{thing.colour}}">
-        <span class="pull-left"><button class="btn btn-success" ng-click="$ctrl.updateDetails(thing.thingName, thing.username, thing.colour, plantSelect)">Update</button></span>
-        <span class="pull-right"><button class="btn btn-danger thingDelete" ng-click="$ctrl.removeThing(thing.thingName, thing.username)">Delete</button></span>
+        <span class="pull-left"><button class="btn btn-material btn-material-green" ng-click="$ctrl.updateDetails(thing.thingName, thing.username, thing.colour, plantSelect)">Update</button></span>
+        <span class="pull-right"><button class="btn btn-material thingDelete btn-material-red" ng-click="$ctrl.removeThing(thing.thingName, thing.username)">Delete</button></span>
         <div class="clearfix"></div>
       </div>
     </a>
@@ -52,7 +61,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><img width="15" valign="middle" style="margin-top:-3px;" src="/images/close.png"></button>
         <h4 class="modal-title" id="myModalLabel">Create New Plant Box</h4>
       </div>
       <div class="modal-body">
@@ -74,7 +83,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button id="createThing" type="button" class="btn btn-success" data-dismiss="modal">Create</button>
+        <button id="createThing" type="button" class="btn btn-material" style="background-color: #1D9D73; color: white" data-dismiss="modal">Create</button>
       </div>
     </div>
   </div>
