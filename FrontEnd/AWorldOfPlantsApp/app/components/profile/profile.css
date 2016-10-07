@@ -1,8 +1,5 @@
-.card-loader {
-    display: inline-block;
-    text-align: center;
-    margin-top: 9px;
-    margin-bottom:8px;
+div.spinner {
+    margin-top: 10px;
 }
 
 .card-plants-footer {
@@ -10,7 +7,7 @@
 }
 
 .card-plant-boxes-footer{
-    background-color: #0088cc;
+    background-color: #db4437;
 }
 
 .timeline {
