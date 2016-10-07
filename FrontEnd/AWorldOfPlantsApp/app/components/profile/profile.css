@@ -3,11 +3,19 @@ div.spinner {
 }
 
 .card-plants-footer {
-    background-color: #f99406;
+    background-color: #0f9d58;
 }
 
 .card-plant-boxes-footer{
+    background-color: #ffc107;
+}
+
+.card-score-footer {
     background-color: #db4437;
+}
+
+.card-streak-footer {
+    background-color: #4285f4;
 }
 
 .timeline {
