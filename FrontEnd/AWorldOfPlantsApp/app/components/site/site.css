@@ -321,11 +321,7 @@ table.dataTable thead .sorting:after {
     border-radius: 0px;
 }
 
-.panel-green a {
-    color: #FFFFFF;
-}
-
-.panel-green a:hover {
+.view-details, .view-details:hover, .view-details:active, .view-details:focus {
     color: #FFFFFF;
 }
 
@@ -432,7 +428,7 @@ table.dataTable thead .sorting:after {
 }
 
 #wrapper > nav > ul > li > a:hover, #wrapper > nav > ul > li > a:focus, .nav .open > a, .nav .open > a:focus, .nav .open > a:hover {
-    background-color: #1A8A67;
+    background-color: #455a64;
 }
 
 .page-header {
@@ -709,10 +705,31 @@ table.dataTable thead .sorting:after {
     font-size: 1.5em;
 }
 
+#home:hover, #home:focus {
+    background-color: #38474f !important;
+}
+
 ngjs-color-picker li.hRDF, ngjs-color-picker li.hRDL {
     border-radius: 0px;
 }
 
 ngjs-color-picker li.selectedColor {
     border: 1px solid #fff;
+}
+
+.calendar-text {
+    margin-top: .3em;
+}
+
+.plantDate {
+    padding-right: 0.3em;
+}
+
+.col-md-5 {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.calendarDisplay {
+    padding-right: 15px;
 }

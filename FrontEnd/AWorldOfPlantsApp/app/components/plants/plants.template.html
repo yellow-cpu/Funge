@@ -13,33 +13,44 @@
   <span class="loader"><span class="loader-inner"></span></span>
 </div>
 
-<div class="row" view-plants-details-directive>
-  <div ng-repeat="plant in $ctrl.plants" class="panel panel-green">
-    <div class="panel-heading">
-      <div class="row">
-        <div class="col-xs-1">
-          <i class="fa fa-pagelines fa-5x"></i>
-        </div>
-        <div class="col-xs-5">
-          <div><b>ID:</b> {{plant.plantId}}</div>
-          <div><b>Type:</b> {{plant.plantType}}</div>
-          <div><b>Name:</b> {{plant.plantName}}</div>
-          <div><b>Created:</b> {{plant.plantAge}}</div>
-        </div>
-        <div class="col-xs-6 text-right">
-          <div class="huge">6</div>
-          <div>Updates!</div>
+<div view-plants-details-directive>
+  <a class="view-details"
+     ng-click="$ctrl.updateDetails(plant.plantId, plant.plantType, plant.plantName, plant.plantAge, plant.colour)"
+     ui-sref="site.plant-detail({plantId: plant.plantId})"
+     ng-repeat="plant in $ctrl.plants track by $index">
+    <div ng-attr-class="{{$odd && 'panel panel-green col-md-5 col-md-offset-2' || 'panel panel-green col-md-5'}}">
+      <div class="panel-heading">
+        <div class="row">
+          <div class="col-md-2">
+            <span class="fa-stack fa-3x">
+              <i class="fa fa-circle fa-stack-2x" style="color: {{plant.colour}};"></i>
+              <strong class="fa-stack-1x text-primary" style="color: white;">{{ plant.plantName | limitTo : 1 : 0}}</strong>
+            </span>
+          </div>
+          <div class="col-md-5">
+            <div style="border-left: 2px solid {{plant.colour}}; padding-left: 5px;"><h2 class="plantName">{{plant.plantName}}</h2></div>
+            <div><h3 style="border-left: 2px solid {{plant.colour}}; padding-left: 5px;">{{plant.plantType}}</h3></div>
+          </div>
+          <div class="col-md-5 text-right calendarDisplay">
+            <div>
+              <span class="fa-stack fa-3x">
+                <i class="fa fa-calendar-o fa-stack-2x"></i>
+                <strong class="fa-stack-1x calendar-text">{{plant.plantDay}}</strong>
+              </span>
+            </div>
+            <div class="plantDate">
+              {{plant.plantMonth}} {{plant.plantYear}}
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <a class="view-details" ng-click="$ctrl.updateDetails(plant.plantId, plant.plantType, plant.plantName, plant.plantAge, plant.colour)" ui-sref="site.plant-detail({plantId: plant.plantId})">
       <div class="panel-footer" style="background-color: {{plant.colour}}">
         <span class="pull-left">View Details</span>
         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
         <div class="clearfix"></div>
       </div>
-    </a>
-  </div>
+    </div>
+  </a>
 </div>
 
 <div class="modal fade" id="createPlantModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" create-plant-directive>

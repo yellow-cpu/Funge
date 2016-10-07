@@ -73,6 +73,9 @@ angular.module('plants').component('plants', {
       region: $localStorage.region
     });
 
+    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
+      "November", "December"];
+
     self.getPlants = function() {
       var params = {
         "username": $localStorage.username
@@ -90,6 +93,13 @@ angular.module('plants').component('plants', {
               'display': 'none'
             });
             self.plants = result.data.plants;
+
+            for (var i = 0; i < self.plants.length; ++i) {
+              self.plants[i].plantDay = self.plants[i].plantAge.substring(0, self.plants[i].plantAge.indexOf('/'));
+              self.plants[i].plantMonth = months[self.plants[i].plantAge.split('/')[1] - 1];
+              self.plants[i].plantYear = self.plants[i].plantAge.split('/')[2];
+              self.plants[i].plantYear = self.plants[i].plantYear.substring(0, self.plants[i].plantYear.indexOf('T'));
+            }
 
             console.log(self.plants);
 
