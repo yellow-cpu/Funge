@@ -23,27 +23,23 @@
               <strong class="fa-stack-1x text-primary" style="color: white;">{{ thing.thingName | limitTo : 1 : 0}}</strong>
             </span>
         </div>
-        <div class="col-xs-5">
+        <div class="col-xs-3">
           <div style="border-left: 2px solid {{thing.colour}}; padding-left: 5px;"><h2>{{thing.thingName}}</h2></div>
           <div style="border-left: 2px solid {{thing.colour}}; padding-left: 5px;">
-            <select ng-model="plantSelect" type="text" class="form-control">
+            <select type="text" class="form-control">
               <option ng-repeat="p in $ctrl.plantList" value="{{p.plantId}}" ng-selected="p.plantId == thing.plantId">{{p.plantName}}</option>
             </select>
           </div>
-          <!--<div><b>Plant Box name:</b> {{thing.thingName}}</div>
-          <div><b>Plant:</b>
-            <select ng-model="plantSelect" type="text" class="form-control">
-              <option ng-repeat="p in $ctrl.plantList" value="{{p.plantId}}" ng-selected="{{p.plantId == thing.plantId}}">{{p.plantName}}</option>
-            </select>
-          </div>
-          <div>
-            <b>Files: </b><br>
-            <a class="a-files" ng-repeat="file in thing.files track by $index" href="{{file}}">{{thing.fileNames[$index]}} <br></a>
-          </div>-->
         </div>
-        <div class="col-xs-6 text-right">
-          <!--<div class="huge">6</div>
-          <div>Updates!</div>-->
+        <div class="col-xs-3 col-xs-offset-1" style="margin-top: 20px; border-left: 2px solid {{thing.colour}}; padding-left: 5px;">
+          <div>
+            <a class="a-files" ng-repeat="file in thing.files track by $index" href="{{file}}">{{thing.fileNames[$index]}} <br></a>
+          </div>
+        </div>
+        <div class="col-xs-4" style="margin-top: 20px; border-left: 2px solid {{thing.colour}}; padding-left: 5px;">
+          <div>
+            <ngjs-color-picker id="thingColourUpdate" selected-color="$ctrl.selectedColour" options="$ctrl.colourOptions" custom-colors="$ctrl.customColors"></ngjs-color-picker>
+          </div>
         </div>
       </div>
     </div>
