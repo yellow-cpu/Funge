@@ -43,7 +43,7 @@ public class UpdateStreakAction extends AbstractAction
         timelineEvent.setUsername(input.getUsername());
         timelineEvent.setTitle("Created a Plant");
         timelineEvent.setMessage("You are on a " + streak + " day streak! Log in tomorrow to continue your streak!");
-        timelineEvent.setCategory("plant-create");
+        timelineEvent.setCategory("streak");
         timelineEvent.setTimestamp((int) (System.currentTimeMillis() / 1000L));
         timelineEvent.setPointValue(points);
 
