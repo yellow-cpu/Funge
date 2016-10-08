@@ -197,6 +197,8 @@ angular.module('profile').component('profile', {
       $("#card-plant-boxes").find(".value").css({
         'display': 'block'
       });
+
+      $scope.$apply();
     };
 
     // Generate the values for the cards

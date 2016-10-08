@@ -41,8 +41,10 @@ directive('plantDetailCanvasDirective', function($compile) {
   var linkFunction = function (scope, element, attributes) {
     var canvas = document.getElementById('live-chart-temperature');
     var canvas2 = document.getElementById('live-chart-humidity');
+    var aggregateCanvas = document.getElementById('live-chart-aggregate');
     var ctx = canvas.getContext('2d');
     var ctx2 = canvas2.getContext('2d');
+    var ctxAggregate = aggregateCanvas.getContext('2d');
     var startingData = {
       labels: [],
       datasets: [
@@ -101,6 +103,22 @@ directive('plantDetailCanvasDirective', function($compile) {
     };
     var latestLabel2 = startingData2.labels[6];
 
+    var aggregateData = {
+      labels: ["M", "T", "W", "T", "F", "S", "S"],
+      datasets: [{
+        label: 'apples',
+        backgroundColor: "rgba(153,255,51,0.4)",
+        borderColor: "rgba(153,255,51,1)",
+        data: [12, 19, 3, 17, 28, 24, 7]
+      },
+      {
+        label: 'oranges',
+        backgroundColor: "rgba(255,153,0,0.4)",
+        borderColor: "rgba(255,153,0,1)",
+        data: [30, 29, 5, 5, 20, 3, 10]
+      }]
+    };
+
     var liveChart = new Chart(ctx, {
       type: "line",
       data: startingData
@@ -109,6 +127,11 @@ directive('plantDetailCanvasDirective', function($compile) {
     var liveChart2 = new Chart(ctx2, {
       type: "line",
       data: startingData2
+    });
+
+    var aggregateChar = new Chart(ctxAggregate, {
+      type: "radar",
+      data: aggregateData
     });
 
     var charts = [];
@@ -164,13 +187,12 @@ directive('plantDetailCanvasDirective', function($compile) {
           try {
             console.log("message arrived: " +  message.payloadString);
 
-            if (message.payloadString.indexOf('desired') < 0) {
-              var temperature = JSON.parse(message.payloadString).state.reported.temperature;
-              moveChart(liveChart, [temperature]);
+            var temperature = JSON.parse(message.payloadString).state.reported.temperature;
+            moveChart(liveChart, [temperature]);
 
-              var humidity = JSON.parse(message.payloadString).state.reported.humidity;
-              moveChart(liveChart2, [humidity]);
-            }
+            var humidity = JSON.parse(message.payloadString).state.reported.humidity;
+            moveChart(liveChart2, [humidity]);
+
             /*var reported = JSON.parse(message.payloadString).state.reported;
 
             // check if new values
