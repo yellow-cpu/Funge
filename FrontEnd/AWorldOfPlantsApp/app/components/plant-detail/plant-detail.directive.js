@@ -71,8 +71,6 @@ directive('pausePlay', function($compile) {
           scope.$ctrl.chartStatus.aggregate = true;
         }
       }
-
-      $scope.$apply();
     });
   };
 
