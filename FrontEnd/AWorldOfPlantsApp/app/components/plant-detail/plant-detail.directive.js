@@ -39,13 +39,17 @@ directive('statusDirective', function($compile) {
 }).
 directive('plantDetailCanvasDirective', function($compile) {
   var linkFunction = function (scope, element, attributes) {
-    var canvas = document.getElementById('live-chart-temperature');
-    var canvas2 = document.getElementById('live-chart-humidity');
+    var tempCanvas = document.getElementById('live-chart-temperature');
+    var humidityCanvas = document.getElementById('live-chart-humidity');
+    var moistureCanvas = document.getElementById('live-chart-moisture');
     var aggregateCanvas = document.getElementById('live-chart-aggregate');
-    var ctx = canvas.getContext('2d');
-    var ctx2 = canvas2.getContext('2d');
+
+    var ctxTemp = tempCanvas.getContext('2d');
+    var ctxHumidity = humidityCanvas.getContext('2d');
+    var ctxMoisture = moistureCanvas.getContext('2d');
     var ctxAggregate = aggregateCanvas.getContext('2d');
-    var startingData = {
+
+    var tempData = {
       labels: [],
       datasets: [
         {
@@ -72,9 +76,8 @@ directive('plantDetailCanvasDirective', function($compile) {
         }
       ]
     };
-    var latestLabel = startingData.labels[6];
 
-    var startingData2 = {
+    var humidityData = {
       labels: [],
       datasets: [
         {
@@ -101,7 +104,34 @@ directive('plantDetailCanvasDirective', function($compile) {
         }
       ]
     };
-    var latestLabel2 = startingData2.labels[6];
+
+    var moistureData = {
+      labels: [],
+      datasets: [
+        {
+          label: "Humidity",
+          fill: false,
+          lineTension: 0.1,
+          backgroundColor: "rgba(75,192,192,0.4)",
+          borderColor: "rgba(75,192,192,1)",
+          borderCapStyle: 'butt',
+          borderDash: [],
+          borderDashOffset: 0.0,
+          borderJoinStyle: 'miter',
+          pointBorderColor: "rgba(75,192,192,1)",
+          pointBackgroundColor: "#fff",
+          pointBorderWidth: 1,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: "rgba(75,192,192,1)",
+          pointHoverBorderColor: "rgba(220,220,220,1)",
+          pointHoverBorderWidth: 2,
+          pointRadius: 1,
+          pointHitRadius: 10,
+          data: [],
+          spanGaps: false
+        }
+      ]
+    };
 
     var aggregateData = {
       labels: [],
@@ -116,17 +146,28 @@ directive('plantDetailCanvasDirective', function($compile) {
         backgroundColor: "rgba(219, 68, 55, 0.4)",
         borderColor: "rgba(219, 68, 55, 1)",
         data: []
+      },
+      {
+        label: 'Moisture',
+        backgroundColor: "rgba(66, 133, 244, 0.4)",
+        borderColor: "rgba(66, 133, 244, 1)",
+        data: []
       }]
     };
 
-    var liveChart = new Chart(ctx, {
+    var tempChart = new Chart(ctxTemp, {
       type: "line",
-      data: startingData
+      data: tempData
     });
 
-    var liveChart2 = new Chart(ctx2, {
+    var humidityChart = new Chart(ctxHumidity, {
       type: "line",
-      data: startingData2
+      data: humidityData
+    });
+
+    var moistureChart = new Chart(ctxMoisture, {
+      type: "line",
+      data: moistureData
     });
 
     var aggregateChart = new Chart(ctxAggregate, {
@@ -188,12 +229,15 @@ directive('plantDetailCanvasDirective', function($compile) {
             console.log("message arrived: " +  message.payloadString);
 
             var temperature = JSON.parse(message.payloadString).state.reported.temperature;
-            moveChart(liveChart, [temperature]);
+            moveChart(tempChart, [temperature]);
 
             var humidity = JSON.parse(message.payloadString).state.reported.humidity;
-            moveChart(liveChart2, [humidity]);
+            moveChart(humidityChart, [humidity]);
 
-            moveChart(aggregateChart, [temperature, humidity]);
+            var moisture = JSON.parse(message.payloadString).state.reported.moisture;
+            moveChart(moistureChart, [moisture]);
+
+            moveChart(aggregateChart, [temperature, humidity, moisture]);
 
             /*var reported = JSON.parse(message.payloadString).state.reported;
 
