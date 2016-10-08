@@ -57,6 +57,8 @@
            id="fanSlider"
            rz-slider-model="fanSlider.value"
            rz-slider-options="fanSlider.options"></rzslider>
+          <input ng-model="pumpTime" type="text" ng-init="pumpTime = 3">
+          <button ng-click="$ctrl.sendPumpTime(pumpTime)" class="btn btn-material pull-right">Turn on pump for {{pumpTime}} seconds!</button>
         </div>
       </div>
     </div>
