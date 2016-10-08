@@ -45,53 +45,100 @@
 </div>
 
 <div class="row">
-  <!--<div class="col-lg-6">
-    <canvas id="live-chart" plant-detail-canvas-directive></canvas>
-  </div>-->
+  <div class="col-md-6">
+    <div class="panel panel-yellow panel-control">
+      <div class="panel-heading">
+        Control Panel
+      </div>
+      <div class="panel-body">
+        <color-picker ng-model="$ctrl.color" options="$ctrl.options" event-api="$ctrl.eventApi"></color-picker>
+      </div>
+    </div>
+  </div>
 
-  <div class="col-lg-12">
-    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-      <div class="panel panel-default panel-graph">
-        <div class="panel-heading" role="tab" id="headingOne">
-          <h4 class="panel-title">
-            <a role="button" data-toggle="collapse" data-parent="#accordion" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              Temperature
-            </a>
-          </h4>
-        </div>
-        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-          <div class="panel-body">
-            <canvas id="live-chart-temperature" plant-detail-canvas-directive></canvas>
+  <div class="col-md-6">
+    <div class="panel panel-yellow panel-temp">
+      <div class="panel-heading">
+        Temperature Panel
+      </div>
+      <div class="panel-body">
+        <div id="tempTab">
+          <ul class="nav nav-pills temp-pills">
+            <li class="active">
+              <a data-target="#live-temp" data-toggle="tab">Live</a>
+            </li>
+            <li>
+              <a data-target="#historical-temp" data-toggle="tab">Historical</a>
+            </li>
+          </ul>
+
+          <div class="tab-content clearfix">
+            <div class="tab-pane active" id="live-temp">
+              <canvas id="live-chart-temperature" plant-detail-canvas-directive></canvas>
+            </div>
+            <div class="tab-pane" id="historical-temp">
+              <h3>historical data over here</h3>
+            </div>
           </div>
         </div>
       </div>
-      <div class="panel panel-default panel-graph">
-        <div class="panel-heading" role="tab" id="headingTwo">
-          <h4 class="panel-title">
-            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" data-target="#collapseTwo" aria-expanded="false"
-              aria-controls="collapseTwo">
-              Humidity
-            </a>
-          </h4>
-        </div>
-        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-          <div class="panel-body">
-            <canvas id="live-chart-humidity" plant-detail-canvas-directive></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-yellow panel-humidity">
+      <div class="panel-heading">
+        Humidity Panel
+      </div>
+      <div class="panel-body">
+        <div id="humidityTab">
+          <ul class="nav nav-pills humidity-pills">
+            <li class="active">
+              <a data-target="#live-humidity" data-toggle="tab">Live</a>
+            </li>
+            <li>
+              <a data-target="#historical-humidity" data-toggle="tab">Historical</a>
+            </li>
+          </ul>
+
+          <div class="tab-content clearfix">
+            <div class="tab-pane active" id="live-humidity">
+              <canvas id="live-chart-humidity" plant-detail-canvas-directive></canvas>
+            </div>
+            <div class="tab-pane" id="historical-humidity">
+              <h3>historical data over here</h3>
+            </div>
           </div>
         </div>
       </div>
-      <div class="panel panel-default panel-graph">
-        <div class="panel-heading" role="tab" id="headingThree">
-          <h4 class="panel-title">
-            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" data-target="#collapseThree" aria-expanded="false"
-              aria-controls="collapseThree">
-              Control
-            </a>
-          </h4>
-        </div>
-        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-          <div class="panel-body">
-            <color-picker ng-model="$ctrl.color" options="$ctrl.options" event-api="$ctrl.eventApi"></color-picker>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="panel panel-yellow panel-moisture">
+      <div class="panel-heading">
+        Moisture Panel
+      </div>
+      <div class="panel-body">
+        <div id="moistureTab">
+          <ul class="nav nav-pills moisture-pills">
+            <li class="active">
+              <a data-target="#live-moisture" data-toggle="tab">Live</a>
+            </li>
+            <li>
+              <a data-target="#historical-moisture" data-toggle="tab">Historical</a>
+            </li>
+          </ul>
+
+          <div class="tab-content clearfix">
+            <div class="tab-pane active" id="live-moisture">
+              <!--<canvas id="live-chart-moisture" plant-detail-canvas-directive></canvas>-->
+              <h3>live data over here</h3>
+            </div>
+            <div class="tab-pane" id="historical-moisture">
+              <h3>historical data over here</h3>
+            </div>
           </div>
         </div>
       </div>

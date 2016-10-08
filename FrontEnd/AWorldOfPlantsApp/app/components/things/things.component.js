@@ -17,6 +17,8 @@ angular.module('things').component('things', {
 
     self.plantList = [];
 
+    self.plantSelect = "";
+
     self.customColors = ["#1D9D73", "#297373", "#FF8552", "#DA3E52", "#F9C80E", "#51B749", "#662E9B", "#FF5C33", "#236ACB", "#F7B32B", "#4C5B5C", "#FF5AEF"];
 
     self.colourOptions = {
@@ -139,16 +141,10 @@ angular.module('things').component('things', {
 
           if (self.things.length >= 1) {
             formatFiles(self.things);
-            /*for (var i = 0; i < self.things.length; ++i) {
-              var indexOfFileName = self.things[i].files[i].split('/', 6).join('/').length;
-              var fileNames = [];
-              for (var j = 0; j < self.things[i].files.length; ++j) {
-                fileNames.push(self.things[i].files[j].substring(indexOfFileName + 1));
-              }
-              console.log(fileNames);
-              self.things[i].fileNames = fileNames;
-              console.log(self.things[i].fileNames);
-            }*/
+          }
+
+          for (var i = 0; i < self.things.length; ++i) {
+            self.things[i].selectedPlant = self.things[i].plantId;
           }
 
           console.log(self.things);
