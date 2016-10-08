@@ -26,7 +26,8 @@
     "angular-color-picker": "angularjs-color-picker#^2.4.5",
     "angular-ui-router": "~0.3.1",
     "angular-socialshare": "angularjs-socialshare#^2.3.1",
-    "angular-ui-select": "0.19.4"
+    "angular-ui-select": "0.19.4",
+    "angularjs-slider": "^5.5.1"
   },
   "resolutions": {
     "angular": "~1.5.0"

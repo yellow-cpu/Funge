@@ -126,6 +126,19 @@ angular.module('plantDetail').component('plantDetail', {
       placeholder: 'rgb()'
     };
 
+    // Fan control
+    $scope.fanSlider = {
+      value: 0,
+      options: {
+        floor: 0,
+        ceil: 100
+      }
+    };
+
+    $scope.$on("slideEnded", function() {
+      self.publish('{"state": {"desired": {"fanSpeed": ' + $scope.fanSlider.value + '}}}');
+    });
+
     self.eventApi = {
       onChange:  function(api, color, $event) {
         var colours = color.substring(4, color.length - 1);
