@@ -135,6 +135,10 @@ angular.module('plantDetail').component('plantDetail', {
       }
     };
 
+    self.sendPumpTime = function (_pumpTime) {
+      self.publish('{"state": {"desired": {"pumpTime": ' + _pumpTime + '}}}');
+    };
+
     $scope.$on("slideEnded", function() {
       self.publish('{"state": {"desired": {"fanSpeed": ' + $scope.fanSlider.value + '}}}');
     });
