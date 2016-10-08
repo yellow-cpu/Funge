@@ -293,28 +293,8 @@ directive('plantDetailCanvasDirective', function($compile) {
 
             if (scope.$ctrl.chartStatus.aggregate == true) {
               moveChart(aggregateChart, [temperature, humidity, moisture]);
+              moveChart(aggregateLineChart, [temperature, humidity, moisture]);
             }
-            moveChart(aggregateLineChart, [temperature, humidity, moisture]);
-
-            /*var reported = JSON.parse(message.payloadString).state.reported;
-
-            // check if new values
-            jQuery.each(reported, function(key, val) {
-              if (values[key] == null) {
-                // new key
-                values[key] = val;
-
-                // create new graph
-
-              }
-            });
-
-            // update graphs
-            var i = 0;
-            jQuery.each(values, function(key, val) {
-              moveChart(chart[i], [val]);
-              ++i;
-            });*/
           } catch (e) {
             console.log("error! " + e);
           }

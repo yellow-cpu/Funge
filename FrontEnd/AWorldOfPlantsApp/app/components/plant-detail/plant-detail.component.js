@@ -215,8 +215,7 @@ angular.module('plantDetail').component('plantDetail', {
     };
 
     self.chartStatus = {
-      "aggregate": true,
-      "aggregateLine": true
+      "aggregate": true
     }
   }
 });
