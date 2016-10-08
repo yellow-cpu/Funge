@@ -119,7 +119,7 @@ angular.module('profile').component('profile', {
                   today.getDay() != eventDate.getDay())
                 {
                   var eventStreak = event.message.slice(13, event.message.indexOf(' ', 13));
-                  self.streak = eventStreak + 1;
+                  self.streak = parseInt(eventStreak) + 1;
                   var params = {};
                   var body = {
                     username: $localStorage.username,
@@ -164,7 +164,7 @@ angular.module('profile').component('profile', {
 
               apigClient.timelineStreakOptions(params, body)
                 .then(function (result) {
-                  console.log("Success: " + JSON.stringify(result.data));
+                  console.log("Success: " + JSON.stringify(result));
 
                   $("#card-streak").find(".spinner").css({
                     'display': 'none'
