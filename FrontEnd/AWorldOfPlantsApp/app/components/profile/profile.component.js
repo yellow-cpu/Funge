@@ -138,13 +138,14 @@ angular.module('profile').component('profile', {
                       $("#card-streak").find(".value").css({
                         'display': 'block'
                       });
-
+                      /*
                       self.timelineEvents.push({
                         "category": "streak",
                         "message": "You are on a " + self.streak + " day streak! Log in tomorrow to continue your streak!",
                         "title": "Login Streak",
                         ""
-                      })
+                      });
+                      */
                     }).catch(function (result) {
                     console.log("Error: " + JSON.stringify(result));
                 });
