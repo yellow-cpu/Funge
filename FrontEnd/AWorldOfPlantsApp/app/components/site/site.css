@@ -720,3 +720,134 @@ ngjs-color-picker li.selectedColor {
 .calendarDisplay {
     padding-right: 15px;
 }
+
+/*PLANT DETAIL PANELS*/
+
+/*Control Panel*/
+.panel-control > div.panel-heading {
+    background-color: #38474f;
+    border-radius: 0px;
+    color: white;
+}
+
+.panel-control > div.panel-body {
+    /*min-height: 20em;*/
+}
+
+/*Temp Panel*/
+.panel-temp > div.panel-heading {
+    background-color: #ffc107;
+    border-radius: 0px;
+    color: white;
+}
+
+#tempTab > ul > li.active > a {
+    background-color: #ffc107;
+    color: white;
+}
+
+#tempTab > ul > li > a {
+    color: #ffc107;
+    cursor: pointer;
+}
+
+#tempTab .tab-content {
+    color : #757575;
+    background-color: #FFFFFF;
+    padding : 5px 15px;
+}
+
+#tempTab .nav-pills > li > a {
+    border-radius: 0;
+}
+
+/*Humidity Panel*/
+.panel-humidity > div.panel-heading {
+    background-color: #db4437;
+    border-radius: 0px;
+    color: white;
+}
+
+#humidityTab > ul > li.active > a {
+    background-color: #db4437;
+    color: white;
+}
+
+#humidityTab > ul > li > a {
+    color: #db4437;
+    cursor: pointer;
+}
+
+#humidityTab .tab-content {
+    color : #757575;
+    background-color: #FFFFFF;
+    padding : 5px 15px;
+}
+
+#humidityTab .nav-pills > li > a {
+    border-radius: 0;
+}
+
+/*Moisture Panel*/
+.panel-moisture > div.panel-heading {
+    background-color: #4285f4;
+    border-radius: 0px;
+    color: white;
+}
+
+#moistureTab > ul > li.active > a {
+    background-color: #4285f4;
+    color: white;
+}
+
+#moistureTab > ul > li > a {
+    color: #4285f4;
+    cursor: pointer;
+}
+
+#moistureTab .tab-content {
+    color : #757575;
+    background-color: #FFFFFF;
+    padding : 5px 15px;
+}
+
+#moistureTab .nav-pills > li > a {
+    border-radius: 0;
+}
+
+/*Aggregate Panel*/
+.panel-aggregate > div.panel-heading {
+    background-color: #c52062;
+    border-radius: 0px;
+    color: white;
+}
+
+#aggregateTab > ul > li.active > a {
+    background-color: #c52062;
+    color: white;
+}
+
+#aggregateTab > ul > li > a {
+    color: #c52062;
+    cursor: pointer;
+}
+
+#aggregateTab .tab-content {
+    color : #757575;
+    background-color: #FFFFFF;
+    padding : 5px 15px;
+}
+
+#aggregateTab .nav-pills > li > a {
+    border-radius: 0;
+}
+
+.btn-circular {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.428571429;
+    border-radius: 15px;
+}

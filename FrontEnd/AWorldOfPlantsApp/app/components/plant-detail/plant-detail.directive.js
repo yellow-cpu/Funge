@@ -37,30 +37,79 @@ directive('statusDirective', function($compile) {
     link: linkFunction
   };
 }).
+directive('pausePlay', function($compile) {
+  var linkFunction = function (scope, element, attributes) {
+    $('.btnPausePlay').on('click', function () {
+      var pausePlay = $(this).find('.pausePlay');
+
+      var chartData = $(this).data('chart');
+
+      if (pausePlay.hasClass('fa-pause')) {
+        pausePlay.removeClass('fa-pause');
+        pausePlay.addClass('fa-play');
+
+        if (chartData == "temp") {
+          scope.$ctrl.chartStatus.temp = false;
+        } else if (chartData == "humidity") {
+          scope.$ctrl.chartStatus.humidity = false;
+        } else if (chartData == "moisture") {
+          scope.$ctrl.chartStatus.moisture = false;
+        } else if (chartData == "aggregate") {
+          scope.$ctrl.chartStatus.aggregate = false;
+        }
+      } else if (pausePlay.hasClass('fa-play')) {
+        pausePlay.removeClass('fa-play');
+        pausePlay.addClass('fa-pause');
+
+        if (chartData == "temp") {
+          scope.$ctrl.chartStatus.temp = true;
+        } else if (chartData == "humidity") {
+          scope.$ctrl.chartStatus.humidity = true;
+        } else if (chartData == "moisture") {
+          scope.$ctrl.chartStatus.moisture = true;
+        } else if (chartData == "aggregate") {
+          scope.$ctrl.chartStatus.aggregate = true;
+        }
+      }
+    });
+  };
+
+  return {
+    link: linkFunction
+  };
+}).
 directive('plantDetailCanvasDirective', function($compile) {
   var linkFunction = function (scope, element, attributes) {
-    var canvas = document.getElementById('live-chart-temperature');
-    var canvas2 = document.getElementById('live-chart-humidity');
-    var ctx = canvas.getContext('2d');
-    var ctx2 = canvas2.getContext('2d');
-    var startingData = {
+    var tempCanvas = document.getElementById('live-chart-temperature');
+    var humidityCanvas = document.getElementById('live-chart-humidity');
+    var moistureCanvas = document.getElementById('live-chart-moisture');
+    var aggregateCanvas = document.getElementById('live-chart-aggregate');
+    var aggregateLineCanvas = document.getElementById('live-chart-aggregate-line');
+
+    var ctxTemp = tempCanvas.getContext('2d');
+    var ctxHumidity = humidityCanvas.getContext('2d');
+    var ctxMoisture = moistureCanvas.getContext('2d');
+    var ctxAggregate = aggregateCanvas.getContext('2d');
+    var ctxAggregateLine = aggregateLineCanvas.getContext('2d');
+
+    var tempData = {
       labels: [],
       datasets: [
         {
           label: "Temperature",
           fill: false,
           lineTension: 0.1,
-          backgroundColor: "rgba(75,192,192,0.4)",
-          borderColor: "rgba(75,192,192,1)",
+          backgroundColor: "rgba(255, 193 , 7, 0.4)",
+          borderColor: "rgba(255, 193 , 7, 1)",
           borderCapStyle: 'butt',
           borderDash: [],
           borderDashOffset: 0.0,
           borderJoinStyle: 'miter',
-          pointBorderColor: "rgba(75,192,192,1)",
+          pointBorderColor: "rgba(255, 193 , 7, 1)",
           pointBackgroundColor: "#fff",
           pointBorderWidth: 1,
           pointHoverRadius: 5,
-          pointHoverBackgroundColor: "rgba(75,192,192,1)",
+          pointHoverBackgroundColor: "rgba(255, 193 , 7, 1)",
           pointHoverBorderColor: "rgba(220,220,220,1)",
           pointHoverBorderWidth: 2,
           pointRadius: 1,
@@ -70,26 +119,25 @@ directive('plantDetailCanvasDirective', function($compile) {
         }
       ]
     };
-    var latestLabel = startingData.labels[6];
 
-    var startingData2 = {
+    var humidityData = {
       labels: [],
       datasets: [
         {
           label: "Humidity",
           fill: false,
           lineTension: 0.1,
-          backgroundColor: "rgba(75,192,192,0.4)",
-          borderColor: "rgba(75,192,192,1)",
+          backgroundColor: "rgba(219, 68, 55, 0.4)",
+          borderColor: "rgba(219, 68, 55, 1)",
           borderCapStyle: 'butt',
           borderDash: [],
           borderDashOffset: 0.0,
           borderJoinStyle: 'miter',
-          pointBorderColor: "rgba(75,192,192,1)",
+          pointBorderColor: "rgba(219, 68, 55, 1)",
           pointBackgroundColor: "#fff",
           pointBorderWidth: 1,
           pointHoverRadius: 5,
-          pointHoverBackgroundColor: "rgba(75,192,192,1)",
+          pointHoverBackgroundColor: "rgba(219, 68, 55, 1)",
           pointHoverBorderColor: "rgba(220,220,220,1)",
           pointHoverBorderWidth: 2,
           pointRadius: 1,
@@ -99,16 +147,102 @@ directive('plantDetailCanvasDirective', function($compile) {
         }
       ]
     };
-    var latestLabel2 = startingData2.labels[6];
 
-    var liveChart = new Chart(ctx, {
+    var moistureData = {
+      labels: [],
+      datasets: [
+        {
+          label: "Moisture",
+          fill: false,
+          lineTension: 0.1,
+          backgroundColor: "rgba(66, 133, 244, 0.4)",
+          borderColor: "rgba(66, 133, 244, 1)",
+          borderCapStyle: 'butt',
+          borderDash: [],
+          borderDashOffset: 0.0,
+          borderJoinStyle: 'miter',
+          pointBorderColor: "rgba(66, 133, 244, 1)",
+          pointBackgroundColor: "#fff",
+          pointBorderWidth: 1,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: "rgba(66, 133, 244, 1)",
+          pointHoverBorderColor: "rgba(66, 133, 244, 1)",
+          pointHoverBorderWidth: 2,
+          pointRadius: 1,
+          pointHitRadius: 10,
+          data: [],
+          spanGaps: false
+        }
+      ]
+    };
+
+    var aggregateData = {
+      labels: [],
+      datasets: [{
+        label: 'Temperature',
+        backgroundColor: "rgba(255, 193 , 7, 0.4)",
+        borderColor: "rgba(255, 193 , 7, 1)",
+        data: []
+      },
+      {
+        label: 'Humidity',
+        backgroundColor: "rgba(219, 68, 55, 0.4)",
+        borderColor: "rgba(219, 68, 55, 1)",
+        data: []
+      },
+      {
+        label: 'Moisture',
+        backgroundColor: "rgba(66, 133, 244, 0.4)",
+        borderColor: "rgba(66, 133, 244, 1)",
+        data: []
+      }]
+    };
+
+    var aggregateLineData = {
+      labels: [],
+      datasets: [{
+        label: 'Temperature',
+        backgroundColor: "rgba(255, 193 , 7, 0.4)",
+        borderColor: "rgba(255, 193 , 7, 1)",
+        data: []
+      },
+        {
+          label: 'Humidity',
+          backgroundColor: "rgba(219, 68, 55, 0.4)",
+          borderColor: "rgba(219, 68, 55, 1)",
+          data: []
+        },
+        {
+          label: 'Moisture',
+          backgroundColor: "rgba(66, 133, 244, 0.4)",
+          borderColor: "rgba(66, 133, 244, 1)",
+          data: []
+        }]
+    };
+
+    var tempChart = new Chart(ctxTemp, {
       type: "line",
-      data: startingData
+      data: tempData
     });
 
-    var liveChart2 = new Chart(ctx2, {
+    var humidityChart = new Chart(ctxHumidity, {
       type: "line",
-      data: startingData2
+      data: humidityData
+    });
+
+    var moistureChart = new Chart(ctxMoisture, {
+      type: "line",
+      data: moistureData
+    });
+
+    var aggregateChart = new Chart(ctxAggregate, {
+      type: "radar",
+      data: aggregateData
+    });
+
+    var aggregateLineChart = new Chart(ctxAggregateLine, {
+      type: "line",
+      data: aggregateLineData
     });
 
     var charts = [];
@@ -164,32 +298,25 @@ directive('plantDetailCanvasDirective', function($compile) {
           try {
             console.log("message arrived: " +  message.payloadString);
 
-            if (message.payloadString.indexOf('desired') < 0) {
-              var temperature = JSON.parse(message.payloadString).state.reported.temperature;
-              moveChart(liveChart, [temperature]);
-
-              var humidity = JSON.parse(message.payloadString).state.reported.humidity;
-              moveChart(liveChart2, [humidity]);
+            var temperature = JSON.parse(message.payloadString).state.reported.temperature;
+            if (scope.$ctrl.chartStatus.temp == true) {
+              moveChart(tempChart, [temperature]);
             }
-            /*var reported = JSON.parse(message.payloadString).state.reported;
 
-            // check if new values
-            jQuery.each(reported, function(key, val) {
-              if (values[key] == null) {
-                // new key
-                values[key] = val;
+            var humidity = JSON.parse(message.payloadString).state.reported.humidity;
+            if (scope.$ctrl.chartStatus.humidity == true) {
+              moveChart(humidityChart, [humidity]);
+            }
 
-                // create new graph
+            var moisture = JSON.parse(message.payloadString).state.reported.moisture;
+            if (scope.$ctrl.chartStatus.moisture == true) {
+              moveChart(moistureChart, [moisture]);
+            }
 
-              }
-            });
-
-            // update graphs
-            var i = 0;
-            jQuery.each(values, function(key, val) {
-              moveChart(chart[i], [val]);
-              ++i;
-            });*/
+            if (scope.$ctrl.chartStatus.aggregate == true) {
+              moveChart(aggregateChart, [temperature, humidity, moisture]);
+              moveChart(aggregateLineChart, [temperature, humidity, moisture]);
+            }
           } catch (e) {
             console.log("error! " + e);
           }
