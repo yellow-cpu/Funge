@@ -144,3 +144,34 @@
     </div>
   </div>
 </div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-yellow panel-aggregate">
+      <div class="panel-heading">
+        Aggregate Panel
+      </div>
+      <div class="panel-body">
+        <div id="aggregateTab">
+          <ul class="nav nav-pills moisture-pills">
+            <li class="active">
+              <a data-target="#live-aggregate" data-toggle="tab">Live</a>
+            </li>
+            <li>
+              <a data-target="#historical-aggregate" data-toggle="tab">Historical</a>
+            </li>
+          </ul>
+
+          <div class="tab-content clearfix">
+            <div class="tab-pane active" id="live-aggregate">
+              <canvas id="live-chart-aggregate" plant-detail-canvas-directive></canvas>
+            </div>
+            <div class="tab-pane" id="historical-aggregate">
+              <h3>historical data over here</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

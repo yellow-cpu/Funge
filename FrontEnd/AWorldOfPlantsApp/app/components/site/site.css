@@ -814,3 +814,30 @@ ngjs-color-picker li.selectedColor {
 #moistureTab .nav-pills > li > a {
     border-radius: 0;
 }
+
+/*Aggregate Panel*/
+.panel-aggregate > div.panel-heading {
+    background-color: #c52062;
+    border-radius: 0px;
+    color: white;
+}
+
+#aggregateTab > ul > li.active > a {
+    background-color: #c52062;
+    color: white;
+}
+
+#aggregateTab > ul > li > a {
+    color: #c52062;
+    cursor: pointer;
+}
+
+#aggregateTab .tab-content {
+    color : #757575;
+    background-color: #FFFFFF;
+    padding : 5px 15px;
+}
+
+#aggregateTab .nav-pills > li > a {
+    border-radius: 0;
+}
