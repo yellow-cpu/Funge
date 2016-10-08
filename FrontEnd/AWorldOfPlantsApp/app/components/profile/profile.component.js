@@ -102,6 +102,7 @@ angular.module('profile').component('profile', {
 
             // For each event...
             for (var i = 0; i < self.timelineEvents.length; i++) {
+              console.log(self.timelineEvents[i]);
               var eventDate = new Date(self.timelineEvents[i].timestamp * 1000);
               // Convert timestamps of each event
               self.timelineEvents[i].timestamp = self.timeConverter(self.timelineEvents[i].timestamp);
@@ -137,6 +138,13 @@ angular.module('profile').component('profile', {
                       $("#card-streak").find(".value").css({
                         'display': 'block'
                       });
+
+                      self.timelineEvents.push({
+                        "category": "streak",
+                        "message": "You are on a " + self.streak + " day streak! Log in tomorrow to continue your streak!",
+                        "title": "Login Streak",
+                        ""
+                      })
                     }).catch(function (result) {
                     console.log("Error: " + JSON.stringify(result));
                 });

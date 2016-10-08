@@ -41,7 +41,7 @@ public class UpdateStreakAction extends AbstractAction
 
         TimelineEvent timelineEvent = new TimelineEvent();
         timelineEvent.setUsername(input.getUsername());
-        timelineEvent.setTitle("Created a Plant");
+        timelineEvent.setTitle("Login Streak");
         timelineEvent.setMessage("You are on a " + streak + " day streak! Log in tomorrow to continue your streak!");
         timelineEvent.setCategory("streak");
         timelineEvent.setTimestamp(input.getTimestamp());
@@ -62,7 +62,7 @@ public class UpdateStreakAction extends AbstractAction
         }
 
         UpdateStreakResponse output = new UpdateStreakResponse();
-        output.setTimelineEventId(timelineEventId);
+        output.setTimelineEvent(timelineEvent);
 
         return getGson().toJson(output);
     }
