@@ -104,18 +104,18 @@ directive('plantDetailCanvasDirective', function($compile) {
     var latestLabel2 = startingData2.labels[6];
 
     var aggregateData = {
-      labels: ["M", "T", "W", "T", "F", "S", "S"],
+      labels: [],
       datasets: [{
-        label: 'apples',
-        backgroundColor: "rgba(153,255,51,0.4)",
-        borderColor: "rgba(153,255,51,1)",
-        data: [12, 19, 3, 17, 28, 24, 7]
+        label: 'Temperature',
+        backgroundColor: "rgba(255, 193 , 7, 0.4)",
+        borderColor: "rgba(255, 193 , 7, 1)",
+        data: []
       },
       {
-        label: 'oranges',
-        backgroundColor: "rgba(255,153,0,0.4)",
-        borderColor: "rgba(255,153,0,1)",
-        data: [30, 29, 5, 5, 20, 3, 10]
+        label: 'Humidity',
+        backgroundColor: "rgba(219, 68, 55, 0.4)",
+        borderColor: "rgba(219, 68, 55, 1)",
+        data: []
       }]
     };
 
@@ -129,7 +129,7 @@ directive('plantDetailCanvasDirective', function($compile) {
       data: startingData2
     });
 
-    var aggregateChar = new Chart(ctxAggregate, {
+    var aggregateChart = new Chart(ctxAggregate, {
       type: "radar",
       data: aggregateData
     });
@@ -192,6 +192,8 @@ directive('plantDetailCanvasDirective', function($compile) {
 
             var humidity = JSON.parse(message.payloadString).state.reported.humidity;
             moveChart(liveChart2, [humidity]);
+
+            moveChart(aggregateChart, [temperature, humidity]);
 
             /*var reported = JSON.parse(message.payloadString).state.reported;
 
