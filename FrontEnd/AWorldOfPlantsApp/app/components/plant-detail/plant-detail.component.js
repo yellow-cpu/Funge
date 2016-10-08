@@ -215,6 +215,9 @@ angular.module('plantDetail').component('plantDetail', {
     };
 
     self.chartStatus = {
+      "temp": true,
+      "humidity": true,
+      "moisture": true,
       "aggregate": true
     }
   }

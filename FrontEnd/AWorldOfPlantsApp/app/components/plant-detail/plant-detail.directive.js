@@ -39,19 +39,37 @@ directive('statusDirective', function($compile) {
 }).
 directive('pausePlay', function($compile) {
   var linkFunction = function (scope, element, attributes) {
-    $('#btnAggregatePausePlay').on('click', function () {
-      var aggregatePausePlay = $('#aggregatePausePlay');
+    $('.btnPausePlay').on('click', function () {
+      var pausePlay = $(this).find('.pausePlay');
 
-      if (aggregatePausePlay.hasClass('fa-pause')) {
-        aggregatePausePlay.removeClass('fa-pause');
-        aggregatePausePlay.addClass('fa-play');
+      var chartData = $(this).data('chart');
 
-        scope.$ctrl.chartStatus.aggregate = false;
-      } else if (aggregatePausePlay.hasClass('fa-play')) {
-        aggregatePausePlay.removeClass('fa-play');
-        aggregatePausePlay.addClass('fa-pause');
+      if (pausePlay.hasClass('fa-pause')) {
+        pausePlay.removeClass('fa-pause');
+        pausePlay.addClass('fa-play');
 
-        scope.$ctrl.chartStatus.aggregate = true;
+        if (chartData == "temp") {
+          scope.$ctrl.chartStatus.temp = false;
+        } else if (chartData == "humidity") {
+          scope.$ctrl.chartStatus.humidity = false;
+        } else if (chartData == "moisture") {
+          scope.$ctrl.chartStatus.moisture = false;
+        } else if (chartData == "aggregate") {
+          scope.$ctrl.chartStatus.aggregate = false;
+        }
+      } else if (pausePlay.hasClass('fa-play')) {
+        pausePlay.removeClass('fa-play');
+        pausePlay.addClass('fa-pause');
+
+        if (chartData == "temp") {
+          scope.$ctrl.chartStatus.temp = true;
+        } else if (chartData == "humidity") {
+          scope.$ctrl.chartStatus.humidity = true;
+        } else if (chartData == "moisture") {
+          scope.$ctrl.chartStatus.moisture = true;
+        } else if (chartData == "aggregate") {
+          scope.$ctrl.chartStatus.aggregate = true;
+        }
       }
 
       $scope.$apply();
@@ -283,13 +301,19 @@ directive('plantDetailCanvasDirective', function($compile) {
             console.log("message arrived: " +  message.payloadString);
 
             var temperature = JSON.parse(message.payloadString).state.reported.temperature;
-            moveChart(tempChart, [temperature]);
+            if (scope.$ctrl.chartStatus.temp == true) {
+              moveChart(tempChart, [temperature]);
+            }
 
             var humidity = JSON.parse(message.payloadString).state.reported.humidity;
-            moveChart(humidityChart, [humidity]);
+            if (scope.$ctrl.chartStatus.humidity == true) {
+              moveChart(humidityChart, [humidity]);
+            }
 
             var moisture = JSON.parse(message.payloadString).state.reported.moisture;
-            moveChart(moistureChart, [moisture]);
+            if (scope.$ctrl.chartStatus.moisture == true) {
+              moveChart(moistureChart, [moisture]);
+            }
 
             if (scope.$ctrl.chartStatus.aggregate == true) {
               moveChart(aggregateChart, [temperature, humidity, moisture]);

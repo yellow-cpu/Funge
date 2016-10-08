@@ -44,141 +44,149 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="col-md-6">
-    <div class="panel panel-yellow panel-control">
-      <div class="panel-heading">
-        Control Panel
-      </div>
-      <div class="panel-body">
-        <color-picker ng-model="$ctrl.color" options="$ctrl.options" event-api="$ctrl.eventApi"></color-picker>
-        <rzslider
-         id="fanSlider"
-         rz-slider-model="fanSlider.value"
-         rz-slider-options="fanSlider.options"></rzslider>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-md-6">
-    <div class="panel panel-yellow panel-temp">
-      <div class="panel-heading">
-        Temperature Panel
-      </div>
-      <div class="panel-body">
-        <div id="tempTab">
-          <ul class="nav nav-pills temp-pills">
-            <li class="active">
-              <a data-target="#live-temp" data-toggle="tab">Live</a>
-            </li>
-            <li>
-              <a data-target="#historical-temp" data-toggle="tab">Historical</a>
-            </li>
-          </ul>
-
-          <div class="tab-content clearfix">
-            <div class="tab-pane active" id="live-temp">
-              <canvas id="live-chart-temperature" plant-detail-canvas-directive></canvas>
-            </div>
-            <div class="tab-pane" id="historical-temp">
-              <h3>historical data over here</h3>
-            </div>
-          </div>
+<div pause-play>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-yellow panel-control">
+        <div class="panel-heading">
+          Control Panel
+        </div>
+        <div class="panel-body">
+          <color-picker ng-model="$ctrl.color" options="$ctrl.options" event-api="$ctrl.eventApi"></color-picker>
+          <rzslider
+           id="fanSlider"
+           rz-slider-model="fanSlider.value"
+           rz-slider-options="fanSlider.options"></rzslider>
         </div>
       </div>
     </div>
-  </div>
-</div>
 
-<div class="row">
-  <div class="col-md-6">
-    <div class="panel panel-yellow panel-humidity">
-      <div class="panel-heading">
-        Humidity Panel
-      </div>
-      <div class="panel-body">
-        <div id="humidityTab">
-          <ul class="nav nav-pills humidity-pills">
-            <li class="active">
-              <a data-target="#live-humidity" data-toggle="tab">Live</a>
-            </li>
-            <li>
-              <a data-target="#historical-humidity" data-toggle="tab">Historical</a>
-            </li>
-          </ul>
-
-          <div class="tab-content clearfix">
-            <div class="tab-pane active" id="live-humidity">
-              <canvas id="live-chart-humidity" plant-detail-canvas-directive></canvas>
-            </div>
-            <div class="tab-pane" id="historical-humidity">
-              <h3>historical data over here</h3>
-            </div>
-          </div>
+    <div class="col-md-6">
+      <div class="panel panel-yellow panel-temp">
+        <div class="panel-heading">
+          Temperature Panel
+          <button class="btn btn-material btn-circular btnPausePlay" data-chart="temp"
+                  style="margin-left: 10px;"><i class="fa fa-pause pausePlay" style="color: #ffc107;"></i></button>
         </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="panel panel-yellow panel-moisture">
-      <div class="panel-heading">
-        Moisture Panel
-      </div>
-      <div class="panel-body">
-        <div id="moistureTab">
-          <ul class="nav nav-pills moisture-pills">
-            <li class="active">
-              <a data-target="#live-moisture" data-toggle="tab">Live</a>
-            </li>
-            <li>
-              <a data-target="#historical-moisture" data-toggle="tab">Historical</a>
-            </li>
-          </ul>
+        <div class="panel-body">
+          <div id="tempTab">
+            <ul class="nav nav-pills temp-pills">
+              <li class="active">
+                <a data-target="#live-temp" data-toggle="tab">Live</a>
+              </li>
+              <li>
+                <a data-target="#historical-temp" data-toggle="tab">Historical</a>
+              </li>
+            </ul>
 
-          <div class="tab-content clearfix">
-            <div class="tab-pane active" id="live-moisture">
-              <canvas id="live-chart-moisture" plant-detail-canvas-directive></canvas>
-            </div>
-            <div class="tab-pane" id="historical-moisture">
-              <h3>historical data over here</h3>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-md-12">
-    <div class="panel panel-yellow panel-aggregate">
-      <div class="panel-heading">
-        Aggregate Panel
-        <button class="btn btn-material btn-circular" id="btnAggregatePausePlay"
-                style="margin-left: 10px;"><i class="fa fa-pause" id="aggregatePausePlay" style="color: #c52062;" pause-play></i></button>
-      </div>
-      <div class="panel-body">
-        <div id="aggregateTab">
-          <ul class="nav nav-pills moisture-pills">
-            <li class="active">
-              <a data-target="#live-aggregate" data-toggle="tab">Live</a>
-            </li>
-            <li>
-              <a data-target="#historical-aggregate" data-toggle="tab">Historical</a>
-            </li>
-          </ul>
-
-          <div class="tab-content clearfix">
-            <div class="tab-pane active" id="live-aggregate">
-              <div class="col-md-6">
-                <canvas id="live-chart-aggregate" plant-detail-canvas-directive></canvas>
+            <div class="tab-content clearfix">
+              <div class="tab-pane active" id="live-temp">
+                <canvas id="live-chart-temperature" plant-detail-canvas-directive></canvas>
               </div>
-              <div class="col-md-6">
-                <canvas id="live-chart-aggregate-line" plant-detail-canvas-directive></canvas>
+              <div class="tab-pane" id="historical-temp">
+                <h3>historical data over here</h3>
               </div>
             </div>
-            <div class="tab-pane" id="historical-aggregate">
-              <h3>historical data over here</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-yellow panel-humidity">
+        <div class="panel-heading">
+          Humidity Panel
+          <button class="btn btn-material btn-circular btnPausePlay" data-chart="humidity"
+                  style="margin-left: 10px;"><i class="fa fa-pause pausePlay" style="color: #db4437;"></i></button>
+        </div>
+        <div class="panel-body">
+          <div id="humidityTab">
+            <ul class="nav nav-pills humidity-pills">
+              <li class="active">
+                <a data-target="#live-humidity" data-toggle="tab">Live</a>
+              </li>
+              <li>
+                <a data-target="#historical-humidity" data-toggle="tab">Historical</a>
+              </li>
+            </ul>
+
+            <div class="tab-content clearfix">
+              <div class="tab-pane active" id="live-humidity">
+                <canvas id="live-chart-humidity" plant-detail-canvas-directive></canvas>
+              </div>
+              <div class="tab-pane" id="historical-humidity">
+                <h3>historical data over here</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-yellow panel-moisture">
+        <div class="panel-heading">
+          Moisture Panel
+          <button class="btn btn-material btn-circular btnPausePlay" data-chart="moisture"
+                  style="margin-left: 10px;"><i class="fa fa-pause pausePlay" style="color: #4285f4;"></i></button>
+        </div>
+        <div class="panel-body">
+          <div id="moistureTab">
+            <ul class="nav nav-pills moisture-pills">
+              <li class="active">
+                <a data-target="#live-moisture" data-toggle="tab">Live</a>
+              </li>
+              <li>
+                <a data-target="#historical-moisture" data-toggle="tab">Historical</a>
+              </li>
+            </ul>
+
+            <div class="tab-content clearfix">
+              <div class="tab-pane active" id="live-moisture">
+                <canvas id="live-chart-moisture" plant-detail-canvas-directive></canvas>
+              </div>
+              <div class="tab-pane" id="historical-moisture">
+                <h3>historical data over here</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-yellow panel-aggregate">
+        <div class="panel-heading">
+          Aggregate Panel
+          <button class="btn btn-material btn-circular btnPausePlay" data-chart="aggregate"
+                  style="margin-left: 10px;"><i class="fa fa-pause pausePlay" style="color: #c52062;"></i></button>
+        </div>
+        <div class="panel-body">
+          <div id="aggregateTab">
+            <ul class="nav nav-pills moisture-pills">
+              <li class="active">
+                <a data-target="#live-aggregate" data-toggle="tab">Live</a>
+              </li>
+              <li>
+                <a data-target="#historical-aggregate" data-toggle="tab">Historical</a>
+              </li>
+            </ul>
+
+            <div class="tab-content clearfix">
+              <div class="tab-pane active" id="live-aggregate">
+                <div class="col-md-6">
+                  <canvas id="live-chart-aggregate" plant-detail-canvas-directive></canvas>
+                </div>
+                <div class="col-md-6">
+                  <canvas id="live-chart-aggregate-line" plant-detail-canvas-directive></canvas>
+                </div>
+              </div>
+              <div class="tab-pane" id="historical-aggregate">
+                <h3>historical data over here</h3>
+              </div>
             </div>
           </div>
         </div>
