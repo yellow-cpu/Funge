@@ -213,5 +213,10 @@ angular.module('plantDetail').component('plantDetail', {
         console.log("Error: " + JSON.stringify(result));
       });
     };
+
+    self.chartStatus = {
+      "aggregate": true,
+      "aggregateLine": true
+    }
   }
 });

@@ -150,10 +150,11 @@
 </div>
 
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-12">
     <div class="panel panel-yellow panel-aggregate">
       <div class="panel-heading">
-        Aggregate Panel
+        Aggregate Panel <button class="btn btn-material btn-circular" id="btnAggregatePausePlay"
+                                style="margin-left: 10px;"><i class="fa fa-pause" id="aggregatePausePlay" style="color: #c52062;" pause-play></i></button>
       </div>
       <div class="panel-body">
         <div id="aggregateTab">
@@ -168,7 +169,12 @@
 
           <div class="tab-content clearfix">
             <div class="tab-pane active" id="live-aggregate">
-              <canvas id="live-chart-aggregate" plant-detail-canvas-directive></canvas>
+              <div class="col-md-6">
+                <canvas id="live-chart-aggregate" plant-detail-canvas-directive></canvas>
+              </div>
+              <div class="col-md-6">
+                <canvas id="live-chart-aggregate-line" plant-detail-canvas-directive></canvas>
+              </div>
             </div>
             <div class="tab-pane" id="historical-aggregate">
               <h3>historical data over here</h3>
