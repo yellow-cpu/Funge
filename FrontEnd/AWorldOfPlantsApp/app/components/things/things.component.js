@@ -97,6 +97,7 @@ angular.module('things').component('things', {
           console.log("Success: " + JSON.stringify(result.data));
 
           var tempArr = formatFiles([result.data.thing]);
+          tempArr[0].selectedPlant = tempArr[0].plantId;
           self.things.push(tempArr[0]);
           $scope.$apply();
         }).catch(function (result) {
