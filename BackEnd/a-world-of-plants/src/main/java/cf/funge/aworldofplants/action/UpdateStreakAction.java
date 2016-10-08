@@ -22,7 +22,9 @@ public class UpdateStreakAction extends AbstractAction
 
     public String handle(JsonObject request, Context lambdaContext) throws BadRequestException, InternalErrorException
     {
+
         logger = lambdaContext.getLogger();
+        logger.log("STREAK");
         TimelineDAO timelineDAO = DAOFactory.getTimelineDAO();
 
         UpdateStreakRequest input = getGson().fromJson(request, UpdateStreakRequest.class);
@@ -48,6 +50,7 @@ public class UpdateStreakAction extends AbstractAction
         timelineEvent.setPointValue(points);
 
         System.out.println("Streak: " + getGson().toJson(timelineEvent));
+        logger.log(getGson().toJson(timelineEvent));
 
         String timelineEventId;
 
