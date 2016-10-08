@@ -21,10 +21,11 @@ angular.
 
     var setPlant = function(_plant) {
       plant = _plant;
+      $localStorage.plant = _plant;
     };
 
     var getPlant = function() {
-      return plant;
+      return $localStorage.plant;
     };
 
     return {
