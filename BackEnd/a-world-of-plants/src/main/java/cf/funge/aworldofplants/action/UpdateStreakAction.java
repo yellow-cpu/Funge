@@ -47,6 +47,8 @@ public class UpdateStreakAction extends AbstractAction
         timelineEvent.setTimestamp(input.getTimestamp());
         timelineEvent.setPointValue(points);
 
+        System.out.println("Streak: " + getGson().toJson(timelineEvent));
+
         String timelineEventId;
 
         try {

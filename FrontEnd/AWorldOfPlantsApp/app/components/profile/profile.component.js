@@ -129,7 +129,7 @@ angular.module('profile').component('profile', {
 
                   apigClient.timelineStreakOptions(params, body)
                     .then(function (result) {
-                      console.log("Success: " + JSON.stringify(result.data));
+                      console.log("Success: " + JSON.stringify(result));
 
                       $("#card-streak").find(".spinner").css({
                         'display': 'none'
@@ -138,14 +138,9 @@ angular.module('profile').component('profile', {
                       $("#card-streak").find(".value").css({
                         'display': 'block'
                       });
-                      /*
-                      self.timelineEvents.push({
-                        "category": "streak",
-                        "message": "You are on a " + self.streak + " day streak! Log in tomorrow to continue your streak!",
-                        "title": "Login Streak",
-                        ""
-                      });
-                      */
+
+                      self.timelineEvents.push(result.data);
+
                     }).catch(function (result) {
                     console.log("Error: " + JSON.stringify(result));
                 });
@@ -198,6 +193,8 @@ angular.module('profile').component('profile', {
       self.numPlantBoxes = num;
 
       console.log(self.numPlantBoxes);
+
+      $("#numPlantBoxesValue").html(self.numPlantBoxes);
 
       $("#card-plant-boxes").find("div.spinner").css({
         'display': 'none'
