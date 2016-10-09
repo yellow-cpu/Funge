@@ -27,6 +27,8 @@ public interface UserDAO {
      */
     boolean getUserByEmail(String email) throws DAOException;
 
+    public String updateUser(User user);
+
     /**
      * Find a user by its unique username
      *
