@@ -68,8 +68,6 @@ angular.module('plantDetail').component('plantDetail', {
 
       var clientId = String(Math.random()).replace('.', '');
       self.client = new Paho.MQTT.Client(requestUrl, clientId);
-      var topic = '$aws/things/greenThing/shadow/update';
-
 
       var connectOptions = {
         onSuccess: function () {
@@ -187,6 +185,7 @@ angular.module('plantDetail').component('plantDetail', {
         );
 
         initClient(self.requestUrl, self.thing.mqttTopic);
+        $scope.$apply();
       }).catch(function (result) {
       console.log("Error: " + JSON.stringify(result));
     });
@@ -194,9 +193,36 @@ angular.module('plantDetail').component('plantDetail', {
     self.updatePlant = function() {
       var params = {};
       var body = self.plantDetails;
+      var plantUpdate = $('#plantUpdate');
+
+      plantUpdate.find('span').css({
+        "display": "none"
+      });
+
+      plantUpdate.find('.update-spin').css({
+        "display": "inline-block"
+      });
 
       apigClient.plantsUpdatePost(params, body)
         .then(function (result) {
+          plantUpdate.find('.update-spin').css({
+            "display": "none"
+          });
+
+          plantUpdate.find('svg').css({
+            "display": "block"
+          });
+
+          setTimeout(function () {
+            plantUpdate.find('span').css({
+              "display": "inline"
+            });
+
+            plantUpdate.find('svg').css({
+              "display": "none"
+            });
+          }, 3000);
+
           console.log("Success: " + JSON.stringify(result));
         }).catch(function (result) {
           console.log("Error: " + JSON.stringify(result));
