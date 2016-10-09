@@ -39,7 +39,6 @@ angular.module('things').component('things', {
     };
 
     self.selectThing = function (thingName) {
-      console.log('asd');
       self.selectedThing.thingName = thingName;
     };
 
@@ -151,15 +150,17 @@ angular.module('things').component('things', {
     };
 
     var formatFiles = function(thingArr) {
+      console.log(thingArr);
       var tempThingArr = thingArr;
 
       for (var i = 0; i < tempThingArr.length; ++i) {
-        var indexOfFileName = tempThingArr[i].files[i].split('/', 6).join('/').length;
         var fileNames = [];
         for (var j = 0; j < tempThingArr[i].files.length; ++j) {
+          var indexOfFileName = tempThingArr[i].files[j].split('/', 6).join('/').length;
           fileNames.push(tempThingArr[i].files[j].substring(indexOfFileName + 1));
         }
         tempThingArr[i].fileNames = fileNames;
+        console.log(tempThingArr[i].fileNames);
       }
 
       return tempThingArr;
@@ -179,7 +180,6 @@ angular.module('things').component('things', {
 
       apigClient.thingsUserUsernameGet(params, body)
         .then(function (result) {
-          console.log(result);
           $(".loader-container").css({
             'display': 'none'
           });
@@ -194,7 +194,6 @@ angular.module('things').component('things', {
             self.things[i].selectedPlant = self.things[i].plantId;
           }
 
-          console.log(self.things);
           $scope.$apply();
         }).catch(function (result) {
           console.log(result);
