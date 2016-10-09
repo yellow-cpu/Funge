@@ -872,14 +872,6 @@ ngjs-color-picker li.selectedColor {
     animation: sk-stretchdelay 1.2s infinite ease-in-out;
 }
 
-.mqtt-spin {
-    width: auto;
-}
-
-#mqttStatus > div > div {
-    background-color: white !important;
-}
-
 .spinner .rect2 {
     -webkit-animation-delay: -1.1s;
     animation-delay: -1.1s;
@@ -917,11 +909,28 @@ ngjs-color-picker li.selectedColor {
 
 /* circular spinner */
 
+.mqtt-spin {
+    width: auto;
+}
+
+#mqttStatus > div > div {
+    background-color: white !important;
+}
+
 .spinner-bounce {
     width: 20px;
     height: 20px;
 
     position: relative;
+}
+
+.update-spin {
+    height: 15px !important;
+    width: 15px !important;
+}
+
+.update-spin > .double-bounce1, .update-spin > .double-bounce2 {
+    background-color: #0f9d58;
 }
 
 .double-bounce1, .double-bounce2 {
@@ -986,14 +995,14 @@ ngjs-color-picker li.selectedColor {
 }
 
 .checkmark {
-    width: 17px;
-    height: 17px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     display: block;
     stroke-width: 4;
     stroke: #fff;
     stroke-miterlimit: 10;
-    margin: 10% auto;
+    margin: 0 auto;
     box-shadow: inset 0px 0px 0px #0f9d58;
     animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
 }
