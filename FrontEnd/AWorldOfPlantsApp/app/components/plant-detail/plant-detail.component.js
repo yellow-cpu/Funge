@@ -250,5 +250,19 @@ angular.module('plantDetail').component('plantDetail', {
       "moisture": true,
       "aggregate": true
     }
+
+    self.plants = siteService.getPlants();
+    $scope.getPlantTypes = function(search) {
+      if (self.plants === undefined) self.plants = [];
+      $scope.plantTypes = self.plants.map(x => x.plantType).sort();
+
+      var newTypes = $scope.plantTypes.slice();
+
+      if (search && newTypes.indexOf(search) === -1) {
+        newTypes.unshift(search);
+      }
+
+      return newTypes;
+    };
   }
 });
