@@ -18,9 +18,11 @@ directive('thingsDirective', function ($compile, $localStorage) {
     link: linkFunction
   };
 }).
-directive('updateThingDirective', function () {
+directive('deleteThingDirective', function () {
   var linkFunction = function (scope, element, attributes) {
-    
+    $('#deleteThing').on('click', function () {
+      alert(scope.$ctrl.selectedThing.thingName);
+    });
   };
 
   return {

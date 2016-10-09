@@ -163,6 +163,7 @@ public class LoginAction extends AbstractAction {
 
             loggedUser.setStreak(streak);
             loggedUser.setStreakTimestamp(current);
+            dao.updateUser(loggedUser);
         }
 
         output.setStreak(streak);

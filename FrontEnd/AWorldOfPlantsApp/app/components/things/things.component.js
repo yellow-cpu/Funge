@@ -33,6 +33,16 @@ angular.module('things').component('things', {
       region: $localStorage.region
     });
 
+    self.selectedThing = {
+      username: $localStorage.username,
+      thingName: ""
+    };
+
+    self.selectThing = function (thingName) {
+      console.log('asd');
+      self.selectedThing.thingName = thingName;
+    };
+
     self.updateDetails = function($event, _thingName, _username, _colour, _plantId) {
       var parms = {};
       var body = {

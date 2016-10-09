@@ -70,6 +70,12 @@ public class DDBUserDAO implements UserDAO {
         return getMapper().load(User.class, username);
     }
 
+    public String updateUser(User user) {
+        getMapper().save(user);
+
+        return "User updated successfully";
+    }
+
     /**
      * Queries DynamoDB to find a user by its Email
      *
