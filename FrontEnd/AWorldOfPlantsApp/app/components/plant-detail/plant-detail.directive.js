@@ -241,33 +241,6 @@ directive('plantDetailCanvasDirective', function($compile) {
         }]
     };
 
-    var tempChart = new Chart(ctxTemp, {
-      type: "line",
-      data: tempData
-    });
-
-    var humidityChart = new Chart(ctxHumidity, {
-      type: "line",
-      data: humidityData
-    });
-
-    var moistureChart = new Chart(ctxMoisture, {
-      type: "line",
-      data: moistureData
-    });
-
-    var aggregateChart = new Chart(ctxAggregate, {
-      type: "radar",
-      data: aggregateData
-    });
-
-    var aggregateLineChart = new Chart(ctxAggregateLine, {
-      type: "line",
-      data: aggregateLineData
-    });
-
-    var charts = [];
-
     var timeConverter = function (now){
       var a = new Date(now);
       var hour = a.getHours();
@@ -311,35 +284,62 @@ directive('plantDetailCanvasDirective', function($compile) {
 
     var calculateAvgMinMax = function (type, val) {
       if (type == "temp") {
-        var total = scope.$ctrl.avgMinMax.avg * scope.$ctrl.avgMinMax.num;
+        var total = scope.$ctrl.avgMinMax.temp.avg * scope.$ctrl.avgMinMax.temp.num;
         scope.$ctrl.avgMinMax.temp.num++;
-        scope.$ctrl.avgMinMax.avg = (total + val) / scope.$ctrl.avgMinMax.num;
+        scope.$ctrl.avgMinMax.temp.avg = (total + parseInt(val)) / scope.$ctrl.avgMinMax.temp.num;
 
-        if (val < scope.$ctrl.avgMinMax.min) {
-          scope.$ctrl.avgMinMax.min = val;
-        }
+        if (scope.$ctrl.avgMinMax.temp.num > 1) {
+          if (val < scope.$ctrl.avgMinMax.temp.min) {
+            scope.$ctrl.avgMinMax.temp.min = val;
+          }
 
-        if (val > scope.$ctrl.avgMinMax.max) {
-          scope.$ctrl.avgMinMax.max = val;
+          if (val > scope.$ctrl.avgMinMax.temp.max) {
+            scope.$ctrl.avgMinMax.temp.max = val;
+          }
+        } else {
+          scope.$ctrl.avgMinMax.temp.min = val;
+          scope.$ctrl.avgMinMax.temp.max = val;
         }
 
         scope.$apply();
       }
     };
 
-    var values = {};
-    var graphs = [];
-
     scope.$watch(attributes.ngModel, function (value) {
       var val = value;
       if (val == 'connected') {
+        var tempChart = new Chart(ctxTemp, {
+          type: "line",
+          data: tempData
+        });
+
+        var humidityChart = new Chart(ctxHumidity, {
+          type: "line",
+          data: humidityData
+        });
+
+        var moistureChart = new Chart(ctxMoisture, {
+          type: "line",
+          data: moistureData
+        });
+
+        var aggregateChart = new Chart(ctxAggregate, {
+          type: "radar",
+          data: aggregateData
+        });
+
+        var aggregateLineChart = new Chart(ctxAggregateLine, {
+          type: "line",
+          data: aggregateLineData
+        });
+
         scope.$ctrl.client.onMessageArrived = function (message) {
           try {
             console.log("message arrived: " +  message.payloadString);
 
             var temperature = JSON.parse(message.payloadString).state.reported.temperature;
             if (scope.$ctrl.chartStatus.temp == true) {
-              //calculateAvgMinMax("temp", temperature);
+              calculateAvgMinMax("temp", temperature);
               moveChart(tempChart, [temperature]);
             }
 

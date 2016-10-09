@@ -151,6 +151,34 @@ angular.module('plantDetail').component('plantDetail', {
       }
     };
 
+    self.chartStatus = {
+      "temp": true,
+      "humidity": true,
+      "moisture": true,
+      "aggregate": true
+    };
+
+    self.avgMinMax = {
+       "temp": {
+         "num": 0,
+         "avg": 0,
+         "min": 0,
+         "max": 0
+       },
+       "humidity": {
+         "num": 0,
+         "avg": 0,
+         "min": 0,
+         "max": 0
+       },
+       "moisture": {
+         "num": 0,
+         "avg": 0,
+         "min": 0,
+         "max": 0
+       }
+     };
+
     // Set up API calls
 
     var apigClient = apigClientFactory.newClient({
@@ -243,34 +271,6 @@ angular.module('plantDetail').component('plantDetail', {
         }).catch(function (result) {
         console.log("Error: " + JSON.stringify(result));
       });
-    };
-
-    self.chartStatus = {
-      "temp": true,
-      "humidity": true,
-      "moisture": true,
-      "aggregate": true
-    };
-
-    self.avgMinMax = {
-      "temp": {
-        "num": 0,
-        "avg": 0,
-        "min": 0,
-        "max": 0
-      },
-      "humidity": {
-        "num": 0,
-        "avg": 0,
-        "min": 0,
-        "max": 0
-      },
-      "moisture": {
-        "num": 0,
-        "avg": 0,
-        "min": 0,
-        "max": 0
-      }
     };
 
     self.plants = siteService.getPlants();
