@@ -109,51 +109,62 @@ public class LoginAction extends AbstractAction {
         int streak = loggedUser.getStreak();
         int current = (int) (System.currentTimeMillis() / 1000L);
 
-        Calendar yesterday = Calendar.getInstance(); // today
+        Calendar today = Calendar.getInstance(); // today
+        Calendar yesterday = Calendar.getInstance();
         yesterday.add(Calendar.DAY_OF_YEAR, -1); // yesterday
 
         Calendar streakTimestamp = Calendar.getInstance();
-        streakTimestamp.setTime(new Date((long)(loggedUser.getStreakTimestamp()) * 1000L)); // your date
+        streakTimestamp.setTime(new Date((long)(loggedUser.getStreakTimestamp()) * 1000L)); // last streak date
 
-        if(yesterday.get(Calendar.YEAR) == streakTimestamp.get(Calendar.YEAR)
-        && yesterday.get(Calendar.DAY_OF_YEAR) == streakTimestamp.get(Calendar.DAY_OF_YEAR))
-            streak = 1;
-        else
-            streak++;
+        // if the last streak date is not today...
+        if(!(today.get(Calendar.YEAR) == streakTimestamp.get(Calendar.YEAR)
+                && today.get(Calendar.DAY_OF_YEAR) == streakTimestamp.get(Calendar.DAY_OF_YEAR)))
+        {
+            // if the last streak date was yesterday, increment by 1
+            if (yesterday.get(Calendar.YEAR) == streakTimestamp.get(Calendar.YEAR)
+                    && yesterday.get(Calendar.DAY_OF_YEAR) == streakTimestamp.get(Calendar.DAY_OF_YEAR))
+                streak++;
+            // else reset streak
+            else
+                streak = 1;
 
-        int points = 25;
-        if(streak > 10)
-            points = 40;
-        else if(streak > 5)
-            points = 30;
+            int points = 25;
+            if (streak > 10)
+                points = 40;
+            else if (streak > 5)
+                points = 30;
 
-        TimelineEvent timelineEvent = new TimelineEvent();
-        timelineEvent.setUsername(input.getUsername());
-        timelineEvent.setTitle("Login Streak");
-        timelineEvent.setMessage("You are on a " + streak + " day streak! Log in tomorrow to continue your streak!");
-        timelineEvent.setCategory("streak");
-        timelineEvent.setTimestamp(current);
-        timelineEvent.setPointValue(points);
+            TimelineEvent timelineEvent = new TimelineEvent();
+            timelineEvent.setUsername(input.getUsername());
+            timelineEvent.setTitle("Login Streak");
+            timelineEvent.setMessage("You are on a " + streak + " day streak! Log in tomorrow to continue your streak!");
+            timelineEvent.setCategory("streak");
+            timelineEvent.setTimestamp(current);
+            timelineEvent.setPointValue(points);
 
-        logger.log(getGson().toJson(timelineEvent));
+            logger.log(getGson().toJson(timelineEvent));
 
-        String timelineEventId;
-        TimelineDAO timelineDAO = DAOFactory.getTimelineDAO();
+            String timelineEventId;
+            TimelineDAO timelineDAO = DAOFactory.getTimelineDAO();
 
-        try {
-            timelineEventId = timelineDAO.createTimelineEvent(timelineEvent);
-        } catch (final DAOException e) {
-            logger.log("Error while creating new timeline event\n" + e.getMessage());
-            throw new InternalErrorException(ExceptionMessages.EX_DAO_ERROR);
+            try
+            {
+                timelineEventId = timelineDAO.createTimelineEvent(timelineEvent);
+            } catch (final DAOException e)
+            {
+                logger.log("Error while creating new timeline event\n" + e.getMessage());
+                throw new InternalErrorException(ExceptionMessages.EX_DAO_ERROR);
+            }
+
+            if (timelineEventId == null || timelineEventId.trim().equals(""))
+            {
+                logger.log("TimelineEventId is null or empty");
+                throw new InternalErrorException(ExceptionMessages.EX_DAO_ERROR);
+            }
+
+            loggedUser.setStreak(streak);
+            loggedUser.setStreakTimestamp(current);
         }
-
-        if (timelineEventId == null || timelineEventId.trim().equals("")) {
-            logger.log("TimelineEventId is null or empty");
-            throw new InternalErrorException(ExceptionMessages.EX_DAO_ERROR);
-        }
-
-        loggedUser.setStreak(streak);
-        loggedUser.setStreakTimestamp(current);
 
         output.setStreak(streak);
 
