@@ -105,17 +105,18 @@
             <div class="tab-content clearfix">
               <div class="tab-pane active" id="live-temp">
                 <canvas id="live-chart-temperature" plant-detail-canvas-directive></canvas>
-                <div>
-                  <div class="row">
-                    <div class="col-md-4">
-                      <span style="background-color: #ffc107; color: white; padding: 10px;">Average: </span><span id="tempAverage">{{$ctrl.avgMinMax.temp.avg}}</span>
-                    </div>
-                    <div class="col-md-4">
-                      <span style="background-color: #ffc107; color: white; padding: 10px;">Min: </span><span id="tempMin">{{$ctrl.avgMinMax.temp.min}}</span>
-                    </div>
-                    <div class="col-md-4">
-                      <span style="background-color: #ffc107; color: white; padding: 10px;">Max: </span><span id="tempMax">{{$ctrl.avgMinMax.temp.max}}</span>
-                    </div>
+                <div class="row" style="margin-top: 30px;">
+                  <div class="col-md-4">
+                    <span style="background-color: #ffc107; color: white; padding: 10px;">Average: </span>
+                    <span id="tempAverage" style="margin-left: 10px;">{{$ctrl.avgMinMax.temp.avg}}</span>
+                  </div>
+                  <div class="col-md-4">
+                    <span style="background-color: #ffc107; color: white; padding: 10px;">Min: </span>
+                    <span id="tempMin" style="margin-left: 10px;">{{$ctrl.avgMinMax.temp.min}}</span>
+                  </div>
+                  <div class="col-md-4">
+                    <span style="background-color: #ffc107; color: white; padding: 10px;">Max: </span>
+                    <span id="tempMax" style="margin-left: 10px;">{{$ctrl.avgMinMax.temp.max}}</span>
                   </div>
                 </div>
               </div>
@@ -151,6 +152,20 @@
             <div class="tab-content clearfix">
               <div class="tab-pane active" id="live-humidity">
                 <canvas id="live-chart-humidity" plant-detail-canvas-directive></canvas>
+                <div class="row" style="margin-top: 30px;">
+                  <div class="col-md-4">
+                    <span style="background-color: #db4437; color: white; padding: 10px;">Average: </span>
+                    <span id="humidityAverage" style="margin-left: 10px;">{{$ctrl.avgMinMax.humidity.avg}}</span>
+                  </div>
+                  <div class="col-md-4">
+                    <span style="background-color: #db4437; color: white; padding: 10px;">Min: </span>
+                    <span id="humidityMin" style="margin-left: 10px;">{{$ctrl.avgMinMax.humidity.min}}</span>
+                  </div>
+                  <div class="col-md-4">
+                    <span style="background-color: #db4437; color: white; padding: 10px;">Max: </span>
+                    <span id="humidityMax" style="margin-left: 10px;">{{$ctrl.avgMinMax.humidity.max}}</span>
+                  </div>
+                </div>
               </div>
               <div class="tab-pane" id="historical-humidity">
                 <h3>historical data over here</h3>
@@ -181,6 +196,20 @@
             <div class="tab-content clearfix">
               <div class="tab-pane active" id="live-moisture">
                 <canvas id="live-chart-moisture" plant-detail-canvas-directive></canvas>
+                <div class="row" style="margin-top: 30px;">
+                  <div class="col-md-4">
+                    <span style="background-color: #4285f4; color: white; padding: 10px;">Average: </span>
+                    <span id="moistureAverage" style="margin-left: 10px;">{{$ctrl.avgMinMax.moisture.avg}}</span>
+                  </div>
+                  <div class="col-md-4">
+                    <span style="background-color: #4285f4; color: white; padding: 10px;">Min: </span>
+                    <span id="moistureMin" style="margin-left: 10px;">{{$ctrl.avgMinMax.moisture.min}}</span>
+                  </div>
+                  <div class="col-md-4">
+                    <span style="background-color: #4285f4; color: white; padding: 10px;">Max: </span>
+                    <span id="moistureMax" style="margin-left: 10px;">{{$ctrl.avgMinMax.moisture.max}}</span>
+                  </div>
+                </div>
               </div>
               <div class="tab-pane" id="historical-moisture">
                 <h3>historical data over here</h3>

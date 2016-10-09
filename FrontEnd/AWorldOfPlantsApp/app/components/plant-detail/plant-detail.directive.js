@@ -287,6 +287,7 @@ directive('plantDetailCanvasDirective', function($compile) {
         var total = scope.$ctrl.avgMinMax.temp.avg * scope.$ctrl.avgMinMax.temp.num;
         scope.$ctrl.avgMinMax.temp.num++;
         scope.$ctrl.avgMinMax.temp.avg = (total + parseInt(val)) / scope.$ctrl.avgMinMax.temp.num;
+        scope.$ctrl.avgMinMax.temp.avg = +scope.$ctrl.avgMinMax.temp.avg.toFixed(2);
 
         if (scope.$ctrl.avgMinMax.temp.num > 1) {
           if (val < scope.$ctrl.avgMinMax.temp.min) {
@@ -300,9 +301,45 @@ directive('plantDetailCanvasDirective', function($compile) {
           scope.$ctrl.avgMinMax.temp.min = val;
           scope.$ctrl.avgMinMax.temp.max = val;
         }
+      } else if (type == "humidity") {
+        var total = scope.$ctrl.avgMinMax.humidity.avg * scope.$ctrl.avgMinMax.humidity.num;
+        scope.$ctrl.avgMinMax.humidity.num++;
+        scope.$ctrl.avgMinMax.humidity.avg = (total + parseInt(val)) / scope.$ctrl.avgMinMax.humidity.num;
+        scope.$ctrl.avgMinMax.humidity.avg = +scope.$ctrl.avgMinMax.humidity.avg.toFixed(2);
 
-        scope.$apply();
+        if (scope.$ctrl.avgMinMax.humidity.num > 1) {
+          if (val < scope.$ctrl.avgMinMax.humidity.min) {
+            scope.$ctrl.avgMinMax.humidity.min = val;
+          }
+
+          if (val > scope.$ctrl.avgMinMax.humidity.max) {
+            scope.$ctrl.avgMinMax.humidity.max = val;
+          }
+        } else {
+          scope.$ctrl.avgMinMax.humidity.min = val;
+          scope.$ctrl.avgMinMax.humidity.max = val;
+        }
+      } else if (type == "moisture") {
+        var total = scope.$ctrl.avgMinMax.moisture.avg * scope.$ctrl.avgMinMax.moisture.num;
+        scope.$ctrl.avgMinMax.moisture.num++;
+        scope.$ctrl.avgMinMax.moisture.avg = (total + parseInt(val)) / scope.$ctrl.avgMinMax.moisture.num;
+        scope.$ctrl.avgMinMax.moisture.avg = +scope.$ctrl.avgMinMax.moisture.avg.toFixed(2);
+
+        if (scope.$ctrl.avgMinMax.moisture.num > 1) {
+          if (val < scope.$ctrl.avgMinMax.moisture.min) {
+            scope.$ctrl.avgMinMax.moisture.min = val;
+          }
+
+          if (val > scope.$ctrl.avgMinMax.moisture.max) {
+            scope.$ctrl.avgMinMax.moisture.max = val;
+          }
+        } else {
+          scope.$ctrl.avgMinMax.moisture.min = val;
+          scope.$ctrl.avgMinMax.moisture.max = val;
+        }
       }
+
+      scope.$apply();
     };
 
     scope.$watch(attributes.ngModel, function (value) {
@@ -345,11 +382,13 @@ directive('plantDetailCanvasDirective', function($compile) {
 
             var humidity = JSON.parse(message.payloadString).state.reported.humidity;
             if (scope.$ctrl.chartStatus.humidity == true) {
+              calculateAvgMinMax("humidity", humidity);
               moveChart(humidityChart, [humidity]);
             }
 
             var moisture = JSON.parse(message.payloadString).state.reported.moisture;
             if (scope.$ctrl.chartStatus.moisture == true) {
+              calculateAvgMinMax("moisture", moisture);
               moveChart(moistureChart, [moisture]);
             }
 
