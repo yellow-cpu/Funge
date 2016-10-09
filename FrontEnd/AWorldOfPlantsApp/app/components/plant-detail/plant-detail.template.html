@@ -1,7 +1,13 @@
 <div class="row">
   <div class="col-lg-12">
     <h1 class="page-header">Details for: {{$ctrl.plantDetails.plantName}}</h1>
-    <div id="mqttStatus" class="alert alert-danger" role="alert">Disconnected from MQTT client</div>
+    <div id="mqttStatus" class="alert alert-danger" role="alert" style="display: flex; align-items: center;">
+      <div style="display: inline-block;">Connecting to plant box</div>
+      <div class="spinner-bounce mqtt-spin" style="display: inline-block; margin-left: 1em;">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+      </div>
+    </div>
     <input type="hidden" ng-model="$ctrl.status" status-directive plant-detail-canvas-directive="">
   </div>
 </div>
@@ -15,10 +21,15 @@
       <div class="panel-body">
         <form role="form">
           <div class="form-group input-group">
-            <span class="input-group-addon">
-              <i class="fa fa-file"></i>
-            </span>
-            <input ng-model="$ctrl.plantDetails.plantType" type="text" class="form-control">
+              <span class="input-group-addon">
+                <i class="fa fa-file"></i>
+              </span>
+              <ui-select id="plantType" ng-model="$ctrl.plantDetails.plantType">
+              <ui-select-match placeholder="Select or search for a plant type...">{{$select.selected}}</ui-select-match>
+              <ui-select-choices repeat="t in getPlantTypes($select.search) | filter: $select.search track by $index">
+                <div ng-bind="t"></div>
+              </ui-select-choices>
+              </ui-select>
           </div>
           <div class="form-group input-group">
             <span class="input-group-addon">
@@ -33,10 +44,20 @@
             <input ng-model="$ctrl.plantDetails.plantAge" type="text" class="form-control" disabled>
           </div>
           <div class="form-group">
-            <input id="plantDelete" class="btn btn-material btn-material-red pull-left" type="button" value="Delete">
+            <button id="plantUpdate" class="btn btn-material btn-material-green pull-left" style="min-width: 72px;" type="button">
+              <span>Update</span>
+              <div class="spinner-bounce update-spin" style="display: none; vertical-align: middle;">
+                <div class="double-bounce1"></div>
+                <div class="double-bounce2"></div>
+              </div>
+              <svg style="display: none;" class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"></circle>
+                <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"></path>
+              </svg>
+            </button>
           </div>
           <div class="form-group">
-            <input id="plantUpdate" class="btn btn-material btn-material-green pull-right" type="button" value="Update">
+            <input class="btn btn-material btn-material-red pull-right" data-toggle="modal" data-target="#deletePlantModal" type="button" value="Delete">
           </div>
         </form>
       </div>
@@ -192,6 +213,31 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="deletePlantModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" delete-plant-directive>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #db4437;">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><img width="15" valign="middle" style="margin-top:-3px;" src="/images/close.png"></button>
+        <h4 class="modal-title" id="myModalLabel">Delete Plant Confirmation</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form">
+          <div class="form-group">
+            <label for="plantName">Please enter the name of your plant to confirm deletion:</label>
+            <input id="plantName" ng-model="$ctrl.newPlant.plantName" type="text" class="form-control">
+          </div>
+          <div class="form-group">
+            <b id="plantError" style="color: #db4437; display: none;">Incorrect plant name</b>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button id="deletePlant" type="button" class="btn btn-material" style="background-color: #db4437; color: white">Confirm</button>
       </div>
     </div>
   </div>

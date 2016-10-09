@@ -9,16 +9,37 @@ directive('plantDetailDirective', function ($compile) {
       // Do some DOM manipulation to indicate something happens
       scope.$ctrl.updatePlant();
     });
-
-    $('#plantDelete').on('click', function() {
-      // Do some DOM manipulation and redirect to indicate it has been deleted
-      scope.$ctrl.deletePlant();
-    });
   };
 
   return {
     link: linkFunction
   };
+}).
+directive('deletePlantDirective', function () {
+  var linkFunction = function (scope, element, attributes) {
+    $('#deletePlantModal').on('hidden.bs.modal', function () {
+      $('#plantError').css({
+        "display": "none"
+      });
+    });
+
+    $('#deletePlant').on('click', function() {
+      var plantName = $('#plantName').val();
+
+      if (plantName == scope.$ctrl.plantDetails.plantName) {
+        $('#deletePlantModal').modal('hide');
+        scope.$ctrl.deletePlant();
+      } else {
+        $('#plantError').css({
+          "display": "inline-block"
+        });
+      }
+    });
+  };
+
+  return {
+    link: linkFunction
+  }
 }).
 directive('statusDirective', function($compile) {
   var linkFunction = function (scope, element, attributes) {
@@ -28,7 +49,7 @@ directive('statusDirective', function($compile) {
         var mqttStatus = $('#mqttStatus');
         mqttStatus.removeClass('alert-danger');
         mqttStatus.addClass('alert-success');
-        mqttStatus.html('Successfully connected to MQTT client');
+        mqttStatus.html("Connected to plant box: " + scope.$ctrl.thing.thingName);
       }
     });
   };

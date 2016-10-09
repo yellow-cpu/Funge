@@ -28,9 +28,19 @@ angular.
       return $localStorage.plant;
     };
 
+    var setPlants = function(_plants) {
+      $localStorage.plants = _plants;
+    }
+
+    var getPlants = function() {
+      return $localStorage.plants;
+    }
+
     return {
       logout: logout,
       setPlant: setPlant,
-      getPlant: getPlant
+      getPlant: getPlant,
+      setPlants: setPlants,
+      getPlants: getPlants
     };
   });

@@ -18,6 +18,15 @@ directive('thingsDirective', function ($compile, $localStorage) {
     link: linkFunction
   };
 }).
+directive('updateThingDirective', function () {
+  var linkFunction = function (scope, element, attributes) {
+    
+  };
+
+  return {
+    link: linkFunction
+  }
+}).
 directive('createThingDirective', function() {
   var linkFunction = function (scope, element, attributes) {
     $('#thingColour > ul').on('click', function () {
@@ -35,12 +44,6 @@ directive('createThingDirective', function() {
       $('#thingName').val('');
       $('#plantId').val('');
     });
-
-    $('#updateThing').on('click', function() {
-      alert("test");
-      scope.$ctrl.changeThing();
-    });
-
   };
 
   return {
