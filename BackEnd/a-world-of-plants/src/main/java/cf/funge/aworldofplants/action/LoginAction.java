@@ -21,7 +21,6 @@ import cf.funge.aworldofplants.helper.PasswordHelper;
 import cf.funge.aworldofplants.model.DAOFactory;
 import cf.funge.aworldofplants.model.action.LoginUserRequest;
 import cf.funge.aworldofplants.model.action.LoginUserResponse;
-import cf.funge.aworldofplants.model.action.UpdateStreakResponse;
 import cf.funge.aworldofplants.model.timeline.TimelineDAO;
 import cf.funge.aworldofplants.model.timeline.TimelineEvent;
 import cf.funge.aworldofplants.model.user.User;
