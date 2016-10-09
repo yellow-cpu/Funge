@@ -68,8 +68,6 @@ angular.module('plantDetail').component('plantDetail', {
 
       var clientId = String(Math.random()).replace('.', '');
       self.client = new Paho.MQTT.Client(requestUrl, clientId);
-      var topic = '$aws/things/greenThing/shadow/update';
-
 
       var connectOptions = {
         onSuccess: function () {
@@ -187,6 +185,7 @@ angular.module('plantDetail').component('plantDetail', {
         );
 
         initClient(self.requestUrl, self.thing.mqttTopic);
+        $scope.$apply();
       }).catch(function (result) {
       console.log("Error: " + JSON.stringify(result));
     });
