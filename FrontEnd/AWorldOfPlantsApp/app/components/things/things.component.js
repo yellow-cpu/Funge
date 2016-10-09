@@ -118,6 +118,14 @@ angular.module('things').component('things', {
       apigClient.thingsDeletePost(params, body)
         .then(function (result) {
           console.log(result.data);
+
+          for (var i = 0; i < self.things.length; ++i) {
+            if (self.things[i].thingName == _thingName) {
+              self.things.splice(i, 1);
+            }
+          }
+
+          $scope.$apply();
         }).catch(function (result) {
           console.log("Error: " + JSON.stringify(result));
       });
@@ -171,6 +179,7 @@ angular.module('things').component('things', {
 
       apigClient.thingsUserUsernameGet(params, body)
         .then(function (result) {
+          console.log(result);
           $(".loader-container").css({
             'display': 'none'
           });
@@ -188,7 +197,7 @@ angular.module('things').component('things', {
           console.log(self.things);
           $scope.$apply();
         }).catch(function (result) {
-        console.log("Error: " + JSON.stringify(result));
+          console.log(result);
       });
     };
   }

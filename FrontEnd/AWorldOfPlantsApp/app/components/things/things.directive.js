@@ -8,10 +8,6 @@ directive('thingsDirective', function ($compile, $localStorage) {
     $(document).ready(function () {
       scope.$ctrl.getThings();
     });
-
-    $('.thingDelete').on('click', function () {
-      alert('asd');
-    });
   };
 
   return {
@@ -20,8 +16,25 @@ directive('thingsDirective', function ($compile, $localStorage) {
 }).
 directive('deleteThingDirective', function () {
   var linkFunction = function (scope, element, attributes) {
+    $('#deleteThingModal').on('hidden.bs.modal', function () {
+      $('#thingError').css({
+        "display": "none"
+      });
+    });
+
     $('#deleteThing').on('click', function () {
-      alert(scope.$ctrl.selectedThing.thingName);
+      var deleteThingName = $('#deleteThingName').val();
+      var username = scope.$ctrl.selectedThing.username;
+      var thingName = scope.$ctrl.selectedThing.thingName;
+
+      if (deleteThingName == thingName) {
+        $('#deleteThingModal').modal('hide');
+        scope.$ctrl.removeThing(thingName, username);
+      } else {
+        $('#thingError').css({
+          "display": "inline-block"
+        });
+      }
     });
   };
 
