@@ -851,3 +851,18 @@ ngjs-color-picker li.selectedColor {
     line-height: 1.428571429;
     border-radius: 15px;
 }
+
+/* Change cards on smaller devices */
+@media (max-width: 736px){
+    .card-wrapper {
+        padding: 0;
+    }
+
+    .circle-wrapper {
+        margin-top: 5%;
+    }
+
+    .calendar-text {
+        font-size: 0.4em;
+    }
+}

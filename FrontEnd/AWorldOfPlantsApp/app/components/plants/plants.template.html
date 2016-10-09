@@ -19,23 +19,23 @@
      ng-repeat="plant in $ctrl.plants track by plant.plantId"
      ui-sref="site.plant-detail({plantId: plant.plantId})">
     <!--<div class="panel panel-green">-->
-    <div class="col-md-6">
+    <div class="col-md-6 card-wrapper">
       <div ng-attr-class="{{$odd && 'panel panel-green col-md-12' || 'panel panel-green col-md-12'}}" style="padding: 0;">
         <div class="panel-heading">
           <div class="row">
-            <div class="col-md-2 col-xs-2">
-              <span class="fa-stack fa-3x">
+            <div class="col-md-2 col-xs-3 circle-wrapper">
+              <span class="fa-stack fa-3x circle">
                 <i class="fa fa-circle fa-stack-2x" style="color: {{plant.colour}};"></i>
                 <strong class="fa-stack-1x text-primary" style="color: white;">{{ plant.plantName | limitTo : 1 : 0}}</strong>
               </span>
             </div>
-            <div class="col-md-5 col-xs-5">
+            <div class="col-md-5 col-xs-6">
               <div style="border-left: 2px solid {{plant.colour}}; padding-left: 5px;"><h2 class="plantName">{{plant.plantName}}</h2></div>
-              <div><h3 style="border-left: 2px solid {{plant.colour}}; padding-left: 5px;">{{plant.plantType}}</h3></div>
+              <div><h4 style="border-left: 2px solid {{plant.colour}}; padding-left: 5px;">{{plant.plantType}}</h4></div>
             </div>
-            <div class="col-md-5 col-xs-5 text-right calendarDisplay">
+            <div class="col-md-5 col-xs-3 text-right calendarDisplay">
               <div>
-                <span class="fa-stack fa-3x">
+                <span class="fa-stack fa-3x calendar-wrapper">
                   <i class="fa fa-calendar-o fa-stack-2x"></i>
                   <strong class="fa-stack-1x calendar-text">{{plant.plantDay}}</strong>
                 </span>
@@ -55,6 +55,16 @@
     </div>
   </a>
 </div>
+
+<script>
+  // Adjust cards for small-screen devices
+  if ($(window).width() <= 736) {
+    $('.circle').removeClass('fa-3x').addClass('fa-2x');
+    $('.fa-calendar-o').removeClass('fa-stack-2x').addClass('fa-stack-1x');
+    $('.plantDate').remove();
+    $('.calendar-text').html("{{plant.plantMonth | limitTo : 3 : 0}}");
+  }
+</script>
 
 <div class="modal fade" id="createPlantModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" create-plant-directive>
   <div class="modal-dialog" role="document">
