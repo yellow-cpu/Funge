@@ -250,7 +250,28 @@ angular.module('plantDetail').component('plantDetail', {
       "humidity": true,
       "moisture": true,
       "aggregate": true
-    }
+    };
+
+    self.avgMinMax = {
+      "temp": {
+        "num": 0,
+        "avg": 0,
+        "min": 0,
+        "max": 0
+      },
+      "humidity": {
+        "num": 0,
+        "avg": 0,
+        "min": 0,
+        "max": 0
+      },
+      "moisture": {
+        "num": 0,
+        "avg": 0,
+        "min": 0,
+        "max": 0
+      }
+    };
 
     self.plants = siteService.getPlants();
     $scope.getPlantTypes = function(search) {

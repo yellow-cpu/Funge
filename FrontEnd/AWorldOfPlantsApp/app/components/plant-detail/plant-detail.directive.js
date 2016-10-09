@@ -309,6 +309,24 @@ directive('plantDetailCanvasDirective', function($compile) {
       chart.update(1000);
     };
 
+    var calculateAvgMinMax = function (type, val) {
+      if (type == "temp") {
+        var total = scope.$ctrl.avgMinMax.avg * scope.$ctrl.avgMinMax.num;
+        scope.$ctrl.avgMinMax.temp.num++;
+        scope.$ctrl.avgMinMax.avg = (total + val) / scope.$ctrl.avgMinMax.num;
+
+        if (val < scope.$ctrl.avgMinMax.min) {
+          scope.$ctrl.avgMinMax.min = val;
+        }
+
+        if (val > scope.$ctrl.avgMinMax.max) {
+          scope.$ctrl.avgMinMax.max = val;
+        }
+
+        scope.$apply();
+      }
+    };
+
     var values = {};
     var graphs = [];
 
@@ -321,6 +339,7 @@ directive('plantDetailCanvasDirective', function($compile) {
 
             var temperature = JSON.parse(message.payloadString).state.reported.temperature;
             if (scope.$ctrl.chartStatus.temp == true) {
+              //calculateAvgMinMax("temp", temperature);
               moveChart(tempChart, [temperature]);
             }
 

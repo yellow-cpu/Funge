@@ -105,6 +105,19 @@
             <div class="tab-content clearfix">
               <div class="tab-pane active" id="live-temp">
                 <canvas id="live-chart-temperature" plant-detail-canvas-directive></canvas>
+                <div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <span style="background-color: #ffc107; color: white; padding: 10px;">Average: </span><span id="tempAverage">{{$ctrl.avgMinMax.temp.avg}}</span>
+                    </div>
+                    <div class="col-md-4">
+                      <span style="background-color: #ffc107; color: white; padding: 10px;">Min: </span><span id="tempMin">{{$ctrl.avgMinMax.temp.min}}</span>
+                    </div>
+                    <div class="col-md-4">
+                      <span style="background-color: #ffc107; color: white; padding: 10px;">Max: </span><span id="tempMax">{{$ctrl.avgMinMax.temp.max}}</span>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div class="tab-pane" id="historical-temp">
                 <h3>historical data over here</h3>
