@@ -53,7 +53,7 @@ apigClientFactory.newClient = function (config) {
 
     
     // extract endpoint and path from url
-    var invokeUrl = 'https://1a0tn4u7m6.execute-api.us-east-1.amazonaws.com/test2';
+    var invokeUrl = 'https://1a0tn4u7m6.execute-api.us-east-1.amazonaws.com/test3';
     var endpoint = /(^https?:\/\/[^\/]+)/g.exec(invokeUrl)[1];
     var pathComponent = invokeUrl.substring(endpoint.length);
 
@@ -602,42 +602,6 @@ apigClientFactory.newClient = function (config) {
         
         
         return apiGatewayClient.makeRequest(timelineOptionsRequest, authType, additionalParams, config.apiKey);
-    };
-    
-    
-    apigClient.timelineStreakPost = function (params, body, additionalParams) {
-        if(additionalParams === undefined) { additionalParams = {}; }
-        
-        apiGateway.core.utils.assertParametersDefined(params, ['body'], ['body']);
-        
-        var timelineStreakPostRequest = {
-            verb: 'post'.toUpperCase(),
-            path: pathComponent + uritemplate('/timeline/streak').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
-            headers: apiGateway.core.utils.parseParametersToObject(params, []),
-            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
-            body: body
-        };
-        
-        
-        return apiGatewayClient.makeRequest(timelineStreakPostRequest, authType, additionalParams, config.apiKey);
-    };
-    
-    
-    apigClient.timelineStreakOptions = function (params, body, additionalParams) {
-        if(additionalParams === undefined) { additionalParams = {}; }
-        
-        apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
-        
-        var timelineStreakOptionsRequest = {
-            verb: 'options'.toUpperCase(),
-            path: pathComponent + uritemplate('/timeline/streak').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
-            headers: apiGateway.core.utils.parseParametersToObject(params, []),
-            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
-            body: body
-        };
-        
-        
-        return apiGatewayClient.makeRequest(timelineStreakOptionsRequest, authType, additionalParams, config.apiKey);
     };
     
     
