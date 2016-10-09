@@ -957,3 +957,18 @@ ngjs-color-picker li.selectedColor {
           -webkit-transform: scale(1.0);
       }
 }
+
+/* Change cards on smaller devices */
+@media (max-width: 736px){
+    .card-wrapper {
+        padding: 0;
+    }
+
+    .circle-wrapper {
+        margin-top: 5%;
+    }
+
+    .calendar-text {
+        font-size: 0.4em;
+    }
+}

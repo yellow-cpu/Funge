@@ -118,7 +118,7 @@ angular.module('plants').component('plants', {
     };
 
     $scope.getPlantTypes = function(search) {
-      if (self.plants === undefined) self.plants = []
+      if (self.plants === undefined) self.plants = [];
       $scope.plantTypes = self.plants.map(x => x.plantType).sort();
 
       var newTypes = $scope.plantTypes.slice();
@@ -128,7 +128,7 @@ angular.module('plants').component('plants', {
       }
 
       return newTypes;
-    }
+    };
 
   }
 });
