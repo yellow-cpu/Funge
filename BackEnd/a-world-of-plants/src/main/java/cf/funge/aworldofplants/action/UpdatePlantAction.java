@@ -2,6 +2,7 @@ package cf.funge.aworldofplants.action;
 
 import cf.funge.aworldofplants.configuration.ExceptionMessages;
 import cf.funge.aworldofplants.exception.BadRequestException;
+import cf.funge.aworldofplants.exception.DAOException;
 import cf.funge.aworldofplants.exception.InternalErrorException;
 import cf.funge.aworldofplants.model.DAOFactory;
 import cf.funge.aworldofplants.model.action.UpdatePlantRequest;
@@ -39,6 +40,17 @@ public class UpdatePlantAction extends AbstractAction {
         updatedPlant.setPlantType(input.getPlantType());
         updatedPlant.setPlantName(input.getPlantName());
         updatedPlant.setPlantAge(input.getPlantAge());
+
+        Plant currPlant;
+
+        try {
+            currPlant = dao.getPlantById(input.getPlantId());
+        } catch (final DAOException e) {
+            logger.log("Error while updating plant\n" + e.getMessage());
+            throw new InternalErrorException(ExceptionMessages.EX_DAO_ERROR);
+        }
+
+        updatedPlant.setColour(currPlant.getColour());
 
         dao.updatePlant(updatedPlant);
 
