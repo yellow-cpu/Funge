@@ -22,6 +22,7 @@ public class LoginUserResponse {
     private String token;
     private UserCredentials credentials;
     private String username;
+    private int streak;
 
     public String getIdentityId() {
         return identityId;
@@ -54,4 +55,8 @@ public class LoginUserResponse {
     public void setUsername(String username) {
         this.username = username;
     }
+
+    public int getStreak() { return streak; }
+
+    public void setStreak(int streak) { this.streak = streak; }
 }

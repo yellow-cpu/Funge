@@ -112,6 +112,7 @@ angular.module('profile').component('profile', {
               // Add score for each event to total points
               self.points += event.pointValue;
 
+              /*
               // Increase streak and display if a streak is found
               if( event.category == "streak" &&
                   self.streak == 0 &&
@@ -127,7 +128,8 @@ angular.module('profile').component('profile', {
                     timestamp: Date.now() / 1000
                   };
 
-                  apigClient.timelineStreakOptions(params, body)
+
+                  apigClient.timelineStreakPost(params, body)
                     .then(function (result) {
                       console.log("Success: " + JSON.stringify(result));
 
@@ -145,8 +147,10 @@ angular.module('profile').component('profile', {
                     console.log("Error: " + JSON.stringify(result));
                 });
               }
+               */
             }
 
+            /*
             if(self.streak == 0)
             {
               self.streak = 1;
@@ -157,7 +161,7 @@ angular.module('profile').component('profile', {
                 timestamp: Date.now() / 1000
               };
 
-              apigClient.timelineStreakOptions(params, body)
+              apigClient.timelineStreakPost(params, body)
                 .then(function (result) {
                   console.log("Success: " + JSON.stringify(result));
 
@@ -172,6 +176,7 @@ angular.module('profile').component('profile', {
                 console.log("Error: " + JSON.stringify(result));
               });
             }
+            */
 
 
             $("#card-score").find(".spinner").css({

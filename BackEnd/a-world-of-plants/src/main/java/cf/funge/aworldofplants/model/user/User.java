@@ -27,6 +27,8 @@ public class User {
     private ByteBuffer password;
     private ByteBuffer salt;
     private UserIdentity identity;
+    private int streak;
+    private int streakTimestamp;
 
     public User() {
 
@@ -75,6 +77,16 @@ public class User {
         }
         return this.identity.getIdentityId();
     }
+
+    @DynamoDBAttribute(attributeName = "streak")
+    public int getStreak() { return streak; }
+
+    public void setStreak(int streak) { this.streak = streak; }
+
+    @DynamoDBAttribute(attributeName = "streakTimestamp")
+    public int getStreakTimestamp() { return streakTimestamp; }
+
+    public void setStreakTimestamp(int timestamp) { streakTimestamp = timestamp; }
 
     public void setCognitoIdentityId(String cognitoIdentityId) {
         if (this.identity == null) {

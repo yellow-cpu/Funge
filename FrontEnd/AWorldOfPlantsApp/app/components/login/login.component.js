@@ -11,7 +11,7 @@ angular.module('login').component('login', {
             "password": ""
         };
 
-        self.saveLogin = function (identityId, accessKey, secretKey, sessionToken, region, username) {
+        self.saveLogin = function (identityId, accessKey, secretKey, sessionToken, region, username, streak) {
             $localStorage.identityId = identityId;
             $localStorage.accessKey = accessKey;
             $localStorage.secretKey = secretKey;
@@ -19,6 +19,7 @@ angular.module('login').component('login', {
             $localStorage.region = region;
             $localStorage.username = username;
             $localStorage.loggedIn = true;
+            $localStorage.streak = streak;
         };
     }
 });

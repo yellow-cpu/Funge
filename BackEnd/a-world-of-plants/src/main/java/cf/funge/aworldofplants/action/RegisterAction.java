@@ -73,6 +73,8 @@ public class RegisterAction extends AbstractAction {
         User newUser = new User();
         newUser.setEmail(input.getEmail());
         newUser.setUsername(input.getUsername());
+        newUser.setStreak(1);
+        newUser.setStreakTimestamp((int)(System.currentTimeMillis() / 1000L));
 
         // encrypt password
         try {
