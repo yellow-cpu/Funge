@@ -970,6 +970,13 @@ ngjs-color-picker li.selectedColor {
       }
 }
 
+.files-wrapper {
+    margin-top: 20px;
+    padding-left: 5px;
+}
+
+
+
 /* Change cards on smaller devices */
 @media (max-width: 736px){
     .card-wrapper {
@@ -982,6 +989,16 @@ ngjs-color-picker li.selectedColor {
 
     .calendar-text {
         font-size: 0.4em;
+    }
+
+    .files-wrapper {
+        margin-top: 20px;
+        padding-left: 5px;
+        text-align: center;
+    }
+
+    .plant-card {
+        padding: 10px 15px 10px 15px;
     }
 }
 
