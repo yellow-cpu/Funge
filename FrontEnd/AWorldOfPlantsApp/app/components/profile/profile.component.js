@@ -133,8 +133,6 @@ angular.module('profile').component('profile', {
 
       console.log(self.numPlantBoxes);
 
-      $("#numPlantBoxesValue").html(self.numPlantBoxes);
-
       $("#card-plant-boxes").find("div.spinner").css({
         'display': 'none'
       });
