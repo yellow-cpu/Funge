@@ -33,7 +33,7 @@ angular.module('things').component('things', {
       region: $localStorage.region
     });
 
-    self.updateDetails = function(_thingName, _username, _colour, _plantId) {
+    self.updateDetails = function($event, _thingName, _username, _colour, _plantId) {
       var parms = {};
       var body = {
         "thingName":_thingName,
@@ -42,8 +42,38 @@ angular.module('things').component('things', {
         "username":_username
       };
 
+
+      console.log($event.currentTarget);
+
+      var thingUpdate = $($event.currentTarget);
+
+      thingUpdate.find('span').css({
+        "display": "none"
+      });
+
+      thingUpdate.find('.update-spin').css({
+        "display": "inline-block"
+      });
+
       apigClient.thingsUpdatePost(parms, body)
         .then(function (result) {
+          thingUpdate.find('.update-spin').css({
+            "display": "none"
+          });
+
+          thingUpdate.find('svg').css({
+            "display": "block"
+          });
+
+          setTimeout(function () {
+            thingUpdate.find('span').css({
+              "display": "inline"
+            });
+
+            thingUpdate.find('svg').css({
+              "display": "none"
+            });
+          }, 3000);
         console.log(result);
       }).catch(function (result) {
         console.log("Error: " + JSON.stringify(result));
