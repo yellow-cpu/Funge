@@ -21,6 +21,9 @@ import cf.funge.aworldofplants.helper.PasswordHelper;
 import cf.funge.aworldofplants.model.DAOFactory;
 import cf.funge.aworldofplants.model.action.LoginUserRequest;
 import cf.funge.aworldofplants.model.action.LoginUserResponse;
+import cf.funge.aworldofplants.model.action.UpdateStreakResponse;
+import cf.funge.aworldofplants.model.timeline.TimelineDAO;
+import cf.funge.aworldofplants.model.timeline.TimelineEvent;
 import cf.funge.aworldofplants.model.user.User;
 import cf.funge.aworldofplants.model.user.UserCredentials;
 import cf.funge.aworldofplants.model.user.UserDAO;
@@ -34,6 +37,8 @@ import com.google.gson.JsonObject;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Action used to verify a user credentials and return a set of temporary AWS credentials
@@ -99,6 +104,69 @@ public class LoginAction extends AbstractAction {
         output.setToken(identity.getOpenIdToken());
         output.setCredentials(credentials);
         output.setUsername(input.getUsername());
+
+        // calculate streak
+        int streak = loggedUser.getStreak();
+        int current = (int) (System.currentTimeMillis() / 1000L);
+
+        Calendar today = Calendar.getInstance(); // today
+        Calendar yesterday = Calendar.getInstance();
+        yesterday.add(Calendar.DAY_OF_YEAR, -1); // yesterday
+
+        Calendar streakTimestamp = Calendar.getInstance();
+        streakTimestamp.setTime(new Date((long)(loggedUser.getStreakTimestamp()) * 1000L)); // last streak date
+
+        // if the last streak date is not today...
+        if(!(today.get(Calendar.YEAR) == streakTimestamp.get(Calendar.YEAR)
+                && today.get(Calendar.DAY_OF_YEAR) == streakTimestamp.get(Calendar.DAY_OF_YEAR)))
+        {
+            // if the last streak date was yesterday, increment by 1
+            if (yesterday.get(Calendar.YEAR) == streakTimestamp.get(Calendar.YEAR)
+                    && yesterday.get(Calendar.DAY_OF_YEAR) == streakTimestamp.get(Calendar.DAY_OF_YEAR))
+                streak++;
+            // else reset streak
+            else
+                streak = 1;
+
+            int points = 25;
+            if (streak > 10)
+                points = 40;
+            else if (streak > 5)
+                points = 30;
+
+            TimelineEvent timelineEvent = new TimelineEvent();
+            timelineEvent.setUsername(input.getUsername());
+            timelineEvent.setTitle("Login Streak");
+            timelineEvent.setMessage("You are on a " + streak + " day streak! Log in tomorrow to continue your streak!");
+            timelineEvent.setCategory("streak");
+            timelineEvent.setTimestamp(current);
+            timelineEvent.setPointValue(points);
+
+            logger.log(getGson().toJson(timelineEvent));
+
+            String timelineEventId;
+            TimelineDAO timelineDAO = DAOFactory.getTimelineDAO();
+
+            try
+            {
+                timelineEventId = timelineDAO.createTimelineEvent(timelineEvent);
+            } catch (final DAOException e)
+            {
+                logger.log("Error while creating new timeline event\n" + e.getMessage());
+                throw new InternalErrorException(ExceptionMessages.EX_DAO_ERROR);
+            }
+
+            if (timelineEventId == null || timelineEventId.trim().equals(""))
+            {
+                logger.log("TimelineEventId is null or empty");
+                throw new InternalErrorException(ExceptionMessages.EX_DAO_ERROR);
+            }
+
+            loggedUser.setStreak(streak);
+            loggedUser.setStreakTimestamp(current);
+        }
+
+        output.setStreak(streak);
 
         return getGson().toJson(output);
     }

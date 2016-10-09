@@ -59,6 +59,7 @@ angular.module('login').directive('attemptLogin', function ($state) {
           var credentials = result.data.credentials;
           var identityId = result.data.identityId;
           var username = result.data.username;
+          var streak = result.data.streak;
           console.log(credentials);
 
           AWS.config.credentials = {
@@ -68,7 +69,7 @@ angular.module('login').directive('attemptLogin', function ($state) {
             region: 'us-east-1'
           };
 
-          scope.$ctrl.saveLogin(identityId, credentials.accessKey, credentials.secretKey, credentials.sessionToken, 'us-east-1', username);
+          scope.$ctrl.saveLogin(identityId, credentials.accessKey, credentials.secretKey, credentials.sessionToken, 'us-east-1', username, streak);
 
           // Navigate to site
           $state.go('site.profile');

@@ -17,7 +17,7 @@ angular.module('profile').component('profile', {
     self.numPlants      = 0;
     self.numPlantBoxes  = 0;
     self.points         = 0;
-    self.streak         = 0;
+    self.streak         = $localStorage.streak;
 
     var apigClient = apigClientFactory.newClient({
       accessKey: $localStorage.accessKey,
@@ -93,17 +93,9 @@ angular.module('profile').component('profile', {
               });
               self.timelineEvents.reverse();
 
-            var today   = new Date(Date.now());
-            today.setHours(0);
-            today.setMinutes(0);
-            today.setSeconds(0);
-            today.setMilliseconds(0);
-            var day   = 24 * 60 * 60 * 1000;
-
             // For each event...
             for (var i = 0; i < self.timelineEvents.length; i++) {
               console.log(self.timelineEvents[i]);
-              var eventDate = new Date(self.timelineEvents[i].timestamp * 1000);
               // Convert timestamps of each event
               self.timelineEvents[i].timestamp = self.timeConverter(self.timelineEvents[i].timestamp);
 
@@ -111,68 +103,15 @@ angular.module('profile').component('profile', {
 
               // Add score for each event to total points
               self.points += event.pointValue;
-
-              // Increase streak and display if a streak is found
-              if( event.category == "streak" &&
-                  self.streak == 0 &&
-                  today - eventDate <= day &&
-                  today.getDay() != eventDate.getDay())
-                {
-                  var eventStreak = event.message.slice(13, event.message.indexOf(' ', 13));
-                  self.streak = parseInt(eventStreak) + 1;
-                  var params = {};
-                  var body = {
-                    username: $localStorage.username,
-                    streak: self.streak,
-                    timestamp: Date.now() / 1000
-                  };
-
-                  apigClient.timelineStreakOptions(params, body)
-                    .then(function (result) {
-                      console.log("Success: " + JSON.stringify(result));
-
-                      $("#card-streak").find(".spinner").css({
-                        'display': 'none'
-                      });
-
-                      $("#card-streak").find(".value").css({
-                        'display': 'block'
-                      });
-
-                      self.timelineEvents.push(result.data);
-
-                    }).catch(function (result) {
-                    console.log("Error: " + JSON.stringify(result));
-                });
-              }
             }
 
-            if(self.streak == 0)
-            {
-              self.streak = 1;
-              var params = {};
-              var body = {
-                username: $localStorage.username,
-                streak: self.streak,
-                timestamp: Date.now() / 1000
-              };
+            $("#card-streak").find(".spinner").css({
+              'display': 'none'
+            });
 
-              apigClient.timelineStreakOptions(params, body)
-                .then(function (result) {
-                  console.log("Success: " + JSON.stringify(result));
-
-                  $("#card-streak").find(".spinner").css({
-                    'display': 'none'
-                  });
-
-                  $("#card-streak").find(".value").css({
-                    'display': 'block'
-                  });
-                }).catch(function (result) {
-                console.log("Error: " + JSON.stringify(result));
-              });
-            }
-
+            $("#card-streak").find(".value").css({
+              'display': 'block'
+            });
 
             $("#card-score").find(".spinner").css({
               'display': 'none'
