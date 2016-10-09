@@ -57,7 +57,7 @@
             </button>
           </div>
           <div class="form-group">
-            <input id="plantDelete" class="btn btn-material btn-material-red pull-right" type="button" value="Delete">
+            <input class="btn btn-material btn-material-red pull-right" data-toggle="modal" data-target="#deletePlantModal" type="button" value="Delete">
           </div>
         </form>
       </div>
@@ -213,6 +213,31 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="deletePlantModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" delete-plant-directive>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #db4437;">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><img width="15" valign="middle" style="margin-top:-3px;" src="/images/close.png"></button>
+        <h4 class="modal-title" id="myModalLabel">Delete Plant Confirmation</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form">
+          <div class="form-group">
+            <label for="plantName">Please enter the name of your plant to confirm deletion:</label>
+            <input id="plantName" ng-model="$ctrl.newPlant.plantName" type="text" class="form-control">
+          </div>
+          <div class="form-group">
+            <b id="plantError" style="color: #db4437; display: none;">Incorrect plant name</b>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button id="deletePlant" type="button" class="btn btn-material" style="background-color: #db4437; color: white">Confirm</button>
       </div>
     </div>
   </div>

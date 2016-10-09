@@ -42,9 +42,6 @@ angular.module('things').component('things', {
         "username":_username
       };
 
-
-      console.log($event.currentTarget);
-
       var thingUpdate = $($event.currentTarget);
 
       thingUpdate.find('span').css({

@@ -238,6 +238,7 @@ angular.module('plantDetail').component('plantDetail', {
 
       apigClient.plantsDeletePlantIdGet(params, body)
         .then(function (result) {
+          window.location = "/#/site/plants";
           console.log("Success: " + JSON.stringify(result));
         }).catch(function (result) {
         console.log("Error: " + JSON.stringify(result));
