@@ -13,7 +13,7 @@
   <span class="loader"><span class="loader-inner"></span></span>
 </div>
 
-<div class="row" view-thing-details-directive>
+<div class="row">
   <div ng-repeat="thing in $ctrl.things" class="panel panel-yellow">
     <div class="panel-heading">
       <div class="row">
@@ -42,7 +42,19 @@
     </div>
     <a class="view-details">
       <div class="panel-footer" style="background-color: {{thing.colour}}">
-        <span class="pull-left"><button class="btn btn-material btn-material-green" ng-click="$ctrl.updateDetails(thing.thingName, thing.username, thing.colour, thing.selectedPlant)">Update</button></span>
+        <span class="pull-left">
+          <button class="btn btn-material btn-material-green thingUpdate" style="min-width: 72px;" ng-click="$ctrl.updateDetails($event, thing.thingName, thing.username, thing.colour, thing.selectedPlant)">
+            <span>Update</span>
+            <div class="spinner-bounce update-spin" style="display: none; vertical-align: middle;">
+              <div class="double-bounce1"></div>
+              <div class="double-bounce2"></div>
+            </div>
+            <svg style="display: none;" class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+              <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"></circle>
+              <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"></path>
+            </svg>
+          </button>
+        </span>
         <span class="pull-right"><button class="btn btn-material thingDelete btn-material-red" ng-click="$ctrl.removeThing(thing.thingName, thing.username)">Delete</button></span>
         <div class="clearfix"></div>
       </div>
