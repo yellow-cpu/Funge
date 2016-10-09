@@ -74,6 +74,8 @@ angular.module('plants').component('plants', {
       };
 
       siteService.setPlant($scope.plantDetails);
+      siteService.setPlants(self.plants);
+
       // self.viewDetails();
     };
 
