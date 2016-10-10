@@ -59,6 +59,14 @@ angular.module('plantDetail').component('plantDetail', {
       return requestUrl;
     };
 
+
+    function onConnectionLost(responseObject) {
+      console.log("Inside onConnectionLost");
+      if (responseObject.errorCode !== 0) {
+        console.log("onConnectionLost:"+responseObject.errorMessage);
+      }
+    }
+
     self.status = "";
 
     self.client = null;
@@ -68,6 +76,7 @@ angular.module('plantDetail').component('plantDetail', {
 
       var clientId = String(Math.random()).replace('.', '');
       self.client = new Paho.MQTT.Client(requestUrl, clientId);
+      self.client.onConnectionLost = onConnectionLost;
 
       var connectOptions = {
         onSuccess: function () {
