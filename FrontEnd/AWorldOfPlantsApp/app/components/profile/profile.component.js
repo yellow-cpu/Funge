@@ -38,7 +38,11 @@ angular.module('profile').component('profile', {
       var month = a.getMonth() + 1;
       var date = a.getDate();
       var hour = a.getHours();
+      if(hour < 10)
+        hour = "0" + hour;
       var min = a.getMinutes();
+      if(min < 10)
+        min = "0" + min;
       return date + '/' + month + '/' + year + ' at ' + hour + ':' + min;
     };
 
