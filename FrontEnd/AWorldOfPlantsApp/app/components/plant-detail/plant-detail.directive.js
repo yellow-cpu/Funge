@@ -99,7 +99,7 @@ directive('pausePlay', function($compile) {
     link: linkFunction
   };
 }).
-directive('plantDetailCanvasDirective', function($compile) {
+directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
   var linkFunction = function (scope, element, attributes) {
     var tempCanvas = document.getElementById('live-chart-temperature');
     var humidityCanvas = document.getElementById('live-chart-humidity');
@@ -370,7 +370,7 @@ directive('plantDetailCanvasDirective', function($compile) {
           data: aggregateLineData
         });
 
-        scope.$ctrl.client.onMessageArrived = function (message) {
+        $sessionStorage.client[scope.$ctrl.plantDetails.plantId].onMessageArrived = function (message) {
           try {
             console.log("message arrived: " +  message.payloadString);
 

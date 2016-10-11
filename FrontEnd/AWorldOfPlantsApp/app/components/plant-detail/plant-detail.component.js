@@ -3,7 +3,7 @@
 // Register `plantDetail` component, along with its associated controller and template
 angular.module('plantDetail').component('plantDetail', {
   templateUrl: 'components/plant-detail/plant-detail.template.html',
-  controller: function PlantDetailController($scope, $localStorage, siteService) {
+  controller: function PlantDetailController($scope, $localStorage, $sessionStorage, siteService) {
     var self = this;
 
     // Set up MQTT
@@ -67,34 +67,41 @@ angular.module('plantDetail').component('plantDetail', {
       }
     }
 
-    self.status = "";
-
-    self.client = null;
+    if ($sessionStorage.client == undefined) {
+      $sessionStorage.client = [];
+      self.status = "";
+    }
 
     function initClient(requestUrl, mqttTopic) {
       console.log(mqttTopic);
 
-      var clientId = String(Math.random()).replace('.', '');
-      self.client = new Paho.MQTT.Client(requestUrl, clientId);
-      self.client.onConnectionLost = onConnectionLost;
+      if ($sessionStorage.client[self.plantDetails.plantId] == undefined) {
+        var clientId = String(Math.random()).replace('.', '');
+        $sessionStorage.client[self.plantDetails.plantId] = new Paho.MQTT.Client(requestUrl, clientId);
+        $sessionStorage.client[self.plantDetails.plantId].onConnectionLost = onConnectionLost;
 
-      var connectOptions = {
-        onSuccess: function () {
-          console.log('connected');
-          self.status = "connected";
-          $scope.$apply();
+        var connectOptions = {
+          onSuccess: function () {
+            console.log('connected');
+            self.status = "connected";
+            $scope.$apply();
 
-          // subscribe to the topic
-          self.client.subscribe(mqttTopic);
-        },
-        useSSL: true,
-        timeout: 15,
-        mqttVersion: 4,
-        onFailure: function () {
-          console.error('connect failed');
-        }
-      };
-      self.client.connect(connectOptions);
+            // subscribe to the topic
+            $sessionStorage.client[self.plantDetails.plantId].subscribe(mqttTopic);
+          },
+          useSSL: true,
+          timeout: 15,
+          mqttVersion: 4,
+          onFailure: function () {
+            console.error('connect failed');
+          }
+        };
+        $sessionStorage.client[self.plantDetails.plantId].connect(connectOptions);
+    } else {
+      self.status = "connected";
+    }
+
+
     }
 
     self.publish = function (payload) {
@@ -104,7 +111,7 @@ angular.module('plantDetail').component('plantDetail', {
       try {
         var message = new Paho.MQTT.Message(payload);
         message.destinationName = self.thing.mqttTopic;
-        self.client.send(message);
+        $sessionStorage.client[self.plantDetails.plantId].send(message);
         console.log('sent');
       } catch (e) {
         console.log('publishFailed', e);
