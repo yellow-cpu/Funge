@@ -345,6 +345,10 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
     scope.$watch(attributes.ngModel, function (value) {
       var val = value;
       if (val == 'connected') {
+        $('.spinner').css({
+          'display': 'none'
+        });
+
         var tempChart = new Chart(ctxTemp, {
           type: "line",
           data: tempData
