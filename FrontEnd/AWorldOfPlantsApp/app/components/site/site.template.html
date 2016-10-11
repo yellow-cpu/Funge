@@ -3,6 +3,7 @@
 <div id="wrapper">
   <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
     <div class="navbar-header">
+      <div class="small-title"></div>
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
@@ -12,7 +13,7 @@
     </div>
 
     <ul class="nav navbar-top-links navbar-right">
-      <li><a id="logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+      <li><a id="logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
     </ul>
     <div class="navbar-default sidebar" role="navigation">
       <div class="sidebar-nav navbar-collapse">
@@ -34,6 +35,16 @@
       <!-- /.sidebar-collapse -->
     </div>
   </nav>
+
+  <script type="text/javascript">
+    // Adjust navbar for small-screen devices
+    if ($(window).width() <= 736) {
+      $('.navbar-right').remove();
+      $('#home').remove();
+      $('.small-title').html('<a id="home" ui-sref=".profile">A World of Plants</a>');
+      $('#side-menu').append('<li><a id="logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>');
+    }
+  </script>
 
   <div id="page-wrapper">
     <div ui-view></div>

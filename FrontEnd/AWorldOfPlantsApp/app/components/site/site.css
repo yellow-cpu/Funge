@@ -975,33 +975,6 @@ ngjs-color-picker li.selectedColor {
     padding-left: 5px;
 }
 
-
-
-/* Change cards on smaller devices */
-@media (max-width: 736px){
-    .card-wrapper {
-        padding: 0;
-    }
-
-    .circle-wrapper {
-        margin-top: 5%;
-    }
-
-    .calendar-text {
-        font-size: 0.4em;
-    }
-
-    .files-wrapper {
-        margin-top: 20px;
-        padding-left: 5px;
-        text-align: center;
-    }
-
-    .plant-card {
-        padding: 10px 15px 10px 15px;
-    }
-}
-
 /*tick*/
 
 .checkmark__circle {
@@ -1050,6 +1023,63 @@ ngjs-color-picker li.selectedColor {
 @keyframes fill {
     100% {
         box-shadow: inset 0px 0px 0px 30px #0f9d58;
+    }
+}
+
+@media (max-width: 736px){
+    /* Change cards on smaller devices */
+    .card-wrapper {
+        padding: 0;
+    }
+
+    .circle-wrapper {
+        margin-top: 5%;
+    }
+
+    .calendar-text {
+        font-size: 0.4em;
+    }
+
+    .files-wrapper {
+        margin-top: 20px;
+        padding-left: 5px;
+        text-align: center;
+    }
+
+    .plant-card {
+        padding: 10px 15px 10px 15px;
+    }
+
+    /* Change navbar on smaller devices */
+    #side-menu li a {
+        color: white;
+    }
+
+    #side-menu li {
+        background-color: #38474F;
+    }
+
+    .navbar-default .navbar-toggle {
+        border: none;
+        float: right;
+    }
+
+    .navbar-default .navbar-toggle:hover {
+        background-color: #38474F;
+    }
+
+    .navbar-default .navbar-toggle .icon-bar{
+        background-color: white;
+    }
+
+    .small-title {
+        float: left;
+        margin-top: 10px;
+        margin-left: 15px;
+    }
+
+    .small-title a {
+        color: white;
     }
 }
 
