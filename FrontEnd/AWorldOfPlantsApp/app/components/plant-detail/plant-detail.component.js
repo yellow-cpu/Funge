@@ -8,7 +8,7 @@ angular.module('plantDetail').component('plantDetail', {
 
     // Set up MQTT
 
-    function SigV4Utils() {}
+    function SigV4Utils() { }
 
     SigV4Utils.sign = function (key, msg) {
       var hash = CryptoJS.HmacSHA256(msg, key);
@@ -28,7 +28,7 @@ angular.module('plantDetail').component('plantDetail', {
       return kSigning;
     };
 
-    SigV4Utils.getSignedUrl = function(protocol, host, uri, service, region, accessKey, secretKey, sessionToken) {
+    SigV4Utils.getSignedUrl = function (protocol, host, uri, service, region, accessKey, secretKey, sessionToken) {
       var time = moment().utc();
       var dateStamp = time.format('YYYYMMDD');
       var amzdate = dateStamp + 'T' + time.format('HHmmss') + 'Z';
@@ -63,7 +63,7 @@ angular.module('plantDetail').component('plantDetail', {
     function onConnectionLost(responseObject) {
       console.log("Inside onConnectionLost");
       if (responseObject.errorCode !== 0) {
-        console.log("onConnectionLost:"+responseObject.errorMessage);
+        console.log("onConnectionLost:" + responseObject.errorMessage);
       }
     }
 
@@ -97,9 +97,9 @@ angular.module('plantDetail').component('plantDetail', {
           }
         };
         $sessionStorage.client[self.plantDetails.plantId].connect(connectOptions);
-    } else {
-      self.status = "connected";
-    }
+      } else {
+        self.status = "connected";
+      }
 
 
     }
@@ -153,12 +153,12 @@ angular.module('plantDetail').component('plantDetail', {
       self.publish('{"state": {"desired": {"pumpTime": ' + _pumpTime + '}}}');
     };
 
-    $scope.$on("slideEnded", function() {
+    $scope.$on("slideEnded", function () {
       self.publish('{"state": {"desired": {"fanSpeed": ' + $scope.fanSlider.value + '}}}');
     });
 
     self.eventApi = {
-      onChange:  function(api, color, $event) {
+      onChange: function (api, color, $event) {
         var colours = color.substring(4, color.length - 1);
         colours = colours.split(",");
         console.log(colours[0] + colours[1] + colours[2]);
@@ -175,25 +175,25 @@ angular.module('plantDetail').component('plantDetail', {
     };
 
     self.avgMinMax = {
-       "temp": {
-         "num": 0,
-         "avg": 0,
-         "min": 0,
-         "max": 0
-       },
-       "humidity": {
-         "num": 0,
-         "avg": 0,
-         "min": 0,
-         "max": 0
-       },
-       "moisture": {
-         "num": 0,
-         "avg": 0,
-         "min": 0,
-         "max": 0
-       }
-     };
+      "temp": {
+        "num": 0,
+        "avg": 0,
+        "min": 0,
+        "max": 0
+      },
+      "humidity": {
+        "num": 0,
+        "avg": 0,
+        "min": 0,
+        "max": 0
+      },
+      "moisture": {
+        "num": 0,
+        "avg": 0,
+        "min": 0,
+        "max": 0
+      }
+    };
 
     // Set up API calls
 
@@ -231,10 +231,10 @@ angular.module('plantDetail').component('plantDetail', {
         initClient(self.requestUrl, self.thing.mqttTopic);
         $scope.$apply();
       }).catch(function (result) {
-      console.log("Error: " + JSON.stringify(result));
-    });
+        console.log("Error: " + JSON.stringify(result));
+      });
 
-    self.updatePlant = function() {
+    self.updatePlant = function () {
       var params = {};
       var body = self.plantDetails;
       var plantUpdate = $('#plantUpdate');
@@ -273,7 +273,7 @@ angular.module('plantDetail').component('plantDetail', {
         });
     };
 
-    self.deletePlant = function() {
+    self.deletePlant = function () {
       var params = {
         plantId: self.plantDetails.plantId
       };
@@ -285,12 +285,12 @@ angular.module('plantDetail').component('plantDetail', {
           window.location = "/#/site/plants";
           console.log("Success: " + JSON.stringify(result));
         }).catch(function (result) {
-        console.log("Error: " + JSON.stringify(result));
-      });
+          console.log("Error: " + JSON.stringify(result));
+        });
     };
 
     self.plants = siteService.getPlants();
-    $scope.getPlantTypes = function(search) {
+    $scope.getPlantTypes = function (search) {
       if (self.plants === undefined) self.plants = [];
       $scope.plantTypes = self.plants.map(x => x.plantType).sort();
 
