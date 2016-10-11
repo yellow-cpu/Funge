@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row cards">
   <div class="col-lg-12">
     <h1 class="page-header">
       Plants
@@ -63,6 +63,9 @@
     $('.fa-calendar-o').removeClass('fa-stack-2x').addClass('fa-stack-1x');
     $('.plantDate').remove();
     $('.calendar-text').html("{{plant.plantMonth | limitTo : 3 : 0}}");
+    $('#newPlant').html('+').css({
+      'border-radius': '50%'
+    });
   }
 </script>
 

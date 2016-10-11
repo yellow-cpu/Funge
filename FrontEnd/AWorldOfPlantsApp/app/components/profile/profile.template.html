@@ -1,7 +1,7 @@
 <link href="components/profile/profile.css" rel="stylesheet"/>
 
-<div class="row" view-timeline-directive>
-    <div class="col-lg-6">
+<div class="row cards" view-timeline-directive>
+    <div class="col-lg-6 dash1">
         <h1 class="page-header">
             Dashboard - {{$ctrl.username}}
         </h1>
@@ -12,6 +12,16 @@
         </h1>
     </div>
 </div>
+
+<script type="text/javascript">
+    // Adjust cards for small-screen devices
+    if ($(window).width() <= 736) {
+        $('.page-header').remove();
+    }
+
+    $('.dash1').removeClass('col-lg-6').addClass('col-lg-12');
+    $('.dash1').html("<h1 class='page-header'>Dashboard</h1>'");
+</script>
 
 <!-- Cards -->
 <div class="row" populate-cards-directive>

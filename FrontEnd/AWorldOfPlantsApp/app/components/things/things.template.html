@@ -1,7 +1,7 @@
-<div class="row" things-directive>
+<div class="row cards" things-directive>
   <div class="col-lg-12">
     <h1 class="page-header">
-      Plant Boxes <button id="helpThing" class="btn btn-warning">Help me <span class="fa fa-exclamation"></span></button>
+      Plant Boxes <!--<button id="helpThing" class="btn btn-warning">Help me <span class="fa fa-exclamation"></span></button> -->
       <button id="newThing" class="btn btn-material pull-right" data-toggle="modal" data-target="#createThingModal">
         Create New Plant Box
       </button>
@@ -72,6 +72,7 @@
   if ($(window).width() <= 736) {
     $('.circle').removeClass('fa-3x').addClass('fa-2x');
     $('.files-wrapper').css('border', 'none');
+    $('#newThing').html('+').css('border-radius', '50%');
   }
 </script>
 

@@ -1051,6 +1051,10 @@ ngjs-color-picker li.selectedColor {
     }
 
     /* Change navbar on smaller devices */
+    .cards {
+        margin-top: 55px;
+    }
+
     #side-menu li a {
         color: white;
     }
