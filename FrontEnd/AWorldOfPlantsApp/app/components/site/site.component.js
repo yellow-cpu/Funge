@@ -11,10 +11,15 @@ angular.
       self.username = $localStorage.username;
     }
   }).
-  service('siteService', function($localStorage) {
+  service('siteService', function($localStorage, $sessionStorage) {
     var logout = function() {
       $localStorage.$reset();
       console.log("Local storage reset.");
+
+      for (var key in $sessionStorage.client) {
+        let value = $sessionStorage.client[key];
+        value.disconnect();
+      }
     };
 
     var plant = {};
