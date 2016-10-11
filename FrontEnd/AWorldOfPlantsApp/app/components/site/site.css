@@ -574,7 +574,7 @@ table.dataTable thead .sorting:after {
     width: 60px;
     height: 60px;
     position: relative;
-    border: 8px solid #525252;
+    border: 8px solid #38474f;
     top: 50%;
     animation: loader 4s infinite ease;
 }
