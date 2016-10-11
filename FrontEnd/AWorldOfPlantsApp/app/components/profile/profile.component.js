@@ -75,58 +75,58 @@ angular.module('profile').component('profile', {
     // Get timeline events of current user
     self.getTimelineEvents = function() {
       apigClient.timelineUsernameGet(params, body)
-          .then(function (result) {
-            $(".loader-container").css({
-              'display': 'none'
-            });
+        .then(function (result) {
+          $(".loader-container").css({
+            'display': 'none'
+          });
 
-            $(".timeline-wrapper").css({
-              'display': 'block'
-            });
+          $(".timeline-wrapper").css({
+            'display': 'block'
+          });
 
-            // Set variables to retrieved values
-            self.timelineEvents = result.data.timelineEvents;
+          // Set variables to retrieved values
+          self.timelineEvents = result.data.timelineEvents;
 
-              // Sort events according to timestamp
-              self.timelineEvents.sort(function(a, b) {
-                  var keyA = a.timestamp;
-                  var keyB = b.timestamp;
-                  if(keyA < keyB) return -1;
-                  if(keyA > keyB) return 1;
-                  return 0;
-              });
-              self.timelineEvents.reverse();
+          // Sort events according to timestamp
+          self.timelineEvents.sort(function (a, b) {
+            var keyA = a.timestamp;
+            var keyB = b.timestamp;
+            if (keyA < keyB) return -1;
+            if (keyA > keyB) return 1;
+            return 0;
+          });
+          self.timelineEvents.reverse();
 
-            // For each event...
-            for (var i = 0; i < self.timelineEvents.length; i++) {
-              console.log(self.timelineEvents[i]);
-              // Convert timestamps of each event
-              self.timelineEvents[i].timestamp = self.timeConverter(self.timelineEvents[i].timestamp);
+          // For each event...
+          for (var i = 0; i < self.timelineEvents.length; i++) {
+            console.log(self.timelineEvents[i]);
+            // Convert timestamps of each event
+            self.timelineEvents[i].timestamp = self.timeConverter(self.timelineEvents[i].timestamp);
 
-              var event = self.timelineEvents[i];
+            var event = self.timelineEvents[i];
 
-              // Add score for each event to total points
-              self.points += event.pointValue;
-            }
+            // Add score for each event to total points
+            self.points += event.pointValue;
+          }
 
-            $("#card-streak").find(".spinner").css({
-              'display': 'none'
-            });
+          $("#card-streak").find(".spinner").css({
+            'display': 'none'
+          });
 
-            $("#card-streak").find(".value").css({
-              'display': 'block'
-            });
+          $("#card-streak").find(".value").css({
+            'display': 'block'
+          });
 
-            $("#card-score").find(".spinner").css({
-              'display': 'none'
-            });
+          $("#card-score").find(".spinner").css({
+            'display': 'none'
+          });
 
-            $("#card-score").find(".value").css({
-              'display': 'block'
-            });
+          $("#card-score").find(".value").css({
+            'display': 'block'
+          });
 
-            $scope.$apply();
-          }).catch(function (result) {
+          $scope.$apply();
+        }).catch(function (result) {
         console.log("Error retrieving timeline info: " + JSON.stringify(result));
       });
     };
