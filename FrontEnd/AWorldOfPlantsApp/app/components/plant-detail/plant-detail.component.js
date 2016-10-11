@@ -61,9 +61,12 @@ angular.module('plantDetail').component('plantDetail', {
 
 
     function onConnectionLost(responseObject) {
-      console.log("Inside onConnectionLost");
+      // Check that disconnect was not done purposely
       if (responseObject.errorCode !== 0) {
         console.log("onConnectionLost:" + responseObject.errorMessage);
+        $sessionStorage.client[self.plantDetails.plantId] = null;
+        initClient(self.requestUrl, self.thing.mqttTopic);
+        $scope.$apply();
       }
     }
 
@@ -75,7 +78,7 @@ angular.module('plantDetail').component('plantDetail', {
     function initClient(requestUrl, mqttTopic) {
       console.log(mqttTopic);
 
-      if ($sessionStorage.client[self.plantDetails.plantId] == undefined) {
+      if ($sessionStorage.client[self.plantDetails.plantId] == undefined || $sessionStorage.client[self.plantDetails.plantId] == null ) {
         var clientId = String(Math.random()).replace('.', '');
         $sessionStorage.client[self.plantDetails.plantId] = new Paho.MQTT.Client(requestUrl, clientId);
         $sessionStorage.client[self.plantDetails.plantId].onConnectionLost = onConnectionLost;
