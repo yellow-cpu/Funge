@@ -1,7 +1,7 @@
 <div class="row cards">
   <div class="col-lg-12">
     <h1 class="page-header">Details for: {{$ctrl.plantDetails.plantName}}</h1>
-    <div id="mqttStatus" class="alert alert-danger" role="alert" style="display: flex; align-items: center;">
+    <div id="mqttStatus" class="alert alert-danger col-md-12" role="alert" style="display: flex; align-items: center;">
       <div id="noplantbox" style="display: none;">
         There is no plant box associated with this plant. Add one here: <a href="/#/site/things" style="color: white; text-decoration: underline;">Plant Boxes</a>
       </div>
@@ -13,6 +13,7 @@
         <div class="double-bounce1"></div>
         <div class="double-bounce2"></div>
       </div>
+      <div class="spinner-blip" style="display: none; margin-left: 1em;"></div>
     </div>
     <input type="hidden" ng-model="$ctrl.status" status-directive plant-detail-canvas-directive="">
   </div>
@@ -115,6 +116,9 @@
                 <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"></path>
               </svg>
             </button>
+              <!--<div class="col-md-4 pull-right" style="display: flex; align-items: center; text-align: right;">
+                <div style="color: #757575; align-self: center; display: inline-block; font-weight: 700">Connectivity:</div> <div class="spinner-blip" style="display: inline-block; align-self: center"></div>
+              </div>-->
           </div>
         </div>
       </div>
@@ -126,6 +130,8 @@
           Temperature Panel
           <button class="btn btn-material btn-circular btnPausePlay" data-chart="temp"
                   style="margin-left: 10px;"><i class="fa fa-pause pausePlay" style="color: #ffc107;"></i></button>
+          <span id="tempWarning" class="pull-right"><i class="fa fa-exclamation-triangle fa-2x"></i></span>
+          <span id="tempSuccess" class="pull-right" style="display: none;"><i class="fa fa-signal fa-2x"></i></span>
         </div>
         <div class="panel-body" id="tempPanelBody">
           <div class="spinner" style="text-align: center;">
@@ -181,6 +187,8 @@
           Humidity Panel
           <button class="btn btn-material btn-circular btnPausePlay" data-chart="humidity"
                   style="margin-left: 10px;"><i class="fa fa-pause pausePlay" style="color: #db4437;"></i></button>
+          <span id="humidityWarning" class="pull-right"><i class="fa fa-exclamation-triangle fa-2x"></i></span>
+          <span id="humiditySuccess" class="pull-right" style="display: none;"><i class="fa fa-signal fa-2x"></i></span>
         </div>
         <div class="panel-body">
           <div class="spinner" style="text-align: center;">
@@ -233,6 +241,8 @@
           Moisture Panel
           <button class="btn btn-material btn-circular btnPausePlay" data-chart="moisture"
                   style="margin-left: 10px;"><i class="fa fa-pause pausePlay" style="color: #4285f4;"></i></button>
+          <span id="moistureWarning" class="pull-right"><i class="fa fa-exclamation-triangle fa-2x"></i></span>
+          <span id="moistureSuccess" class="pull-right" style="display: none;"><i class="fa fa-signal fa-2x"></i></span>
         </div>
         <div class="panel-body">
           <div class="spinner" style="text-align: center;">
