@@ -129,7 +129,7 @@ angular.module('plants').component('plants', {
         newTypes.unshift(search);
       }
 
-      return newTypes;
+      return newTypes.filter((v, i, a) => a.indexOf(v) === i);
     };
 
   }
