@@ -435,6 +435,28 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
           try {
             console.log("message arrived: " +  message.payloadString);
 
+            if (JSON.parse(message.payloadString).state.desired != undefined) {
+              var updateControl = $('#updateControl');
+
+              updateControl.find('.update-spin').css({
+                "display": "none"
+              });
+
+              updateControl.find('svg').css({
+                "display": "block"
+              });
+
+              setTimeout(function () {
+                updateControl.find('span').css({
+                  "display": "inline"
+                });
+
+                updateControl.find('svg').css({
+                  "display": "none"
+                });
+              }, 3000);
+            }
+
             var tempBool = false;
             var humidityBool = false;
             var moistureBool = false;

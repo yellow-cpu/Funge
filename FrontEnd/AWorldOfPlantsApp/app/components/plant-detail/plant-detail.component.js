@@ -155,6 +155,16 @@ angular.module('plantDetail').component('plantDetail', {
     self.pumpTime = 0;
 
     self.updateControl = function () {
+      var updateControl = $('#updateControl');
+
+      updateControl.find('span').css({
+        "display": "none"
+      });
+
+      updateControl.find('.update-spin').css({
+        "display": "inline-block"
+      });
+
       var rgb = nmToRGB(self.nmSlider.value);
       var fanPower = self.fanSlider.value;
       var pumpTime = self.pumpTime;
