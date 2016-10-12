@@ -307,8 +307,19 @@ angular.module('plantDetail').component('plantDetail', {
       .then(function (result) {
         console.log("Success: " + JSON.stringify(result));
 
-        if (result.data.thingName == "undefined") {
+        if (result.data.thingName == "undefined" && result.data.mqttTopic == "undefined") {
           console.log("No plant box associated with thing");
+          $('#noplantbox').css({
+            "display": "block"
+          });
+
+          $('#connecting').css({
+            "display": "none"
+          });
+
+          $('#mqttStatus').find('.mqtt-spin').css({
+            "display": "none"
+          });
         } else {
           self.thing = result.data;
 

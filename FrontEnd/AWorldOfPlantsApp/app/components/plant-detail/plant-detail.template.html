@@ -2,6 +2,9 @@
   <div class="col-lg-12">
     <h1 class="page-header">Details for: {{$ctrl.plantDetails.plantName}}</h1>
     <div id="mqttStatus" class="alert alert-danger" role="alert" style="display: flex; align-items: center;">
+      <div id="noplantbox" style="display: none;">
+        There is no plant box associated with this plant. Add one here: <a href="/#/site/things" style="color: white; text-decoration: underline;">Plant Boxes</a>
+      </div>
       <div id="connected" style="display: none;">
         Connected to plant box: <a href="/#/site/things" style="color: white; text-decoration: underline;">{{$ctrl.thing.thingName}}</a>
       </div>
