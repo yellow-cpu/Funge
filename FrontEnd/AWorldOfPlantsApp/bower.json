@@ -23,7 +23,6 @@
     "ngstorage": "^0.3.10",
     "ngjs-color-picker": "^1.0.5",
     "chart.js": "npm:chart.js#^2.2.2",
-    "angular-color-picker": "angularjs-color-picker#^2.4.5",
     "angular-ui-router": "~0.3.1",
     "angular-socialshare": "angularjs-socialshare#^2.3.1",
     "angular-ui-select": "0.19.4",

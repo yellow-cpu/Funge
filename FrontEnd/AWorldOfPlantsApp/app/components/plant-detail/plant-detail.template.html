@@ -72,16 +72,18 @@
         <div class="panel-heading">
           Control Panel
           <button class="btn btn-material btn-circular btnPausePlay" data-chart="temp"
-                  style="margin-left: 10px; opacity: 0;"><i class="fa fa-pause pausePlay" style="display: #ffc107;"></i></button>
+                  style="margin-left: 10px; opacity: 0;"><i class="fa fa-pause pausePlay"></i></button>
         </div>
         <div class="panel-body" id="controlPanelBody">
-          <color-picker ng-model="$ctrl.color" options="$ctrl.options" event-api="$ctrl.eventApi"></color-picker>
-          <rzslider
-           id="fanSlider"
-           rz-slider-model="fanSlider.value"
-           rz-slider-options="fanSlider.options"></rzslider>
-          <input ng-model="pumpTime" type="text" ng-init="pumpTime = 3">
-          <button ng-click="$ctrl.sendPumpTime(pumpTime)" class="btn btn-material pull-right">Turn on pump for {{pumpTime}} seconds!</button>
+          <label style="color: #757575;">Lights: RGB/Wavelength</label>
+          <rzslider id="nmSlider" rz-slider-model="$ctrl.nmSlider.value" rz-slider-options="$ctrl.nmSlider.options"></rzslider>
+
+          <label style="color: #757575;">Fan Power</label>
+          <rzslider id="fanSlider" rz-slider-model="fanSlider.value" rz-slider-options="fanSlider.options"></rzslider>
+
+          <label style="color: #757575;">Pump Time</label>
+          <!--<input ng-model="pumpTime" type="text" ng-init="pumpTime = 3">
+          <button ng-click="$ctrl.sendPumpTime(pumpTime)" class="btn btn-material pull-right">Turn on pump for {{pumpTime}} seconds!</button>-->
         </div>
       </div>
     </div>

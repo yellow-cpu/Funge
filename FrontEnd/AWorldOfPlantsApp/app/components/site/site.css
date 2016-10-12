@@ -1087,3 +1087,10 @@ ngjs-color-picker li.selectedColor {
     }
 }
 
+.rzslider .rz-pointer {
+    background-color: #38474f;
+}
+
+.rzslider .rz-pointer:after, .rzslider .rz-pointer.rz-active:after {
+    background-color: white;
+}

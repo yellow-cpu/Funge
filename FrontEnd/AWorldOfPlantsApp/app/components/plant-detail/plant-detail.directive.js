@@ -422,10 +422,6 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
           data: aggregateLineData
         });
 
-        $("#controlPanelBody").css({
-          "height": $("#tempPanelBody").height()
-        });
-
         $sessionStorage.client[scope.$ctrl.plantDetails.plantId].onMessageArrived = function (message) {
           try {
             console.log("message arrived: " +  message.payloadString);
