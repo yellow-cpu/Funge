@@ -99,7 +99,7 @@ angular.module('profile').component('profile', {
 
           // For each event...
           for (var i = 0; i < self.timelineEvents.length; i++) {
-            console.log(self.timelineEvents[i]);
+            // console.log(self.timelineEvents[i]);
             // Convert timestamps of each event
             self.timelineEvents[i].timestamp = self.timeConverter(self.timelineEvents[i].timestamp);
 
