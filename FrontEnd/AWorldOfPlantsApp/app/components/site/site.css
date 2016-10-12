@@ -1095,3 +1095,6 @@ ngjs-color-picker li.selectedColor {
     background-color: white;
 }
 
+#fanSlider > span:nth-child(2) > span {
+    background-color: #38474f;
+}

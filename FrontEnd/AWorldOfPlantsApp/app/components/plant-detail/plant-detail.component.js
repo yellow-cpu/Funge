@@ -147,7 +147,8 @@ angular.module('plantDetail').component('plantDetail', {
       value: 0,
       options: {
         floor: 0,
-        ceil: 100
+        ceil: 100,
+        showSelectionBar: true
       }
     };
 
