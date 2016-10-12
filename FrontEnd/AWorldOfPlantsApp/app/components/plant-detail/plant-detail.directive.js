@@ -351,17 +351,65 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
 
         var tempChart = new Chart(ctxTemp, {
           type: "line",
-          data: tempData
+          data: tempData,
+          options: {
+            scales: {
+              yAxes: [{
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Temperature (°C)'
+                }
+              }],
+              xAxes: [{
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Time (hh:mm:ss)'
+                }
+              }]
+            }
+          }
         });
 
         var humidityChart = new Chart(ctxHumidity, {
           type: "line",
-          data: humidityData
+          data: humidityData,
+          options: {
+            scales: {
+              yAxes: [{
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Humidity (%)'
+                }
+              }],
+              xAxes: [{
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Time (hh:mm:ss)'
+                }
+              }]
+            }
+          }
         });
 
         var moistureChart = new Chart(ctxMoisture, {
           type: "line",
-          data: moistureData
+          data: moistureData,
+          options: {
+            scales: {
+              yAxes: [{
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Moisture (%)'
+                }
+              }],
+              xAxes: [{
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Time (hh:mm:ss)'
+                }
+              }]
+            }
+          }
         });
 
         var aggregateChart = new Chart(ctxAggregate, {
@@ -372,6 +420,10 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
         var aggregateLineChart = new Chart(ctxAggregateLine, {
           type: "line",
           data: aggregateLineData
+        });
+
+        $("#controlPanelBody").css({
+          "height": $("#tempPanelBody").height()
         });
 
         $sessionStorage.client[scope.$ctrl.plantDetails.plantId].onMessageArrived = function (message) {

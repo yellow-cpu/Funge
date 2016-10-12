@@ -71,8 +71,10 @@
       <div class="panel panel-yellow panel-control">
         <div class="panel-heading">
           Control Panel
+          <button class="btn btn-material btn-circular btnPausePlay" data-chart="temp"
+                  style="margin-left: 10px; opacity: 0;"><i class="fa fa-pause pausePlay" style="display: #ffc107;"></i></button>
         </div>
-        <div class="panel-body">
+        <div class="panel-body" id="controlPanelBody">
           <color-picker ng-model="$ctrl.color" options="$ctrl.options" event-api="$ctrl.eventApi"></color-picker>
           <rzslider
            id="fanSlider"
@@ -91,7 +93,7 @@
           <button class="btn btn-material btn-circular btnPausePlay" data-chart="temp"
                   style="margin-left: 10px;"><i class="fa fa-pause pausePlay" style="color: #ffc107;"></i></button>
         </div>
-        <div class="panel-body">
+        <div class="panel-body" id="tempPanelBody">
           <div id="tempTab">
             <ul class="nav nav-pills temp-pills">
               <li class="active">
@@ -116,15 +118,15 @@
                 <div class="row" style="margin-top: 30px;">
                   <div class="col-md-4">
                     <span style="background-color: #ffc107; color: white; padding: 10px;">Average: </span>
-                    <span id="tempAverage" style="margin-left: 10px;">{{$ctrl.avgMinMax.temp.avg}}</span>
+                    <span id="tempAverage" style="margin-left: 10px;">{{$ctrl.avgMinMax.temp.avg}} °C</span>
                   </div>
                   <div class="col-md-4">
                     <span style="background-color: #ffc107; color: white; padding: 10px;">Min: </span>
-                    <span id="tempMin" style="margin-left: 10px;">{{$ctrl.avgMinMax.temp.min}}</span>
+                    <span id="tempMin" style="margin-left: 10px;">{{$ctrl.avgMinMax.temp.min}} °C</span>
                   </div>
                   <div class="col-md-4">
                     <span style="background-color: #ffc107; color: white; padding: 10px;">Max: </span>
-                    <span id="tempMax" style="margin-left: 10px;">{{$ctrl.avgMinMax.temp.max}}</span>
+                    <span id="tempMax" style="margin-left: 10px;">{{$ctrl.avgMinMax.temp.max}} °C</span>
                   </div>
                 </div>
               </div>
@@ -171,15 +173,15 @@
                 <div class="row" style="margin-top: 30px;">
                   <div class="col-md-4">
                     <span style="background-color: #db4437; color: white; padding: 10px;">Average: </span>
-                    <span id="humidityAverage" style="margin-left: 10px;">{{$ctrl.avgMinMax.humidity.avg}}</span>
+                    <span id="humidityAverage" style="margin-left: 10px;">{{$ctrl.avgMinMax.humidity.avg}} %</span>
                   </div>
                   <div class="col-md-4">
                     <span style="background-color: #db4437; color: white; padding: 10px;">Min: </span>
-                    <span id="humidityMin" style="margin-left: 10px;">{{$ctrl.avgMinMax.humidity.min}}</span>
+                    <span id="humidityMin" style="margin-left: 10px;">{{$ctrl.avgMinMax.humidity.min}} %</span>
                   </div>
                   <div class="col-md-4">
                     <span style="background-color: #db4437; color: white; padding: 10px;">Max: </span>
-                    <span id="humidityMax" style="margin-left: 10px;">{{$ctrl.avgMinMax.humidity.max}}</span>
+                    <span id="humidityMax" style="margin-left: 10px;">{{$ctrl.avgMinMax.humidity.max}} %</span>
                   </div>
                 </div>
               </div>
@@ -222,15 +224,15 @@
                 <div class="row" style="margin-top: 30px;">
                   <div class="col-md-4">
                     <span style="background-color: #4285f4; color: white; padding: 10px;">Average: </span>
-                    <span id="moistureAverage" style="margin-left: 10px;">{{$ctrl.avgMinMax.moisture.avg}}</span>
+                    <span id="moistureAverage" style="margin-left: 10px;">{{$ctrl.avgMinMax.moisture.avg}} %</span>
                   </div>
                   <div class="col-md-4">
                     <span style="background-color: #4285f4; color: white; padding: 10px;">Min: </span>
-                    <span id="moistureMin" style="margin-left: 10px;">{{$ctrl.avgMinMax.moisture.min}}</span>
+                    <span id="moistureMin" style="margin-left: 10px;">{{$ctrl.avgMinMax.moisture.min}} %</span>
                   </div>
                   <div class="col-md-4">
                     <span style="background-color: #4285f4; color: white; padding: 10px;">Max: </span>
-                    <span id="moistureMax" style="margin-left: 10px;">{{$ctrl.avgMinMax.moisture.max}}</span>
+                    <span id="moistureMax" style="margin-left: 10px;">{{$ctrl.avgMinMax.moisture.max}} %</span>
                   </div>
                 </div>
               </div>
