@@ -160,18 +160,18 @@ angular.module('plantDetail').component('plantDetail', {
 
       console.log(rgb + " " + fanPower + " " + pumpTime);
 
-      self.publish('{"state": {"desired": {"pumpTime": ' + _pumpTime + '}}}');
+      self.publish('{' +
+        '"state": {' +
+          '"desired": {' +
+            '"red": ' + rgb[0] + ',' +
+            '"green": ' + rgb[1] + ',' +
+            '"blue": ' + rgb[2] + ',' +
+            '"fanSpeed": ' + fanPower + ',' +
+            '"pumpTime": ' + pumpTime +
+        '}' +
+        '}' +
+      '}');
     };
-
-
-
-    /*self.sendPumpTime = function (_pumpTime) {
-      self.publish('{"state": {"desired": {"pumpTime": ' + _pumpTime + '}}}');
-    };
-
-    $scope.$on("slideEnded", function () {
-      self.publish('{"state": {"desired": {"fanSpeed": ' + $scope.fanSlider.value + '}}}');
-    });*/
 
     var toHex = function(number) {
       var hex =  number.toString(16);

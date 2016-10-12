@@ -435,27 +435,44 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
           try {
             console.log("message arrived: " +  message.payloadString);
 
-            var temperature = JSON.parse(message.payloadString).state.reported.temperature;
-            if (scope.$ctrl.chartStatus.temp == true) {
-              calculateAvgMinMax("temp", temperature);
-              moveChart(tempChart, [temperature]);
-            }
+            var tempBool = false;
+            var humidityBool = false;
+            var moistureBool = false;
 
-            var humidity = JSON.parse(message.payloadString).state.reported.humidity;
-            if (scope.$ctrl.chartStatus.humidity == true) {
-              calculateAvgMinMax("humidity", humidity);
-              moveChart(humidityChart, [humidity]);
-            }
+            if (JSON.parse(message.payloadString).state.reported != undefined) {
+              if (JSON.parse(message.payloadString).state.reported.temperature != undefined) {
+                var temperature = JSON.parse(message.payloadString).state.reported.temperature;
+                if (scope.$ctrl.chartStatus.temp == true) {
+                  calculateAvgMinMax("temp", temperature);
+                  moveChart(tempChart, [temperature]);
+                }
+                tempBool = true;
+              }
 
-            var moisture = JSON.parse(message.payloadString).state.reported.moisture;
-            if (scope.$ctrl.chartStatus.moisture == true) {
-              calculateAvgMinMax("moisture", moisture);
-              moveChart(moistureChart, [moisture]);
-            }
+              if (JSON.parse(message.payloadString).state.reported.humidity != undefined) {
+                var humidity = JSON.parse(message.payloadString).state.reported.humidity;
+                if (scope.$ctrl.chartStatus.humidity == true) {
+                  calculateAvgMinMax("humidity", humidity);
+                  moveChart(humidityChart, [humidity]);
+                }
+                humidityBool = true;
+              }
 
-            if (scope.$ctrl.chartStatus.aggregate == true) {
-              moveChart(aggregateChart, [temperature, humidity, moisture]);
-              moveChart(aggregateLineChart, [temperature, humidity, moisture]);
+              if (JSON.parse(message.payloadString).state.reported.moisture != undefined) {
+                var moisture = JSON.parse(message.payloadString).state.reported.moisture;
+                if (scope.$ctrl.chartStatus.moisture == true) {
+                  calculateAvgMinMax("moisture", moisture);
+                  moveChart(moistureChart, [moisture]);
+                }
+                moistureBool = true;
+              }
+
+              if (tempBool && humidityBool && moistureBool) {
+                if (scope.$ctrl.chartStatus.aggregate == true) {
+                  moveChart(aggregateChart, [temperature, humidity, moisture]);
+                  moveChart(aggregateLineChart, [temperature, humidity, moisture]);
+                }
+              }
             }
           } catch (e) {
             console.log("error! " + e);
