@@ -78,31 +78,41 @@
                   style="margin-left: 10px; opacity: 0;"><i class="fa fa-pause pausePlay"></i></button>
         </div>
         <div class="panel-body" id="controlPanelBody">
-          <label style="color: #757575;">Wavelength (nm)</label>
-          <rzslider id="nmSlider" rz-slider-model="$ctrl.nmSlider.value" rz-slider-options="$ctrl.nmSlider.options"></rzslider><br><br>
-
-          <label style="color: #757575;">Fan Power</label>
-          <rzslider id="fanSlider" rz-slider-model="$ctrl.fanSlider.value" rz-slider-options="$ctrl.fanSlider.options"></rzslider><br><br>
-
-          <label style="color: #757575;">Pump Time (s)</label><br>
-          <div class="row">
-            <div class="col-md-2">
-              <input class="form-control" ng-model="$ctrl.pumpTime" type="number" min="0" max="120" step="1">
-            </div>
+          <div class="spinner" style="text-align: center;">
+            <div class="rect1"></div>
+            <div class="rect2"></div>
+            <div class="rect3"></div>
+            <div class="rect4"></div>
+            <div class="rect5"></div>
           </div>
-          <br>
 
-          <button id="updateControl" class="btn btn-material btn-material-green" ng-click="$ctrl.updateControl()" style="min-width: 70.13px;">
-            <span>Submit</span>
-            <div class="spinner-bounce update-spin" style="display: none; vertical-align: middle;">
-              <div class="double-bounce1"></div>
-              <div class="double-bounce2"></div>
+          <div class="panel-body-content" style="display: none;">
+            <label style="color: #757575;">Wavelength (nm)</label>
+            <rzslider id="nmSlider" rz-slider-model="$ctrl.nmSlider.value" rz-slider-options="$ctrl.nmSlider.options"></rzslider><br><br>
+
+            <label style="color: #757575;">Fan Power</label>
+            <rzslider id="fanSlider" rz-slider-model="$ctrl.fanSlider.value" rz-slider-options="$ctrl.fanSlider.options"></rzslider><br><br>
+
+            <label style="color: #757575;">Pump Time (s)</label><br>
+            <div class="row">
+              <div class="col-md-2">
+                <input class="form-control" ng-model="$ctrl.pumpTime" type="number" min="0" max="120" step="1">
+              </div>
             </div>
-            <svg style="display: none;" class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-              <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"></circle>
-              <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"></path>
-            </svg>
-          </button>
+            <br>
+
+            <button id="updateControl" class="btn btn-material btn-material-green" ng-click="$ctrl.updateControl()" style="min-width: 70.13px;">
+              <span>Submit</span>
+              <div class="spinner-bounce update-spin" style="display: none; vertical-align: middle;">
+                <div class="double-bounce1"></div>
+                <div class="double-bounce2"></div>
+              </div>
+              <svg style="display: none;" class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"></circle>
+                <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"></path>
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -115,7 +125,15 @@
                   style="margin-left: 10px;"><i class="fa fa-pause pausePlay" style="color: #ffc107;"></i></button>
         </div>
         <div class="panel-body" id="tempPanelBody">
-          <div id="tempTab">
+          <div class="spinner" style="text-align: center;">
+            <div class="rect1"></div>
+            <div class="rect2"></div>
+            <div class="rect3"></div>
+            <div class="rect4"></div>
+            <div class="rect5"></div>
+          </div>
+
+          <div id="tempTab" style="display: none;" class="panel-body-content">
             <ul class="nav nav-pills temp-pills">
               <li class="active">
                 <a data-target="#live-temp" data-toggle="tab">Live</a>
@@ -127,14 +145,6 @@
 
             <div class="tab-content clearfix">
               <div class="tab-pane active" id="live-temp">
-                <div class="spinner" style="text-align: center;">
-                  <div class="rect1"></div>
-                  <div class="rect2"></div>
-                  <div class="rect3"></div>
-                  <div class="rect4"></div>
-                  <div class="rect5"></div>
-                </div>
-
                 <canvas id="live-chart-temperature" plant-detail-canvas-directive></canvas>
                 <div class="row" style="margin-top: 30px;">
                   <div class="col-md-4">
@@ -170,7 +180,15 @@
                   style="margin-left: 10px;"><i class="fa fa-pause pausePlay" style="color: #db4437;"></i></button>
         </div>
         <div class="panel-body">
-          <div id="humidityTab">
+          <div class="spinner" style="text-align: center;">
+            <div class="rect1"></div>
+            <div class="rect2"></div>
+            <div class="rect3"></div>
+            <div class="rect4"></div>
+            <div class="rect5"></div>
+          </div>
+
+          <div id="humidityTab" class="panel-body-content" style="display: none;">
             <ul class="nav nav-pills humidity-pills">
               <li class="active">
                 <a data-target="#live-humidity" data-toggle="tab">Live</a>
@@ -182,14 +200,6 @@
 
             <div class="tab-content clearfix">
               <div class="tab-pane active" id="live-humidity">
-                <div class="spinner" style="text-align: center;">
-                  <div class="rect1"></div>
-                  <div class="rect2"></div>
-                  <div class="rect3"></div>
-                  <div class="rect4"></div>
-                  <div class="rect5"></div>
-                </div>
-
                 <canvas id="live-chart-humidity" plant-detail-canvas-directive></canvas>
                 <div class="row" style="margin-top: 30px;">
                   <div class="col-md-4">
@@ -222,7 +232,15 @@
                   style="margin-left: 10px;"><i class="fa fa-pause pausePlay" style="color: #4285f4;"></i></button>
         </div>
         <div class="panel-body">
-          <div id="moistureTab">
+          <div class="spinner" style="text-align: center;">
+            <div class="rect1"></div>
+            <div class="rect2"></div>
+            <div class="rect3"></div>
+            <div class="rect4"></div>
+            <div class="rect5"></div>
+          </div>
+
+          <div id="moistureTab" class="panel-body-content" style="display: none;">
             <ul class="nav nav-pills moisture-pills">
               <li class="active">
                 <a data-target="#live-moisture" data-toggle="tab">Live</a>
@@ -234,13 +252,6 @@
 
             <div class="tab-content clearfix">
               <div class="tab-pane active" id="live-moisture">
-                <div class="spinner" style="text-align: center;">
-                  <div class="rect1"></div>
-                  <div class="rect2"></div>
-                  <div class="rect3"></div>
-                  <div class="rect4"></div>
-                  <div class="rect5"></div>
-                </div>
                 <canvas id="live-chart-moisture" plant-detail-canvas-directive></canvas>
                 <div class="row" style="margin-top: 30px;">
                   <div class="col-md-4">
@@ -276,7 +287,15 @@
                   style="margin-left: 10px;"><i class="fa fa-pause pausePlay" style="color: #c52062;"></i></button>
         </div>
         <div class="panel-body">
-          <div id="aggregateTab">
+          <div class="spinner" style="text-align: center;">
+            <div class="rect1"></div>
+            <div class="rect2"></div>
+            <div class="rect3"></div>
+            <div class="rect4"></div>
+            <div class="rect5"></div>
+          </div>
+
+          <div id="aggregateTab" class="panel-body-content" style="display: none;">
             <ul class="nav nav-pills moisture-pills">
               <li class="active">
                 <a data-target="#live-aggregate" data-toggle="tab">Live</a>
@@ -288,13 +307,6 @@
 
             <div class="tab-content clearfix">
               <div class="tab-pane active" id="live-aggregate">
-                <div class="spinner" style="text-align: center;">
-                  <div class="rect1"></div>
-                  <div class="rect2"></div>
-                  <div class="rect3"></div>
-                  <div class="rect4"></div>
-                  <div class="rect5"></div>
-                </div>
                 <div class="col-md-6">
                   <canvas id="live-chart-aggregate" plant-detail-canvas-directive></canvas>
                 </div>

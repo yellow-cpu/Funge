@@ -358,6 +358,10 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
           'display': 'none'
         });
 
+        $('.panel-body-content').css({
+          "display": "block"
+        });
+
         var tempChart = new Chart(ctxTemp, {
           type: "line",
           data: tempData,

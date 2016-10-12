@@ -306,21 +306,26 @@ angular.module('plantDetail').component('plantDetail', {
     apigClient.thingsPlantPlantidGet(params, body)
       .then(function (result) {
         console.log("Success: " + JSON.stringify(result));
-        self.thing = result.data;
 
-        self.requestUrl = SigV4Utils.getSignedUrl(
-          'wss',
-          'a3afwj65bsju7b.iot.us-east-1.amazonaws.com',
-          '/mqtt',
-          'iotdevicegateway',
-          $localStorage.region,
-          $localStorage.accessKey,
-          $localStorage.secretKey,
-          $localStorage.sessionToken
-        );
+        if (result.data.thingName == "undefined") {
+          console.log("No plant box associated with thing");
+        } else {
+          self.thing = result.data;
 
-        initClient(self.requestUrl, self.thing.mqttTopic);
-        $scope.$apply();
+          self.requestUrl = SigV4Utils.getSignedUrl(
+            'wss',
+            'a3afwj65bsju7b.iot.us-east-1.amazonaws.com',
+            '/mqtt',
+            'iotdevicegateway',
+            $localStorage.region,
+            $localStorage.accessKey,
+            $localStorage.secretKey,
+            $localStorage.sessionToken
+          );
+
+          initClient(self.requestUrl, self.thing.mqttTopic);
+          $scope.$apply();
+        }
       }).catch(function (result) {
         console.log("Error: " + JSON.stringify(result));
       });
