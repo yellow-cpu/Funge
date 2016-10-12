@@ -64,7 +64,17 @@ public class DDBThingDAO implements ThingDAO {
 
         List<Thing> scanResult = getMapper().scan(Thing.class, scanExpression);
 
-        return scanResult.get(0);
+        Thing thing;
+
+        try {
+            thing = scanResult.get(0);
+        } catch (IndexOutOfBoundsException e) {
+            thing = new Thing();
+            thing.setThingName("undefined");
+            thing.setMqttTopic("undefined");
+        }
+
+        return thing;
     }
 
     public List<Thing> getThings(int limit) {

@@ -37,10 +37,7 @@ public class GetPlantThingAction extends AbstractAction {
             thing = dao.getThingByPlantId(input.getPlantId());
         } catch (final DAOException e) {
             logger.log("Error while fetching plant with id " + input.getPlantId() + "\n" + e.getMessage());
-            thing = new Thing();
-            thing.setThingName("undefined");
-            thing.setMqttTopic("undefined");
-            //throw new InternalErrorException(ExceptionMessages.EX_DAO_ERROR);
+            throw new InternalErrorException(ExceptionMessages.EX_DAO_ERROR);
         }
 
         GetPlantThingResponse getPlantThingResponse = new GetPlantThingResponse();
