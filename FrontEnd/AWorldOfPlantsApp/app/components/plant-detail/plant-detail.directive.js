@@ -361,7 +361,9 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
         $('.panel-body-content').css({
           "display": "block"
         });
-        
+
+        scope.$broadcast('reCalcViewDimensions');
+
         var tempChart = new Chart(ctxTemp, {
           type: "line",
           data: tempData,
