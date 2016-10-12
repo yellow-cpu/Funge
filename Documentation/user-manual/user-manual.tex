@@ -206,26 +206,36 @@ aws s3 cp app s3://website.com --recursive --exclude "*.log"
 		
 \subsection{Main Site}
 	\subsubsection{Navbar}
-	All pages on the main site will display the navbar at the top as well as along the left side.
-		\paragraph{User Actions}
-		\textcolor{red}{(1)} To access your user actions, click on your username at the right of the navbar. From here, you can either navigate to your profile or log out.
-		\begin{figure}[H]
-			\includegraphics[width=\textwidth]{../images/UserManual/navbar-user-actions.PNG}
-			\caption{Navbar User Actions}
-		\end{figure}
-
-\cleardoublepage
-
-\section{Using the System}
-	All the top level items under this section can be directly or indirectly accessed via the left-sided navigation bar.
+	All pages on the main site will display the navbar at the top as well as along the left side. The side navbar is used to navigate the web app. To logout, click ``Logout'' on the top navbar.
 	
 	\begin{figure}[H]
 		\includegraphics[width=\textwidth]{../images/UserManual/side-navbar.png}
 		\caption{Side Navbar}
 	\end{figure}	
+
+\cleardoublepage
+
+\section{Using the System}
+	It's important to note that the terms ``Plant'' and ``Plant Boxes'' in this manual refer to the virtual representations of your own physical plants and plant box devices. When you create a Plant or Plant Box, you are simply associating your real plants and boxes with the system so that they can be monitored and controlled. 
 	
 	\subsection{Dashboard}
-	The Dashboard provides a quick summary of your activities through a timeline, as well as info about your plants, Plant Boxes and score.
+	\subsubsection{Info Cards}
+	The info cards provide you with valuable information about your plants, plant boxes, points and steak.
+	\newline\newline
+	\textbf{Plants} shows your current number of plants. Click on the card to view your plants.
+	\newline
+	\textbf{Plant Boxes} shows your current number of plant boxes. Click on the card to view your plant boxes.
+	\newline
+	\textbf{Points} shows your current point score. The more you do, the better your score!
+	\newline
+	\textbf{Day Streak} shows your current day streak. Log in each consecutive day to look after your plants and improve that streak!
+	\begin{figure}[H]
+		\includegraphics[width=\textwidth]{../images/UserManual/info-cards.png}
+		\caption{Info Cards}
+	\end{figure}
+	
+	\subsubsection{Timeline}
+	The timeline gives you a quick overview of all the activities you have performed. This includes info such as the type of activity, the date the activity was performed and the points associated with the activity. You can also share your timeline activities to any of the supported social media platforms.
 	\begin{figure}[H]
 		\includegraphics[width=\textwidth]{../images/UserManual/timeline.png}
 		\caption{User Timeline}
@@ -236,17 +246,17 @@ aws s3 cp app s3://website.com --recursive --exclude "*.log"
 	\newline
 	\textcolor{red}{(1)} To add a new plant, click on the "Create New Plant" button on the top right. See \hyperref[sec:creating-a-plant]{Creating a Plant} for more information.
 	\newline
-	\textcolor{red}{(2)} To view more information or change some of the details for a specific plant, click on "View Details" for the plant of your choice. See \hyperref[sec:plant-details]{Plant Details} for more information.
+	\textcolor{red}{(2)} To view more information or change some of the details for a specific plant, click anywhere on the card belonging to the plant of your choice. See \hyperref[sec:plant-details]{Plant Details} for more information.
 	\begin{figure}[H]
-		\includegraphics[width=\textwidth]{../images/UserManual/plants.PNG}
+		\includegraphics[width=\textwidth]{../images/UserManual/plants.png}
 		\caption{Plants View}
 	\end{figure}
 		
 		\subsubsection{Creating a Plant}
 		\label{sec:creating-a-plant}
-		To create a plant, enter the plant's unique details and then click on ``Create''.
+		To create a plant, select an existing plant type or create your own, give your plant a name and choose a colour for its card and then click on ``Create''.
 		\begin{figure}[H]
-			\includegraphics[width=\textwidth]{../images/UserManual/create-plant.PNG}
+			\includegraphics[width=\textwidth]{../images/UserManual/create-plant.png}
 			\caption{Creating a Plant}
 		\end{figure}
 		
@@ -258,11 +268,11 @@ aws s3 cp app s3://website.com --recursive --exclude "*.log"
 	\newline
 	\textcolor{red}{(2)} If you'd like to delete your plant, click on the red "Delete" button. \textbf{This is permanent}, so be careful.
 	\begin{figure}[H]
-		\includegraphics[width=\textwidth]{../images/UserManual/plant-details.PNG}
+		\includegraphics[width=\textwidth]{../images/UserManual/plant-details.png}
 		\caption{Plant Details}
 	\end{figure}
 	
-	From the Plant Details, you can also view realtime graphs of the currently selected plant's temperature and humidity, as well as directly change the colour and intensity of your Plant Box's lights.
+	From the Plant Details, you can also view realtime graphs of the currently selected plant's conditions, as well as directly change some of those conditions through the Plant Box.
 	
 	\begin{figure}[H]
 		\includegraphics[width=\textwidth]{../images/UserManual/lights.png}
