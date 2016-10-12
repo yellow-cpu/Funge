@@ -123,26 +123,7 @@ angular.module('plantDetail').component('plantDetail', {
 
     self.requestUrl = null;
 
-    // Colour picker
-    self.colour = "";
-
-    self.options = {
-      required: false,
-      disabled: false,
-      round: false,
-      format: 'rgb',
-      hue: true,
-      alpha: false,
-      swatch: true,
-      swatchPos: 'left',
-      swatchBootstrap: false,
-      swatchOnly: false,
-      pos: 'bottom left',
-      case: 'upper',
-      inline: false,
-      placeholder: 'rgb()'
-    };
-
+    // Light control
     self.nmSlider = {
       value: 500,
       options: {
@@ -162,7 +143,7 @@ angular.module('plantDetail').component('plantDetail', {
     };
 
     // Fan control
-    $scope.fanSlider = {
+    self.fanSlider = {
       value: 0,
       options: {
         floor: 0,
@@ -170,13 +151,25 @@ angular.module('plantDetail').component('plantDetail', {
       }
     };
 
-    self.sendPumpTime = function (_pumpTime) {
+    self.pumpTime = 0;
+
+    self.updateControl = function () {
+      var rgb = nmToRGB(self.nmSlider.value);
+      var fanPower = self.fanSlider.value;
+      var pumpTime = self.pumpTime;
+
+      console.log(rgb + " " + fanPower + " " + pumpTime);
+    };
+
+
+
+    /*self.sendPumpTime = function (_pumpTime) {
       self.publish('{"state": {"desired": {"pumpTime": ' + _pumpTime + '}}}');
     };
 
     $scope.$on("slideEnded", function () {
       self.publish('{"state": {"desired": {"fanSpeed": ' + $scope.fanSlider.value + '}}}');
-    });
+    });*/
 
     var toHex = function(number) {
       var hex =  number.toString(16);
@@ -250,16 +243,6 @@ angular.module('plantDetail').component('plantDetail', {
         blue = Math.round(IntensityMax * Math.pow(blue * factor, Gamma));
       }
       return [red,green,blue];
-    };
-
-    self.eventApi = {
-      onChange: function (api, color, $event) {
-        var colours = color.substring(4, color.length - 1);
-        colours = colours.split(",");
-        console.log(colours[0] + colours[1] + colours[2]);
-
-        //self.publish('{"state": {"desired": {"red": ' + colours[0] + ', "green": ' + colours[1] + ', "blue": ' + colours[2] + '}}}');
-      }
     };
 
     self.chartStatus = {
