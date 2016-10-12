@@ -407,7 +407,7 @@ angular.module('plantDetail').component('plantDetail', {
         newTypes.unshift(search);
       }
 
-      return newTypes;
+      return newTypes.filter((v, i, a) => a.indexOf(v) === i);
     };
   }
 });
