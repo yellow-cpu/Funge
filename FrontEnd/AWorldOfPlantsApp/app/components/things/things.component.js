@@ -130,6 +130,26 @@ angular.module('things').component('things', {
       });
     };
 
+    self.selectPlant = function (plantId) {
+      var params = {
+        "plantId": plantId
+      };
+      var body = {};
+
+      apigClient.plantsPlantIdGet(params, body)
+        .then(function(result) {
+          console.log("Success: " + JSON.stringify(result.data));
+
+          siteService.setPlant(result.data);
+
+          window.location = "/#/site/plants/plant-detail/" + plantId;
+        }).catch(function (result) {
+          console.log("Error: " + JSON.stringify(result));
+      });
+
+      console.log(plantId);
+    };
+
     self.createThing = function() {
       var params = {};
       var body = self.newThing;
