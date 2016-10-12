@@ -159,6 +159,8 @@ angular.module('plantDetail').component('plantDetail', {
       var pumpTime = self.pumpTime;
 
       console.log(rgb + " " + fanPower + " " + pumpTime);
+
+      self.publish('{"state": {"desired": {"pumpTime": ' + _pumpTime + '}}}');
     };
 
 

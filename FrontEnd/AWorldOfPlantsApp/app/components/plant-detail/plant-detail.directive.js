@@ -49,7 +49,16 @@ directive('statusDirective', function($compile) {
         var mqttStatus = $('#mqttStatus');
         mqttStatus.removeClass('alert-danger');
         mqttStatus.addClass('alert-success');
-        mqttStatus.html("Connected to plant box: " + scope.$ctrl.thing.thingName);
+        mqttStatus.find('#connecting').css({
+          "display": "none"
+        });
+        mqttStatus.find('.mqtt-spin').css({
+          "display": "none"
+        });
+
+        mqttStatus.find('#connected').css({
+          "display": "block"
+        });
       }
     });
   };
