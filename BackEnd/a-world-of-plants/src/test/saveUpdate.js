@@ -12,9 +12,12 @@ console.log('Loading function');
 		
 		// Check whether the event has a clientToken element
 		var clientToken = event.clientToken;
-		var thingName = event.state.reported.thingName;
+
 		if(clientToken != undefined && thingName != undefined)
 		{
+			// Variables
+			var docs = event.current.state;
+			var thingName = docs.desired.thingName;
 			// Get the time of the event
 			var timestamp = event.timestamp;
 			if (timestamp == undefined)
@@ -67,13 +70,13 @@ console.log('Loading function');
 						};
 
 						// Check if the temperature item is in the event
-						var temperature = event.state.reported.temperature;
+						var temperature = docs.reported.temperature;
 						if(temperature != undefined)
 							params.Item.temperature = temperature;
 
 
 						// Check if the humidity item is in the event
-						var humidity = event.state.reported.humidity;
+						var humidity = docs.reported.humidity;
 						if(humidity != undefined)
 							params.Item.humidity = humidity;
 							
