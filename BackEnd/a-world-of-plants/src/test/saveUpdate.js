@@ -10,14 +10,16 @@ console.log('Loading function');
 		// Log a message to the console, you can view this text in the Monitoring tab in the Lambda console or in the CloudWatch Logs console
 		console.log("Received event:", eventText);
 		
+		// Variables
+		var docs = event.current.state;
+		console.log(docs);
+		var thingName = docs.desired.thingName;
+		
 		// Check whether the event has a clientToken element
-		var clientToken = event.clientToken;
+		//var clientToken = event.clientToken;
 
-		if(clientToken != undefined && thingName != undefined)
+		if(thingName != undefined)
 		{
-			// Variables
-			var docs = event.current.state;
-			var thingName = docs.desired.thingName;
 			// Get the time of the event
 			var timestamp = event.timestamp;
 			if (timestamp == undefined)
@@ -35,17 +37,23 @@ console.log('Loading function');
 					console.log("----- Thing shadow -----");
 					var thingShadow = JSON.parse(data.payload);
 					console.log(thingShadow);
-					console.log(thingShadow.state.reported);
-					console.log(thingShadow.state.reported.next_update);
+					console.log(thingShadow.state);
+					var nextUpdate = thingShadow.state.desired.next_update;
+					console.log(nextUpdate);
+					if(nextUpdate == undefined)
+					{
+					    console.log("Undefined next_update");
+					    nextUpdate = timestamp - 1;
+					}
 			
-					if(thingShadow.state.reported.next_update < timestamp)
+					if(nextUpdate <= timestamp)
 					{
 						console.log("----- Update Shadow -----");
 						// Get the time 1 hour from now
-						var nextUpdate = parseInt(timestamp + (60*60), 10);
+						nextUpdate = parseInt(timestamp + (60*60), 10);
 						console.log(thingName);
 						var updateParams = {
-							payload: '{"state": {"reported": {"next_update": '+ nextUpdate + '}}}',
+							payload: '{"state": {"desired": {"next_update": '+ nextUpdate + '}}}',
 							thingName: thingName
 						};
 						// Update shadow
