@@ -1,14 +1,13 @@
-#define MOISTURE_PIN A2
-int sensorValue = 0;
-
+int sensorPin = A2; // select the input pin for the potentiometer
+int sensorValue = 0; // variable to store the value coming from the sensor
 void setup() {
-  Serial.begin(9600);
+// declare the ledPin as an OUTPUT:
+Serial.begin(9600);
 }
-
 void loop() {
-  Serial.print("sensor = " );
-  sensorValue = analogRead(MOISTURE_PIN);
-  Serial.println(MOISTURE_PIN);
-  delay(3000);
-
+// read the value from the sensor:
+sensorValue = analogRead(sensorPin);
+delay(1000);
+Serial.print("sensor = " );
+Serial.println(sensorValue);
 }
