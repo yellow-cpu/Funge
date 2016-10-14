@@ -41,8 +41,8 @@ echo
 # Run install script with params
 echo -e "Installing SDK on the Arduino board.\nThis might take a couple of minutes, so please be\npatient..."
 echo
-
-./AWS-IoT-Arduino-Yun-SDK/AWSIoTArduinoYunInstallAll.sh $ip $username $password
+cd AWS-IoT-Arduino-Yun-SDK
+./AWSIoTArduinoYunInstallAll.sh $ip $username $password
 
 echo "Installation complete!"
 echo "=================================================="
