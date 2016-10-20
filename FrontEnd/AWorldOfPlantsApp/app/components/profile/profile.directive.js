@@ -16,9 +16,11 @@ directive('viewTimelineDirective', function ($compile, $localStorage, refreshSer
           });
 
           scope.$ctrl.getTimelineEvents();
+          scope.$ctrl.generateCards();
         });
       } else {
         scope.$ctrl.getTimelineEvents();
+        scope.$ctrl.generateCards();
       }
   };
 
@@ -42,20 +44,6 @@ directive('populateTimelineDirective', function($compile) {
 // Populate data for the cards
 directive('populateCardsDirective', function($compile, $localStorage, refreshService) {
   var linkFunction = function (scope, element, attributes) {
-    if (refreshService.needsRefresh($localStorage.expiration)) {
-      refreshService.refresh($localStorage.username, $localStorage.password, function () {
-        scope.$ctrl.apigClient = apigClientFactory.newClient({
-          accessKey: $localStorage.accessKey,
-          secretKey: $localStorage.secretKey,
-          sessionToken: $localStorage.sessionToken,
-          region: $localStorage.region
-        });
-
-        scope.$ctrl.generateCards();
-      });
-    } else {
-      scope.$ctrl.generateCards();
-    }
   };
 
   return {

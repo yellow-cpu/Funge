@@ -1,42 +1,104 @@
 <link href="components/profile/profile.css" rel="stylesheet"/>
 
-<div class="row cards" view-timeline-directive>
-    <div class="col-lg-6 dash1">
-        <h1 class="page-header">
-            Dashboard - {{$ctrl.username}}
-        </h1>
+<div view-timeline-directive>
+    <div class="row cards">
+        <div class="col-lg-6 dash1">
+            <h1 class="page-header">
+                Dashboard - {{$ctrl.username}}
+            </h1>
+        </div>
+        <div class="col-lg-6">
+            <h1 class="page-header pull-right">
+                {{$ctrl.email}}
+            </h1>
+        </div>
     </div>
-    <div class="col-lg-6">
-        <h1 class="page-header pull-right">
-            {{$ctrl.email}}
-        </h1>
-    </div>
-</div>
 
-<script type="text/javascript">
-    // Adjust cards for small-screen devices
-    if ($(window).width() <= 736) {
-        $('.page-header').remove();
-        $('.dash1').removeClass('col-lg-6').addClass('col-lg-12');
-        $('.dash1').html("<h1 class='page-header'>Dashboard</h1>'");
-    }
+    <script type="text/javascript">
+        // Adjust cards for small-screen devices
+        if ($(window).width() <= 736) {
+            $('.page-header').remove();
+            $('.dash1').removeClass('col-lg-6').addClass('col-lg-12');
+            $('.dash1').html("<h1 class='page-header'>Dashboard</h1>'");
+        }
 
-</script>
+    </script>
 
-<!-- Cards -->
-<div class="row" populate-cards-directive>
-    <div class="col-lg-3 col-md-6">
-        <a href="#/site/plants">
-            <div class="panel panel-green" id="card-plants">
+    <!-- Cards -->
+    <div class="row">
+        <div class="col-lg-3 col-md-6">
+            <a href="#/site/plants">
+                <div class="panel panel-green" id="card-plants">
+                    <div class="panel-heading">
+                        <div class="row card">
+                            <div class="col-xs-3">
+                                <i class="fa fa-leaf fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge">
+                                    <div class="value" style="display: none;">
+                                        {{ $ctrl.numPlants }}
+                                    </div>
+                                    <div class="spinner">
+                                        <div class="rect1"></div>
+                                        <div class="rect2"></div>
+                                        <div class="rect3"></div>
+                                        <div class="rect4"></div>
+                                        <div class="rect5"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer card-plants-footer">
+                        <span class="pull-left">Plants!</span>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <a href="#/site/things">
+                <div class="panel panel-green" id="card-plant-boxes">
+                    <div class="panel-heading">
+                        <div class="row card">
+                            <div class="col-xs-3">
+                                <i class="fa fa-plug fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge">
+                                    <div class="value" style="display: none;">
+                                        {{ $ctrl.numPlantBoxes }}
+                                    </div>
+                                    <div class="spinner">
+                                        <div class="rect1"></div>
+                                        <div class="rect2"></div>
+                                        <div class="rect3"></div>
+                                        <div class="rect4"></div>
+                                        <div class="rect5"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer card-plant-boxes-footer">
+                        <span class="pull-left">Plant Boxes!</span>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-yellow" id="card-score">
                 <div class="panel-heading">
                     <div class="row card">
                         <div class="col-xs-3">
-                            <i class="fa fa-leaf fa-5x"></i>
+                            <i class="fa fa-flag fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
                             <div class="huge">
                                 <div class="value" style="display: none;">
-                                    {{ $ctrl.numPlants }}
+                                    {{ $ctrl.points }}
                                 </div>
                                 <div class="spinner">
                                     <div class="rect1"></div>
@@ -49,25 +111,25 @@
                         </div>
                     </div>
                 </div>
-                <div class="panel-footer card-plants-footer">
-                    <span class="pull-left">Plants!</span>
-                    <div class="clearfix"></div>
-                </div>
+                <a style="cursor: default;">
+                    <div class="panel-footer card-score-footer">
+                        <span class="pull-left">Points!</span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
             </div>
-        </a>
-    </div>
-    <div class="col-lg-3 col-md-6">
-        <a href="#/site/things">
-            <div class="panel panel-green" id="card-plant-boxes">
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-yellow" id="card-streak">
                 <div class="panel-heading">
                     <div class="row card">
                         <div class="col-xs-3">
-                            <i class="fa fa-plug fa-5x"></i>
+                            <i class="fa fa-calendar-check-o fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
                             <div class="huge">
                                 <div class="value" style="display: none;">
-                                    {{ $ctrl.numPlantBoxes }}
+                                    {{ $ctrl.streak }}
                                 </div>
                                 <div class="spinner">
                                     <div class="rect1"></div>
@@ -80,77 +142,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="panel-footer card-plant-boxes-footer">
-                    <span class="pull-left">Plant Boxes!</span>
-                    <div class="clearfix"></div>
-                </div>
+                <a style="cursor: default;">
+                    <div class="panel-footer card-streak-footer">
+                        <span class="pull-left">Day Streak!</span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
             </div>
-        </a>
-    </div>
-    <div class="col-lg-3 col-md-6">
-        <div class="panel panel-yellow" id="card-score">
-            <div class="panel-heading">
-                <div class="row card">
-                    <div class="col-xs-3">
-                        <i class="fa fa-flag fa-5x"></i>
-                    </div>
-                    <div class="col-xs-9 text-right">
-                        <div class="huge">
-                            <div class="value" style="display: none;">
-                                {{ $ctrl.points }}
-                            </div>
-                            <div class="spinner">
-                                <div class="rect1"></div>
-                                <div class="rect2"></div>
-                                <div class="rect3"></div>
-                                <div class="rect4"></div>
-                                <div class="rect5"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <a style="cursor: default;">
-                <div class="panel-footer card-score-footer">
-                    <span class="pull-left">Points!</span>
-                    <div class="clearfix"></div>
-                </div>
-            </a>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-        <div class="panel panel-yellow" id="card-streak">
-            <div class="panel-heading">
-                <div class="row card">
-                    <div class="col-xs-3">
-                        <i class="fa fa-calendar-check-o fa-5x"></i>
-                    </div>
-                    <div class="col-xs-9 text-right">
-                        <div class="huge">
-                            <div class="value" style="display: none;">
-                                {{ $ctrl.streak }}
-                            </div>
-                            <div class="spinner">
-                                <div class="rect1"></div>
-                                <div class="rect2"></div>
-                                <div class="rect3"></div>
-                                <div class="rect4"></div>
-                                <div class="rect5"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <a style="cursor: default;">
-                <div class="panel-footer card-streak-footer">
-                    <span class="pull-left">Day Streak!</span>
-                    <div class="clearfix"></div>
-                </div>
-            </a>
         </div>
     </div>
 </div>
-
 <!-- Loader -->
 <div class="loader-container">
     <span class="loader"><span class="loader-inner"></span></span>

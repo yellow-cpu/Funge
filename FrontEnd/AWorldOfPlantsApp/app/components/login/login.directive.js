@@ -68,16 +68,11 @@ angular.module('login').directive('attemptLogin', function ($state) {
               region: 'us-east-1'
             };
 
-            //var creds = new AWS.Credentials(credentials.accessKey, credentials.secretKey, credentials.sessionToken);
-            // var creds = new AWS.Credentials(credentials.accessKey, credentials.secretKey, credentials.sessionToken);
-
-            //creds.expireTime = 1476941775000; // for testing
-
-            scope.$ctrl.saveLogin(identityId, "asdasdasd", credentials.secretKey, credentials.sessionToken, 1476941775000, 'us-east-1', username, passwordCheck, streak);
-            // scope.$ctrl.saveLogin(identityId, credentials.accessKey, credentials.secretKey, credentials.sessionToken, credentials.expiration, 'us-east-1', username, streak);
+            // scope.$ctrl.saveLogin(identityId, "asdasdasd", credentials.secretKey, credentials.sessionToken, 1476941775000, 'us-east-1', username, passwordCheck, streak);
+            scope.$ctrl.saveLogin(identityId, credentials.accessKey, credentials.secretKey, credentials.sessionToken, credentials.expiration, 'us-east-1', username, streak);
 
           // Navigate to site
-            //$state.go('site.profile');
+            $state.go('site.profile');
         }).catch(function (result) {
         console.log("Error: " + JSON.stringify(result));
         error = $("<div id='error' class=\"alert alert-danger\">" +
