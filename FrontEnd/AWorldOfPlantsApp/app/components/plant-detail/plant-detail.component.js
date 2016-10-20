@@ -363,8 +363,6 @@ angular.module('plantDetail').component('plantDetail', {
     }
 
     self.updatePlant = function () {
-      var params = {};
-      var body = self.plantDetails;
       var plantUpdate = $('#plantUpdate');
 
       plantUpdate.find('span').css({
@@ -375,46 +373,83 @@ angular.module('plantDetail').component('plantDetail', {
         "display": "inline-block"
       });
 
-      self.apigClient.plantsUpdatePost(params, body)
-        .then(function (result) {
-          plantUpdate.find('.update-spin').css({
-            "display": "none"
-          });
+      var apigUpdatePlant = function () {
+        var params = {};
+        var body = self.plantDetails;
 
-          plantUpdate.find('svg').css({
-            "display": "block"
-          });
-
-          setTimeout(function () {
-            plantUpdate.find('span').css({
-              "display": "inline"
+        self.apigClient.plantsUpdatePost(params, body)
+          .then(function (result) {
+            plantUpdate.find('.update-spin').css({
+              "display": "none"
             });
 
             plantUpdate.find('svg').css({
-              "display": "none"
+              "display": "block"
             });
-          }, 3000);
 
-          console.log("Success: " + JSON.stringify(result));
-        }).catch(function (result) {
+            setTimeout(function () {
+              plantUpdate.find('span').css({
+                "display": "inline"
+              });
+
+              plantUpdate.find('svg').css({
+                "display": "none"
+              });
+            }, 3000);
+
+            console.log("Success: " + JSON.stringify(result));
+          }).catch(function (result) {
           console.log("Error: " + JSON.stringify(result));
         });
+      };
+
+      if (refreshService.needsRefresh($localStorage.expiration)) {
+        refreshService.refresh($localStorage.username, $localStorage.password, function () {
+          self.apigClient = apigClientFactory.newClient({
+            accessKey: $localStorage.accessKey,
+            secretKey: $localStorage.secretKey,
+            sessionToken: $localStorage.sessionToken,
+            region: $localStorage.region
+          });
+
+          apigUpdatePlant();
+        });
+      } else {
+        apigUpdatePlant();
+      }
     };
 
     self.deletePlant = function () {
-      var params = {
-        plantId: self.plantDetails.plantId
-      };
+      var apigDeletePlant = function () {
+        var params = {
+          plantId: self.plantDetails.plantId
+        };
 
-      var body = {};
+        var body = {};
 
-      self.apigClient.plantsDeletePlantIdGet(params, body)
-        .then(function (result) {
-          window.location = "/#/site/plants";
-          console.log("Success: " + JSON.stringify(result));
-        }).catch(function (result) {
+        self.apigClient.plantsDeletePlantIdGet(params, body)
+          .then(function (result) {
+            window.location = "/#/site/plants";
+            console.log("Success: " + JSON.stringify(result));
+          }).catch(function (result) {
           console.log("Error: " + JSON.stringify(result));
         });
+      };
+
+      if (refreshService.needsRefresh($localStorage.expiration)) {
+        refreshService.refresh($localStorage.username, $localStorage.password, function () {
+          self.apigClient = apigClientFactory.newClient({
+            accessKey: $localStorage.accessKey,
+            secretKey: $localStorage.secretKey,
+            sessionToken: $localStorage.sessionToken,
+            region: $localStorage.region
+          });
+
+          apigDeletePlant();
+        });
+      } else {
+        apigDeletePlant();
+      }
     };
 
     self.plants = siteService.getPlants();
