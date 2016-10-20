@@ -3,7 +3,7 @@
 // Register `plantDetail` component, along with its associated controller and template
 angular.module('plantDetail').component('plantDetail', {
   templateUrl: 'components/plant-detail/plant-detail.template.html',
-  controller: function PlantDetailController($scope, $localStorage, $sessionStorage, siteService) {
+  controller: function PlantDetailController($scope, $localStorage, $sessionStorage, siteService, refreshService) {
     var self = this;
 
     // Set up MQTT
@@ -288,7 +288,7 @@ angular.module('plantDetail').component('plantDetail', {
 
     // Set up API calls
 
-    var apigClient = apigClientFactory.newClient({
+    self.apigClient = apigClientFactory.newClient({
       accessKey: $localStorage.accessKey,
       secretKey: $localStorage.secretKey,
       sessionToken: $localStorage.sessionToken,
@@ -303,43 +303,64 @@ angular.module('plantDetail').component('plantDetail', {
 
     var body = {};
 
-    apigClient.thingsPlantPlantidGet(params, body)
-      .then(function (result) {
-        console.log("Success: " + JSON.stringify(result));
+    self.getPlantThings = function() {
+      var apigGetPlantThings = function () {
+        self.apigClient.thingsPlantPlantidGet(params, body)
+          .then(function (result) {
+            console.log("Success: " + JSON.stringify(result));
 
-        if (result.data.thingName == "undefined" && result.data.mqttTopic == "undefined") {
-          console.log("No plant box associated with thing");
-          $('#noplantbox').css({
-            "display": "block"
+            if (result.data.thingName == "undefined" && result.data.mqttTopic == "undefined") {
+              console.log("No plant box associated with thing");
+              $('#noplantbox').css({
+                "display": "block"
+              });
+
+              $('#connecting').css({
+                "display": "none"
+              });
+
+              $('#mqttStatus').find('.mqtt-spin').css({
+                "display": "none"
+              });
+            } else {
+              self.thing = result.data;
+
+              self.requestUrl = SigV4Utils.getSignedUrl(
+                'wss',
+                'a3afwj65bsju7b.iot.us-east-1.amazonaws.com',
+                '/mqtt',
+                'iotdevicegateway',
+                $localStorage.region,
+                $localStorage.accessKey,
+                $localStorage.secretKey,
+                $localStorage.sessionToken
+              );
+
+              initClient(self.requestUrl, self.thing.mqttTopic);
+              $scope.$apply();
+            }
+          }).catch(function (result) {
+          console.log("Error: " + JSON.stringify(result));
+        });
+      }
+
+      if (refreshService.needsRefresh($localStorage.expiration)) {
+        refreshService.refresh($localStorage.username, $localStorage.password, function () {
+          self.apigClient = apigClientFactory.newClient({
+            accessKey: $localStorage.accessKey,
+            secretKey: $localStorage.secretKey,
+            sessionToken: $localStorage.sessionToken,
+            region: $localStorage.region
           });
 
-          $('#connecting').css({
-            "display": "none"
-          });
+          console.log("calling apigCreatePlant!");
 
-          $('#mqttStatus').find('.mqtt-spin').css({
-            "display": "none"
-          });
-        } else {
-          self.thing = result.data;
-
-          self.requestUrl = SigV4Utils.getSignedUrl(
-            'wss',
-            'a3afwj65bsju7b.iot.us-east-1.amazonaws.com',
-            '/mqtt',
-            'iotdevicegateway',
-            $localStorage.region,
-            $localStorage.accessKey,
-            $localStorage.secretKey,
-            $localStorage.sessionToken
-          );
-
-          initClient(self.requestUrl, self.thing.mqttTopic);
-          $scope.$apply();
-        }
-      }).catch(function (result) {
-        console.log("Error: " + JSON.stringify(result));
-      });
+          apigGetPlantThings();
+        });
+      } else {
+        apigGetPlantThings();
+      }
+    }
 
     self.updatePlant = function () {
       var params = {};
@@ -354,7 +375,7 @@ angular.module('plantDetail').component('plantDetail', {
         "display": "inline-block"
       });
 
-      apigClient.plantsUpdatePost(params, body)
+      self.apigClient.plantsUpdatePost(params, body)
         .then(function (result) {
           plantUpdate.find('.update-spin').css({
             "display": "none"
@@ -387,7 +408,7 @@ angular.module('plantDetail').component('plantDetail', {
 
       var body = {};
 
-      apigClient.plantsDeletePlantIdGet(params, body)
+      self.apigClient.plantsDeletePlantIdGet(params, body)
         .then(function (result) {
           window.location = "/#/site/plants";
           console.log("Success: " + JSON.stringify(result));

@@ -5,6 +5,10 @@ angular.
 module('plants').
 directive('plantDetailDirective', function ($compile) {
   var linkFunction = function (scope, element, attributes) {
+    $(document).ready(function () {
+      scope.$ctrl.getPlantThings();
+    });
+    
     $('#plantUpdate').on('click', function() {
       // Do some DOM manipulation to indicate something happens
       scope.$ctrl.updatePlant();
