@@ -3,10 +3,23 @@
 // Register `things` directive
 angular.
 module('things').
-directive('thingsDirective', function ($compile, $localStorage) {
+directive('thingsDirective', function ($compile, $localStorage, refreshService) {
   var linkFunction = function (scope, element, attributes) {
     $(document).ready(function () {
-      scope.$ctrl.getThings();
+      if (refreshService.needsRefresh($localStorage.expiration)) {
+        refreshService.refresh($localStorage.username, $localStorage.password, function () {
+          scope.$ctrl.apigClient = apigClientFactory.newClient({
+            accessKey: $localStorage.accessKey,
+            secretKey: $localStorage.secretKey,
+            sessionToken: $localStorage.sessionToken,
+            region: $localStorage.region
+          });
+
+          scope.$ctrl.getThings();
+        });
+      } else {
+        scope.$ctrl.getThings();
+      }
     });
   };
 

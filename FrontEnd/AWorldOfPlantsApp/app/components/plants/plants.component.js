@@ -3,7 +3,7 @@
 // Register `plants` component, along with its associated controller and template
 angular.module('plants').component('plants', {
   templateUrl: 'components/plants/plants.template.html',
-  controller: function PlantsController($scope, $localStorage, siteService) {
+  controller: function PlantsController($scope, $localStorage, siteService, refreshService) {
     var self = this;
 
     self.newPlant = {
@@ -38,29 +38,48 @@ angular.module('plants').component('plants', {
       "November", "December"];
 
     self.createPlant = function() {
-      console.log(self.newPlant);
+      var apigCreatePlant = function () {
+        console.log(self.newPlant);
 
-      var params = {};
-      var body = self.newPlant;
-      body.plantAge = self.timeConverter(Date.now());
+        var params = {};
+        var body = self.newPlant;
+        body.plantAge = self.timeConverter(Date.now());
 
-      self.apigClient.plantsPost(params, body)
-        .then(function (result) {
-          console.log("Success: " + JSON.stringify(result.data));
+        self.apigClient.plantsPost(params, body)
+          .then(function (result) {
+            console.log("Success: " + JSON.stringify(result.data));
 
-          var createdPlant = result.data.plant;
+            var createdPlant = result.data.plant;
 
-          createdPlant.plantDay = createdPlant.plantAge.substring(0, createdPlant.plantAge.indexOf('/'));
-          createdPlant.plantMonth = months[createdPlant.plantAge.split('/')[1] - 1];
-          createdPlant.plantYear = createdPlant.plantAge.split('/')[2];
-          createdPlant.plantYear = createdPlant.plantYear.substring(0, createdPlant.plantYear.indexOf('T'));
+            createdPlant.plantDay = createdPlant.plantAge.substring(0, createdPlant.plantAge.indexOf('/'));
+            createdPlant.plantMonth = months[createdPlant.plantAge.split('/')[1] - 1];
+            createdPlant.plantYear = createdPlant.plantAge.split('/')[2];
+            createdPlant.plantYear = createdPlant.plantYear.substring(0, createdPlant.plantYear.indexOf('T'));
 
-          self.plants.push(createdPlant);
+            self.plants.push(createdPlant);
 
-          $scope.$apply();
-        }).catch(function (result) {
-        console.log("Error: " + JSON.stringify(result));
-      });
+            $scope.$apply();
+          }).catch(function (result) {
+          console.log("Error: " + JSON.stringify(result));
+        });
+      };
+
+      if (refreshService.needsRefresh($localStorage.expiration)) {
+        refreshService.refresh($localStorage.username, $localStorage.password, function () {
+          self.apigClient = apigClientFactory.newClient({
+            accessKey: $localStorage.accessKey,
+            secretKey: $localStorage.secretKey,
+            sessionToken: $localStorage.sessionToken,
+            region: $localStorage.region
+          });
+
+          console.log("calling apigCreatePlant!");
+
+          apigCreatePlant();
+        });
+      } else {
+        apigCreatePlant();
+      }
     };
 
     self.updateDetails = function(_plantId, _plantType, _plantName, _plantAge, _colour) {

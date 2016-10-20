@@ -26,7 +26,7 @@ angular.module('things').component('things', {
       roundCorners: true
     };
 
-    var apigClient = apigClientFactory.newClient({
+    self.apigClient = apigClientFactory.newClient({
       accessKey: $localStorage.accessKey,
       secretKey: $localStorage.secretKey,
       sessionToken: $localStorage.sessionToken,
@@ -92,7 +92,7 @@ angular.module('things').component('things', {
 
     var body = {};
 
-    apigClient.plantsUserUsernameGet(params, body)
+    self.apigClient.plantsUserUsernameGet(params, body)
       .then(function (result) {
         var plants = result.data.plants;
         
@@ -114,7 +114,7 @@ angular.module('things').component('things', {
         "username": _username
       };
 
-      apigClient.thingsDeletePost(params, body)
+      self.apigClient.thingsDeletePost(params, body)
         .then(function (result) {
           console.log(result.data);
 
@@ -136,7 +136,7 @@ angular.module('things').component('things', {
       };
       var body = {};
 
-      apigClient.plantsPlantIdGet(params, body)
+      self.apigClient.plantsPlantIdGet(params, body)
         .then(function(result) {
           console.log("Success: " + JSON.stringify(result.data));
 
@@ -156,7 +156,7 @@ angular.module('things').component('things', {
 
       console.log(body);
 
-      apigClient.thingsPost(params, body)
+      self.apigClient.thingsPost(params, body)
         .then(function (result) {
           console.log("Success: " + JSON.stringify(result.data));
 
@@ -198,7 +198,7 @@ angular.module('things').component('things', {
 
       var body = {};
 
-      apigClient.thingsUserUsernameGet(params, body)
+      self.apigClient.thingsUserUsernameGet(params, body)
         .then(function (result) {
           $(".loader-container").css({
             'display': 'none'

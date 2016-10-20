@@ -48,11 +48,12 @@ angular.
           $localStorage.accessKey = credentials.accessKey;
           $localStorage.secretKey = credentials.secretKey;
           $localStorage.sessionToken = credentials.sessionToken;
+          $localStorage.expiration = credentials.expiration;
           $localStorage.loggedIn = true;
 
           callback();
         }).catch(function (result) {
-
+          console.log("Error: " + result);
       });
     };
 
