@@ -17,10 +17,12 @@ directive('viewTimelineDirective', function ($compile, $localStorage, refreshSer
 
           scope.$ctrl.getTimelineEvents();
           scope.$ctrl.generateCards();
+          scope.$ctrl.getUserDetails();
         });
       } else {
         scope.$ctrl.getTimelineEvents();
         scope.$ctrl.generateCards();
+        scope.$ctrl.getUserDetails();
       }
   };
 

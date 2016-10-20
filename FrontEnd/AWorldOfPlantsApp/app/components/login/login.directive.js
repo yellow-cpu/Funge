@@ -69,9 +69,9 @@ angular.module('login').directive('attemptLogin', function ($state) {
             };
 
             // scope.$ctrl.saveLogin(identityId, "asdasdasd", credentials.secretKey, credentials.sessionToken, 1476941775000, 'us-east-1', username, passwordCheck, streak);
-            scope.$ctrl.saveLogin(identityId, credentials.accessKey, credentials.secretKey, credentials.sessionToken, credentials.expiration, 'us-east-1', username, streak);
+            scope.$ctrl.saveLogin(identityId, credentials.accessKey, credentials.secretKey, credentials.sessionToken, credentials.expiration, 'us-east-1', username, passwordCheck, streak);
 
-          // Navigate to site
+            // Navigate to site
             $state.go('site.profile');
         }).catch(function (result) {
         console.log("Error: " + JSON.stringify(result));
