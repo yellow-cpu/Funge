@@ -15,9 +15,11 @@ directive('thingsDirective', function ($compile, $localStorage, refreshService) 
             region: $localStorage.region
           });
 
+          scope.$ctrl.getUserPlants();
           scope.$ctrl.getThings();
         });
       } else {
+        scope.$ctrl.getUserPlants();
         scope.$ctrl.getThings();
       }
     });

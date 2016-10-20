@@ -3,7 +3,7 @@
 // Register `things` component, along with its associated controller and template
 angular.module('things').component('things', {
   templateUrl: 'components/things/things.template.html',
-  controller: function ThingsController($scope, $localStorage, siteService) {
+  controller: function ThingsController($scope, $localStorage, siteService, refreshService) {
     var self = this;
 
     self.selectedColour = "";
@@ -43,14 +43,6 @@ angular.module('things').component('things', {
     };
 
     self.updateDetails = function($event, _thingName, _username, _colour, _plantId) {
-      var parms = {};
-      var body = {
-        "thingName":_thingName,
-        "colour":_colour,
-        "plantId":_plantId,
-        "username":_username
-      };
-
       var thingUpdate = $($event.currentTarget);
 
       thingUpdate.find('span').css({
@@ -61,112 +53,192 @@ angular.module('things').component('things', {
         "display": "inline-block"
       });
 
-      apigClient.thingsUpdatePost(parms, body)
-        .then(function (result) {
-          thingUpdate.find('.update-spin').css({
-            "display": "none"
-          });
+      var apigUpdateDetails = function () {
+        console.log($localStorage.accessKey + " " + $localStorage.expiration);
 
-          thingUpdate.find('svg').css({
-            "display": "block"
-          });
+        var parms = {};
+        var body = {
+          "thingName":_thingName,
+          "colour":_colour,
+          "plantId":_plantId,
+          "username":_username
+        };
 
-          setTimeout(function () {
-            thingUpdate.find('span').css({
-              "display": "inline"
+        self.apigClient.thingsUpdatePost(parms, body)
+          .then(function (result) {
+            thingUpdate.find('.update-spin').css({
+              "display": "none"
             });
 
             thingUpdate.find('svg').css({
-              "display": "none"
+              "display": "block"
             });
-          }, 3000);
-        console.log(result);
-      }).catch(function (result) {
+
+            setTimeout(function () {
+              thingUpdate.find('span').css({
+                "display": "inline"
+              });
+
+              thingUpdate.find('svg').css({
+                "display": "none"
+              });
+            }, 3000);
+            console.log(result);
+          }).catch(function (result) {
+          console.log("Error: " + JSON.stringify(result));
+        });
+      };
+
+      if (refreshService.needsRefresh($localStorage.expiration)) {
+        refreshService.refresh($localStorage.username, $localStorage.password, function () {
+          self.apigClient = apigClientFactory.newClient({
+            accessKey: $localStorage.accessKey,
+            secretKey: $localStorage.secretKey,
+            sessionToken: $localStorage.sessionToken,
+            region: $localStorage.region
+          });
+
+          apigUpdateDetails();
+        });
+      } else {
+        apigUpdateDetails();
+      }
+    };
+
+    self.getUserPlants = function () {
+      var params = {
+        "username": $localStorage.username
+      };
+
+      var body = {};
+
+      self.apigClient.plantsUserUsernameGet(params, body)
+        .then(function (result) {
+          var plants = result.data.plants;
+
+          self.plantList = [];
+
+          for (var i = 0; i < plants.length; ++i) {
+            self.plantList.push(plants[i]);
+          }
+          $scope.$apply();
+        }).catch(function (result) {
         console.log("Error: " + JSON.stringify(result));
       });
     };
 
-    var params = {
-      "username": $localStorage.username
-    };
-
-    var body = {};
-
-    self.apigClient.plantsUserUsernameGet(params, body)
-      .then(function (result) {
-        var plants = result.data.plants;
-        
-        self.plantList = [];
-
-        for (var i = 0; i < plants.length; ++i) {
-          self.plantList.push(plants[i]);
-        }
-        $scope.$apply();
-      }).catch(function (result) {
-      console.log("Error: " + JSON.stringify(result));
-    });
-
     self.removeThing = function (_thingName, _username) {
-      var params = {};
+      var apigRemoveThing = function () {
+        var params = {};
 
-      var body = {
-        "thingName": _thingName,
-        "username": _username
+        var body = {
+          "thingName": _thingName,
+          "username": _username
+        };
+
+        self.apigClient.thingsDeletePost(params, body)
+          .then(function (result) {
+            console.log(result.data);
+
+            for (var i = 0; i < self.things.length; ++i) {
+              if (self.things[i].thingName == _thingName) {
+                self.things.splice(i, 1);
+              }
+            }
+
+            $scope.$apply();
+          }).catch(function (result) {
+          console.log("Error: " + JSON.stringify(result));
+        });
       };
 
-      self.apigClient.thingsDeletePost(params, body)
-        .then(function (result) {
-          console.log(result.data);
+      if (refreshService.needsRefresh($localStorage.expiration)) {
+        refreshService.refresh($localStorage.username, $localStorage.password, function () {
+          self.apigClient = apigClientFactory.newClient({
+            accessKey: $localStorage.accessKey,
+            secretKey: $localStorage.secretKey,
+            sessionToken: $localStorage.sessionToken,
+            region: $localStorage.region
+          });
 
-          for (var i = 0; i < self.things.length; ++i) {
-            if (self.things[i].thingName == _thingName) {
-              self.things.splice(i, 1);
-            }
-          }
-
-          $scope.$apply();
-        }).catch(function (result) {
-          console.log("Error: " + JSON.stringify(result));
-      });
+          apigRemoveThing();
+        });
+      } else {
+        apigRemoveThing();
+      }
     };
 
     self.selectPlant = function (plantId) {
-      var params = {
-        "plantId": plantId
-      };
-      var body = {};
+      var apigSelectPlant = function () {
+        var params = {
+          "plantId": plantId
+        };
+        var body = {};
 
-      self.apigClient.plantsPlantIdGet(params, body)
-        .then(function(result) {
-          console.log("Success: " + JSON.stringify(result.data));
+        self.apigClient.plantsPlantIdGet(params, body)
+          .then(function (result) {
+            console.log("Success: " + JSON.stringify(result.data));
 
-          siteService.setPlant(result.data);
+            siteService.setPlant(result.data);
 
-          window.location = "/#/site/plants/plant-detail/" + plantId;
-        }).catch(function (result) {
+            window.location = "/#/site/plants/plant-detail/" + plantId;
+          }).catch(function (result) {
           console.log("Error: " + JSON.stringify(result));
-      });
+        });
 
-      console.log(plantId);
+        console.log(plantId);
+      };
+
+      if (refreshService.needsRefresh($localStorage.expiration)) {
+        refreshService.refresh($localStorage.username, $localStorage.password, function () {
+          self.apigClient = apigClientFactory.newClient({
+            accessKey: $localStorage.accessKey,
+            secretKey: $localStorage.secretKey,
+            sessionToken: $localStorage.sessionToken,
+            region: $localStorage.region
+          });
+
+          apigSelectPlant();
+        });
+      } else {
+        apigSelectPlant();
+      }
     };
 
     self.createThing = function() {
-      var params = {};
-      var body = self.newThing;
+      var apigCreateThing = function () {
+        var params = {};
+        var body = self.newThing;
 
-      console.log(body);
+        console.log(body);
 
-      self.apigClient.thingsPost(params, body)
-        .then(function (result) {
-          console.log("Success: " + JSON.stringify(result.data));
+        self.apigClient.thingsPost(params, body)
+          .then(function (result) {
+            console.log("Success: " + JSON.stringify(result.data));
 
-          var tempArr = formatFiles([result.data.thing]);
-          tempArr[0].selectedPlant = tempArr[0].plantId;
-          self.things.push(tempArr[0]);
-          $scope.$apply();
-        }).catch(function (result) {
-        console.log("Error: " + JSON.stringify(result));
-      });
+            var tempArr = formatFiles([result.data.thing]);
+            tempArr[0].selectedPlant = tempArr[0].plantId;
+            self.things.push(tempArr[0]);
+            $scope.$apply();
+          }).catch(function (result) {
+          console.log("Error: " + JSON.stringify(result));
+        });
+      };
+
+      if (refreshService.needsRefresh($localStorage.expiration)) {
+        refreshService.refresh($localStorage.username, $localStorage.password, function () {
+          self.apigClient = apigClientFactory.newClient({
+            accessKey: $localStorage.accessKey,
+            secretKey: $localStorage.secretKey,
+            sessionToken: $localStorage.sessionToken,
+            region: $localStorage.region
+          });
+
+          apigCreateThing();
+        });
+      } else {
+        apigCreateThing();
+      }
     };
 
     var formatFiles = function(thingArr) {
