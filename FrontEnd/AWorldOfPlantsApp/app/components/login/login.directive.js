@@ -55,24 +55,29 @@ angular.module('login').directive('attemptLogin', function ($state) {
       apigClient.loginPost(params, body)
         .then(function (result) {
           console.log(JSON.stringify(result.data));
+            var credentials = result.data.credentials;
+            var identityId = result.data.identityId;
+            var username = result.data.username;
+            var streak = result.data.streak;
+            console.log(credentials);
 
-          var credentials = result.data.credentials;
-          var identityId = result.data.identityId;
-          var username = result.data.username;
-          var streak = result.data.streak;
-          console.log(credentials);
+            AWS.config.credentials = {
+              accessKey: credentials.accessKey,
+              secretKey: credentials.secretKey,
+              sessionToken: credentials.sessionToken,
+              region: 'us-east-1'
+            };
 
-          AWS.config.credentials = {
-            accessKey: credentials.accessKey,
-            secretKey: credentials.secretKey,
-            sessionToken: credentials.sessionToken,
-            region: 'us-east-1'
-          };
+            //var creds = new AWS.Credentials(credentials.accessKey, credentials.secretKey, credentials.sessionToken);
+            // var creds = new AWS.Credentials(credentials.accessKey, credentials.secretKey, credentials.sessionToken);
 
-          scope.$ctrl.saveLogin(identityId, credentials.accessKey, credentials.secretKey, credentials.sessionToken, 'us-east-1', username, streak);
+            //creds.expireTime = 1476941775000; // for testing
+
+            scope.$ctrl.saveLogin(identityId, "asdasdasd", credentials.secretKey, credentials.sessionToken, 1476941775000, 'us-east-1', username, passwordCheck, streak);
+            // scope.$ctrl.saveLogin(identityId, credentials.accessKey, credentials.secretKey, credentials.sessionToken, credentials.expiration, 'us-east-1', username, streak);
 
           // Navigate to site
-          $state.go('site.profile');
+            //$state.go('site.profile');
         }).catch(function (result) {
         console.log("Error: " + JSON.stringify(result));
         error = $("<div id='error' class=\"alert alert-danger\">" +

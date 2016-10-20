@@ -3,10 +3,23 @@
 // Register `profile` directive
 angular.
 module('profile').
-directive('viewTimelineDirective', function ($compile) {
+directive('viewTimelineDirective', function ($compile, $localStorage, refreshService) {
   var linkFunction = function (scope, element, attributes) {
       // Get timeline events of current user from component
-      scope.$ctrl.getTimelineEvents();
+      if (refreshService.needsRefresh($localStorage.expiration)) {
+        refreshService.refresh($localStorage.username, $localStorage.password, function () {
+          scope.$ctrl.apigClient = apigClientFactory.newClient({
+            accessKey: $localStorage.accessKey,
+            secretKey: $localStorage.secretKey,
+            sessionToken: $localStorage.sessionToken,
+            region: $localStorage.region
+          });
+
+          scope.$ctrl.getTimelineEvents();
+        });
+      } else {
+        scope.$ctrl.getTimelineEvents();
+      }
   };
 
   return {
@@ -27,9 +40,22 @@ directive('populateTimelineDirective', function($compile) {
   };
 }).
 // Populate data for the cards
-directive('populateCardsDirective', function($compile) {
+directive('populateCardsDirective', function($compile, $localStorage, refreshService) {
   var linkFunction = function (scope, element, attributes) {
-    scope.$ctrl.generateCards();
+    if (refreshService.needsRefresh($localStorage.expiration)) {
+      refreshService.refresh($localStorage.username, $localStorage.password, function () {
+        scope.$ctrl.apigClient = apigClientFactory.newClient({
+          accessKey: $localStorage.accessKey,
+          secretKey: $localStorage.secretKey,
+          sessionToken: $localStorage.sessionToken,
+          region: $localStorage.region
+        });
+
+        scope.$ctrl.generateCards();
+      });
+    } else {
+      scope.$ctrl.generateCards();
+    }
   };
 
   return {

@@ -3,10 +3,23 @@
 // Register `plants` directive
 angular.
 module('plants').
-directive('viewPlantsDetailsDirective', function ($state) {
+directive('viewPlantsDetailsDirective', function ($state, $localStorage, refreshService) {
   var linkFunction = function (scope, element, attributes) {
     $(document).ready(function() {
-      scope.$ctrl.getPlants();
+      if (refreshService.needsRefresh($localStorage.expiration)) {
+        refreshService.refresh($localStorage.username, $localStorage.password, function () {
+          scope.$ctrl.apigClient = apigClientFactory.newClient({
+            accessKey: $localStorage.accessKey,
+            secretKey: $localStorage.secretKey,
+            sessionToken: $localStorage.sessionToken,
+            region: $localStorage.region
+          });
+
+          scope.$ctrl.getPlants();
+        });
+      } else {
+        scope.$ctrl.getPlants();
+      }
     });
 
     // scope.$ctrl.viewDetails = function() {

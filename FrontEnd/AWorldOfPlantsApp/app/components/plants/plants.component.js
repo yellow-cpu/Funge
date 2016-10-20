@@ -44,7 +44,7 @@ angular.module('plants').component('plants', {
       var body = self.newPlant;
       body.plantAge = self.timeConverter(Date.now());
 
-      apigClient.plantsPost(params, body)
+      self.apigClient.plantsPost(params, body)
         .then(function (result) {
           console.log("Success: " + JSON.stringify(result.data));
 
@@ -79,7 +79,7 @@ angular.module('plants').component('plants', {
       // self.viewDetails();
     };
 
-    var apigClient = apigClientFactory.newClient({
+    self.apigClient = apigClientFactory.newClient({
       accessKey: $localStorage.accessKey,
       secretKey: $localStorage.secretKey,
       sessionToken: $localStorage.sessionToken,
@@ -97,7 +97,7 @@ angular.module('plants').component('plants', {
         'display': 'block'
       });
 
-      apigClient.plantsUserUsernameGet(params, body)
+      self.apigClient.plantsUserUsernameGet(params, body)
           .then(function (result) {
             $(".loader-container").css({
               'display': 'none'

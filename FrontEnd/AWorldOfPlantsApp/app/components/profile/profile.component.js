@@ -3,7 +3,7 @@
 // Register `profile` component, along with its associated controller and template
 angular.module('profile').component('profile', {
   templateUrl: 'components/profile/profile.template.html',
-  controller: function ProfileController($scope, $localStorage, siteService) {
+  controller: function ProfileController($scope, $localStorage, siteService, refreshService) {
     var self = this;
 
     // User variables
@@ -19,12 +19,14 @@ angular.module('profile').component('profile', {
     self.points         = 0;
     self.streak         = $localStorage.streak;
 
-    var apigClient = apigClientFactory.newClient({
+    self.apigClient = apigClientFactory.newClient({
       accessKey: $localStorage.accessKey,
       secretKey: $localStorage.secretKey,
       sessionToken: $localStorage.sessionToken,
       region: $localStorage.region
     });
+
+    console.log(self.apigClient);
 
     var params = {
       "username": self.username
@@ -46,35 +48,25 @@ angular.module('profile').component('profile', {
       return date + '/' + month + '/' + year + ' at ' + hour + ':' + min;
     };
 
-    apigClient.usersUsernameGet(params, body)
+    self.getUserDetails = function () {
+      self.apigClient.usersUsernameGet(params, body)
         .then(function (result) {
           console.log("Success: " + JSON.stringify(result));
           self.email = result.data.email;
           self.username = result.data.username;
           $scope.$apply();
         }).catch(function (result) {
-      console.log("Error: " + JSON.stringify(result));
-    });
+        console.log("Error: " + JSON.stringify(result));
+      });
+    };
 
     $(".timeline-wrapper").css({
       'display': 'none'
     });
 
-    /*$(".loader-container").css({
-        'display': 'block'
-    });
-
-    $(".card-loader").css({
-      'display': 'block'
-    });
-
-    $(".card").css({
-      'display': 'none'
-    });*/
-
     // Get timeline events of current user
     self.getTimelineEvents = function() {
-      apigClient.timelineUsernameGet(params, body)
+      self.apigClient.timelineUsernameGet(params, body)
         .then(function (result) {
           $(".loader-container").css({
             'display': 'none'
@@ -151,7 +143,7 @@ angular.module('profile').component('profile', {
     // Generate the values for the cards
     self.generateCards = function() {
       // Count the number of plants belonging to the user
-      apigClient.plantsUserUsernameGet(params, body)
+      self.apigClient.plantsUserUsernameGet(params, body)
         .then(function (result) {
           self.numPlants = result.data.plants.length;
 
@@ -169,7 +161,7 @@ angular.module('profile').component('profile', {
       });
 
       // Count the number of plant boxes
-      apigClient.thingsUserUsernameGet(params, body)
+      self.apigClient.thingsUserUsernameGet(params, body)
         .then(function (result) {
           self.updateNumPlantBoxes(result.data.things.length);
         });
