@@ -88,3 +88,17 @@
         height: 0%;
     }
 }
+
+#switchToRegister {
+    background-color: #36465D;
+    border-color: #36465D;
+}
+
+#switchToRegister:hover {
+    background-color: #286090;
+    border-color: #286090;
+}
+
+#switchToRegister > a:hover {
+    text-decoration: none;
+}

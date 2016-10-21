@@ -49,7 +49,7 @@ angular.
       }
 
       if ($(window).width() <= 1680) {
-        $('.second-heading').css('margin-top', '0');
+        $('.second-heading').css('padding-top', '0');
       }
     }
   });
