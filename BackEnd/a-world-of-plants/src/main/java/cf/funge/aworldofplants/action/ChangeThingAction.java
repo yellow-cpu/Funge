@@ -63,6 +63,10 @@ public class ChangeThingAction extends AbstractAction {
         AWSIotDataClient iotdata = new AWSIotDataClient();
         iotdata.setEndpoint("a3afwj65bsju7b.iot.us-east-1.amazonaws.com");
 
+        dao.updateThing(updatedThing);
+        ChangeThingResponse output = new ChangeThingResponse();
+        output.setThingId(existingThing.getThingId());
+
         // Update Thing Shadow with plantId
         try
         {
@@ -84,10 +88,6 @@ public class ChangeThingAction extends AbstractAction {
             e.printStackTrace();
             System.out.println("Thing shadow update failed");
         }
-
-        dao.updateThing(updatedThing);
-        ChangeThingResponse output = new ChangeThingResponse();
-        output.setThingId(existingThing.getThingId());
 
         return getGson().toJson(output);
     }
