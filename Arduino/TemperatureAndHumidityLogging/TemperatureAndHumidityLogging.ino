@@ -23,7 +23,7 @@
 DHT dht(DHTPIN, DHTTYPE);
 
 aws_iot_mqtt_client myClient;
-char JSON_buf[100];
+char JSON_buf[150];
 char JSON_buf_red[10];
 char JSON_buf_green[10];
 char JSON_buf_blue[10];
@@ -128,7 +128,7 @@ void loop() {
         Serial.println(" *C");
 
         dtostrf(t, 4, 1, float_buf);
-        dtostrf(h, 4, 1, float_buf2);
+        dtostrf(test, 4, 1, float_buf2);
         float_buf[4] = '\0';
 
         sprintf(JSON_buf, "{\"state\":{\"reported\":{\"temperature\":%s, \"humidity\":%s}}}", float_buf, float_buf2);
