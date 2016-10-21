@@ -170,8 +170,11 @@
                   </div>
                 </div>
               </div>
-              <div class="tab-pane" id="historical-temp">
-                <h3>historical data over here</h3>
+              <div class="tab-pane" id="historical-temp" plant-detail-canvas-directive>
+                <canvas id="historical-chart-temperature"></canvas>
+                Start Date: <md-datepicker ng-model="$ctrl.startDate" md-max-date="$ctrl.maxDate" md-placeholder="Enter date"></md-datepicker>
+                <span style="padding-left: 0.5em;">End Date: <md-datepicker ng-model="$ctrl.endDate" md-min-date="$ctrl.startDate" md-max-date="$ctrl.maxDate" md-placeholder="Enter date"></md-datepicker></span>
+                <button class="btn btn-material btn-material-green pull-right history-chart" data-id="tempHistory">Submit</button>
               </div>
             </div>
           </div>

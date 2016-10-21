@@ -3,8 +3,12 @@
 // Register `plantDetail` component, along with its associated controller and template
 angular.module('plantDetail').component('plantDetail', {
   templateUrl: 'components/plant-detail/plant-detail.template.html',
-  controller: function PlantDetailController($scope, $localStorage, $sessionStorage, siteService, refreshService) {
+  controller: function PlantDetailController($scope, $localStorage, $sessionStorage, siteService, refreshService, $mdDateLocale) {
     var self = this;
+
+    $mdDateLocale.formatDate = function(date) {
+      return moment(date).format('DD/MM/YYYY');
+    };
 
     // Set up MQTT
 
@@ -122,6 +126,13 @@ angular.module('plantDetail').component('plantDetail', {
     };
 
     self.requestUrl = null;
+
+    // Date pickers & history
+    self.startDate = new Date();
+    self.endDate = new Date();
+
+    self.minDate = new Date();
+    self.maxDate = new Date();
 
     // Light control
     self.nmSlider = {
