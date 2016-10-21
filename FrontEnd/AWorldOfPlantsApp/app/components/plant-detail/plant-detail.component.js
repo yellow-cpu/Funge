@@ -163,7 +163,7 @@ angular.module('plantDetail').component('plantDetail', {
       }
     };
 
-    self.pumpTime = 0;
+    self.pumpOn = false;
 
     self.updateControl = function () {
       var updateControl = $('#updateControl');
@@ -178,9 +178,9 @@ angular.module('plantDetail').component('plantDetail', {
 
       var rgb = nmToRGB(self.nmSlider.value);
       var fanPower = self.fanSlider.value;
-      var pumpTime = self.pumpTime;
+      var pumpOn = self.pumpOn ? 1 : 0;
 
-      console.log(rgb + " " + fanPower + " " + pumpTime);
+      console.log(rgb + " " + fanPower + " " + pumpOn);
 
       self.publish('{' +
         '"state": {' +
@@ -189,7 +189,7 @@ angular.module('plantDetail').component('plantDetail', {
             '"green": ' + rgb[1] + ',' +
             '"blue": ' + rgb[2] + ',' +
             '"fanSpeed": ' + fanPower + ',' +
-            '"pumpTime": ' + pumpTime +
+            '"pumpTime": ' + pumpOn +
         '}' +
         '}' +
       '}');
