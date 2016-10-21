@@ -45,6 +45,11 @@ angular.
           $('.arrow').remove();
           $('.section2').remove();
           $('div#firstfooter').hide();
+          $('.heading').css('font-size', '32px');
+      }
+
+      if ($(window).width() <= 1680) {
+        $('.second-heading').css('margin-top', '0');
       }
     }
   });

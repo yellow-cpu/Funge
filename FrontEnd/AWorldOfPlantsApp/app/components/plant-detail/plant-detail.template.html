@@ -1,3 +1,5 @@
+<link href="components/plant-detail/plant-detail.css" rel="stylesheet"/>
+
 <div class="row cards">
   <div class="col-lg-12">
     <h1 class="page-header">Details for: {{$ctrl.plantDetails.plantName}}</h1>
@@ -97,10 +99,13 @@
             <label style="color: #757575;">Fan Power</label>
             <rzslider id="fanSlider" rz-slider-model="$ctrl.fanSlider.value" rz-slider-options="$ctrl.fanSlider.options"></rzslider><br><br>
 
-            <label style="color: #757575;">Pump Time (s)</label><br>
+            <label style="color: #757575;">Pump Toggle: {{ $ctrl.pumpOn }}</label><br>
             <div class="row">
               <div class="col-md-2">
-                <input class="form-control" ng-model="$ctrl.pumpTime" type="number" min="0" max="120" step="1">
+                <label class="switch">
+                  <input ng-model="$ctrl.pumpOn" type="checkbox">
+                  <div class="slider"></div>
+                </label>
               </div>
             </div>
             <br>
