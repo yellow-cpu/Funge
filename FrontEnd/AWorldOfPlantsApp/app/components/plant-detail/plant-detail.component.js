@@ -364,8 +364,6 @@ angular.module('plantDetail').component('plantDetail', {
             region: $localStorage.region
           });
 
-          console.log("calling apigCreatePlant!");
-
           apigGetPlantThings();
         });
       } else {
