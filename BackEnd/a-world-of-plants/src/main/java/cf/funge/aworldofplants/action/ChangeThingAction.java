@@ -9,9 +9,16 @@ import cf.funge.aworldofplants.model.action.ChangeThingRequest;
 import cf.funge.aworldofplants.model.action.ChangeThingResponse;
 import cf.funge.aworldofplants.model.thing.Thing;
 import cf.funge.aworldofplants.model.thing.ThingDAO;
+import com.amazonaws.services.iotdata.AWSIotDataClient;
+import com.amazonaws.services.iotdata.model.UpdateThingShadowRequest;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.google.gson.JsonObject;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.CharacterCodingException;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetEncoder;
 
 /**
  * Action that updates a thing with the specified thing name
@@ -51,6 +58,24 @@ public class ChangeThingAction extends AbstractAction {
         updatedThing.setFiles(existingThing.getFiles());
         updatedThing.setColour(input.getColour());
         updatedThing.setPlantId(input.getPlantId());
+
+        AWSIotDataClient iotdata = new AWSIotDataClient();
+        iotdata.setEndpoint("a3afwj65bsju7b.iot.us-east-1.amazonaws.com");
+
+        // Update Thing Shadow with plantId
+        try
+        {
+            UpdateThingShadowRequest updateRequest = new UpdateThingShadowRequest();
+            updateRequest.setThingName(input.getThingName());
+
+            Charset charset = Charset.forName("UTF-8");
+            CharsetEncoder encoder = charset.newEncoder();
+            updateRequest.setPayload(encoder.encode(CharBuffer.wrap("{'state': {'desired': {'plantId': " + input.getPlantId() + "}}}")));
+            iotdata.updateThingShadow(updateRequest);
+        } catch (CharacterCodingException e)
+        {
+            e.printStackTrace();
+        }
 
         dao.updateThing(updatedThing);
         ChangeThingResponse output = new ChangeThingResponse();
