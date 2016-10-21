@@ -72,7 +72,9 @@ public class ChangeThingAction extends AbstractAction {
 
             UpdateThingShadowRequest updateRequest = new UpdateThingShadowRequest();
             updateRequest.setThingName(input.getThingName());
-            updateRequest.setPayload(encoder.encode(CharBuffer.wrap("{'state': {'desired': {'plantId': '" + input.getPlantId() + "'}}}")));
+            String payload = "{'state': {'desired': {'plantId': '" + input.getPlantId() + "'}}}";
+            System.out.println("Update Payload: " + payload);
+            updateRequest.setPayload(encoder.encode(CharBuffer.wrap(payload)));
             System.out.println("Thing Shadow update: " + updateRequest.toString());
             UpdateThingShadowResult res = iotdata.updateThingShadow(updateRequest);
             logger.log(res.toString());
