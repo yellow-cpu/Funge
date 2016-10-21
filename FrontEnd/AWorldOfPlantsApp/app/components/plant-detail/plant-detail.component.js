@@ -134,6 +134,24 @@ angular.module('plantDetail').component('plantDetail', {
     self.minDate = new Date();
     self.maxDate = new Date();
 
+    self.getPlantHistory = function () {
+      console.log("getting plant history");
+      var params = {};
+      var body = {
+        "plantId": "2d0eb647-f510-40c6-b332-6bab3c15590b",
+        "chartType": "temperature",
+        "startDate": "12345",
+        "endDate": "12345"
+      };
+
+      self.apigClient.plantsHistoryPost(params, body)
+        .then(function (result) {
+          console.log(result);
+        }).catch(function (result) {
+        console.log("Error: " + JSON.stringify(result));
+      });
+    };
+
     // Light control
     self.nmSlider = {
       value: 500,

@@ -663,6 +663,8 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
           var chart = $(this).data("id");
 
           if (chart == "tempHistory") {
+            scope.$ctrl.getPlantHistory();
+
             // callback to scope.$ctrl to fetch data and then update chart
 
             var data = {
