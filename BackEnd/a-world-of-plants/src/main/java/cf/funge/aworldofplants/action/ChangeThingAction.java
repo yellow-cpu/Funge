@@ -66,6 +66,7 @@ public class ChangeThingAction extends AbstractAction {
         // Update Thing Shadow with plantId
         try
         {
+            System.out.println("Updating Thing Shadow...");
             Charset charset = Charset.forName("UTF-8");
             CharsetEncoder encoder = charset.newEncoder();
 
