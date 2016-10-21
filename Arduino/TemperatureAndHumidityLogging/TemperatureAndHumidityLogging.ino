@@ -9,6 +9,8 @@
 #define RED_PIN 3
 #define GREEN_PIN 5
 #define BLUE_PIN 6
+#define PUMP_PIN 2
+#define MOISTURE_PIN A2
 
 // Uncomment whatever type you're using!
 //#define DHTTYPE DHT11   // DHT 11 
@@ -24,16 +26,18 @@ DHT dht(DHTPIN, DHTTYPE);
 
 aws_iot_mqtt_client myClient;
 char JSON_buf[150];
-char JSON_buf_red[10];
-char JSON_buf_green[10];
-char JSON_buf_blue[10];
+char JSON_buf_red[5];
+char JSON_buf_green[5];
+char JSON_buf_blue[5];
+char JSON_buf_fan[5];
+char JSON_buf_pump[5];
 char float_buf[5];
 char float_buf2[5];
 
 float desiredTemp = 70.0;
-float test = 12.0;
 
 int red = 0, green = 0, blue = 0;
+int pumpOn = 0, fanSpeed = 0;
 
 bool success_connect = false;
 
@@ -54,7 +58,7 @@ bool print_log(char* src, int code) {
   }
   return ret;
 }
-IoT_Error_t redResult, greenResult, blueResult;
+IoT_Error_t redResult, greenResult, blueResult, pumpResult, fanResult;
 
 void msg_callback_delta(char* src, unsigned int len, Message_status_t flag) {
   if(flag == STATUS_NORMAL) {
@@ -63,13 +67,26 @@ void msg_callback_delta(char* src, unsigned int len, Message_status_t flag) {
     print_log("getDeltaKeyValueRed", redResult = myClient.getDeltaValueByKey(src, "red", JSON_buf_red, 100));
     print_log("getDeltaKeyValueGreen", greenResult = myClient.getDeltaValueByKey(src, "green", JSON_buf_green, 100));
     print_log("getDeltaKeyValueBlue", blueResult = myClient.getDeltaValueByKey(src, "blue", JSON_buf_blue, 100));
-
+    print_log("getDeltaKeyValuePump", pumpResult = myClient.getDeltaValueByKey(src, "pumpTime", JSON_buf_pump, 100));
+    print_log("getDeltaKeyValueFan", fanResult = myClient.getDeltaValueByKey(src, "fanSpeed", JSON_buf_fan, 100));
+    
     if (redResult == NONE_ERROR)
       red = atoi(JSON_buf_red);
     if (greenResult == NONE_ERROR)
       green = atoi(JSON_buf_green);
     if (blueResult == NONE_ERROR)
       blue = atoi(JSON_buf_blue);
+    if (pumpResult == NONE_ERROR) {
+      pumpOn = atoi(JSON_buf_pump);
+      Serial.println(pumpOn);
+      if (pumpOn >= 1)
+        digitalWrite(PUMP_PIN, HIGH);
+      else digitalWrite(PUMP_PIN, LOW);
+    }
+    if (fanResult == NONE_ERROR)
+      fanSpeed = atoi(JSON_buf_fan);
+
+    
     
     String payload = "{\"state\":{\"reported\":";
     payload += JSON_buf;
@@ -85,6 +102,7 @@ void setup() {
   pinMode(RED_PIN, OUTPUT);
   pinMode(GREEN_PIN, OUTPUT);
   pinMode(BLUE_PIN, OUTPUT);
+  pinMode(PUMP_PIN, OUTPUT);
   
   //while(!Serial);
 
@@ -113,6 +131,7 @@ void loop() {
     // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
     float h = dht.readHumidity();
     float t = dht.readTemperature();
+    int moisture = analogRead(MOISTURE_PIN);
 
     if (isnan(t) || isnan(h)) 
     {
@@ -128,16 +147,17 @@ void loop() {
         Serial.println(" *C");
 
         dtostrf(t, 4, 1, float_buf);
-        dtostrf(test, 4, 1, float_buf2);
+        dtostrf(h, 4, 1, float_buf2);
+
         float_buf[4] = '\0';
 
-        sprintf(JSON_buf, "{\"state\":{\"reported\":{\"temperature\":%s, \"humidity\":%s}}}", float_buf, float_buf2);
+        sprintf(JSON_buf, "{\"state\":{\"reported\":{\"temperature\":%s, \"humidity\":%s, \"moisture\":%d}}}", float_buf, float_buf2, moisture);
         print_log("shadow update", myClient.shadow_update(AWS_IOT_MY_THING_NAME, JSON_buf, strlen(JSON_buf), NULL, 5));
         if(myClient.yield()) {
           Serial.println("Yield failed.");
         }
     }
     
-    delay(7000); // Update every 7000 ms
+    delay(4000); // Update every 4000 ms
   }
 }
