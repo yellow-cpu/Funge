@@ -102,3 +102,17 @@
         height: 0%;
     }
 }
+
+#switchToLogin {
+    background-color: #36465D;
+    border-color: #36465D;
+}
+
+#switchToLogin:hover {
+    background-color: #286090;
+    border-color: #286090;
+}
+
+#switchToLogin > a:hover {
+    text-decoration: none;
+}
