@@ -134,12 +134,16 @@ angular.module('plantDetail').component('plantDetail', {
     self.minDate = new Date();
     self.maxDate = new Date();
 
-    self.getPlantHistory = function () {
+    self.tempHistory = {};
+    self.humidityHistory = {};
+    self.moistureHistory = {};
+
+    self.getPlantHistory = function (chart, callback) {
       console.log("getting plant history");
       var params = {};
       var body = {
         "plantId": "2d0eb647-f510-40c6-b332-6bab3c15590b",
-        "chartType": "temperature",
+        "chartType": chart,
         "startDate": "12345",
         "endDate": "12345"
       };
@@ -147,6 +151,24 @@ angular.module('plantDetail').component('plantDetail', {
       self.apigClient.plantsHistoryPost(params, body)
         .then(function (result) {
           console.log(result);
+
+          console.log(chart);
+
+          if (chart == "tempHistory") {
+            self.tempHistory.avg = result.data.averages;
+            self.tempHistory.mins = result.data.mins;
+            self.tempHistory.maxes = result.data.maxes;
+          } else if (chart == "humidityHistory") {
+            self.humidityHistory.avg = result.data.averages;
+            self.humidityHistory.mins = result.data.mins;
+            self.humidityHistory.maxes = result.data.maxes;
+          } else if (chart == "moistureHistory") {
+            self.moistureHistory.avg = result.data.averages;
+            self.moistureHistory.mins = result.data.mins;
+            self.moistureHistory.maxes = result.data.maxes;
+          }
+
+          callback();
         }).catch(function (result) {
         console.log("Error: " + JSON.stringify(result));
       });

@@ -35,6 +35,8 @@ public class GetPlantHistoryAction extends AbstractAction {
             throw new BadRequestException(ExceptionMessages.EX_INVALID_INPUT);
         }
 
+        System.out.println(input.);
+
         GetPlantHistoryResponse output = new GetPlantHistoryResponse();
         output.setStartTimes(new String[]{"1470096000000", "1470096000000", "1470096000000", "1470096000000"});
         output.setEndTimes(new String[]{"1470096000000", "1470096000000", "1470096000000", "1470096000000"});
