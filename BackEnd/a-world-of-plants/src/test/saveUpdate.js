@@ -19,7 +19,7 @@ exports.handler = (event, context, callback) => {
 	// Check whether the event has a clientToken element
 	//var clientToken = event.clientToken;
 
-	if(thingName != undefined && !plantId.equals("none"))
+	if(thingName != undefined && plantId == "none")
 	{
 		// Get the time of the event
 		var timestamp = event.timestamp;
