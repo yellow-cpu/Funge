@@ -8,5 +8,6 @@ var master = angular.module('master', [
   'landing',
   'site',
   '720kb.socialshare',
+  'ngMaterial',
   'testing'
 ]);

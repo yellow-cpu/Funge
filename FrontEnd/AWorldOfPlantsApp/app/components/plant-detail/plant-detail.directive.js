@@ -115,18 +115,50 @@ directive('pausePlay', function($compile) {
 directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
   var linkFunction = function (scope, element, attributes) {
     var tempCanvas = document.getElementById('live-chart-temperature');
+    var histTempCanvas = document.getElementById('historical-chart-temperature');
+
     var humidityCanvas = document.getElementById('live-chart-humidity');
     var moistureCanvas = document.getElementById('live-chart-moisture');
     var aggregateCanvas = document.getElementById('live-chart-aggregate');
     var aggregateLineCanvas = document.getElementById('live-chart-aggregate-line');
 
     var ctxTemp = tempCanvas.getContext('2d');
+    var ctxHTemp = histTempCanvas.getContext('2d');
+
     var ctxHumidity = humidityCanvas.getContext('2d');
     var ctxMoisture = moistureCanvas.getContext('2d');
     var ctxAggregate = aggregateCanvas.getContext('2d');
     var ctxAggregateLine = aggregateLineCanvas.getContext('2d');
 
     var tempData = {
+      labels: [],
+      datasets: [
+        {
+          label: "Temperature",
+          fill: false,
+          lineTension: 0.1,
+          backgroundColor: "rgba(255, 193 , 7, 0.4)",
+          borderColor: "rgba(255, 193 , 7, 1)",
+          borderCapStyle: 'butt',
+          borderDash: [],
+          borderDashOffset: 0.0,
+          borderJoinStyle: 'miter',
+          pointBorderColor: "rgba(255, 193 , 7, 1)",
+          pointBackgroundColor: "#fff",
+          pointBorderWidth: 1,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: "rgba(255, 193 , 7, 1)",
+          pointHoverBorderColor: "rgba(220,220,220,1)",
+          pointHoverBorderWidth: 2,
+          pointRadius: 1,
+          pointHitRadius: 10,
+          data: [],
+          spanGaps: false
+        }
+      ]
+    };
+
+    var hTempData = {
       labels: [],
       datasets: [
         {
@@ -389,6 +421,27 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
           }
         });
 
+        var hTempChart = new Chart(ctxHTemp, {
+          type: "line",
+          data: hTempData,
+          options: {
+            scales: {
+              yAxes: [{
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Temperature (°C)'
+                }
+              }],
+              xAxes: [{
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Time (hh:mm:ss)'
+                }
+              }]
+            }
+          }
+        });
+
         var humidityChart = new Chart(ctxHumidity, {
           type: "line",
           data: humidityData,
@@ -605,6 +658,17 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
             console.log("error! " + e);
           }
         };
+
+        $(".history-chart").on("click", function () {
+          var chart = $(this).data("id");
+
+          if (chart == "tempHistory") {
+            console.log("updating chart");
+            hTempData.datasets[0].data = [10, 20, 30, 10, 50];
+            hTempData.labels = ["", "", "", "", ""];
+            hTempChart.update(1000);
+          }
+        });
       }
     });
   };
