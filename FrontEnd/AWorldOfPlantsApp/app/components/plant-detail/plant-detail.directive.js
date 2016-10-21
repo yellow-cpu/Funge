@@ -663,9 +663,28 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
           var chart = $(this).data("id");
 
           if (chart == "tempHistory") {
+            scope.$ctrl.getPlantHistory();
+
+            // callback to scope.$ctrl to fetch data and then update chart
+
+            var data = {
+              "avg": [],
+              "min": [],
+              "max": []
+            };
+
+            for (var i = 0; i < 62; ++i) {
+              data.avg.push(Math.floor((Math.random() * 30) + 1));
+            }
+
             console.log("updating chart");
-            hTempData.datasets[0].data = [10, 20, 30, 10, 50];
-            hTempData.labels = ["", "", "", "", ""];
+            hTempData.datasets[0].data = data.avg;
+            hTempData.labels = [];
+
+            for (var i = 0; i < data.avg.length; ++i) {
+              hTempData.labels.push("31/12/2016");
+            }
+
             hTempChart.update(1000);
           }
         });
