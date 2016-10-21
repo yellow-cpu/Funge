@@ -16,6 +16,7 @@ cabal.sandbox.config
 *.hp
 .stack-work/
 *.sty
+.idea
 .idea/Funge.iml
 .idea/deployment.xml
 .idea/encodings.xml
