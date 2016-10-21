@@ -43,6 +43,7 @@ public class GetPlantHistoryAction extends AbstractAction {
         output.setMaxes(new String[]{"15", "23", "18", "35"});
 
         System.out.println("GET PLANT HISTORY DONE");
+        System.out.println(output.toString());
 
         return getGson().toJson(output);
     }
