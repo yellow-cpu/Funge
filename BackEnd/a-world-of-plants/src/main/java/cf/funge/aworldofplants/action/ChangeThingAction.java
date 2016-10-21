@@ -14,7 +14,6 @@ import com.amazonaws.services.iotdata.model.UpdateThingShadowRequest;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.google.gson.JsonObject;
-import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.CharacterCodingException;
 import java.nio.charset.Charset;
@@ -65,13 +64,13 @@ public class ChangeThingAction extends AbstractAction {
         // Update Thing Shadow with plantId
         try
         {
-            UpdateThingShadowRequest updateRequest = new UpdateThingShadowRequest();
-            updateRequest.setThingName(input.getThingName());
-
             Charset charset = Charset.forName("UTF-8");
             CharsetEncoder encoder = charset.newEncoder();
+
+            UpdateThingShadowRequest updateRequest = new UpdateThingShadowRequest();
+            updateRequest.setThingName(input.getThingName());
             updateRequest.setPayload(encoder.encode(CharBuffer.wrap("{'state': {'desired': {'plantId': " + input.getPlantId() + "}}}")));
-            iotdata.updateThingShadow(updateRequest);
+            logger.log(iotdata.updateThingShadow(updateRequest).toString());
         } catch (CharacterCodingException e)
         {
             e.printStackTrace();
