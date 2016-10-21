@@ -99,13 +99,11 @@
             <label style="color: #757575;">Fan Power</label>
             <rzslider id="fanSlider" rz-slider-model="$ctrl.fanSlider.value" rz-slider-options="$ctrl.fanSlider.options"></rzslider><br><br>
 
-            <label style="color: #757575;">Pump Toggle: {{ $ctrl.pumpOn }}</label><br>
             <div class="row">
               <div class="col-md-2">
-                <label class="switch">
-                  <input ng-model="$ctrl.pumpOn" type="checkbox">
-                  <div class="slider"></div>
-                </label>
+                  <md-switch class="md-primary switch" ng-model="$ctrl.pumpOn" aria-label="Pump is " ng-true-value="'on'" ng-false-value="'off'" type="checkbox">
+                    Pump is {{ $ctrl.pumpOn }}
+                  </md-switch><label style="color: #757575;">Pump Toggle: {{ $ctrl.pumpOn }}</label>
               </div>
             </div>
             <br>
