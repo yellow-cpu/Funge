@@ -27,6 +27,7 @@ import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * The DynamoDB implementation of the PlantDAO object. This class expects the Plant bean to be annotated with the required
@@ -145,20 +146,38 @@ public class DDBPlantDAO implements PlantDAO {
         System.out.println("Find Plant history less than certain date: Scan history.");
 
         Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
-        eav.put(":val1", new AttributeValue().withN(endDate));
-        eav.put(":val2", new AttributeValue().withS(plantId));
+        eav.put(":val1", new AttributeValue().withS(plantId));
+        eav.put(":val2", new AttributeValue().withN(startDate));
+        eav.put(":val3", new AttributeValue().withN(endDate));
 
         DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
-                .withFilterExpression("endTime <= :val1 and plantId = :val2")
+                .withFilterExpression("plantId = :val1 and startTime >= :val2 and endTime <= :val3")
                 .withExpressionAttributeValues(eav);
 
         List<PlantHistory> scanResult = getMapper().scan(PlantHistory.class, scanExpression);
 
+        GetPlantHistoryResponse newPlantHistory = new GetPlantHistoryResponse();
+        String[] startTimes = new String[scanResult.size()];
+        String[] endTimes = new String[scanResult.size()];;
+        String[] averages = new String[scanResult.size()];;
+        String[] mins = new String[scanResult.size()];
+        String[] maxes = new String[scanResult.size()];
+
+        int i = 0;
+
         for (PlantHistory plantHistory: scanResult) {
-            System.out.println(plantHistory.getPlantId() + " " + plantHistory.getEndTime());
+            startTimes[i] = Objects.toString(plantHistory.getStartTime(), null);
+            endTimes[i] = Objects.toString(plantHistory.getEndTime(), null);
+            averages[i] = Objects.toString(plantHistory.getAvg(), null);
+            mins[i] = Objects.toString(plantHistory.getMin(), null);
+            maxes[i] = Objects.toString(plantHistory.getMax(), null);
         }
 
-        GetPlantHistoryResponse newPlantHistory = null;
+        newPlantHistory.setStartTimes(startTimes);
+        newPlantHistory.setEndTimes(endTimes);
+        newPlantHistory.setAverages(averages);
+        newPlantHistory.setMins(mins);
+        newPlantHistory.setMaxes(maxes);
 
         return newPlantHistory;
     }
