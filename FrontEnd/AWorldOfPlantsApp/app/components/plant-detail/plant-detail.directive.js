@@ -377,13 +377,13 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
       var now = timeConverter(Date.now());
 
       chart.data.labels.push(now); // add new label at end
-      if (chart.data.labels.length > 7) {
+      if (chart.data.labels.length > 30) {
         chart.data.labels.splice(0, 1); // remove first label
       }
 
       chart.data.datasets.forEach(function(dataset, index) {
         dataset.data.push(newData[index]); // add new data at end
-        if (dataset.data.length > 7) {
+        if (dataset.data.length > 30) {
           dataset.data.splice(0, 1); // remove first data point
         }
       });
