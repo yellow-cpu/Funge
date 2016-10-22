@@ -245,7 +245,7 @@ angular.module('plantDetail').component('plantDetail', {
       });
 
       var rgb = nmToRGB(self.nmSlider.value);
-      var fanPower = self.fanSlider.value;
+      var fanPower = (self.fanSlider.value/100) * 255;
       var pumpOn = (self.pumpOn == "on") ? 1 : 0;
       console.log(self.pumpOn + ": " + pumpOn);
 
