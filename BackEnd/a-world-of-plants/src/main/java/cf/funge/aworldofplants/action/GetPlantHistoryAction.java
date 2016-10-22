@@ -41,7 +41,7 @@ public class GetPlantHistoryAction extends AbstractAction {
 
         GetPlantHistoryResponse output = new GetPlantHistoryResponse();
 
-        output = plantDAO.getPlantHistory(input.getPlantId(), input.getStartDate(), input.getEndDate());
+        output = plantDAO.getPlantHistory(input.getPlantId(), input.getStartDate(), input.getEndDate(), input.getChartType());
 
         return getGson().toJson(output);
     }
