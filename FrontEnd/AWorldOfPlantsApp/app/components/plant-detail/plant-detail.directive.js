@@ -473,6 +473,7 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
                 display: true,
                 ticks: {
                   suggestedMin: 0,
+                  suggestedMax: 30,
                   beginAtZero: true
                 },
                 scaleLabel: {
@@ -499,6 +500,7 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
                 display: true,
                 ticks: {
                   suggestedMin: 0,
+                  suggestedMax: 30,
                   beginAtZero: true
                 },
                 scaleLabel: {
@@ -525,6 +527,7 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
                 display: true,
                 ticks: {
                   suggestedMin: 0,
+                  suggestedMax: 50,
                   beginAtZero: true
                 },
                 scaleLabel: {
@@ -548,6 +551,12 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
           options: {
             scales: {
               yAxes: [{
+                display: true,
+                ticks: {
+                  suggestedMin: 0,
+                  suggestedMax: 50,
+                  beginAtZero: true
+                },
                 scaleLabel: {
                   display: true,
                   labelString: 'Humidity (%)'
@@ -569,6 +578,12 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
           options: {
             scales: {
               yAxes: [{
+                display: true,
+                ticks: {
+                  suggestedMin: 0,
+                  suggestedMax: 300,
+                  beginAtZero: true
+                },
                 scaleLabel: {
                   display: true,
                   labelString: 'Moisture (%)'
@@ -590,6 +605,12 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
           options: {
             scales: {
               yAxes: [{
+                display: true,
+                ticks: {
+                  suggestedMin: 0,
+                  suggestedMax: 300,
+                  beginAtZero: true
+                },
                 scaleLabel: {
                   display: true,
                   labelString: 'Moisture (%)'
