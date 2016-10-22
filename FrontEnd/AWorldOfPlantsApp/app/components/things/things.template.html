@@ -30,7 +30,10 @@
               <select ng-model="thing.selectedPlant" type="text" class="form-control">
                 <option ng-repeat="p in $ctrl.plantList" value="{{p.plantId}}">{{p.plantName}}</option>
               </select>
-              <span class="input-group-btn">
+              <span class="input-group-btn" id="take-me-to-plant">
+                <md-tooltip md-direction="right">
+                  Take me to the plant
+                </md-tooltip>
                 <a ng-click="$ctrl.selectPlant(thing.selectedPlant)" class="btn btn-default" type="button" tabindex="-1"><span class="fa fa-leaf" aria-hidden="true" style="color: #757575;"></span></a>
               </span>
             </div>

@@ -150,8 +150,8 @@ angular.module('plantDetail').component('plantDetail', {
         endDate = self.tempEndDate;
       }
 
-      console.log(startDate);
-      console.log(endDate);
+      console.log(startDate.getTime());
+      console.log(endDate.getTime());
 
       var body = {
         "plantId": "2d0eb647-f510-40c6-b332-6bab3c15590b",

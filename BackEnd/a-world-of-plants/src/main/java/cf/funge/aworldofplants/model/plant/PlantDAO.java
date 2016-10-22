@@ -13,6 +13,7 @@
 package cf.funge.aworldofplants.model.plant;
 
 import cf.funge.aworldofplants.exception.DAOException;
+import cf.funge.aworldofplants.model.action.GetPlantHistoryResponse;
 import cf.funge.aworldofplants.model.action.UpdatePlantRequest;
 
 import java.util.List;
@@ -46,4 +47,6 @@ public interface PlantDAO {
     String updatePlant(Plant plant);
 
     String deletePlant(String plantId);
+
+    GetPlantHistoryResponse getPlantHistory(String plantId, String startDate, String endDate);
 }
