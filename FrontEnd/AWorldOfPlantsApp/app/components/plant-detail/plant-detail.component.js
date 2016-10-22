@@ -128,8 +128,8 @@ angular.module('plantDetail').component('plantDetail', {
     self.requestUrl = null;
 
     // Date pickers & history
-    self.startDate = new Date();
-    self.endDate = new Date();
+    self.tempStartDate = new Date();
+    self.tempEndDate = new Date();
 
     self.minDate = new Date();
     self.maxDate = new Date();
@@ -141,11 +141,23 @@ angular.module('plantDetail').component('plantDetail', {
     self.getPlantHistory = function (chart, callback) {
       console.log("getting plant history");
       var params = {};
+
+      var startDate;
+      var endDate;
+
+      if (chart == "tempHistory") {
+        startDate = self.tempStartDate;
+        endDate = self.tempEndDate;
+      }
+
+      console.log(startDate);
+      console.log(endDate);
+
       var body = {
         "plantId": "2d0eb647-f510-40c6-b332-6bab3c15590b",
         "chartType": chart,
-        "startDate": "12345",
-        "endDate": "12345"
+        "startDate": startDate,
+        "endDate": endDate
       };
 
       self.apigClient.plantsHistoryPost(params, body)
