@@ -94,6 +94,10 @@
 
           <div class="panel-body-content" style="display: none;">
             <label style="color: #757575;">Wavelength (nm)</label>
+            <span style="display: flex; align-items: center;"><md-switch style="padding-left: 0.5em;" class="switch" ng-model="$ctrl.lightOn" ng-true-value="'On'" ng-false-value="'Off'" type="checkbox"></md-switch><i>{{$ctrl.lightOn}}</i></span>
+            <md-checkbox ng-model="$ctrl.lightWhite" aria-label="Checkbox 1" style="margin-left: 0.5em;">
+              <i>White: {{ $ctrl.lightWhite }}</i>
+            </md-checkbox>
             <rzslider id="nmSlider" rz-slider-model="$ctrl.nmSlider.value" rz-slider-options="$ctrl.nmSlider.options" ng-model="$ctrl.nmSlider.value"></rzslider><br><br>
 
             <label style="color: #757575;">Fan Power</label>

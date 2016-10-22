@@ -230,6 +230,8 @@ angular.module('plantDetail').component('plantDetail', {
     };
 
     self.pumpOn = "off";
+    self.lightOn = "On";
+    self.lightWhite = false;
 
     self.updateControl = function () {
       var updateControl = $('#updateControl');
@@ -247,6 +249,15 @@ angular.module('plantDetail').component('plantDetail', {
       var pumpOn = (self.pumpOn == "on") ? 1 : 0;
       console.log(self.pumpOn + ": " + pumpOn);
 
+      if (self.lightOn == "Off") {
+        rgb[0] = 0;
+        rgb[1] = 0;
+        rgb[2] = 0;
+      } else if (self.lightWhite == true) {
+        rgb[0] = 255;
+        rgb[1] = 255;
+        rgb[2] = 255;
+      }
 
       console.log(rgb + " " + fanPower + " " + pumpOn);
 

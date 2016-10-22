@@ -1127,3 +1127,7 @@ ngjs-color-picker li.selectedColor {
           opacity: 0;
       }
 }
+
+md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-icon {
+    background-color: #38474f;
+}

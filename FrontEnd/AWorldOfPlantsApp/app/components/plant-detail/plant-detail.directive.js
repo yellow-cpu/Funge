@@ -801,31 +801,43 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
           }
         };
 
+        //historical graphs
+
         $(".history-chart").on("click", function () {
           var chart = $(this).data("id");
 
           var updateChart = function () {
-            /*for (var i = 0; i < 62; ++i) {
-              data.avg.push(Math.floor((Math.random() * 30) + 1));
-            }*/
-
             var date;
             var i;
 
             console.log("updating chart");
             if (chart == "tempHistory") {
               hTempData.datasets[0].data = [];
-              hTempData.datasets[0].data = scope.$ctrl.tempHistory.avg;
-              hTempData.labels = [];
 
-              for (i = 0; i < scope.$ctrl.tempHistory.startTimes.length; ++i) {
+              var timerId = 0;
+              var k = 0;
+              timerId = setInterval(function () {
+                if (k == scope.$ctrl.tempHistory.avg.length - 1) {
+                  console.log("clearing interval");
+                  clearInterval(timerId);
+                }
+                hTempData.datasets[0].data.push(scope.$ctrl.tempHistory.avg[k]);
+                date = new Date(parseInt(scope.$ctrl.tempHistory.startTimes[k]));
+                hTempData.labels.push(date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear());
+
+                k++;
+
+                console.log(k + " " + scope.$ctrl.tempHistory.avg.length);
+
+                hTempChart.update(100);
+              }, 100);
+
+              /*for (i = 0; i < scope.$ctrl.tempHistory.startTimes.length; ++i) {
                 date = new Date(parseInt(scope.$ctrl.tempHistory.startTimes[i]));
                 console.log(scope.$ctrl.tempHistory.startTimes[i]);
                 console.log(date);
                 hTempData.labels.push(date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear());
-              }
-
-              hTempChart.update(1000);
+              }*/
             } else if (chart == "humidityHistory") {
               console.log("updating humidity");
               hHumidityData.datasets[0].data = [];
