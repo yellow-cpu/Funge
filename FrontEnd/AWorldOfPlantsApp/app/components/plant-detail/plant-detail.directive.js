@@ -581,7 +581,7 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
                 display: true,
                 ticks: {
                   suggestedMin: 0,
-                  suggestedMax: 300,
+                  suggestedMax: 50,
                   beginAtZero: true
                 },
                 scaleLabel: {
@@ -608,7 +608,7 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
                 display: true,
                 ticks: {
                   suggestedMin: 0,
-                  suggestedMax: 300,
+                  suggestedMax: 50,
                   beginAtZero: true
                 },
                 scaleLabel: {
