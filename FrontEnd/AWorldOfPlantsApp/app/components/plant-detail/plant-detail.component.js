@@ -215,7 +215,7 @@ angular.module('plantDetail').component('plantDetail', {
       }
     };
 
-    self.pumpOn = false;
+    self.pumpOn = "off";
 
     self.updateControl = function () {
       var updateControl = $('#updateControl');
