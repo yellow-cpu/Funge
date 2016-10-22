@@ -43,11 +43,11 @@ public class GetPlantHistoryAction extends AbstractAction {
 
         String chartType = "";
 
-        if (input.getChartType() == "tempHistory") {
+        if (input.getChartType().equals("tempHistory")) {
             chartType = "temperature";
-        } else if (input.getChartType() == "humidityHistory") {
+        } else if (input.getChartType().equals("humidityHistory")) {
             chartType = "humidity";
-        } else if (input.getChartType() == "moistureHistory") {
+        } else if (input.getChartType().equals("moistureHistory")) {
             chartType = "moisture";
         }
 
