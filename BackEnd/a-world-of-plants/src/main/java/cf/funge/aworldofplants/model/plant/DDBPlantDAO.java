@@ -157,12 +157,14 @@ public class DDBPlantDAO implements PlantDAO {
 
         List<PlantHistory> scanResult = getMapper().scan(PlantHistory.class, scanExpression);
 
+        int scanResultSize = scanResult.size();
+
         GetPlantHistoryResponse newPlantHistory = new GetPlantHistoryResponse();
-        String[] startTimes = new String[scanResult.size()];
-        String[] endTimes = new String[scanResult.size()];;
-        String[] averages = new String[scanResult.size()];;
-        String[] mins = new String[scanResult.size()];
-        String[] maxes = new String[scanResult.size()];
+        String[] startTimes = new String[scanResultSize];
+        String[] endTimes = new String[scanResultSize];
+        String[] averages = new String[scanResultSize];
+        String[] mins = new String[scanResultSize];
+        String[] maxes = new String[scanResultSize];
 
         int i = 0;
 

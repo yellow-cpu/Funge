@@ -39,7 +39,7 @@ public class GetPlantHistoryAction extends AbstractAction {
 
         PlantDAO plantDAO = DAOFactory.getPlantDAO();
 
-        GetPlantHistoryResponse output = new GetPlantHistoryResponse();
+        GetPlantHistoryResponse output;
 
         output = plantDAO.getPlantHistory(input.getPlantId(), input.getStartDate(), input.getEndDate(), input.getChartType());
 

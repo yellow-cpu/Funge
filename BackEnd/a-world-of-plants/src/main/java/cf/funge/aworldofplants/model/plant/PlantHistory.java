@@ -31,10 +31,9 @@ public class PlantHistory {
         return chartType;
     }
 
-    public void setType(String chartType) {
+    public void setChartType(String chartType) {
         this.chartType = chartType;
     }
-
 
     @DynamoDBAttribute(attributeName = "startTime")
     public long getStartTime() {
