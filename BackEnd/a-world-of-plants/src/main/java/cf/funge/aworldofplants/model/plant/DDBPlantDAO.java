@@ -155,7 +155,7 @@ public class DDBPlantDAO implements PlantDAO {
         List<PlantHistory> scanResult = getMapper().scan(PlantHistory.class, scanExpression);
 
         for (PlantHistory plantHistory: scanResult) {
-            System.out.println(plantHistory);
+            System.out.println(plantHistory.getPlantId() + " " + plantHistory.getEndTime());
         }
 
         GetPlantHistoryResponse newPlantHistory = null;
