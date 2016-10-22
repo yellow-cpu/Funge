@@ -171,6 +171,7 @@ public class DDBPlantDAO implements PlantDAO {
             averages[i] = Objects.toString(plantHistory.getAvg(), null);
             mins[i] = Objects.toString(plantHistory.getMin(), null);
             maxes[i] = Objects.toString(plantHistory.getMax(), null);
+            ++i;
         }
 
         newPlantHistory.setStartTimes(startTimes);

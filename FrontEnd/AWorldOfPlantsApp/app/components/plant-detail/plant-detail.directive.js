@@ -775,6 +775,7 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
 
             console.log("updating chart");
             if (chart == "tempHistory") {
+              hTempData.datasets[0].data = [];
               hTempData.datasets[0].data = scope.$ctrl.tempHistory.avg;
               hTempData.labels = [];
 
@@ -785,6 +786,7 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
               hTempChart.update(1000);
             } else if (chart == "humidityHistory") {
               console.log("updating humidity");
+              hHumidityData.datasets[0].data = [];
               hHumidityData.datasets[0].data = scope.$ctrl.humidityHistory.avg;
               hHumidityData.labels = [];
 
@@ -794,6 +796,7 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
 
               hHumidityChart.update(1000);
             } else if (chart == "moistureHistory") {
+              hMoistureData.datasets[0].data = [];
               hMoistureData.datasets[0].data = scope.$ctrl.moistureHistory.avg;
               hMoistureData.labels = [];
 
