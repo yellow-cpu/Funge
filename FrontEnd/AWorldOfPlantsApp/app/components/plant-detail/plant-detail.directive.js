@@ -491,7 +491,7 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
           }
         });
 
-        var hTempChart = new Chart(ctxHTemp, {
+        var hTempChartOptions = {
           type: "line",
           data: hTempData,
           options: {
@@ -516,7 +516,9 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
               }]
             }
           }
-        });
+        };
+
+        var hTempChart = new Chart(ctxHTemp, hTempChartOptions);
 
         var humidityChart = new Chart(ctxHumidity, {
           type: "line",
@@ -811,36 +813,51 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
 
           var updateChart = function () {
             var date;
-            var i;
+            var i = 0;
 
             console.log("updating chart");
             if (chart == "tempHistory") {
-              hTempData.datasets[0].data = [];
+              i = 0;
+              hTempChart.destroy();
 
-              var timerId = 0;
-              var k = 0;
-              timerId = setInterval(function () {
-                if (k == scope.$ctrl.tempHistory.avg.length - 1) {
+              var ctx = document.getElementById('historical-chart-temperature').getContext('2d');
+
+              hTempChart = new Chart(ctx, hTempChartOptions);
+
+              hTempData.datasets[0].data = [];
+              hTempData.labels = [];
+
+              console.log(scope.$ctrl.tempHistory.startTimes.length);
+
+              // var timerId = 0;
+              // var k = 0;
+             /* timerId = setInterval(function () {
+                if (k == scope.$ctrl.tempHistory.avg.length - 1 || scope.$ctrl.tempHistory.avg.length == 0) {
                   console.log("clearing interval");
                   clearInterval(timerId);
+                } else {
+                  hTempData.datasets[0].data.push(scope.$ctrl.tempHistory.avg[k]);
+                  date = new Date(parseInt(scope.$ctrl.tempHistory.startTimes[k]));
+                  hTempData.labels.push(date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear());
+
+                  k++;
+
+                  console.log(k + " " + scope.$ctrl.tempHistory.avg.length);
+
+                  hTempChart.update(100);
                 }
-                hTempData.datasets[0].data.push(scope.$ctrl.tempHistory.avg[k]);
-                date = new Date(parseInt(scope.$ctrl.tempHistory.startTimes[k]));
-                hTempData.labels.push(date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear());
+              }, 100);*/
 
-                k++;
+              hTempData.datasets[0].data = scope.$ctrl.tempHistory.avg;
 
-                console.log(k + " " + scope.$ctrl.tempHistory.avg.length);
-
-                hTempChart.update(100);
-              }, 100);
-
-              /*for (i = 0; i < scope.$ctrl.tempHistory.startTimes.length; ++i) {
+              for (i = 0; i < scope.$ctrl.tempHistory.startTimes.length; ++i) {
                 date = new Date(parseInt(scope.$ctrl.tempHistory.startTimes[i]));
                 console.log(scope.$ctrl.tempHistory.startTimes[i]);
                 console.log(date);
                 hTempData.labels.push(date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear());
-              }*/
+              }
+
+              hTempChart.update(1000);
             } else if (chart == "humidityHistory") {
               console.log("updating humidity");
               hHumidityData.datasets[0].data = [];
