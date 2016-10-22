@@ -470,6 +470,11 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
           options: {
             scales: {
               yAxes: [{
+                display: true,
+                ticks: {
+                  suggestedMin: 0,
+                  beginAtZero: true
+                },
                 scaleLabel: {
                   display: true,
                   labelString: 'Temperature (°C)'
@@ -491,6 +496,11 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
           options: {
             scales: {
               yAxes: [{
+                display: true,
+                ticks: {
+                  suggestedMin: 0,
+                  beginAtZero: true
+                },
                 scaleLabel: {
                   display: true,
                   labelString: 'Temperature (°C)'
@@ -499,7 +509,7 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
               xAxes: [{
                 scaleLabel: {
                   display: true,
-                  labelString: 'Time (hh:mm:ss)'
+                  labelString: 'Time (dd/mm/yyyy)'
                 }
               }]
             }
@@ -512,6 +522,11 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
           options: {
             scales: {
               yAxes: [{
+                display: true,
+                ticks: {
+                  suggestedMin: 0,
+                  beginAtZero: true
+                },
                 scaleLabel: {
                   display: true,
                   labelString: 'Humidity (%)'
