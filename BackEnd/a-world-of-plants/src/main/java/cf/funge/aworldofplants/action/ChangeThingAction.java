@@ -75,7 +75,7 @@ public class ChangeThingAction extends AbstractAction {
         AWSLambdaClient lambda = new AWSLambdaClient();
 
         lambda.configureRegion(Regions.US_EAST_1);
-        String payload = "{'thingName': '" + input.getThingName() + "', 'shadow': {'state': {'desired': {'plantId':  '" + input.getPlantId() + "'}}}}";
+        String payload = "{\"thingName\": \"" + input.getThingName() + "\", \"shadow\": '{\"state\": {\"desired\": {\"plantId\":  \"" + input.getPlantId() + "\"}}}'}";
 
         InvokeRequest invokeRequest = new InvokeRequest();
         invokeRequest.setFunctionName("updateThingShadow");
