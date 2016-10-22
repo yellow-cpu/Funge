@@ -773,14 +773,20 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
               data.avg.push(Math.floor((Math.random() * 30) + 1));
             }*/
 
+            var date;
+            var i;
+
             console.log("updating chart");
             if (chart == "tempHistory") {
               hTempData.datasets[0].data = [];
               hTempData.datasets[0].data = scope.$ctrl.tempHistory.avg;
               hTempData.labels = [];
 
-              for (var i = 0; i < scope.$ctrl.tempHistory.avg.length; ++i) {
-                hTempData.labels.push("31/12/2016");
+              for (i = 0; i < scope.$ctrl.tempHistory.startTimes.length; ++i) {
+                date = new Date(parseInt(scope.$ctrl.tempHistory.startTimes[i]));
+                console.log(scope.$ctrl.tempHistory.startTimes[i]);
+                console.log(date);
+                hTempData.labels.push(date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear());
               }
 
               hTempChart.update(1000);
@@ -790,8 +796,9 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
               hHumidityData.datasets[0].data = scope.$ctrl.humidityHistory.avg;
               hHumidityData.labels = [];
 
-              for (var i = 0; i < scope.$ctrl.humidityHistory.avg.length; ++i) {
-                hHumidityData.labels.push("31/12/2016");
+              for (i = 0; i < scope.$ctrl.humidityHistory.startTimes.length; ++i) {
+                date = new Date(parseInt(scope.$ctrl.humidityHistory.startTimes[i]));
+                hHumidityData.labels.push(date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear());
               }
 
               hHumidityChart.update(1000);
@@ -800,8 +807,9 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
               hMoistureData.datasets[0].data = scope.$ctrl.moistureHistory.avg;
               hMoistureData.labels = [];
 
-              for (var i = 0; i < scope.$ctrl.moistureHistory.avg.length; ++i) {
-                hMoistureData.labels.push("31/12/2016");
+              for (i = 0; i < scope.$ctrl.moistureHistory.startTimes.length; ++i) {
+                date = new Date(parseInt(scope.$ctrl.moistureHistory.startTimes[i]));
+                hMoistureData.labels.push(date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear());
               }
 
               hMoistureChart.update(1000);

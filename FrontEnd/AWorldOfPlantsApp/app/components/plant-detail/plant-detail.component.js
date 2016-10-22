@@ -142,6 +142,17 @@ angular.module('plantDetail').component('plantDetail', {
       console.log("getting plant history");
       var params = {};
 
+      self.tempStartDate.setHours(2);
+      self.tempStartDate.setMinutes(0);
+      self.tempStartDate.setSeconds(0);
+      self.tempStartDate.setMilliseconds(0);
+
+      self.tempEndDate.setHours(2);
+      self.tempEndDate.setMinutes(0);
+      self.tempEndDate.setSeconds(0);
+      self.tempEndDate.setMilliseconds(0);
+      self.tempEndDate.setDate(self.tempEndDate.getDate() + 1);
+
       var startDate;
       var endDate;
 
@@ -167,14 +178,17 @@ angular.module('plantDetail').component('plantDetail', {
           console.log(chart);
 
           if (chart == "tempHistory") {
+            self.tempHistory.startTimes = result.data.startTimes;
             self.tempHistory.avg = result.data.averages;
             self.tempHistory.mins = result.data.mins;
             self.tempHistory.maxes = result.data.maxes;
           } else if (chart == "humidityHistory") {
+            self.humidityHistory.startTimes = result.data.startTimes;
             self.humidityHistory.avg = result.data.averages;
             self.humidityHistory.mins = result.data.mins;
             self.humidityHistory.maxes = result.data.maxes;
           } else if (chart == "moistureHistory") {
+            self.moistureHistory.startTimes = result.data.startTimes;
             self.moistureHistory.avg = result.data.averages;
             self.moistureHistory.mins = result.data.mins;
             self.moistureHistory.maxes = result.data.maxes;
