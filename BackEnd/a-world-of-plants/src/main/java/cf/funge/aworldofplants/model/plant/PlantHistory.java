@@ -44,29 +44,29 @@ public class PlantHistory {
     }
 
     @DynamoDBAttribute(attributeName = "avg")
-    public String getAvg() {
+    public float getAvg() {
         return avg;
     }
 
-    public void setAvg(String avg) {
+    public void setAvg(float avg) {
         this.avg = avg;
     }
 
     @DynamoDBAttribute(attributeName = "max")
-    public String getMax() {
+    public float getMax() {
         return max;
     }
 
-    public void setMax(String max) {
+    public void setMax(float max) {
         this.max = max;
     }
 
     @DynamoDBAttribute(attributeName = "min")
-    public String getMin() {
+    public float getMin() {
         return min;
     }
 
-    public void setMin(String min) {
+    public void setMin(float min) {
         this.min = min;
     }
 }
