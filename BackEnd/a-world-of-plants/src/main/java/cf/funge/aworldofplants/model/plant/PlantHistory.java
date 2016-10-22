@@ -9,8 +9,8 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 @DynamoDBTable(tableName = DynamoDBConfiguration.PLANT_HISTORY_TABLE_NAME)
 public class PlantHistory {
     private String plantId;
-    private String startTime;
-    private String endTime;
+    private long startTime;
+    private long endTime;
     private String avg;
     private String max;
     private String min;
@@ -26,20 +26,20 @@ public class PlantHistory {
     }
 
     @DynamoDBAttribute(attributeName = "startTime")
-    public String getStartTime() {
+    public long getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(long startTime) {
         this.startTime = startTime;
     }
 
     @DynamoDBAttribute(attributeName = "endTime")
-    public String getEndTime() {
+    public long getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEndTime(long endTime) {
         this.endTime = endTime;
     }
 
