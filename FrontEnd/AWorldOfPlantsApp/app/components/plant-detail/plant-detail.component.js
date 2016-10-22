@@ -229,7 +229,7 @@ angular.module('plantDetail').component('plantDetail', {
       }
     };
 
-    self.pumpOn = false;
+    self.pumpOn = "off";
 
     self.updateControl = function () {
       var updateControl = $('#updateControl');
@@ -244,7 +244,9 @@ angular.module('plantDetail').component('plantDetail', {
 
       var rgb = nmToRGB(self.nmSlider.value);
       var fanPower = self.fanSlider.value;
-      var pumpOn = self.pumpOn ? 1 : 0;
+      var pumpOn = (self.pumpOn == "on") ? 1 : 0;
+      console.log(self.pumpOn + ": " + pumpOn);
+
 
       console.log(rgb + " " + fanPower + " " + pumpOn);
 

@@ -1,4 +1,7 @@
-.switch {
-    padding-left: 25px;
-    padding-top: 25px;
+md-switch.md-checked .md-thumb{
+    background-color: #38474f;
+}
+
+md-switch.md-checked .md-bar{
+    background-color: rgba(56,71,79, 0.5);
 }
