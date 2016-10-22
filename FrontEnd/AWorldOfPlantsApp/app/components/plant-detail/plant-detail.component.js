@@ -146,15 +146,15 @@ angular.module('plantDetail').component('plantDetail', {
       var endDate;
 
       if (chart == "tempHistory") {
-        startDate = self.tempStartDate;
-        endDate = self.tempEndDate;
+        startDate = self.tempStartDate.getTime();
+        endDate = self.tempEndDate.getTime();
       }
 
-      console.log(startDate.getTime());
-      console.log(endDate.getTime());
+      console.log(startDate);
+      console.log(endDate);
 
       var body = {
-        "plantId": "2d0eb647-f510-40c6-b332-6bab3c15590b",
+        "plantId": self.plantDetails.plantId,
         "chartType": chart,
         "startDate": startDate,
         "endDate": endDate
