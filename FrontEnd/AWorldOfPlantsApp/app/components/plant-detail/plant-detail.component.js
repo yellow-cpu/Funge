@@ -171,6 +171,8 @@ angular.module('plantDetail').component('plantDetail', {
         "endDate": endDate
       };
 
+      console.log(body);
+
       self.apigClient.plantsHistoryPost(params, body)
         .then(function (result) {
           console.log(result);
