@@ -21,7 +21,7 @@ public class GetPlantHistoryAction extends AbstractAction {
         GetPlantHistoryRequest input = getGson().fromJson(request, GetPlantHistoryRequest.class);
 
         System.out.println("GET PLANT HISTORY BEGINNING");
-        System.out.println(input.toString());
+        System.out.println(input.getStartDate() + " " + input.getEndDate());
 
         if (input == null ||
                 input.getPlantId() == null ||
@@ -34,8 +34,6 @@ public class GetPlantHistoryAction extends AbstractAction {
                 input.getEndDate().trim().equals("")) {
             throw new BadRequestException(ExceptionMessages.EX_INVALID_INPUT);
         }
-
-        System.out.println(input.);
 
         GetPlantHistoryResponse output = new GetPlantHistoryResponse();
         output.setStartTimes(new String[]{"1470096000000", "1470096000000", "1470096000000", "1470096000000"});
