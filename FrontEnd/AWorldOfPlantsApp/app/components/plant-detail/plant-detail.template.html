@@ -179,10 +179,10 @@
                 <canvas id="historical-chart-temperature"></canvas>
                 <div class="row" style="margin-top: 10px;">
                   <div class="col-md-5">
-                    Begin: <md-datepicker ng-model="$ctrl.startDate" md-max-date="$ctrl.maxDate" md-placeholder="Enter date"></md-datepicker>
+                    Begin: <md-datepicker ng-model="$ctrl.tempStartDate" md-max-date="$ctrl.maxDate" md-placeholder="Enter date"></md-datepicker>
                   </div>
                   <div class="col-md-5">
-                    <span style="padding-left: 0.5em;">End: <md-datepicker ng-model="$ctrl.endDate" md-min-date="$ctrl.startDate" md-max-date="$ctrl.maxDate" md-placeholder="Enter date"></md-datepicker></span>
+                    <span style="padding-left: 0.5em;">End: <md-datepicker ng-model="$ctrl.tempEndDate" md-min-date="$ctrl.tempStartDate" md-max-date="$ctrl.maxDate" md-placeholder="Enter date"></md-datepicker></span>
                   </div>
                   <div class="col-md-2">
                     <button class="btn btn-material btn-material-green pull-right history-chart" data-id="tempHistory">Submit</button>

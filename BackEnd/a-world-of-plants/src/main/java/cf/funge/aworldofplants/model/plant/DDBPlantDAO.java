@@ -14,6 +14,9 @@ package cf.funge.aworldofplants.model.plant;
 
 import cf.funge.aworldofplants.configuration.DynamoDBConfiguration;
 import cf.funge.aworldofplants.exception.DAOException;
+import cf.funge.aworldofplants.model.action.GetPlantHistoryRequest;
+import cf.funge.aworldofplants.model.action.GetPlantHistoryResponse;
+import cf.funge.aworldofplants.model.action.GetPlantThingResponse;
 import cf.funge.aworldofplants.model.action.UpdatePlantRequest;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
@@ -136,6 +139,28 @@ public class DDBPlantDAO implements PlantDAO {
         }
 
         return "Plant deleted successfully";
+    }
+
+    public GetPlantHistoryResponse getPlantHistory(String plantId, String startDate, String endDate) {
+        System.out.println("Find Plant history less than certain date: Scan history.");
+
+        Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
+        eav.put(":val1", new AttributeValue().withN(endDate));
+        eav.put(":val2", new AttributeValue().withS(plantId));
+
+        DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
+                .withFilterExpression("endTime <= :val1 and plantId = :val2")
+                .withExpressionAttributeValues(eav);
+
+        List<PlantHistory> scanResult = getMapper().scan(PlantHistory.class, scanExpression);
+
+        for (PlantHistory plantHistory: scanResult) {
+            System.out.println(plantHistory);
+        }
+
+        GetPlantHistoryResponse newPlantHistory = null;
+
+        return newPlantHistory;
     }
 
     /**
