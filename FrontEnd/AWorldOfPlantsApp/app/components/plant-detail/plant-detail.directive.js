@@ -757,6 +757,9 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
 
               if (JSON.parse(message.payloadString).state.reported.moisture != undefined) {
                 var moisture = JSON.parse(message.payloadString).state.reported.moisture;
+
+                moisture = (moisture/700) * 100;
+
                 if (scope.$ctrl.chartStatus.moisture == true) {
                   calculateAvgMinMax("moisture", moisture);
                   moveChart(moistureChart, [moisture]);
