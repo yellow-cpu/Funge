@@ -142,16 +142,17 @@ public class DDBPlantDAO implements PlantDAO {
         return "Plant deleted successfully";
     }
 
-    public GetPlantHistoryResponse getPlantHistory(String plantId, String startDate, String endDate) {
+    public GetPlantHistoryResponse getPlantHistory(String plantId, String startDate, String endDate, String type) {
         System.out.println("Find Plant history less than certain date: Scan history.");
 
         Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
         eav.put(":val1", new AttributeValue().withS(plantId));
         eav.put(":val2", new AttributeValue().withN(startDate));
         eav.put(":val3", new AttributeValue().withN(endDate));
+        eav.put(":val4", new AttributeValue().withS(type));
 
         DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
-                .withFilterExpression("plantId = :val1 and startTime >= :val2 and endTime <= :val3")
+                .withFilterExpression("plantId = :val1 and startTime >= :val2 and endTime <= :val3 and type = :val4")
                 .withExpressionAttributeValues(eav);
 
         List<PlantHistory> scanResult = getMapper().scan(PlantHistory.class, scanExpression);

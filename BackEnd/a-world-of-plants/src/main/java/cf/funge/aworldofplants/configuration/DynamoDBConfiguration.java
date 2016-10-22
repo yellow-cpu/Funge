@@ -22,7 +22,7 @@ public class DynamoDBConfiguration {
     public static final int SCAN_LIMIT = 50;
     public static final String PLANT_TABLE_NAME = "plants";
 
-    public static final String PLANT_HISTORY_TABLE_NAME = "temperatureDaily";
+    public static final String PLANT_HISTORY_TABLE_NAME = "history";
 
     public static final String THING_TABLE_NAME = "things";
 

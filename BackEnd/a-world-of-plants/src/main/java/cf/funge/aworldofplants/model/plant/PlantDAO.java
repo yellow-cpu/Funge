@@ -48,5 +48,5 @@ public interface PlantDAO {
 
     String deletePlant(String plantId);
 
-    GetPlantHistoryResponse getPlantHistory(String plantId, String startDate, String endDate);
+    GetPlantHistoryResponse getPlantHistory(String plantId, String startDate, String endDate, String type);
 }
