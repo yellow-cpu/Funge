@@ -3,8 +3,10 @@ package cf.funge.aworldofplants.action;
 import cf.funge.aworldofplants.configuration.ExceptionMessages;
 import cf.funge.aworldofplants.exception.BadRequestException;
 import cf.funge.aworldofplants.exception.InternalErrorException;
+import cf.funge.aworldofplants.model.DAOFactory;
 import cf.funge.aworldofplants.model.action.GetPlantHistoryRequest;
 import cf.funge.aworldofplants.model.action.GetPlantHistoryResponse;
+import cf.funge.aworldofplants.model.plant.PlantDAO;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.google.gson.JsonObject;
@@ -21,7 +23,7 @@ public class GetPlantHistoryAction extends AbstractAction {
         GetPlantHistoryRequest input = getGson().fromJson(request, GetPlantHistoryRequest.class);
 
         System.out.println("GET PLANT HISTORY BEGINNING");
-        System.out.println(input.toString());
+        System.out.println(input.getStartDate() + " " + input.getEndDate());
 
         if (input == null ||
                 input.getPlantId() == null ||
@@ -35,7 +37,9 @@ public class GetPlantHistoryAction extends AbstractAction {
             throw new BadRequestException(ExceptionMessages.EX_INVALID_INPUT);
         }
 
-        System.out.println(input.);
+        PlantDAO plantDAO = DAOFactory.getPlantDAO();
+
+        plantDAO.getPlantHistory(input.getPlantId(), input.getStartDate(), input.getEndDate());
 
         GetPlantHistoryResponse output = new GetPlantHistoryResponse();
         output.setStartTimes(new String[]{"1470096000000", "1470096000000", "1470096000000", "1470096000000"});
