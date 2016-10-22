@@ -79,13 +79,20 @@ angular.module('register').directive('attemptRegister', function ($state) {
 
             apigClient.usersPost(params, body)
                 .then(function (result) {
-                    console.log("Success: " + JSON.stringify(result.data));
-
                     var credentials = result.data.credentials;
                     var identityId = result.data.identityId;
                     var username = result.data.username;
+                    var streak = result.data.streak;
+                    console.log(credentials);
 
-                    scope.$ctrl.saveLogin(identityId, credentials.accessKey, credentials.secretKey, credentials.sessionToken, 'us-east-1', username);
+                    AWS.config.credentials = {
+                        accessKey: credentials.accessKey,
+                        secretKey: credentials.secretKey,
+                        sessionToken: credentials.sessionToken,
+                        region: 'us-east-1'
+                    };
+
+                    scope.$ctrl.saveLogin(identityId, credentials.accessKey, credentials.secretKey, credentials.sessionToken, credentials.expiration, 'us-east-1', username, password.val(), 0);
 
                     // Navigate to site
                     $state.go('site.profile');
