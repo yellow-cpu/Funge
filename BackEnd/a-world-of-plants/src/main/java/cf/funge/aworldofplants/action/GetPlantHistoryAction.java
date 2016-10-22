@@ -39,17 +39,9 @@ public class GetPlantHistoryAction extends AbstractAction {
 
         PlantDAO plantDAO = DAOFactory.getPlantDAO();
 
-        plantDAO.getPlantHistory(input.getPlantId(), input.getStartDate(), input.getEndDate());
-
         GetPlantHistoryResponse output = new GetPlantHistoryResponse();
-        output.setStartTimes(new String[]{"1470096000000", "1470096000000", "1470096000000", "1470096000000"});
-        output.setEndTimes(new String[]{"1470096000000", "1470096000000", "1470096000000", "1470096000000"});
-        output.setAverages(new String[]{"10", "20", "10", "30"});
-        output.setMins(new String[]{"1", "3", "4", "2"});
-        output.setMaxes(new String[]{"15", "23", "18", "35"});
 
-        System.out.println("GET PLANT HISTORY DONE");
-        System.out.println(output.toString());
+        output = plantDAO.getPlantHistory(input.getPlantId(), input.getStartDate(), input.getEndDate());
 
         return getGson().toJson(output);
     }
