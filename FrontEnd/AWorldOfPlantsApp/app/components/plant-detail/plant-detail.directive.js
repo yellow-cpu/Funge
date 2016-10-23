@@ -127,8 +127,8 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
     var moistureCanvas = document.getElementById('live-chart-moisture');
     var histMoistureCanvas = document.getElementById('historical-chart-moisture');
 
-    var aggregateCanvas = document.getElementById('live-chart-aggregate');
-    var aggregateLineCanvas = document.getElementById('live-chart-aggregate-line');
+    var lightCanvas = document.getElementById('live-chart-light');
+    var uvCanvas = document.getElementById('live-chart-uv');
 
     var ctxTemp = tempCanvas.getContext('2d');
     var ctxHTemp = histTempCanvas.getContext('2d');
@@ -139,8 +139,8 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
     var ctxMoisture = moistureCanvas.getContext('2d');
     var ctxHMoisture = histMoistureCanvas.getContext('2d');
 
-    var ctxAggregate = aggregateCanvas.getContext('2d');
-    var ctxAggregateLine = aggregateLineCanvas.getContext('2d');
+    var ctxLight = lightCanvas.getContext('2d');
+    var ctxUv = uvCanvas.getContext('2d');
 
     var tempData = {
       labels: [],
@@ -174,11 +174,55 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
       labels: [],
       datasets: [
         {
-          label: "Temperature",
+          label: "Min",
+          fill: false,
+          lineTension: 0.1,
+          backgroundColor: "rgba(2, 145, 205, 0.4)",
+          borderColor: "rgba(2, 145, 205, 1)",
+          borderCapStyle: 'butt',
+          borderDash: [],
+          borderDashOffset: 0.0,
+          borderJoinStyle: 'miter',
+          pointBorderColor: "rgba(255, 193 , 7, 1)",
+          pointBackgroundColor: "#fff",
+          pointBorderWidth: 1,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: "rgba(255, 193 , 7, 1)",
+          pointHoverBorderColor: "rgba(220,220,220,1)",
+          pointHoverBorderWidth: 2,
+          pointRadius: 1,
+          pointHitRadius: 10,
+          data: [],
+          spanGaps: false
+        },
+        {
+          label: "Average",
           fill: false,
           lineTension: 0.1,
           backgroundColor: "rgba(255, 193 , 7, 0.4)",
           borderColor: "rgba(255, 193 , 7, 1)",
+          borderCapStyle: 'butt',
+          borderDash: [],
+          borderDashOffset: 0.0,
+          borderJoinStyle: 'miter',
+          pointBorderColor: "rgba(255, 193 , 7, 1)",
+          pointBackgroundColor: "#fff",
+          pointBorderWidth: 1,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: "rgba(255, 193 , 7, 1)",
+          pointHoverBorderColor: "rgba(220,220,220,1)",
+          pointHoverBorderWidth: 2,
+          pointRadius: 1,
+          pointHitRadius: 10,
+          data: [],
+          spanGaps: false
+        },
+        {
+          label: "Max",
+          fill: false,
+          lineTension: 0.1,
+          backgroundColor: "rgba(254, 39, 18, 0.4)",
+          borderColor: "rgba(254, 39, 18, 1)",
           borderCapStyle: 'butt',
           borderDash: [],
           borderDashOffset: 0.0,
@@ -310,48 +354,30 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
       ]
     };
 
-    var aggregateData = {
+    var lightData = {
       labels: [],
       datasets: [{
-        label: 'Temperature',
-        backgroundColor: "rgba(255, 193 , 7, 0.4)",
-        borderColor: "rgba(255, 193 , 7, 1)",
+        label: 'VIS',
+        backgroundColor: "rgba(1, 211, 198, 0.4)",
+        borderColor: "rgba(1, 211 , 198, 1)",
         data: []
       },
       {
-        label: 'Humidity',
-        backgroundColor: "rgba(219, 68, 55, 0.4)",
-        borderColor: "rgba(219, 68, 55, 1)",
-        data: []
-      },
-      {
-        label: 'Moisture',
-        backgroundColor: "rgba(66, 133, 244, 0.4)",
-        borderColor: "rgba(66, 133, 244, 1)",
+        label: 'IR',
+        backgroundColor: "rgba(197, 32, 98, 0.4)",
+        borderColor: "rgba(197, 32, 98, 1)",
         data: []
       }]
     };
 
-    var aggregateLineData = {
+    var uvData = {
       labels: [],
       datasets: [{
-        label: 'Temperature',
-        backgroundColor: "rgba(255, 193 , 7, 0.4)",
-        borderColor: "rgba(255, 193 , 7, 1)",
+        label: 'UV (UV Index)',
+        backgroundColor: [],
+        borderColor: [],
         data: []
-      },
-        {
-          label: 'Humidity',
-          backgroundColor: "rgba(219, 68, 55, 0.4)",
-          borderColor: "rgba(219, 68, 55, 1)",
-          data: []
-        },
-        {
-          label: 'Moisture',
-          backgroundColor: "rgba(66, 133, 244, 0.4)",
-          borderColor: "rgba(66, 133, 244, 1)",
-          data: []
-        }]
+      }]
     };
 
     var timeConverter = function (now){
@@ -377,7 +403,11 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
       return hour + ':' + min + ':' + sec;
     };
 
-    var moveChart = function(chart, newData) {
+    var moveChart = function(chart, newData, chartType) {
+      chartType = typeof chartType !== 'undefined' ? chartType : "";
+
+      console.log(chartType);
+
       var now = timeConverter(Date.now());
 
       chart.data.labels.push(now); // add new label at end
@@ -387,6 +417,37 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
 
       chart.data.datasets.forEach(function(dataset, index) {
         dataset.data.push(newData[index]); // add new data at end
+
+        if (chartType == "bar") {
+          var backColour;
+          var borderColour;
+
+          if(newData[index] <= 2) {
+            backColour = "rgba(0, 129, 2, 0.4)";
+            borderColour = "rgba(0, 129, 2, 1)";
+          } else if (newData[index] <= 5) {
+            backColour = "rgba(255, 255, 1, 0.4)";
+            borderColour = "rgba(255, 255, 1, 1)";
+          } else if (newData[index] <= 7) {
+            backColour = "rgba(254, 165, 1, 0.4)";
+            borderColour = "rgba(254, 165, 1, 1)";
+          } else if (newData[index] <= 10) {
+            backColour = "rgba(253, 0, 2, 0.4)";
+            borderColour = "rgba(253, 0, 2, 1)";
+          } else {
+            backColour = "rgba(244, 11, 165, 0.4)";
+            borderColour = "rgba(244, 11, 165, 1)";
+          }
+
+          dataset.backgroundColor.push(backColour);
+          dataset.borderColor.push(borderColour);
+
+          if (dataset.data.length > 30) {
+            dataset.backgroundColor.splice(0,1);
+            dataset.borderColor.splice(0,1);
+          }
+        }
+
         if (dataset.data.length > 30) {
           dataset.data.splice(0, 1); // remove first data point
         }
@@ -632,14 +693,60 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
           }
         });
 
-        var aggregateChart = new Chart(ctxAggregate, {
-          type: "radar",
-          data: aggregateData
+        var lightChart = new Chart(ctxLight, {
+          type: "line",
+          data: lightData,
+          options: {
+            scales: {
+              yAxes: [{
+                display: true,
+                ticks: {
+                  suggestedMin: 0,
+                  suggestedMax: 100,
+                  beginAtZero: true
+                },
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Lumens (lm)'
+                }
+              }],
+              xAxes: [{
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Time (hh:mm:ss)'
+                }
+              }]
+            }
+          }
         });
 
-        var aggregateLineChart = new Chart(ctxAggregateLine, {
-          type: "line",
-          data: aggregateLineData
+        var uvChart = new Chart(ctxUv, {
+          type: "bar",
+          data: uvData,
+          options: {
+            scales: {
+              yAxes: [{
+                display: true,
+                ticks: {
+                  suggestedMin: 0,
+                  suggestedMax: 14,
+                  beginAtZero: true
+                },
+                scaleLabel: {
+                  display: true,
+                  labelString: 'UV Index'
+                }
+              }],
+                xAxes: [{
+                  barPercentage: 1.0,
+                  categoryPercentage: 1.0,
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Time (hh:mm:ss)'
+                  }
+              }]
+            }
+          }
         });
 
         var tempState = false; // false = not received, true = received
@@ -688,6 +795,7 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
             var tempBool = false;
             var humidityBool = false;
             var moistureBool = false;
+            var lightBool = false;
 
             if (JSON.parse(message.payloadString).state.reported != undefined) {
               if (JSON.parse(message.payloadString).state.reported.temperature != undefined) {
@@ -807,12 +915,50 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
                 }
               }
 
-              if (tempBool && humidityBool && moistureBool) {
+              if (JSON.parse(message.payloadString).state.reported.vis != undefined) {
+                var vis = JSON.parse(message.payloadString).state.reported.vis;
+                var ir = JSON.parse(message.payloadString).state.reported.ir;
+                var uv = JSON.parse(message.payloadString).state.reported.uv;
+
+                if (scope.$ctrl.chartStatus.light == true) {
+                  // calculateAvgMinMax("moisture", moisture);
+                  moveChart(lightChart, [vis, ir]);
+                  moveChart(uvChart, [uv], "bar");
+                }
+
+                lightBool = true;
+
+                /*if (!moistureState) {
+                  moistureState = true;
+
+                  $("#moistureWarning").css({
+                    "display": "none"
+                  });
+
+                  $("#moistureSuccess").css({
+                    "display": "block"
+                  });
+                }*/
+              } else {
+                /*if (moistureState) {
+                  moistureState = false;
+
+                  $("#moistureWarning").css({
+                    "display": "block"
+                  });
+
+                  $("#moistureSuccess").css({
+                    "display": "none"
+                  });
+                }*/
+              }
+
+              /*if (tempBool && humidityBool && moistureBool) {
                 if (scope.$ctrl.chartStatus.aggregate == true) {
                   moveChart(aggregateChart, [temperature, humidity, moisture]);
                   moveChart(aggregateLineChart, [temperature, humidity, moisture]);
                 }
-              }
+              }*/
             }
           } catch (e) {
             console.log("error! " + e);
@@ -861,7 +1007,9 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
                 }
               }, 100);*/
 
-              hTempData.datasets[0].data = scope.$ctrl.tempHistory.avg;
+              hTempData.datasets[0].data = scope.$ctrl.tempHistory.mins;
+              hTempData.datasets[1].data = scope.$ctrl.tempHistory.avg;
+              hTempData.datasets[2].data = scope.$ctrl.tempHistory.maxes;
 
               for (i = 0; i < scope.$ctrl.tempHistory.startTimes.length; ++i) {
                 date = new Date(parseInt(scope.$ctrl.tempHistory.startTimes[i]));

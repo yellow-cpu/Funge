@@ -68,8 +68,7 @@ angular.module('plantDetail').component('plantDetail', {
       // Check that disconnect was not done purposely
       if (responseObject.errorCode !== 0) {
         console.log("onConnectionLost:" + responseObject.errorMessage);
-        $sessionStorage.client[self.plantDetails.plantId] = null;
-        initClient(self.requestUrl, self.thing.mqttTopic);
+        self.status = "";
         $scope.$apply();
       }
     }
@@ -371,7 +370,7 @@ angular.module('plantDetail').component('plantDetail', {
       "temp": true,
       "humidity": true,
       "moisture": true,
-      "aggregate": true
+      "light": true
     };
 
     self.avgMinMax = {

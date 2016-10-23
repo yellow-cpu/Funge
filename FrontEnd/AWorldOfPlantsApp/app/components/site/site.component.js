@@ -69,7 +69,10 @@ angular.
 
       for (var key in $sessionStorage.client) {
         let value = $sessionStorage.client[key];
-        value.disconnect();
+        try {
+          if (value !== null && value.isConnected())
+            value.disconnect();
+        } catch (e) {}
       }
     };
 
