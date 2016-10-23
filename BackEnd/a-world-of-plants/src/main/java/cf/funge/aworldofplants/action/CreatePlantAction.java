@@ -51,14 +51,13 @@ public class CreatePlantAction extends AbstractAction {
         PlantDAO dao = DAOFactory.getPlantDAO();
         TimelineDAO timelineDAO = DAOFactory.getTimelineDAO();
 
-        List<Plant> userPlants = dao.getUserPlants(50, input.getUsername();
+        List<Plant> userPlants = dao.getUserPlants(50, input.getUsername());
 
         for (int i = 0; i < userPlants.size(); ++i) {
             if (userPlants.get(i).equals(input.getPlantName())) {
                 throw new BadRequestException("plant already exists");
             }
         }
-
 
         Plant newPlant = new Plant();
         newPlant.setUsername(input.getUsername());
