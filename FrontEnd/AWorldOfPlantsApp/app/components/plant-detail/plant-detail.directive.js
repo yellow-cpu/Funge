@@ -27,6 +27,10 @@ directive('deletePlantDirective', function () {
       });
     });
 
+    $("#closeDelete").on("click", function () {
+      $("#plantName").val("");
+    });
+
     $('#deletePlant').on('click', function() {
       var plantName = $('#plantName').val();
 

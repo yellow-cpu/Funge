@@ -37,6 +37,10 @@ directive('deleteThingDirective', function () {
       });
     });
 
+    $("#closeThingDelete").on("click", function () {
+      $("#deleteThingName").val("");
+    });
+
     $('#deleteThing').on('click', function () {
       var deleteThingName = $('#deleteThingName').val();
       var username = scope.$ctrl.selectedThing.username;
@@ -67,6 +71,11 @@ directive('createThingDirective', function() {
       $('#createThing').css("border-color", scope.$ctrl.selectedColour);
 
       scope.$ctrl.newThing.colour = scope.$ctrl.selectedColour;
+    });
+
+    $("#closeThingCreate").on("click", function () {
+      $("#thingName").val("");
+      $("#plantId").val("");
     });
 
     $('#createThing').on('click', function() {
