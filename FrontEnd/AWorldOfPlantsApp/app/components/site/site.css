@@ -689,6 +689,10 @@ table.dataTable thead .sorting:after {
     width: 3em;
 }
 
+.btn-facebook:hover, .btn-twitter:hover, .btn-pinterest:hover, .btn-tumblr:hover, .btn-telegram:hover {
+    color: white;
+}
+
 #home {
     min-height: 50px !important;
     text-align: center;

@@ -694,6 +694,9 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
                 var temperature = JSON.parse(message.payloadString).state.reported.temperature;
 
                 if (scope.$ctrl.chartStatus.temp == true) {
+                  temperature = parseFloat(temperature);
+                  temperature = +temperature.toFixed(2);
+
                   calculateAvgMinMax("temp", temperature);
                   moveChart(tempChart, [temperature]);
                 }
@@ -730,6 +733,9 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
               if (JSON.parse(message.payloadString).state.reported.humidity != undefined) {
                 var humidity = JSON.parse(message.payloadString).state.reported.humidity;
                 if (scope.$ctrl.chartStatus.humidity == true) {
+                  humidity = parseFloat(humidity);
+                  humidity = +humidity.toFixed(2);
+
                   calculateAvgMinMax("humidity", humidity);
                   moveChart(humidityChart, [humidity]);
                 }
@@ -767,6 +773,9 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
                 moisture = (moisture/700) * 100;
 
                 if (scope.$ctrl.chartStatus.moisture == true) {
+                  moisture = parseFloat(moisture);
+                  moisture = +moisture.toFixed(2);
+
                   calculateAvgMinMax("moisture", moisture);
                   moveChart(moistureChart, [moisture]);
                 }
