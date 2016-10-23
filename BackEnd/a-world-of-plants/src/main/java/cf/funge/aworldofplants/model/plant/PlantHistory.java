@@ -9,6 +9,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 @DynamoDBTable(tableName = DynamoDBConfiguration.PLANT_HISTORY_TABLE_NAME)
 public class PlantHistory {
     private String plantId;
+    private String chartType;
     private long startTime;
     private long endTime;
     private float avg;
@@ -23,6 +24,15 @@ public class PlantHistory {
 
     public void setPlantId(String plantId) {
         this.plantId = plantId;
+    }
+
+    @DynamoDBAttribute(attributeName = "chartType")
+    public String getChartType() {
+        return chartType;
+    }
+
+    public void setChartType(String chartType) {
+        this.chartType = chartType;
     }
 
     @DynamoDBAttribute(attributeName = "startTime")

@@ -39,9 +39,19 @@ public class GetPlantHistoryAction extends AbstractAction {
 
         PlantDAO plantDAO = DAOFactory.getPlantDAO();
 
-        GetPlantHistoryResponse output = new GetPlantHistoryResponse();
+        GetPlantHistoryResponse output;
 
-        output = plantDAO.getPlantHistory(input.getPlantId(), input.getStartDate(), input.getEndDate());
+        String chartType = "";
+
+        if (input.getChartType().equals("tempHistory")) {
+            chartType = "temperature";
+        } else if (input.getChartType().equals("humidityHistory")) {
+            chartType = "humidity";
+        } else if (input.getChartType().equals("moistureHistory")) {
+            chartType = "moisture";
+        }
+
+        output = plantDAO.getPlantHistory(input.getPlantId(), input.getStartDate(), input.getEndDate(), chartType);
 
         return getGson().toJson(output);
     }

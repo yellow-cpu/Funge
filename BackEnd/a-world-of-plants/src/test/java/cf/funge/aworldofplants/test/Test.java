@@ -117,7 +117,7 @@ public class Test {
             }
 
             @Override
-            public GetPlantHistoryResponse getPlantHistory(String plantId, String startDate, String endDate) {
+            public GetPlantHistoryResponse getPlantHistory(String plantId, String startDate, String endDate, String type) {
                 return null;
             }
         };

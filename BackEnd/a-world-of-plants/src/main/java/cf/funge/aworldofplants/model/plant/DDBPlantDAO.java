@@ -142,26 +142,29 @@ public class DDBPlantDAO implements PlantDAO {
         return "Plant deleted successfully";
     }
 
-    public GetPlantHistoryResponse getPlantHistory(String plantId, String startDate, String endDate) {
+    public GetPlantHistoryResponse getPlantHistory(String plantId, String startDate, String endDate, String chartType) {
         System.out.println("Find Plant history less than certain date: Scan history.");
 
         Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
         eav.put(":val1", new AttributeValue().withS(plantId));
         eav.put(":val2", new AttributeValue().withN(startDate));
         eav.put(":val3", new AttributeValue().withN(endDate));
+        eav.put(":val4", new AttributeValue().withS(chartType));
 
         DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
-                .withFilterExpression("plantId = :val1 and startTime >= :val2 and endTime <= :val3")
+                .withFilterExpression("plantId = :val1 and startTime >= :val2 and endTime <= :val3 and chartType = :val4")
                 .withExpressionAttributeValues(eav);
 
         List<PlantHistory> scanResult = getMapper().scan(PlantHistory.class, scanExpression);
 
+        int scanResultSize = scanResult.size();
+
         GetPlantHistoryResponse newPlantHistory = new GetPlantHistoryResponse();
-        String[] startTimes = new String[scanResult.size()];
-        String[] endTimes = new String[scanResult.size()];;
-        String[] averages = new String[scanResult.size()];;
-        String[] mins = new String[scanResult.size()];
-        String[] maxes = new String[scanResult.size()];
+        String[] startTimes = new String[scanResultSize];
+        String[] endTimes = new String[scanResultSize];
+        String[] averages = new String[scanResultSize];
+        String[] mins = new String[scanResultSize];
+        String[] maxes = new String[scanResultSize];
 
         int i = 0;
 

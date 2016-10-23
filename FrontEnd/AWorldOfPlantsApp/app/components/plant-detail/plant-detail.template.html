@@ -94,6 +94,10 @@
 
           <div class="panel-body-content" style="display: none;">
             <label style="color: #757575;">Wavelength (nm)</label>
+            <span style="display: flex; align-items: center;"><md-switch aria-label="light is" style="padding-left: 0.5em;" class="switch" ng-model="$ctrl.lightOn" ng-true-value="'On'" ng-false-value="'Off'" type="checkbox"></md-switch><i>{{$ctrl.lightOn}}</i></span>
+            <md-checkbox ng-model="$ctrl.lightWhite" aria-label="light white or not" style="margin-left: 0.5em;">
+              <i>White: {{ $ctrl.lightWhite }}</i>
+            </md-checkbox>
             <rzslider id="nmSlider" rz-slider-model="$ctrl.nmSlider.value" rz-slider-options="$ctrl.nmSlider.options" ng-model="$ctrl.nmSlider.value"></rzslider><br><br>
 
             <label style="color: #757575;">Fan Power</label>
@@ -376,7 +380,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header" style="background-color: #db4437;">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><img width="15" valign="middle" style="margin-top:-3px;" src="/images/close.png"></button>
+        <button id="closeDelete" type="button" class="close" data-dismiss="modal" aria-label="Close"><img width="15" valign="middle" style="margin-top:-3px;" src="/images/close.png"></button>
         <h4 class="modal-title" id="myModalLabel">Delete Plant Confirmation</h4>
       </div>
       <div class="modal-body">
