@@ -9,8 +9,8 @@ var awsIot = require('aws-iot-device-sdk');
  * Set the variables below
  */
 
-var   pemName = "1085ac50a4";
-var thingName = "mockDevice";
+var   pemName = "CabbageBox";
+var thingName = "CabbageBox";
 
 /**
  * ============================================================
@@ -19,7 +19,7 @@ var thingName = "mockDevice";
  */
 
 var  keyPath = './certs/' + pemName + '-private.pem.key';
-var certPath = './certs/' + pemName + '-certificate.pem.crt'
+var certPath = './certs/' + pemName + '-cert.pem.crt'
 
 console.log("=======================================");
 console.log("========== Funge Mock Device ==========");
@@ -67,11 +67,7 @@ function publish() {
 	}
 }
 
-function startLoop() {
-	setInterval(publish, 3000);
-}
-
 device.on('connect', function() {
 	console.log('connected');
-	startLoop();
+	setInterval(publish, 3000);
 });
