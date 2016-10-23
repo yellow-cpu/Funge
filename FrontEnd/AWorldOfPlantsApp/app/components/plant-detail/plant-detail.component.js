@@ -371,7 +371,7 @@ angular.module('plantDetail').component('plantDetail', {
       "temp": true,
       "humidity": true,
       "moisture": true,
-      "aggregate": true
+      "light": true
     };
 
     self.avgMinMax = {
