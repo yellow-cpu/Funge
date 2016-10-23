@@ -724,27 +724,29 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
           type: "bar",
           data: uvData,
           options: {
-          scales: {
-            yAxes: [{
-              display: true,
-              ticks: {
-                suggestedMin: 0,
-                suggestedMax: 14,
-                beginAtZero: true
-              },
-              scaleLabel: {
+            scales: {
+              yAxes: [{
                 display: true,
-                labelString: 'UV Index'
-              }
-            }],
-              xAxes: [{
-              scaleLabel: {
-                display: true,
-                labelString: 'Time (hh:mm:ss)'
-              }
-            }]
+                ticks: {
+                  suggestedMin: 0,
+                  suggestedMax: 14,
+                  beginAtZero: true
+                },
+                scaleLabel: {
+                  display: true,
+                  labelString: 'UV Index'
+                }
+              }],
+                xAxes: [{
+                  barPercentage: 1.0,
+                  categoryPercentage: 1.0,
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Time (hh:mm:ss)'
+                  }
+              }]
+            }
           }
-        }
         });
 
         var tempState = false; // false = not received, true = received
