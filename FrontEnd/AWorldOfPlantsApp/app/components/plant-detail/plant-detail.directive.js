@@ -606,7 +606,11 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
 
     scope.$watch(attributes.ngModel, function (value) {
       var val = value;
-      if (val == 'connected') {
+      if (val == 'connected' || val == 'history') {
+        if (val == 'history') {
+          $("#updateControl").prop('disabled', true);
+        }
+
         $('.spinner').css({
           'display': 'none'
         });
@@ -845,217 +849,219 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
         var humidityState = false;
         var moistureState = false;
 
-        $sessionStorage.client[scope.$ctrl.plantDetails.plantId].onMessageArrived = function (message) {
-          try {
-            console.log("message arrived: " +  message.payloadString);
+        if (val == "connected") {
+          $sessionStorage.client[scope.$ctrl.plantDetails.plantId].onMessageArrived = function (message) {
+            try {
+              console.log("message arrived: " +  message.payloadString);
 
-            $(".spinner-blip").css({
-              "display": "block"
-            });
-
-            setTimeout(function () {
               $(".spinner-blip").css({
-                "display": "none"
+                "display": "block"
               });
-            }, 900);
 
-            if (JSON.parse(message.payloadString).state.desired != undefined) {
-              // add more checks here
-              if (JSON.parse(message.payloadString).state.desired.red != undefined) {
-                var updateControl = $('#updateControl');
-
-                updateControl.find('.update-spin').css({
+              setTimeout(function () {
+                $(".spinner-blip").css({
                   "display": "none"
                 });
+              }, 900);
 
-                updateControl.find('svg').css({
-                  "display": "block"
-                });
+              if (JSON.parse(message.payloadString).state.desired != undefined) {
+                // add more checks here
+                if (JSON.parse(message.payloadString).state.desired.red != undefined) {
+                  var updateControl = $('#updateControl');
 
-                setTimeout(function () {
-                  updateControl.find('span').css({
-                    "display": "inline"
+                  updateControl.find('.update-spin').css({
+                    "display": "none"
                   });
 
                   updateControl.find('svg').css({
-                    "display": "none"
-                  });
-                }, 3000);
-              }
-            }
-
-            var tempBool = false;
-            var humidityBool = false;
-            var moistureBool = false;
-            var lightBool = false;
-
-            if (JSON.parse(message.payloadString).state.reported != undefined) {
-              if (JSON.parse(message.payloadString).state.reported.temperature != undefined) {
-                var temperature = JSON.parse(message.payloadString).state.reported.temperature;
-
-                if (scope.$ctrl.chartStatus.temp == true) {
-                  temperature = parseFloat(temperature);
-                  temperature = +temperature.toFixed(2);
-
-                  calculateAvgMinMax("temp", temperature);
-                  moveChart(tempChart, [temperature]);
-                }
-
-                tempBool = true;
-
-                if (!tempState) {
-                  console.log("success");
-                  tempState = true;
-
-                  $("#tempWarning").css({
-                    "display": "none"
-                  });
-
-                  $("#tempSuccess").css({
-                    "display": "block"
-                  });
-                }
-              } else {
-                if (tempState) {
-                  console.log("warning");
-                  tempState = false;
-
-                  $("#tempWarning").css({
                     "display": "block"
                   });
 
-                  $("#tempSuccess").css({
-                    "display": "none"
-                  });
+                  setTimeout(function () {
+                    updateControl.find('span').css({
+                      "display": "inline"
+                    });
+
+                    updateControl.find('svg').css({
+                      "display": "none"
+                    });
+                  }, 3000);
                 }
               }
 
-              if (JSON.parse(message.payloadString).state.reported.humidity != undefined) {
-                var humidity = JSON.parse(message.payloadString).state.reported.humidity;
-                if (scope.$ctrl.chartStatus.humidity == true) {
-                  humidity = parseFloat(humidity);
-                  humidity = +humidity.toFixed(2);
+              var tempBool = false;
+              var humidityBool = false;
+              var moistureBool = false;
+              var lightBool = false;
 
-                  calculateAvgMinMax("humidity", humidity);
-                  moveChart(humidityChart, [humidity]);
+              if (JSON.parse(message.payloadString).state.reported != undefined) {
+                if (JSON.parse(message.payloadString).state.reported.temperature != undefined) {
+                  var temperature = JSON.parse(message.payloadString).state.reported.temperature;
+
+                  if (scope.$ctrl.chartStatus.temp == true) {
+                    temperature = parseFloat(temperature);
+                    temperature = +temperature.toFixed(2);
+
+                    calculateAvgMinMax("temp", temperature);
+                    moveChart(tempChart, [temperature]);
+                  }
+
+                  tempBool = true;
+
+                  if (!tempState) {
+                    console.log("success");
+                    tempState = true;
+
+                    $("#tempWarning").css({
+                      "display": "none"
+                    });
+
+                    $("#tempSuccess").css({
+                      "display": "block"
+                    });
+                  }
+                } else {
+                  if (tempState) {
+                    console.log("warning");
+                    tempState = false;
+
+                    $("#tempWarning").css({
+                      "display": "block"
+                    });
+
+                    $("#tempSuccess").css({
+                      "display": "none"
+                    });
+                  }
                 }
 
-                humidityBool = true;
+                if (JSON.parse(message.payloadString).state.reported.humidity != undefined) {
+                  var humidity = JSON.parse(message.payloadString).state.reported.humidity;
+                  if (scope.$ctrl.chartStatus.humidity == true) {
+                    humidity = parseFloat(humidity);
+                    humidity = +humidity.toFixed(2);
 
-                if (!humidityState) {
-                  humidityState = true;
+                    calculateAvgMinMax("humidity", humidity);
+                    moveChart(humidityChart, [humidity]);
+                  }
 
-                  $("#humidityWarning").css({
-                    "display": "none"
-                  });
+                  humidityBool = true;
 
-                  $("#humiditySuccess").css({
-                    "display": "block"
-                  });
-                }
-              } else {
-                if (humidityState) {
-                  humidityState = false;
+                  if (!humidityState) {
+                    humidityState = true;
 
-                  $("#humidityWarning").css({
-                    "display": "block"
-                  });
+                    $("#humidityWarning").css({
+                      "display": "none"
+                    });
 
-                  $("#humiditySuccess").css({
-                    "display": "none"
-                  });
-                }
-              }
+                    $("#humiditySuccess").css({
+                      "display": "block"
+                    });
+                  }
+                } else {
+                  if (humidityState) {
+                    humidityState = false;
 
-              if (JSON.parse(message.payloadString).state.reported.moisture != undefined) {
-                var moisture = JSON.parse(message.payloadString).state.reported.moisture;
+                    $("#humidityWarning").css({
+                      "display": "block"
+                    });
 
-                moisture = (moisture/700) * 100;
-
-                if (scope.$ctrl.chartStatus.moisture == true) {
-                  moisture = parseFloat(moisture);
-                  moisture = +moisture.toFixed(2);
-
-                  calculateAvgMinMax("moisture", moisture);
-                  moveChart(moistureChart, [moisture]);
+                    $("#humiditySuccess").css({
+                      "display": "none"
+                    });
+                  }
                 }
 
-                moistureBool = true;
+                if (JSON.parse(message.payloadString).state.reported.moisture != undefined) {
+                  var moisture = JSON.parse(message.payloadString).state.reported.moisture;
 
-                if (!moistureState) {
-                  moistureState = true;
+                  moisture = (moisture/700) * 100;
 
-                  $("#moistureWarning").css({
-                    "display": "none"
-                  });
+                  if (scope.$ctrl.chartStatus.moisture == true) {
+                    moisture = parseFloat(moisture);
+                    moisture = +moisture.toFixed(2);
 
-                  $("#moistureSuccess").css({
-                    "display": "block"
-                  });
+                    calculateAvgMinMax("moisture", moisture);
+                    moveChart(moistureChart, [moisture]);
+                  }
+
+                  moistureBool = true;
+
+                  if (!moistureState) {
+                    moistureState = true;
+
+                    $("#moistureWarning").css({
+                      "display": "none"
+                    });
+
+                    $("#moistureSuccess").css({
+                      "display": "block"
+                    });
+                  }
+                } else {
+                  if (moistureState) {
+                    moistureState = false;
+
+                    $("#moistureWarning").css({
+                      "display": "block"
+                    });
+
+                    $("#moistureSuccess").css({
+                      "display": "none"
+                    });
+                  }
                 }
-              } else {
-                if (moistureState) {
-                  moistureState = false;
 
-                  $("#moistureWarning").css({
-                    "display": "block"
-                  });
+                if (JSON.parse(message.payloadString).state.reported.vis != undefined) {
+                  var vis = JSON.parse(message.payloadString).state.reported.vis;
+                  var ir = JSON.parse(message.payloadString).state.reported.ir;
+                  var uv = JSON.parse(message.payloadString).state.reported.uv;
 
-                  $("#moistureSuccess").css({
-                    "display": "none"
-                  });
+                  if (scope.$ctrl.chartStatus.light == true) {
+                    // calculateAvgMinMax("moisture", moisture);
+                    moveChart(lightChart, [vis, ir]);
+                    moveChart(uvChart, [uv], "bar");
+                  }
+
+                  lightBool = true;
+
+                  /*if (!moistureState) {
+                    moistureState = true;
+
+                    $("#moistureWarning").css({
+                      "display": "none"
+                    });
+
+                    $("#moistureSuccess").css({
+                      "display": "block"
+                    });
+                  }*/
+                } else {
+                  /*if (moistureState) {
+                    moistureState = false;
+
+                    $("#moistureWarning").css({
+                      "display": "block"
+                    });
+
+                    $("#moistureSuccess").css({
+                      "display": "none"
+                    });
+                  }*/
                 }
-              }
 
-              if (JSON.parse(message.payloadString).state.reported.vis != undefined) {
-                var vis = JSON.parse(message.payloadString).state.reported.vis;
-                var ir = JSON.parse(message.payloadString).state.reported.ir;
-                var uv = JSON.parse(message.payloadString).state.reported.uv;
-
-                if (scope.$ctrl.chartStatus.light == true) {
-                  // calculateAvgMinMax("moisture", moisture);
-                  moveChart(lightChart, [vis, ir]);
-                  moveChart(uvChart, [uv], "bar");
-                }
-
-                lightBool = true;
-
-                /*if (!moistureState) {
-                  moistureState = true;
-
-                  $("#moistureWarning").css({
-                    "display": "none"
-                  });
-
-                  $("#moistureSuccess").css({
-                    "display": "block"
-                  });
+                /*if (tempBool && humidityBool && moistureBool) {
+                  if (scope.$ctrl.chartStatus.aggregate == true) {
+                    moveChart(aggregateChart, [temperature, humidity, moisture]);
+                    moveChart(aggregateLineChart, [temperature, humidity, moisture]);
+                  }
                 }*/
-              } else {
-                /*if (moistureState) {
-                  moistureState = false;
-
-                  $("#moistureWarning").css({
-                    "display": "block"
-                  });
-
-                  $("#moistureSuccess").css({
-                    "display": "none"
-                  });
-                }*/
               }
-
-              /*if (tempBool && humidityBool && moistureBool) {
-                if (scope.$ctrl.chartStatus.aggregate == true) {
-                  moveChart(aggregateChart, [temperature, humidity, moisture]);
-                  moveChart(aggregateLineChart, [temperature, humidity, moisture]);
-                }
-              }*/
+            } catch (e) {
+              console.log("error! " + e);
             }
-          } catch (e) {
-            console.log("error! " + e);
-          }
-        };
+          };
+        }
 
         //historical graphs
 

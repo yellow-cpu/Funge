@@ -264,44 +264,46 @@ angular.module('plantDetail').component('plantDetail', {
     self.lightWhite = false;
 
     self.updateControl = function () {
-      var updateControl = $('#updateControl');
+      if (self.status == "connected") {
+        var updateControl = $('#updateControl');
 
-      updateControl.find('span').css({
-        "display": "none"
-      });
+        updateControl.find('span').css({
+          "display": "none"
+        });
 
-      updateControl.find('.update-spin').css({
-        "display": "inline-block"
-      });
+        updateControl.find('.update-spin').css({
+          "display": "inline-block"
+        });
 
-      var rgb = nmToRGB(self.nmSlider.value);
-      var fanPower = (self.fanSlider.value/100) * 255;
-      var pumpOn = (self.pumpOn == "on") ? 1 : 0;
-      console.log(self.pumpOn + ": " + pumpOn);
+        var rgb = nmToRGB(self.nmSlider.value);
+        var fanPower = (self.fanSlider.value/100) * 255;
+        var pumpOn = (self.pumpOn == "on") ? 1 : 0;
+        console.log(self.pumpOn + ": " + pumpOn);
 
-      if (self.lightOn == "Off") {
-        rgb[0] = 0;
-        rgb[1] = 0;
-        rgb[2] = 0;
-      } else if (self.lightWhite == true) {
-        rgb[0] = 255;
-        rgb[1] = 255;
-        rgb[2] = 255;
+        if (self.lightOn == "Off") {
+          rgb[0] = 0;
+          rgb[1] = 0;
+          rgb[2] = 0;
+        } else if (self.lightWhite == true) {
+          rgb[0] = 255;
+          rgb[1] = 255;
+          rgb[2] = 255;
+        }
+
+        console.log(rgb + " " + fanPower + " " + pumpOn);
+
+        self.publish('{' +
+          '"state": {' +
+            '"desired": {' +
+              '"red": ' + rgb[0] + ',' +
+              '"green": ' + rgb[1] + ',' +
+              '"blue": ' + rgb[2] + ',' +
+              '"fanSpeed": ' + fanPower + ',' +
+              '"pumpTime": ' + pumpOn +
+          '}' +
+          '}' +
+        '}');
       }
-
-      console.log(rgb + " " + fanPower + " " + pumpOn);
-
-      self.publish('{' +
-        '"state": {' +
-          '"desired": {' +
-            '"red": ' + rgb[0] + ',' +
-            '"green": ' + rgb[1] + ',' +
-            '"blue": ' + rgb[2] + ',' +
-            '"fanSpeed": ' + fanPower + ',' +
-            '"pumpTime": ' + pumpOn +
-        '}' +
-        '}' +
-      '}');
     };
 
     var toHex = function(number) {
@@ -416,7 +418,6 @@ angular.module('plantDetail').component('plantDetail', {
     });
 
     self.plantDetails = siteService.getPlant();
-    self.plantDetails.plantAge = self.plantDetails.plantAge.substr(0, self.plantDetails.plantAge.indexOf('T'));
 
     var params = {
       "plantid": self.plantDetails.plantId
@@ -432,6 +433,10 @@ angular.module('plantDetail').component('plantDetail', {
 
             if (result.data.thingName == "undefined" && result.data.mqttTopic == "undefined") {
               console.log("No plant box associated with thing");
+
+              self.status = "history";
+              $scope.$apply();
+
               $('#noplantbox').css({
                 "display": "block"
               });
