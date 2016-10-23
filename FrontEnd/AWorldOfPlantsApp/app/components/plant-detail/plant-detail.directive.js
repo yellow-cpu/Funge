@@ -399,7 +399,7 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
       if (type == "temp") {
         var total = scope.$ctrl.avgMinMax.temp.avg * scope.$ctrl.avgMinMax.temp.num;
         scope.$ctrl.avgMinMax.temp.num++;
-        scope.$ctrl.avgMinMax.temp.avg = (total + parseInt(val)) / scope.$ctrl.avgMinMax.temp.num;
+        scope.$ctrl.avgMinMax.temp.avg = (total + parseFloat(val)) / scope.$ctrl.avgMinMax.temp.num;
         scope.$ctrl.avgMinMax.temp.avg = +scope.$ctrl.avgMinMax.temp.avg.toFixed(2);
 
         if (scope.$ctrl.avgMinMax.temp.num > 1) {
@@ -417,7 +417,7 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
       } else if (type == "humidity") {
         var total = scope.$ctrl.avgMinMax.humidity.avg * scope.$ctrl.avgMinMax.humidity.num;
         scope.$ctrl.avgMinMax.humidity.num++;
-        scope.$ctrl.avgMinMax.humidity.avg = (total + parseInt(val)) / scope.$ctrl.avgMinMax.humidity.num;
+        scope.$ctrl.avgMinMax.humidity.avg = (total + parseFloat(val)) / scope.$ctrl.avgMinMax.humidity.num;
         scope.$ctrl.avgMinMax.humidity.avg = +scope.$ctrl.avgMinMax.humidity.avg.toFixed(2);
 
         if (scope.$ctrl.avgMinMax.humidity.num > 1) {
@@ -435,7 +435,7 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
       } else if (type == "moisture") {
         var total = scope.$ctrl.avgMinMax.moisture.avg * scope.$ctrl.avgMinMax.moisture.num;
         scope.$ctrl.avgMinMax.moisture.num++;
-        scope.$ctrl.avgMinMax.moisture.avg = (total + parseInt(val)) / scope.$ctrl.avgMinMax.moisture.num;
+        scope.$ctrl.avgMinMax.moisture.avg = (total + parseFloat(val)) / scope.$ctrl.avgMinMax.moisture.num;
         scope.$ctrl.avgMinMax.moisture.avg = +scope.$ctrl.avgMinMax.moisture.avg.toFixed(2);
 
         if (scope.$ctrl.avgMinMax.moisture.num > 1) {

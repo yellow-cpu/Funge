@@ -1,0 +1,17 @@
+{
+	"name": "AWorldOfPlants-MockDevice",
+	"private": true,
+	"version": "0.0.0",
+	"description": "A mock device for plant monitoring",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/DillonHeins/Funge.git"
+	},
+	"license": "MIT",
+	"scripts": {
+		"start": "node mock_device.js"
+	},
+	"dependencies": {
+		"aws-iot-device-sdk": "^1.0.13"
+	}
+}
