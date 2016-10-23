@@ -135,8 +135,16 @@
           Temperature Panel
           <button class="btn btn-material btn-circular btnPausePlay" data-chart="temp"
                   style="margin-left: 10px;"><i class="fa fa-pause pausePlay" style="color: #ffc107;"></i></button>
-          <span id="tempWarning" class="pull-right"><i class="fa fa-exclamation-triangle fa-2x"></i></span>
-          <span id="tempSuccess" class="pull-right" style="display: none;"><i class="fa fa-signal fa-2x"></i></span>
+          <span id="tempWarning" class="pull-right"><i class="fa fa-exclamation-triangle fa-2x"></i>
+            <md-tooltip md-direction="bottom">
+                No Signal
+            </md-tooltip>
+          </span>
+          <span id="tempSuccess" class="pull-right" style="display: none;"><i class="fa fa-signal fa-2x"></i>
+            <md-tooltip md-direction="bottom">
+                Connected
+            </md-tooltip>
+          </span>
         </div>
         <div class="panel-body" id="tempPanelBody">
           <div class="spinner" style="text-align: center;">
@@ -203,8 +211,16 @@
           Humidity Panel
           <button class="btn btn-material btn-circular btnPausePlay" data-chart="humidity"
                   style="margin-left: 10px;"><i class="fa fa-pause pausePlay" style="color: #db4437;"></i></button>
-          <span id="humidityWarning" class="pull-right"><i class="fa fa-exclamation-triangle fa-2x"></i></span>
-          <span id="humiditySuccess" class="pull-right" style="display: none;"><i class="fa fa-signal fa-2x"></i></span>
+          <span id="humidityWarning" class="pull-right"><i class="fa fa-exclamation-triangle fa-2x"></i>
+            <md-tooltip md-direction="bottom">
+                No Signal
+            </md-tooltip>
+          </span>
+          <span id="humiditySuccess" class="pull-right" style="display: none;"><i class="fa fa-signal fa-2x"></i>
+            <md-tooltip md-direction="bottom">
+                Connected
+            </md-tooltip>
+          </span>
         </div>
         <div class="panel-body">
           <div class="spinner" style="text-align: center;">
@@ -268,8 +284,16 @@
           Moisture Panel
           <button class="btn btn-material btn-circular btnPausePlay" data-chart="moisture"
                   style="margin-left: 10px;"><i class="fa fa-pause pausePlay" style="color: #4285f4;"></i></button>
-          <span id="moistureWarning" class="pull-right"><i class="fa fa-exclamation-triangle fa-2x"></i></span>
-          <span id="moistureSuccess" class="pull-right" style="display: none;"><i class="fa fa-signal fa-2x"></i></span>
+          <span id="moistureWarning" class="pull-right"><i class="fa fa-exclamation-triangle fa-2x"></i>
+            <md-tooltip md-direction="bottom">
+                No Signal
+            </md-tooltip>
+          </span>
+          <span id="moistureSuccess" class="pull-right" style="display: none;"><i class="fa fa-signal fa-2x"></i>
+            <md-tooltip md-direction="bottom">
+                Connected
+            </md-tooltip>
+          </span>
         </div>
         <div class="panel-body">
           <div class="spinner" style="text-align: center;">
