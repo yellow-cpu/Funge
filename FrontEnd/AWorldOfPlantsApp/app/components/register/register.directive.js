@@ -3,6 +3,12 @@
 // Register `register` directive
 angular.module('register').directive('attemptRegister', function ($state) {
     var linkFunction = function (scope, element, attributes) {
+        $("#email, #username, #password, #confirmPassword").keyup(function(event){
+            if(event.keyCode == 13){
+                $("#signUp").click();
+            }
+        });
+
         $('#signUp').on('click', function () {
 
             var email = $('#email');
