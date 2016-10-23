@@ -54,7 +54,7 @@ public class CreatePlantAction extends AbstractAction {
         List<Plant> userPlants = dao.getUserPlants(50, input.getUsername());
 
         for (int i = 0; i < userPlants.size(); ++i) {
-            if (userPlants.get(i).equals(input.getPlantName())) {
+            if (userPlants.get(i).getPlantName().equals(input.getPlantName())) {
                 throw new BadRequestException("plant already exists");
             }
         }
