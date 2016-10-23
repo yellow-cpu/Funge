@@ -183,11 +183,11 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
           borderDash: [],
           borderDashOffset: 0.0,
           borderJoinStyle: 'miter',
-          pointBorderColor: "rgba(255, 193 , 7, 1)",
+          pointBorderColor: "rgba(2, 145, 205, 1)",
           pointBackgroundColor: "#fff",
           pointBorderWidth: 1,
           pointHoverRadius: 5,
-          pointHoverBackgroundColor: "rgba(255, 193 , 7, 1)",
+          pointHoverBackgroundColor: "rgba(2, 145, 205, 1)",
           pointHoverBorderColor: "rgba(220,220,220,1)",
           pointHoverBorderWidth: 2,
           pointRadius: 1,
@@ -227,11 +227,11 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
           borderDash: [],
           borderDashOffset: 0.0,
           borderJoinStyle: 'miter',
-          pointBorderColor: "rgba(255, 193 , 7, 1)",
+          pointBorderColor: "rgba(254, 39, 18, 1)",
           pointBackgroundColor: "#fff",
           pointBorderWidth: 1,
           pointHoverRadius: 5,
-          pointHoverBackgroundColor: "rgba(255, 193 , 7, 1)",
+          pointHoverBackgroundColor: "rgba(254, 39, 18, 1)",
           pointHoverBorderColor: "rgba(220,220,220,1)",
           pointHoverBorderWidth: 2,
           pointRadius: 1,
@@ -274,20 +274,64 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
       labels: [],
       datasets: [
         {
-          label: "Humidity",
+          label: "Min",
           fill: false,
           lineTension: 0.1,
-          backgroundColor: "rgba(219, 68, 55, 0.4)",
-          borderColor: "rgba(219, 68, 55, 1)",
+          backgroundColor: "rgba(2, 145, 205, 0.4)",
+          borderColor: "rgba(2, 145, 205, 1)",
           borderCapStyle: 'butt',
           borderDash: [],
           borderDashOffset: 0.0,
           borderJoinStyle: 'miter',
-          pointBorderColor: "rgba(219, 68, 55, 1)",
+          pointBorderColor: "rgba(2, 145, 205, 1)",
           pointBackgroundColor: "#fff",
           pointBorderWidth: 1,
           pointHoverRadius: 5,
-          pointHoverBackgroundColor: "rgba(219, 68, 55, 1)",
+          pointHoverBackgroundColor: "rgba(2, 145, 205, 1)",
+          pointHoverBorderColor: "rgba(220,220,220,1)",
+          pointHoverBorderWidth: 2,
+          pointRadius: 1,
+          pointHitRadius: 10,
+          data: [],
+          spanGaps: false
+        },
+        {
+          label: "Average",
+          fill: false,
+          lineTension: 0.1,
+          backgroundColor: "rgba(255, 193 , 7, 0.4)",
+          borderColor: "rgba(255, 193 , 7, 1)",
+          borderCapStyle: 'butt',
+          borderDash: [],
+          borderDashOffset: 0.0,
+          borderJoinStyle: 'miter',
+          pointBorderColor: "rgba(255, 193 , 7, 1)",
+          pointBackgroundColor: "#fff",
+          pointBorderWidth: 1,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: "rgba(255, 193 , 7, 1)",
+          pointHoverBorderColor: "rgba(220,220,220,1)",
+          pointHoverBorderWidth: 2,
+          pointRadius: 1,
+          pointHitRadius: 10,
+          data: [],
+          spanGaps: false
+        },
+        {
+          label: "Max",
+          fill: false,
+          lineTension: 0.1,
+          backgroundColor: "rgba(254, 39, 18, 0.4)",
+          borderColor: "rgba(254, 39, 18, 1)",
+          borderCapStyle: 'butt',
+          borderDash: [],
+          borderDashOffset: 0.0,
+          borderJoinStyle: 'miter',
+          pointBorderColor: "rgba(254, 39, 18, 1)",
+          pointBackgroundColor: "#fff",
+          pointBorderWidth: 1,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: "rgba(254, 39, 18, 1)",
           pointHoverBorderColor: "rgba(220,220,220,1)",
           pointHoverBorderWidth: 2,
           pointRadius: 1,
@@ -986,27 +1030,6 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
               hTempData.datasets[0].data = [];
               hTempData.labels = [];
 
-              console.log(scope.$ctrl.tempHistory.startTimes.length);
-
-              // var timerId = 0;
-              // var k = 0;
-             /* timerId = setInterval(function () {
-                if (k == scope.$ctrl.tempHistory.avg.length - 1 || scope.$ctrl.tempHistory.avg.length == 0) {
-                  console.log("clearing interval");
-                  clearInterval(timerId);
-                } else {
-                  hTempData.datasets[0].data.push(scope.$ctrl.tempHistory.avg[k]);
-                  date = new Date(parseInt(scope.$ctrl.tempHistory.startTimes[k]));
-                  hTempData.labels.push(date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear());
-
-                  k++;
-
-                  console.log(k + " " + scope.$ctrl.tempHistory.avg.length);
-
-                  hTempChart.update(100);
-                }
-              }, 100);*/
-
               hTempData.datasets[0].data = scope.$ctrl.tempHistory.mins;
               hTempData.datasets[1].data = scope.$ctrl.tempHistory.avg;
               hTempData.datasets[2].data = scope.$ctrl.tempHistory.maxes;
@@ -1021,9 +1044,18 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
               hTempChart.update(1000);
             } else if (chart == "humidityHistory") {
               console.log("updating humidity");
+
+              i = 0;
+              hHumidityChart.destroy();
+
+              var ctx = document.getElementById('historical-chart-humidity').getContext('2d');
+
               hHumidityData.datasets[0].data = [];
-              hHumidityData.datasets[0].data = scope.$ctrl.humidityHistory.avg;
               hHumidityData.labels = [];
+
+              hHumidityData.datasets[0].data = scope.$ctrl.humidityHistory.mins;
+              hHumidityData.datasets[1].data = scope.$ctrl.humidityHistory.avg;
+              hHumidityData.datasets[2].data = scope.$ctrl.humidityHistory.maxes;
 
               for (i = 0; i < scope.$ctrl.humidityHistory.startTimes.length; ++i) {
                 date = new Date(parseInt(scope.$ctrl.humidityHistory.startTimes[i]));

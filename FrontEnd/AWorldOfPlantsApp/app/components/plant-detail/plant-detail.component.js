@@ -130,6 +130,12 @@ angular.module('plantDetail').component('plantDetail', {
     self.tempStartDate = new Date();
     self.tempEndDate = new Date();
 
+    self.humidityStartDate = new Date();
+    self.humidityEndDate = new Date();
+
+    self.moistureStartDate = new Date();
+    self.moistureEndDate = new Date();
+
     self.minDate = new Date();
     self.maxDate = new Date();
 
@@ -159,6 +165,12 @@ angular.module('plantDetail').component('plantDetail', {
         if (chart == "tempHistory") {
           startDate = self.tempStartDate.getTime();
           endDate = self.tempEndDate.getTime();
+        } else if (chart == "humidityHistory") {
+          startDate = self.humidityStartDate.getTime();
+          endDate = self.humidityEndDate.getTime();
+        } else if (chart == "moistureHistory") {
+          startDate = self.moistureStartDate.getTime();
+          endDate = self.moistureEndDate.getTime();
         }
 
         console.log(startDate);
