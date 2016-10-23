@@ -656,7 +656,7 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
           }
         });
 
-        var hHumidityChart = new Chart(ctxHHumidity, {
+        var hHumidityChartOptions = {
           type: "line",
           data: hHumidityData,
           options: {
@@ -681,7 +681,9 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
               }]
             }
           }
-        });
+        };
+
+        var hHumidityChart = new Chart(ctxHHumidity, hHumidityChartOptions);
 
         var moistureChart = new Chart(ctxMoisture, {
           type: "line",
@@ -1024,7 +1026,6 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
               hTempChart.destroy();
 
               var ctx = document.getElementById('historical-chart-temperature').getContext('2d');
-
               hTempChart = new Chart(ctx, hTempChartOptions);
 
               hTempData.datasets[0].data = [];
@@ -1049,6 +1050,7 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
               hHumidityChart.destroy();
 
               var ctx = document.getElementById('historical-chart-humidity').getContext('2d');
+              hHumidityChart = new Chart(ctx, hHumidityChartOptions);
 
               hHumidityData.datasets[0].data = [];
               hHumidityData.labels = [];
