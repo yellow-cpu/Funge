@@ -302,17 +302,17 @@ section h3.section-subheading {
   margin: 15px 0;
   text-transform: none;
 }
-#portfolio .portfolio-item {
+.portfolio .portfolio-item {
   margin: 0 0 15px;
   right: 0;
 }
-#portfolio .portfolio-item .portfolio-link {
+.portfolio .portfolio-item .portfolio-link {
   display: block;
   position: relative;
   max-width: 400px;
   margin: 0 auto;
 }
-#portfolio .portfolio-item .portfolio-link .portfolio-hover {
+.portfolio .portfolio-item .portfolio-link .portfolio-hover {
   background: rgba(15, 157, 88, 0.9);
   position: absolute;
   width: 100%;
@@ -322,10 +322,10 @@ section h3.section-subheading {
   -webkit-transition: all ease 0.5s;
   -moz-transition: all ease 0.5s;
 }
-#portfolio .portfolio-item .portfolio-link .portfolio-hover:hover {
+.portfolio .portfolio-item .portfolio-link .portfolio-hover:hover {
   opacity: 1;
 }
-#portfolio .portfolio-item .portfolio-link .portfolio-hover .portfolio-hover-content {
+.portfolio .portfolio-item .portfolio-link .portfolio-hover .portfolio-hover-content {
   position: absolute;
   width: 100%;
   height: 20px;
@@ -335,35 +335,35 @@ section h3.section-subheading {
   margin-top: -12px;
   color: white;
 }
-#portfolio .portfolio-item .portfolio-link .portfolio-hover .portfolio-hover-content i {
+.portfolio .portfolio-item .portfolio-link .portfolio-hover .portfolio-hover-content i {
   margin-top: -12px;
 }
-#portfolio .portfolio-item .portfolio-link .portfolio-hover .portfolio-hover-content h3,
-#portfolio .portfolio-item .portfolio-link .portfolio-hover .portfolio-hover-content h4 {
+.portfolio .portfolio-item .portfolio-link .portfolio-hover .portfolio-hover-content h3,
+.portfolio .portfolio-item .portfolio-link .portfolio-hover .portfolio-hover-content h4 {
   margin: 0;
 }
-#portfolio .portfolio-item .portfolio-caption {
+.portfolio .portfolio-item .portfolio-caption {
   max-width: 400px;
   margin: 0 auto;
   background-color: white;
   text-align: center;
   padding: 25px;
 }
-#portfolio .portfolio-item .portfolio-caption h4 {
+.portfolio .portfolio-item .portfolio-caption h4 {
   text-transform: none;
   margin: 0;
 }
-#portfolio .portfolio-item .portfolio-caption p {
+.portfolio .portfolio-item .portfolio-caption p {
   font-family: "Droid Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-style: italic;
   font-size: 16px;
   margin: 0;
 }
-#portfolio * {
+.portfolio * {
   z-index: 2;
 }
 @media (min-width: 767px) {
-  #portfolio .portfolio-item {
+  .portfolio .portfolio-item {
     margin: 0 0 30px;
   }
 }
