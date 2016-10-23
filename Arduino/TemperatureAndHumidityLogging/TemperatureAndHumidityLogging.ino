@@ -3,13 +3,16 @@
 #include "aws_iot_config.h"
 #include "DHT.h"
 #include <math.h>
-
+#include <Wire.h>
+#include "Arduino.h"
+#include "SI114X.h"
 
 #define DHTPIN A0     // what pin we're connected to
 #define RED_PIN 3
 #define GREEN_PIN 5
 #define BLUE_PIN 6
-#define PUMP_PIN 2
+#define PUMP_PIN 8
+#define FAN_PIN 9
 #define MOISTURE_PIN A2
 
 // Uncomment whatever type you're using!
@@ -23,6 +26,7 @@
 // Connect a 10K resistor from pin 2 (data) to pin 1 (power) of the sensor
 
 DHT dht(DHTPIN, DHTTYPE);
+SI114X SI1145 = SI114X();
 
 aws_iot_mqtt_client myClient;
 char JSON_buf[150];
@@ -103,7 +107,13 @@ void setup() {
   pinMode(GREEN_PIN, OUTPUT);
   pinMode(BLUE_PIN, OUTPUT);
   pinMode(PUMP_PIN, OUTPUT);
+  digitalWrite(PUMP_PIN, LOW);
   
+  while (!SI1145.Begin()) {
+    Serial.println("Si1145 is not ready!");
+    delay(1000);
+  }
+  Serial.println("Si1145 is ready!");
   //while(!Serial);
 
   char curr_version[80];
@@ -122,6 +132,7 @@ void setup() {
 }
 
 void loop() {
+  analogWrite(FAN_PIN, fanSpeed);
   analogWrite(RED_PIN, red);
   analogWrite(GREEN_PIN, green);
   analogWrite(BLUE_PIN, blue);
@@ -132,7 +143,10 @@ void loop() {
     float h = dht.readHumidity();
     float t = dht.readTemperature();
     int moisture = analogRead(MOISTURE_PIN);
-
+    int vis = SI1145.ReadVisible();
+    int ir = SI1145.ReadIR();
+    int uv = SI1145.ReadUV();
+    
     if (isnan(t) || isnan(h)) 
     {
         Serial.println("Failed to read from DHT");
@@ -151,7 +165,7 @@ void loop() {
 
         float_buf[4] = '\0';
 
-        sprintf(JSON_buf, "{\"state\":{\"reported\":{\"temperature\":%s, \"humidity\":%s, \"moisture\":%d}}}", float_buf, float_buf2, moisture);
+        sprintf(JSON_buf, "{\"state\":{\"reported\":{\"temperature\":%s,\"humidity\":%s,\"moisture\":%d,\"vis\":%d,\"ir\":%d,\"uv\":%d}}}", float_buf, float_buf2, moisture, vis, ir, uv);
         print_log("shadow update", myClient.shadow_update(AWS_IOT_MY_THING_NAME, JSON_buf, strlen(JSON_buf), NULL, 5));
         if(myClient.yield()) {
           Serial.println("Yield failed.");
