@@ -441,11 +441,14 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
 
           dataset.backgroundColor.push(backColour);
           dataset.borderColor.push(borderColour);
+
+          if (dataset.data.length > 30) {
+            dataset.backgroundColor.splice(0,1);
+            dataset.borderColor.splice(0,1);
+          }
         }
 
         if (dataset.data.length > 30) {
-          dataset.backgroundColor.splice(0,1);
-          dataset.borderColor.splice(0,1);
           dataset.data.splice(0, 1); // remove first data point
         }
       });
