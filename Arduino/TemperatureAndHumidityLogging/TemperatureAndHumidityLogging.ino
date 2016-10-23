@@ -172,6 +172,6 @@ void loop() {
         }
     }
     
-    delay(4000); // Update every 4000 ms
+    delay(1000); // Update every 1000 ms
   }
 }
