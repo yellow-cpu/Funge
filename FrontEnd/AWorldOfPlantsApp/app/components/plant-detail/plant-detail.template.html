@@ -355,10 +355,10 @@
 
   <div class="row">
     <div class="col-md-12">
-      <div class="panel panel-yellow panel-aggregate">
+      <div class="panel panel-yellow panel-light">
         <div class="panel-heading">
-          Aggregate Panel
-          <button class="btn btn-material btn-circular btnPausePlay" data-chart="aggregate"
+          Light Panel
+          <button class="btn btn-material btn-circular btnPausePlay" data-chart="light"
                   style="margin-left: 10px;"><i class="fa fa-pause pausePlay" style="color: #c52062;"></i></button>
         </div>
         <div class="panel-body">
@@ -370,26 +370,26 @@
             <div class="rect5"></div>
           </div>
 
-          <div id="aggregateTab" class="panel-body-content" style="display: none;">
+          <div id="lightTab" class="panel-body-content" style="display: none;">
             <ul class="nav nav-pills moisture-pills">
               <li class="active">
-                <a data-target="#live-aggregate" data-toggle="tab">Live</a>
+                <a data-target="#live-light" data-toggle="tab">Live</a>
               </li>
               <li>
-                <a data-target="#historical-aggregate" data-toggle="tab">Historical</a>
+                <a data-target="#historical-light" data-toggle="tab">Historical</a>
               </li>
             </ul>
 
             <div class="tab-content clearfix">
-              <div class="tab-pane active" id="live-aggregate">
+              <div class="tab-pane active" id="live-light">
                 <div class="col-md-6">
-                  <canvas id="live-chart-aggregate" plant-detail-canvas-directive></canvas>
+                  <canvas id="live-chart-light" plant-detail-canvas-directive></canvas>
                 </div>
                 <div class="col-md-6">
-                  <canvas id="live-chart-aggregate-line" plant-detail-canvas-directive></canvas>
+                  <canvas id="live-chart-uv" plant-detail-canvas-directive></canvas>
                 </div>
               </div>
-              <div class="tab-pane" id="historical-aggregate">
+              <div class="tab-pane" id="historical-light">
                 <h3>historical data over here</h3>
               </div>
             </div>
