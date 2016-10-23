@@ -374,21 +374,65 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
       labels: [],
       datasets: [
         {
-          label: "Moisture",
+          label: "Min",
           fill: false,
           lineTension: 0.1,
-          backgroundColor: "rgba(66, 133, 244, 0.4)",
-          borderColor: "rgba(66, 133, 244, 1)",
+          backgroundColor: "rgba(2, 145, 205, 0.4)",
+          borderColor: "rgba(2, 145, 205, 1)",
           borderCapStyle: 'butt',
           borderDash: [],
           borderDashOffset: 0.0,
           borderJoinStyle: 'miter',
-          pointBorderColor: "rgba(66, 133, 244, 1)",
+          pointBorderColor: "rgba(2, 145, 205, 1)",
           pointBackgroundColor: "#fff",
           pointBorderWidth: 1,
           pointHoverRadius: 5,
-          pointHoverBackgroundColor: "rgba(66, 133, 244, 1)",
-          pointHoverBorderColor: "rgba(66, 133, 244, 1)",
+          pointHoverBackgroundColor: "rgba(2, 145, 205, 1)",
+          pointHoverBorderColor: "rgba(220,220,220,1)",
+          pointHoverBorderWidth: 2,
+          pointRadius: 1,
+          pointHitRadius: 10,
+          data: [],
+          spanGaps: false
+        },
+        {
+          label: "Average",
+          fill: false,
+          lineTension: 0.1,
+          backgroundColor: "rgba(255, 193 , 7, 0.4)",
+          borderColor: "rgba(255, 193 , 7, 1)",
+          borderCapStyle: 'butt',
+          borderDash: [],
+          borderDashOffset: 0.0,
+          borderJoinStyle: 'miter',
+          pointBorderColor: "rgba(255, 193 , 7, 1)",
+          pointBackgroundColor: "#fff",
+          pointBorderWidth: 1,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: "rgba(255, 193 , 7, 1)",
+          pointHoverBorderColor: "rgba(220,220,220,1)",
+          pointHoverBorderWidth: 2,
+          pointRadius: 1,
+          pointHitRadius: 10,
+          data: [],
+          spanGaps: false
+        },
+        {
+          label: "Max",
+          fill: false,
+          lineTension: 0.1,
+          backgroundColor: "rgba(254, 39, 18, 0.4)",
+          borderColor: "rgba(254, 39, 18, 1)",
+          borderCapStyle: 'butt',
+          borderDash: [],
+          borderDashOffset: 0.0,
+          borderJoinStyle: 'miter',
+          pointBorderColor: "rgba(254, 39, 18, 1)",
+          pointBackgroundColor: "#fff",
+          pointBorderWidth: 1,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: "rgba(254, 39, 18, 1)",
+          pointHoverBorderColor: "rgba(220,220,220,1)",
           pointHoverBorderWidth: 2,
           pointRadius: 1,
           pointHitRadius: 10,
@@ -712,7 +756,7 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
           }
         });
 
-        var hMoistureChart = new Chart(ctxHMoisture, {
+        var hMoistureChartOptions = {
           type: "line",
           data: hMoistureData,
           options: {
@@ -737,7 +781,9 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
               }]
             }
           }
-        });
+        };
+
+        var hMoistureChart = new Chart(ctxHMoisture, hMoistureChartOptions);
 
         var lightChart = new Chart(ctxLight, {
           type: "line",
@@ -1066,9 +1112,19 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
 
               hHumidityChart.update(1000);
             } else if (chart == "moistureHistory") {
+              i = 0;
+
+              hMoistureChart.destroy();
+
+              var ctx = document.getElementById('historical-chart-moisture').getContext('2d');
+              hMoistureChart = new Chart(ctx, hMoistureChartOptions);
+
               hMoistureData.datasets[0].data = [];
-              hMoistureData.datasets[0].data = scope.$ctrl.moistureHistory.avg;
               hMoistureData.labels = [];
+
+              hMoistureData.datasets[0].data = scope.$ctrl.moistureHistory.mins;
+              hMoistureData.datasets[1].data = scope.$ctrl.moistureHistory.avg;
+              hMoistureData.datasets[2].data = scope.$ctrl.moistureHistory.maxes;
 
               for (i = 0; i < scope.$ctrl.moistureHistory.startTimes.length; ++i) {
                 date = new Date(parseInt(scope.$ctrl.moistureHistory.startTimes[i]));
