@@ -1,5 +1,6 @@
 dist
 cabal-dev
+mock_device/node_modules
 *.o
 *.hi
 *.chi

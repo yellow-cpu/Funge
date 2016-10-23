@@ -3,7 +3,7 @@
 // Register `login` directive
 angular.module('login').directive('attemptLogin', function ($state) {
   var linkFunction = function (scope, element, attributes) {
-    $("#password").keyup(function(event){
+    $("#password, #username").keyup(function(event){
       if(event.keyCode == 13){
         $("#loginBtn").click();
       }
