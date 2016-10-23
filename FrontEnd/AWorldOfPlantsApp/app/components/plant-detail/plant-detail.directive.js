@@ -1068,7 +1068,35 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
         $(".history-chart").on("click", function () {
           var chart = $(this).data("id");
 
+          var btn = $(this);
+
+          btn.find('span').css({
+            "display": "none"
+          });
+
+          btn.find('.update-spin').css({
+            "display": "inline-block"
+          });
+
           var updateChart = function () {
+            btn.find('.update-spin').css({
+              "display": "none"
+            });
+
+            btn.find('svg').css({
+              "display": "block"
+            });
+
+            setTimeout(function () {
+              btn.find('span').css({
+                "display": "inline"
+              });
+
+              btn.find('svg').css({
+                "display": "none"
+              });
+            }, 3000);
+
             var date;
             var i = 0;
 
