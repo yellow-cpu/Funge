@@ -1131,3 +1131,8 @@ ngjs-color-picker li.selectedColor {
 md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-icon {
     background-color: #38474f;
 }
+
+input[type="search"] {
+    box-sizing: border-box !important;
+    -webkit-box-sizing: border-box !important;
+}

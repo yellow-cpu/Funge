@@ -139,67 +139,84 @@ angular.module('plantDetail').component('plantDetail', {
     self.moistureHistory = {};
 
     self.getPlantHistory = function (chart, callback) {
-      console.log("getting plant history");
-      var params = {};
+      var apigGetPlantHistory = function () {
+        console.log("getting plant history");
+        var params = {};
 
-      self.tempStartDate.setHours(2);
-      self.tempStartDate.setMinutes(0);
-      self.tempStartDate.setSeconds(0);
-      self.tempStartDate.setMilliseconds(0);
+        self.tempStartDate.setHours(2);
+        self.tempStartDate.setMinutes(0);
+        self.tempStartDate.setSeconds(0);
+        self.tempStartDate.setMilliseconds(0);
 
-      self.tempEndDate.setHours(2);
-      self.tempEndDate.setMinutes(0);
-      self.tempEndDate.setSeconds(0);
-      self.tempEndDate.setMilliseconds(0);
-      self.tempEndDate.setDate(self.tempEndDate.getDate() + 1);
+        self.tempEndDate.setHours(2);
+        self.tempEndDate.setMinutes(0);
+        self.tempEndDate.setSeconds(0);
+        self.tempEndDate.setMilliseconds(0);
+        self.tempEndDate.setDate(self.tempEndDate.getDate() + 1);
 
-      var startDate;
-      var endDate;
+        var startDate;
+        var endDate;
 
-      if (chart == "tempHistory") {
-        startDate = self.tempStartDate.getTime();
-        endDate = self.tempEndDate.getTime();
-      }
+        if (chart == "tempHistory") {
+          startDate = self.tempStartDate.getTime();
+          endDate = self.tempEndDate.getTime();
+        }
 
-      console.log(startDate);
-      console.log(endDate);
+        console.log(startDate);
+        console.log(endDate);
 
-      var body = {
-        "plantId": self.plantDetails.plantId,
-        "chartType": chart,
-        "startDate": startDate,
-        "endDate": endDate
+        var body = {
+          "plantId": self.plantDetails.plantId,
+          "chartType": chart,
+          "startDate": startDate,
+          "endDate": endDate
+        };
+
+        console.log(body);
+
+        self.apigClient.plantsHistoryPost(params, body)
+          .then(function (result) {
+            console.log(result);
+
+            console.log(chart);
+
+            if (chart == "tempHistory") {
+              self.tempHistory.startTimes = result.data.startTimes;
+              self.tempHistory.avg = result.data.averages;
+              self.tempHistory.mins = result.data.mins;
+              self.tempHistory.maxes = result.data.maxes;
+            } else if (chart == "humidityHistory") {
+              self.humidityHistory.startTimes = result.data.startTimes;
+              self.humidityHistory.avg = result.data.averages;
+              self.humidityHistory.mins = result.data.mins;
+              self.humidityHistory.maxes = result.data.maxes;
+            } else if (chart == "moistureHistory") {
+              self.moistureHistory.startTimes = result.data.startTimes;
+              self.moistureHistory.avg = result.data.averages;
+              self.moistureHistory.mins = result.data.mins;
+              self.moistureHistory.maxes = result.data.maxes;
+            }
+
+            callback();
+          }).catch(function (result) {
+          console.log("Error: " + JSON.stringify(result));
+        });
       };
 
-      console.log(body);
+      if (refreshService.needsRefresh($localStorage.expiration)) {
+        refreshService.refresh($localStorage.username, $localStorage.password, function () {
+          self.apigClient = apigClientFactory.newClient({
+            accessKey: $localStorage.accessKey,
+            secretKey: $localStorage.secretKey,
+            sessionToken: $localStorage.sessionToken,
+            region: $localStorage.region
+          });
 
-      self.apigClient.plantsHistoryPost(params, body)
-        .then(function (result) {
-          console.log(result);
-
-          console.log(chart);
-
-          if (chart == "tempHistory") {
-            self.tempHistory.startTimes = result.data.startTimes;
-            self.tempHistory.avg = result.data.averages;
-            self.tempHistory.mins = result.data.mins;
-            self.tempHistory.maxes = result.data.maxes;
-          } else if (chart == "humidityHistory") {
-            self.humidityHistory.startTimes = result.data.startTimes;
-            self.humidityHistory.avg = result.data.averages;
-            self.humidityHistory.mins = result.data.mins;
-            self.humidityHistory.maxes = result.data.maxes;
-          } else if (chart == "moistureHistory") {
-            self.moistureHistory.startTimes = result.data.startTimes;
-            self.moistureHistory.avg = result.data.averages;
-            self.moistureHistory.mins = result.data.mins;
-            self.moistureHistory.maxes = result.data.maxes;
-          }
-
-          callback();
-        }).catch(function (result) {
-        console.log("Error: " + JSON.stringify(result));
-      });
+          apigGetPlantHistory();
+        });
+      } else {
+        apigGetPlantHistory();
+      }
     };
 
     // Light control
@@ -388,6 +405,7 @@ angular.module('plantDetail').component('plantDetail', {
     });
 
     self.plantDetails = siteService.getPlant();
+    self.plantDetails.plantAge = self.plantDetails.plantAge.substr(0, self.plantDetails.plantAge.indexOf('T'));
 
     var params = {
       "plantid": self.plantDetails.plantId
