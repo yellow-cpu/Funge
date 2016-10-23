@@ -9,8 +9,8 @@ var awsIot = require('aws-iot-device-sdk');
  * Set the variables below
  */
 
-var   pemName = "CabbageBox";
-var thingName = "CabbageBox";
+var   pemName = "DemoBox";
+var thingName = "DemoBox";
 
 /**
  * ============================================================
