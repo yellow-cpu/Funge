@@ -105,60 +105,63 @@
 	\item \textbf{IoT Topic} A stream of JSON strings that are published to. A stream can be subscribed to, where the subscriber will receive all JSON messages published to that topic
 \end{itemize}
 
+\newpage
+
 \section{Functional Requirements}
-\subsection{Use Case Prioritisation}
-\subsubsection{Critical}
-\begin{itemize}
-	\item User Management Subsystem:
-	\begin{itemize}
-		\item Register account
-		\item Login
-		\item Logout
-	\end{itemize}
-	
-	\item Plant/Device Management Subsystem:
-	\begin{itemize}
-		\item Create plant
-		\item List plants
-		\item Create and associate a virtual 'Thing' with a plant
-		\item View plant status
-		\item Configure light settings
-	\end{itemize}
-	
-	\item Device Communications Subsystem
-	\begin{itemize}
-		\item Send readings summary to Lambda
-	\end{itemize}
-\end{itemize}
-
-\subsubsection{Important}
-\begin{itemize}
-	\item User Management Subsystem:
-	\begin{itemize}
-		\item Update User Details
-	\end{itemize}
-	
-	\item Plant/Device Management Subsystem:
-	\begin{itemize}
-		\item Update plant details
-		\item Configure pump settings
-		\item Configure fan speeds
-		\item Delete plant
-	\end{itemize}
-\end{itemize}
-
-\subsubsection{Nice-to-haves}
-\begin{itemize}
-	\item User Management Subsystem
-	\begin{itemize}
-		\item View gamification information/get user details
-	\end{itemize}
-	\item Device Communications Subsystem
-	\begin{itemize}
-		\item Complex event processing on device communications
-	\end{itemize}
-\end{itemize}
-
+	\subsection{Use Case Prioritisation}
+		\subsubsection{User Management Subsystem}
+			\begin{itemize}
+				\item Critical
+				\begin{itemize}
+					\item Register account
+					\item Login
+					\item Logout
+				\end{itemize}
+				
+				\item Important
+				\begin{itemize}
+					\item Update User Details
+				\end{itemize}
+				
+				\item Nice-to-have
+				\begin{itemize}
+					\item View gamification information/get user details
+				\end{itemize}
+			\end{itemize}
+			
+		\subsubsection{Plant/Device Management Subsystem}
+			\begin{itemize}
+				\item Critical
+				\begin{itemize}
+					\item Create plant
+					\item List plants
+					\item Create and associate a virtual 'Thing' with a plant
+					\item View plant status
+					\item Configure light settings
+				\end{itemize}
+				
+				\item Important
+				\begin{itemize}
+					\item Update plant details
+					\item Configure pump settings
+					\item Configure fan speeds
+					\item Delete plant
+				\end{itemize}
+			\end{itemize}
+		
+		\subsubsection{Device Communications Subsystem}
+			\begin{itemize}
+				\item Critical
+				\begin{itemize}
+					\item Send readings summary to Lambda
+				\end{itemize}
+				
+				\item Nice-to-have
+				\begin{itemize}
+					\item Complex event processing on device communications
+				\end{itemize}
+			\end{itemize}
+			
 \subsection{Use Case/Service Contracts}
 
 \subsubsection{User Management Subsystem}
