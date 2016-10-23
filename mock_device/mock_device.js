@@ -36,6 +36,9 @@ var device = awsIot.device({
 var temperature = 0;
 var humidity    = 0;
 var moisture    = 0;
+var vis			= 0;
+var ir			= 0;
+var uv			= 0;
 
 function getRandom(min, max) { return Math.random() * (max - min) + min; }
 
@@ -43,6 +46,9 @@ function randomizeValues() {
 	temperature = getRandom(10, 28);
 	humidity    = getRandom(30, 50);
 	moisture    = getRandom(200, 500);
+	vis			= getRandom(10, 300);
+	ir			= getRandom(10, 300);
+	uv			= getRandom(0, 13);
 }
 
 function publish() {
@@ -53,7 +59,10 @@ function publish() {
 			"reported": {
 				"temperature":	temperature,
 				"humidity":		humidity,
-				"moisture":		moisture
+				"moisture":		moisture,
+				"vis":			vis,
+				"ir":			ir,
+				"uv":			uv
 			}
 		}
 	};
