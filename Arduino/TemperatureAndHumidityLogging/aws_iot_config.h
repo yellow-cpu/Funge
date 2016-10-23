@@ -22,15 +22,15 @@
 // your endpoint
 #define AWS_IOT_MQTT_PORT 8883
 // your port
-#define AWS_IOT_CLIENT_ID      "temperature"
+#define AWS_IOT_CLIENT_ID      "SeeedBravoBox"
 // your client ID
-#define AWS_IOT_MY_THING_NAME "temperature"
+#define AWS_IOT_MY_THING_NAME "SeeedBravoBox"
 // your thing name
 #define AWS_IOT_ROOT_CA_FILENAME "root-CA.crt"
 // your root-CA filename
-#define AWS_IOT_CERTIFICATE_FILENAME "cert.pem.crt"
+#define AWS_IOT_CERTIFICATE_FILENAME "SeeedBravoBox-cert.pem.crt"
 // your certificate filename
-#define AWS_IOT_PRIVATE_KEY_FILENAME "private.pem.key"
+#define AWS_IOT_PRIVATE_KEY_FILENAME "SeeedBravoBox-private.pem.key"
 // your private key filename
 //===============================================================
 
