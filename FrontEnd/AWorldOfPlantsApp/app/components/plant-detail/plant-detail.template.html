@@ -94,18 +94,18 @@
 
           <div class="panel-body-content" style="display: none;">
             <label style="color: #757575;">Wavelength (nm)</label>
+            <span style="display: flex; align-items: center;"><md-switch aria-label="light is" style="padding-left: 0.5em;" class="switch" ng-model="$ctrl.lightOn" ng-true-value="'On'" ng-false-value="'Off'" type="checkbox"></md-switch><i>{{$ctrl.lightOn}}</i></span>
+            <md-checkbox ng-model="$ctrl.lightWhite" aria-label="light white or not" style="margin-left: 0.5em;">
+              <i>White: {{ $ctrl.lightWhite }}</i>
+            </md-checkbox>
             <rzslider id="nmSlider" rz-slider-model="$ctrl.nmSlider.value" rz-slider-options="$ctrl.nmSlider.options" ng-model="$ctrl.nmSlider.value"></rzslider><br><br>
 
             <label style="color: #757575;">Fan Power</label>
             <rzslider id="fanSlider" rz-slider-model="$ctrl.fanSlider.value" rz-slider-options="$ctrl.fanSlider.options"></rzslider><br><br>
-
-            <label style="color: #757575;">Pump Toggle: {{ $ctrl.pumpOn }}</label><br>
+            <label style="color: #757575;">Pump is {{ $ctrl.pumpOn }}</label>
             <div class="row">
               <div class="col-md-2">
-                <label class="switch">
-                  <input ng-model="$ctrl.pumpOn" type="checkbox">
-                  <div class="slider"></div>
-                </label>
+                <md-switch class="switch" ng-model="$ctrl.pumpOn" aria-label="Pump is" ng-true-value="'on'" ng-false-value="'off'" type="checkbox"></md-switch>
               </div>
             </div>
             <br>
@@ -179,10 +179,10 @@
                 <canvas id="historical-chart-temperature"></canvas>
                 <div class="row" style="margin-top: 10px;">
                   <div class="col-md-5">
-                    Begin: <md-datepicker ng-model="$ctrl.startDate" md-max-date="$ctrl.maxDate" md-placeholder="Enter date"></md-datepicker>
+                    Begin: <md-datepicker ng-model="$ctrl.tempStartDate" md-max-date="$ctrl.maxDate" md-placeholder="Enter date"></md-datepicker>
                   </div>
                   <div class="col-md-5">
-                    <span style="padding-left: 0.5em;">End: <md-datepicker ng-model="$ctrl.endDate" md-min-date="$ctrl.startDate" md-max-date="$ctrl.maxDate" md-placeholder="Enter date"></md-datepicker></span>
+                    <span style="padding-left: 0.5em;">End: <md-datepicker ng-model="$ctrl.tempEndDate" md-min-date="$ctrl.tempStartDate" md-max-date="$ctrl.maxDate" md-placeholder="Enter date"></md-datepicker></span>
                   </div>
                   <div class="col-md-2">
                     <button class="btn btn-material btn-material-green pull-right history-chart" data-id="tempHistory">Submit</button>
@@ -243,8 +243,19 @@
                   </div>
                 </div>
               </div>
-              <div class="tab-pane" id="historical-humidity">
-                <h3>historical data over here</h3>
+              <div class="tab-pane" id="historical-humidity" plant-detail-canvas-directive>
+                <canvas id="historical-chart-humidity"></canvas>
+                <div class="row" style="margin-top: 10px;">
+                  <div class="col-md-5">
+                    <!--Begin: <md-datepicker ng-model="$ctrl.startDate" md-max-date="$ctrl.maxDate" md-placeholder="Enter date"></md-datepicker>-->
+                  </div>
+                  <div class="col-md-5">
+                    <!--<span style="padding-left: 0.5em;">End: <md-datepicker ng-model="$ctrl.endDate" md-min-date="$ctrl.startDate" md-max-date="$ctrl.maxDate" md-placeholder="Enter date"></md-datepicker></span>-->
+                  </div>
+                  <div class="col-md-2">
+                    <button class="btn btn-material btn-material-green pull-right history-chart" data-id="humidityHistory">Submit</button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -297,8 +308,19 @@
                   </div>
                 </div>
               </div>
-              <div class="tab-pane" id="historical-moisture">
-                <h3>historical data over here</h3>
+              <div class="tab-pane" id="historical-moisture" plant-detail-canvas-directive>
+                <canvas id="historical-chart-moisture"></canvas>
+                <div class="row" style="margin-top: 10px;">
+                  <div class="col-md-5">
+                    <!--Begin: <md-datepicker ng-model="$ctrl.startDate" md-max-date="$ctrl.maxDate" md-placeholder="Enter date"></md-datepicker>-->
+                  </div>
+                  <div class="col-md-5">
+                    <!--<span style="padding-left: 0.5em;">End: <md-datepicker ng-model="$ctrl.endDate" md-min-date="$ctrl.startDate" md-max-date="$ctrl.maxDate" md-placeholder="Enter date"></md-datepicker></span>-->
+                  </div>
+                  <div class="col-md-2">
+                    <button class="btn btn-material btn-material-green pull-right history-chart" data-id="moistureHistory">Submit</button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -358,7 +380,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header" style="background-color: #db4437;">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><img width="15" valign="middle" style="margin-top:-3px;" src="/images/close.png"></button>
+        <button id="closeDelete" type="button" class="close" data-dismiss="modal" aria-label="Close"><img width="15" valign="middle" style="margin-top:-3px;" src="/images/close.png"></button>
         <h4 class="modal-title" id="myModalLabel">Delete Plant Confirmation</h4>
       </div>
       <div class="modal-body">

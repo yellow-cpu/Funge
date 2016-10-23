@@ -128,28 +128,95 @@ angular.module('plantDetail').component('plantDetail', {
     self.requestUrl = null;
 
     // Date pickers & history
-    self.startDate = new Date();
-    self.endDate = new Date();
+    self.tempStartDate = new Date();
+    self.tempEndDate = new Date();
 
     self.minDate = new Date();
     self.maxDate = new Date();
 
-    self.getPlantHistory = function () {
-      console.log("getting plant history");
-      var params = {};
-      var body = {
-        "plantId": "2d0eb647-f510-40c6-b332-6bab3c15590b",
-        "chartType": "temperature",
-        "startDate": "12345",
-        "endDate": "12345"
+    self.tempHistory = {};
+    self.humidityHistory = {};
+    self.moistureHistory = {};
+
+    self.getPlantHistory = function (chart, callback) {
+      var apigGetPlantHistory = function () {
+        console.log("getting plant history");
+        var params = {};
+
+        self.tempStartDate.setHours(2);
+        self.tempStartDate.setMinutes(0);
+        self.tempStartDate.setSeconds(0);
+        self.tempStartDate.setMilliseconds(0);
+
+        self.tempEndDate.setHours(2);
+        self.tempEndDate.setMinutes(0);
+        self.tempEndDate.setSeconds(0);
+        self.tempEndDate.setMilliseconds(0);
+        self.tempEndDate.setDate(self.tempEndDate.getDate() + 1);
+
+        var startDate;
+        var endDate;
+
+        if (chart == "tempHistory") {
+          startDate = self.tempStartDate.getTime();
+          endDate = self.tempEndDate.getTime();
+        }
+
+        console.log(startDate);
+        console.log(endDate);
+
+        var body = {
+          "plantId": self.plantDetails.plantId,
+          "chartType": chart,
+          "startDate": startDate,
+          "endDate": endDate
+        };
+
+        console.log(body);
+
+        self.apigClient.plantsHistoryPost(params, body)
+          .then(function (result) {
+            console.log(result);
+
+            console.log(chart);
+
+            if (chart == "tempHistory") {
+              self.tempHistory.startTimes = result.data.startTimes;
+              self.tempHistory.avg = result.data.averages;
+              self.tempHistory.mins = result.data.mins;
+              self.tempHistory.maxes = result.data.maxes;
+            } else if (chart == "humidityHistory") {
+              self.humidityHistory.startTimes = result.data.startTimes;
+              self.humidityHistory.avg = result.data.averages;
+              self.humidityHistory.mins = result.data.mins;
+              self.humidityHistory.maxes = result.data.maxes;
+            } else if (chart == "moistureHistory") {
+              self.moistureHistory.startTimes = result.data.startTimes;
+              self.moistureHistory.avg = result.data.averages;
+              self.moistureHistory.mins = result.data.mins;
+              self.moistureHistory.maxes = result.data.maxes;
+            }
+
+            callback();
+          }).catch(function (result) {
+          console.log("Error: " + JSON.stringify(result));
+        });
       };
 
-      self.apigClient.plantsHistoryPost(params, body)
-        .then(function (result) {
-          console.log(result);
-        }).catch(function (result) {
-        console.log("Error: " + JSON.stringify(result));
-      });
+      if (refreshService.needsRefresh($localStorage.expiration)) {
+        refreshService.refresh($localStorage.username, $localStorage.password, function () {
+          self.apigClient = apigClientFactory.newClient({
+            accessKey: $localStorage.accessKey,
+            secretKey: $localStorage.secretKey,
+            sessionToken: $localStorage.sessionToken,
+            region: $localStorage.region
+          });
+
+          apigGetPlantHistory();
+        });
+      } else {
+        apigGetPlantHistory();
+      }
     };
 
     // Light control
@@ -181,7 +248,9 @@ angular.module('plantDetail').component('plantDetail', {
       }
     };
 
-    self.pumpOn = false;
+    self.pumpOn = "off";
+    self.lightOn = "On";
+    self.lightWhite = false;
 
     self.updateControl = function () {
       var updateControl = $('#updateControl');
@@ -195,8 +264,19 @@ angular.module('plantDetail').component('plantDetail', {
       });
 
       var rgb = nmToRGB(self.nmSlider.value);
-      var fanPower = self.fanSlider.value;
-      var pumpOn = self.pumpOn ? 1 : 0;
+      var fanPower = (self.fanSlider.value/100) * 255;
+      var pumpOn = (self.pumpOn == "on") ? 1 : 0;
+      console.log(self.pumpOn + ": " + pumpOn);
+
+      if (self.lightOn == "Off") {
+        rgb[0] = 0;
+        rgb[1] = 0;
+        rgb[2] = 0;
+      } else if (self.lightWhite == true) {
+        rgb[0] = 255;
+        rgb[1] = 255;
+        rgb[2] = 255;
+      }
 
       console.log(rgb + " " + fanPower + " " + pumpOn);
 
@@ -325,6 +405,7 @@ angular.module('plantDetail').component('plantDetail', {
     });
 
     self.plantDetails = siteService.getPlant();
+    self.plantDetails.plantAge = self.plantDetails.plantAge.substr(0, self.plantDetails.plantAge.indexOf('T'));
 
     var params = {
       "plantid": self.plantDetails.plantId

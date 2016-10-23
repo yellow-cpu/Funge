@@ -3,8 +3,10 @@ package cf.funge.aworldofplants.action;
 import cf.funge.aworldofplants.configuration.ExceptionMessages;
 import cf.funge.aworldofplants.exception.BadRequestException;
 import cf.funge.aworldofplants.exception.InternalErrorException;
+import cf.funge.aworldofplants.model.DAOFactory;
 import cf.funge.aworldofplants.model.action.GetPlantHistoryRequest;
 import cf.funge.aworldofplants.model.action.GetPlantHistoryResponse;
+import cf.funge.aworldofplants.model.plant.PlantDAO;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.google.gson.JsonObject;
@@ -21,7 +23,7 @@ public class GetPlantHistoryAction extends AbstractAction {
         GetPlantHistoryRequest input = getGson().fromJson(request, GetPlantHistoryRequest.class);
 
         System.out.println("GET PLANT HISTORY BEGINNING");
-        System.out.println(input.toString());
+        System.out.println(input.getStartDate() + " " + input.getEndDate());
 
         if (input == null ||
                 input.getPlantId() == null ||
@@ -35,15 +37,21 @@ public class GetPlantHistoryAction extends AbstractAction {
             throw new BadRequestException(ExceptionMessages.EX_INVALID_INPUT);
         }
 
-        GetPlantHistoryResponse output = new GetPlantHistoryResponse();
-        output.setStartTimes(new String[]{"1470096000000", "1470096000000", "1470096000000", "1470096000000"});
-        output.setEndTimes(new String[]{"1470096000000", "1470096000000", "1470096000000", "1470096000000"});
-        output.setAverages(new String[]{"10", "20", "10", "30"});
-        output.setMins(new String[]{"1", "3", "4", "2"});
-        output.setMaxes(new String[]{"15", "23", "18", "35"});
+        PlantDAO plantDAO = DAOFactory.getPlantDAO();
 
-        System.out.println("GET PLANT HISTORY DONE");
-        System.out.println(output.toString());
+        GetPlantHistoryResponse output;
+
+        String chartType = "";
+
+        if (input.getChartType().equals("tempHistory")) {
+            chartType = "temperature";
+        } else if (input.getChartType().equals("humidityHistory")) {
+            chartType = "humidity";
+        } else if (input.getChartType().equals("moistureHistory")) {
+            chartType = "moisture";
+        }
+
+        output = plantDAO.getPlantHistory(input.getPlantId(), input.getStartDate(), input.getEndDate(), chartType);
 
         return getGson().toJson(output);
     }

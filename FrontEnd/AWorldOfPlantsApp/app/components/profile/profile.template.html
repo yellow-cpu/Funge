@@ -180,16 +180,13 @@
                                 class="fa fa-calendar-check-o"></i></div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
-                                <h4 class="timeline-title">{{event.title}}</h4>
-                                <p>
-                                    <small class="text-muted"><i class="fa fa-clock-o"></i> {{event.timestamp}}</small>
-                                </p>
+                                <h4 class="timeline-title">
+                                    {{event.title}}
+                                    <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> {{event.timestamp}}</small>
+                                </h4>
                             </div>
                             <div class="timeline-body">
                                 <p>{{event.message}}</p>
-                                <p ng-if="event.pointValue > 0">
-                                    <button type="button" class="btn btn-primary"><span class="badge">+{{event.pointValue}}</span> points!</button>
-                                </p>
                                 <br>
                                 <button class="btn btn-twitter"
                                    socialshare
@@ -233,6 +230,9 @@
                                    socialshare-url="http://funge.cf">
                                     <img width="15" valign="middle" style="margin-top:-3px;" src="/images/telegram.png">
                                 </button>
+                                <span ng-if="event.pointValue > 0" class="pull-right">
+                                    <button type="button" class="btn btn-primary btn-points"><span class="badge">+{{event.pointValue}}</span> points!</button>
+                                </span>
                             </div>
                         </div>
                     </li>

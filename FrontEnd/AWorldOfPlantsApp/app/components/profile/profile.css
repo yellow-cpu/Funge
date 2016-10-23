@@ -75,7 +75,7 @@ div.spinner {
     padding: 20px;
     background-color: white;
     color: #757575;
-    border-radius: 2px;
+    border-radius: 0px;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     -webkit-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     -moz-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
@@ -214,7 +214,17 @@ div.spinner {
 }
 
 #page-wrapper > div > profile > div.row.timeline-wrapper > div > div > div.panel-heading {
-    background-color: #2e6da4;
+    background-color: #38474f;
     color: white;
     border-radius: 0px;
+}
+
+.btn-points, .btn-points:hover, .btn-points:active, .btn-points:focus {
+    cursor: default;
+    background-color: #38474f !important;
+    border: none !important;
+}
+
+.btn-primary .badge {
+    color: #38474f;
 }

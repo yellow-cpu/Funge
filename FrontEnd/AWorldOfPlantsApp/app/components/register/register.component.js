@@ -15,23 +15,17 @@ angular.
         "confirmPassword": ""
       };
 
-      self.switchToLogin = function switchToLogin() {
-        $('#my-tab-content').html('<login></login>');
-      };
-
-      // Test function
-      self.directiveToCtrl = function (email, username, password) {
-        console.log(email + " " + username + " " + password);
-      };
-
-      self.saveLogin = function (identityId, accessKey, secretKey, sessionToken, region, username) {
+      self.saveLogin = function (identityId, accessKey, secretKey, sessionToken, expiration, region, username, password, streak) {
         $localStorage.identityId = identityId;
         $localStorage.accessKey = accessKey;
         $localStorage.secretKey = secretKey;
         $localStorage.sessionToken = sessionToken;
+        $localStorage.expiration = expiration;
         $localStorage.region = region;
         $localStorage.username = username;
+        $localStorage.password = password;
         $localStorage.loggedIn = true;
+        $localStorage.streak = streak;
       };
     }
   });

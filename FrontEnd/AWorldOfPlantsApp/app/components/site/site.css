@@ -689,6 +689,10 @@ table.dataTable thead .sorting:after {
     width: 3em;
 }
 
+.btn-facebook:hover, .btn-twitter:hover, .btn-pinterest:hover, .btn-tumblr:hover, .btn-telegram:hover {
+    color: white;
+}
+
 #home {
     min-height: 50px !important;
     text-align: center;
@@ -1126,4 +1130,13 @@ ngjs-color-picker li.selectedColor {
           transform: scale(1.0);
           opacity: 0;
       }
+}
+
+md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-icon {
+    background-color: #38474f;
+}
+
+input[type="search"] {
+    box-sizing: border-box !important;
+    -webkit-box-sizing: border-box !important;
 }

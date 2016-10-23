@@ -14,6 +14,9 @@ package cf.funge.aworldofplants.model.plant;
 
 import cf.funge.aworldofplants.configuration.DynamoDBConfiguration;
 import cf.funge.aworldofplants.exception.DAOException;
+import cf.funge.aworldofplants.model.action.GetPlantHistoryRequest;
+import cf.funge.aworldofplants.model.action.GetPlantHistoryResponse;
+import cf.funge.aworldofplants.model.action.GetPlantThingResponse;
 import cf.funge.aworldofplants.model.action.UpdatePlantRequest;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
@@ -24,6 +27,7 @@ import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * The DynamoDB implementation of the PlantDAO object. This class expects the Plant bean to be annotated with the required
@@ -136,6 +140,50 @@ public class DDBPlantDAO implements PlantDAO {
         }
 
         return "Plant deleted successfully";
+    }
+
+    public GetPlantHistoryResponse getPlantHistory(String plantId, String startDate, String endDate, String chartType) {
+        System.out.println("Find Plant history less than certain date: Scan history.");
+
+        Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
+        eav.put(":val1", new AttributeValue().withS(plantId));
+        eav.put(":val2", new AttributeValue().withN(startDate));
+        eav.put(":val3", new AttributeValue().withN(endDate));
+        eav.put(":val4", new AttributeValue().withS(chartType));
+
+        DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
+                .withFilterExpression("plantId = :val1 and startTime >= :val2 and endTime <= :val3 and chartType = :val4")
+                .withExpressionAttributeValues(eav);
+
+        List<PlantHistory> scanResult = getMapper().scan(PlantHistory.class, scanExpression);
+
+        int scanResultSize = scanResult.size();
+
+        GetPlantHistoryResponse newPlantHistory = new GetPlantHistoryResponse();
+        String[] startTimes = new String[scanResultSize];
+        String[] endTimes = new String[scanResultSize];
+        String[] averages = new String[scanResultSize];
+        String[] mins = new String[scanResultSize];
+        String[] maxes = new String[scanResultSize];
+
+        int i = 0;
+
+        for (PlantHistory plantHistory: scanResult) {
+            startTimes[i] = Objects.toString(plantHistory.getStartTime(), null);
+            endTimes[i] = Objects.toString(plantHistory.getEndTime(), null);
+            averages[i] = Objects.toString(plantHistory.getAvg(), null);
+            mins[i] = Objects.toString(plantHistory.getMin(), null);
+            maxes[i] = Objects.toString(plantHistory.getMax(), null);
+            ++i;
+        }
+
+        newPlantHistory.setStartTimes(startTimes);
+        newPlantHistory.setEndTimes(endTimes);
+        newPlantHistory.setAverages(averages);
+        newPlantHistory.setMins(mins);
+        newPlantHistory.setMaxes(maxes);
+
+        return newPlantHistory;
     }
 
     /**

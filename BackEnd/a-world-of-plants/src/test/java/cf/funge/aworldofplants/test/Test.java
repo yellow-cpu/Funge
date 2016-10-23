@@ -1,6 +1,8 @@
 package cf.funge.aworldofplants.test;
 
 import cf.funge.aworldofplants.exception.DAOException;
+import cf.funge.aworldofplants.model.action.GetPlantHistoryRequest;
+import cf.funge.aworldofplants.model.action.GetPlantHistoryResponse;
 import cf.funge.aworldofplants.model.plant.DDBPlantDAO;
 import cf.funge.aworldofplants.model.plant.Plant;
 import cf.funge.aworldofplants.model.plant.PlantDAO;
@@ -111,6 +113,11 @@ public class Test {
 
             @Override
             public String deletePlant(String plantId) {
+                return null;
+            }
+
+            @Override
+            public GetPlantHistoryResponse getPlantHistory(String plantId, String startDate, String endDate, String type) {
                 return null;
             }
         };

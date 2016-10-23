@@ -3,6 +3,12 @@
 // Register `register` directive
 angular.module('register').directive('attemptRegister', function ($state) {
     var linkFunction = function (scope, element, attributes) {
+        $("#email, #username, #password, #confirmPassword").keyup(function(event){
+            if(event.keyCode == 13){
+                $("#signUp").click();
+            }
+        });
+
         $('#signUp').on('click', function () {
 
             var email = $('#email');
@@ -10,7 +16,7 @@ angular.module('register').directive('attemptRegister', function ($state) {
             var password = $('#password');
             var confirmPassword = $('#confirmPassword');
 
-            $('.error').remove();
+            $('#error').remove();
             email.removeClass('errorCss');
             username.removeClass('errorCss');
             password.removeClass('errorCss');
@@ -21,7 +27,7 @@ angular.module('register').directive('attemptRegister', function ($state) {
             var emailPattern = /.+@.+/;
 
             if (!emailPattern.test(email.val())) {
-                error = $("<div class=\"alert alert-danger error\">" +
+                error = $("<div id='error' class=\"alert alert-danger\">" +
                     "<strong>Invalid email. eg. username@gmail.com</strong></div>");
                 error.insertAfter('#confirmPassword');
                 email.addClass('errorCss');
@@ -31,7 +37,7 @@ angular.module('register').directive('attemptRegister', function ($state) {
             var usernamePattern = /.{3,20}/;
 
             if (!usernamePattern.test(username.val())) {
-                error = $("<div class=\"alert alert-danger error\">" +
+                error = $("<div id='error' class=\"alert alert-danger\">" +
                     "<strong>Invalid username. Must be between 3 and 20 characters" +
                     "</strong></div>");
                 error.insertAfter('#confirmPassword');
@@ -42,7 +48,7 @@ angular.module('register').directive('attemptRegister', function ($state) {
             var passwordPattern = /.{8,32}/; //Temporary - must change
 
             if (!passwordPattern.test(password.val())) {
-                error = $("<div class=\"alert alert-danger error\">" +
+                error = $("<div id='error' class=\"alert alert-danger\">" +
                     "<strong>Invalid password. Must be greater than 8 characters" +
                     "</strong></div>");
                 error.insertAfter('#confirmPassword');
@@ -51,7 +57,7 @@ angular.module('register').directive('attemptRegister', function ($state) {
             }
 
             if (password.val() != confirmPassword.val()) {
-                error = $("<div class=\"alert alert-danger error\">" +
+                error = $("<div id='error' class=\"alert alert-danger\">" +
                     "<strong>Password do not match" +
                     "</strong></div>");
                 error.insertAfter('#confirmPassword');
@@ -79,13 +85,20 @@ angular.module('register').directive('attemptRegister', function ($state) {
 
             apigClient.usersPost(params, body)
                 .then(function (result) {
-                    console.log("Success: " + JSON.stringify(result.data));
-
                     var credentials = result.data.credentials;
                     var identityId = result.data.identityId;
                     var username = result.data.username;
+                    var streak = result.data.streak;
+                    console.log(credentials);
 
-                    scope.$ctrl.saveLogin(identityId, credentials.accessKey, credentials.secretKey, credentials.sessionToken, 'us-east-1', username);
+                    AWS.config.credentials = {
+                        accessKey: credentials.accessKey,
+                        secretKey: credentials.secretKey,
+                        sessionToken: credentials.sessionToken,
+                        region: 'us-east-1'
+                    };
+
+                    scope.$ctrl.saveLogin(identityId, credentials.accessKey, credentials.secretKey, credentials.sessionToken, credentials.expiration, 'us-east-1', username, password.val(), 0);
 
                     // Navigate to site
                     $state.go('site.profile');

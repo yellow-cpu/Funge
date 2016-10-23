@@ -27,6 +27,10 @@ directive('deletePlantDirective', function () {
       });
     });
 
+    $("#closeDelete").on("click", function () {
+      $("#plantName").val("");
+    });
+
     $('#deletePlant').on('click', function() {
       var plantName = $('#plantName').val();
 
@@ -118,7 +122,11 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
     var histTempCanvas = document.getElementById('historical-chart-temperature');
 
     var humidityCanvas = document.getElementById('live-chart-humidity');
+    var histHumidityCanvas = document.getElementById('historical-chart-humidity');
+
     var moistureCanvas = document.getElementById('live-chart-moisture');
+    var histMoistureCanvas = document.getElementById('historical-chart-moisture');
+
     var aggregateCanvas = document.getElementById('live-chart-aggregate');
     var aggregateLineCanvas = document.getElementById('live-chart-aggregate-line');
 
@@ -126,7 +134,11 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
     var ctxHTemp = histTempCanvas.getContext('2d');
 
     var ctxHumidity = humidityCanvas.getContext('2d');
+    var ctxHHumidity = histHumidityCanvas.getContext('2d');
+
     var ctxMoisture = moistureCanvas.getContext('2d');
+    var ctxHMoisture = histMoistureCanvas.getContext('2d');
+
     var ctxAggregate = aggregateCanvas.getContext('2d');
     var ctxAggregateLine = aggregateLineCanvas.getContext('2d');
 
@@ -214,7 +226,63 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
       ]
     };
 
+    var hHumidityData = {
+      labels: [],
+      datasets: [
+        {
+          label: "Humidity",
+          fill: false,
+          lineTension: 0.1,
+          backgroundColor: "rgba(219, 68, 55, 0.4)",
+          borderColor: "rgba(219, 68, 55, 1)",
+          borderCapStyle: 'butt',
+          borderDash: [],
+          borderDashOffset: 0.0,
+          borderJoinStyle: 'miter',
+          pointBorderColor: "rgba(219, 68, 55, 1)",
+          pointBackgroundColor: "#fff",
+          pointBorderWidth: 1,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: "rgba(219, 68, 55, 1)",
+          pointHoverBorderColor: "rgba(220,220,220,1)",
+          pointHoverBorderWidth: 2,
+          pointRadius: 1,
+          pointHitRadius: 10,
+          data: [],
+          spanGaps: false
+        }
+      ]
+    };
+
     var moistureData = {
+      labels: [],
+      datasets: [
+        {
+          label: "Moisture",
+          fill: false,
+          lineTension: 0.1,
+          backgroundColor: "rgba(66, 133, 244, 0.4)",
+          borderColor: "rgba(66, 133, 244, 1)",
+          borderCapStyle: 'butt',
+          borderDash: [],
+          borderDashOffset: 0.0,
+          borderJoinStyle: 'miter',
+          pointBorderColor: "rgba(66, 133, 244, 1)",
+          pointBackgroundColor: "#fff",
+          pointBorderWidth: 1,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: "rgba(66, 133, 244, 1)",
+          pointHoverBorderColor: "rgba(66, 133, 244, 1)",
+          pointHoverBorderWidth: 2,
+          pointRadius: 1,
+          pointHitRadius: 10,
+          data: [],
+          spanGaps: false
+        }
+      ]
+    };
+
+    var hMoistureData = {
       labels: [],
       datasets: [
         {
@@ -313,13 +381,13 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
       var now = timeConverter(Date.now());
 
       chart.data.labels.push(now); // add new label at end
-      if (chart.data.labels.length > 7) {
+      if (chart.data.labels.length > 30) {
         chart.data.labels.splice(0, 1); // remove first label
       }
 
       chart.data.datasets.forEach(function(dataset, index) {
         dataset.data.push(newData[index]); // add new data at end
-        if (dataset.data.length > 7) {
+        if (dataset.data.length > 30) {
           dataset.data.splice(0, 1); // remove first data point
         }
       });
@@ -406,6 +474,12 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
           options: {
             scales: {
               yAxes: [{
+                display: true,
+                ticks: {
+                  suggestedMin: 0,
+                  suggestedMax: 30,
+                  beginAtZero: true
+                },
                 scaleLabel: {
                   display: true,
                   labelString: 'Temperature (°C)'
@@ -421,12 +495,18 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
           }
         });
 
-        var hTempChart = new Chart(ctxHTemp, {
+        var hTempChartOptions = {
           type: "line",
           data: hTempData,
           options: {
             scales: {
               yAxes: [{
+                display: true,
+                ticks: {
+                  suggestedMin: 0,
+                  suggestedMax: 30,
+                  beginAtZero: true
+                },
                 scaleLabel: {
                   display: true,
                   labelString: 'Temperature (°C)'
@@ -435,12 +515,14 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
               xAxes: [{
                 scaleLabel: {
                   display: true,
-                  labelString: 'Time (hh:mm:ss)'
+                  labelString: 'Time (dd/mm/yyyy)'
                 }
               }]
             }
           }
-        });
+        };
+
+        var hTempChart = new Chart(ctxHTemp, hTempChartOptions);
 
         var humidityChart = new Chart(ctxHumidity, {
           type: "line",
@@ -448,6 +530,39 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
           options: {
             scales: {
               yAxes: [{
+                display: true,
+                ticks: {
+                  suggestedMin: 0,
+                  suggestedMax: 50,
+                  beginAtZero: true
+                },
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Humidity (%)'
+                }
+              }],
+              xAxes: [{
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Time (hh:mm:ss)'
+                }
+              }]
+            }
+          }
+        });
+
+        var hHumidityChart = new Chart(ctxHHumidity, {
+          type: "line",
+          data: hHumidityData,
+          options: {
+            scales: {
+              yAxes: [{
+                display: true,
+                ticks: {
+                  suggestedMin: 0,
+                  suggestedMax: 50,
+                  beginAtZero: true
+                },
                 scaleLabel: {
                   display: true,
                   labelString: 'Humidity (%)'
@@ -469,6 +584,39 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
           options: {
             scales: {
               yAxes: [{
+                display: true,
+                ticks: {
+                  suggestedMin: 0,
+                  suggestedMax: 50,
+                  beginAtZero: true
+                },
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Moisture (%)'
+                }
+              }],
+              xAxes: [{
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Time (hh:mm:ss)'
+                }
+              }]
+            }
+          }
+        });
+
+        var hMoistureChart = new Chart(ctxHMoisture, {
+          type: "line",
+          data: hMoistureData,
+          options: {
+            scales: {
+              yAxes: [{
+                display: true,
+                ticks: {
+                  suggestedMin: 0,
+                  suggestedMax: 50,
+                  beginAtZero: true
+                },
                 scaleLabel: {
                   display: true,
                   labelString: 'Moisture (%)'
@@ -546,6 +694,9 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
                 var temperature = JSON.parse(message.payloadString).state.reported.temperature;
 
                 if (scope.$ctrl.chartStatus.temp == true) {
+                  temperature = parseFloat(temperature);
+                  temperature = +temperature.toFixed(2);
+
                   calculateAvgMinMax("temp", temperature);
                   moveChart(tempChart, [temperature]);
                 }
@@ -582,6 +733,9 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
               if (JSON.parse(message.payloadString).state.reported.humidity != undefined) {
                 var humidity = JSON.parse(message.payloadString).state.reported.humidity;
                 if (scope.$ctrl.chartStatus.humidity == true) {
+                  humidity = parseFloat(humidity);
+                  humidity = +humidity.toFixed(2);
+
                   calculateAvgMinMax("humidity", humidity);
                   moveChart(humidityChart, [humidity]);
                 }
@@ -615,7 +769,13 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
 
               if (JSON.parse(message.payloadString).state.reported.moisture != undefined) {
                 var moisture = JSON.parse(message.payloadString).state.reported.moisture;
+
+                moisture = (moisture/700) * 100;
+
                 if (scope.$ctrl.chartStatus.moisture == true) {
+                  moisture = parseFloat(moisture);
+                  moisture = +moisture.toFixed(2);
+
                   calculateAvgMinMax("moisture", moisture);
                   moveChart(moistureChart, [moisture]);
                 }
@@ -659,34 +819,85 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
           }
         };
 
+        //historical graphs
+
         $(".history-chart").on("click", function () {
           var chart = $(this).data("id");
 
-          if (chart == "tempHistory") {
-            scope.$ctrl.getPlantHistory();
-
-            // callback to scope.$ctrl to fetch data and then update chart
-
-            var data = {
-              "avg": [],
-              "min": [],
-              "max": []
-            };
-
-            for (var i = 0; i < 62; ++i) {
-              data.avg.push(Math.floor((Math.random() * 30) + 1));
-            }
+          var updateChart = function () {
+            var date;
+            var i = 0;
 
             console.log("updating chart");
-            hTempData.datasets[0].data = data.avg;
-            hTempData.labels = [];
+            if (chart == "tempHistory") {
+              i = 0;
+              hTempChart.destroy();
 
-            for (var i = 0; i < data.avg.length; ++i) {
-              hTempData.labels.push("31/12/2016");
+              var ctx = document.getElementById('historical-chart-temperature').getContext('2d');
+
+              hTempChart = new Chart(ctx, hTempChartOptions);
+
+              hTempData.datasets[0].data = [];
+              hTempData.labels = [];
+
+              console.log(scope.$ctrl.tempHistory.startTimes.length);
+
+              // var timerId = 0;
+              // var k = 0;
+             /* timerId = setInterval(function () {
+                if (k == scope.$ctrl.tempHistory.avg.length - 1 || scope.$ctrl.tempHistory.avg.length == 0) {
+                  console.log("clearing interval");
+                  clearInterval(timerId);
+                } else {
+                  hTempData.datasets[0].data.push(scope.$ctrl.tempHistory.avg[k]);
+                  date = new Date(parseInt(scope.$ctrl.tempHistory.startTimes[k]));
+                  hTempData.labels.push(date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear());
+
+                  k++;
+
+                  console.log(k + " " + scope.$ctrl.tempHistory.avg.length);
+
+                  hTempChart.update(100);
+                }
+              }, 100);*/
+
+              hTempData.datasets[0].data = scope.$ctrl.tempHistory.avg;
+
+              for (i = 0; i < scope.$ctrl.tempHistory.startTimes.length; ++i) {
+                date = new Date(parseInt(scope.$ctrl.tempHistory.startTimes[i]));
+                console.log(scope.$ctrl.tempHistory.startTimes[i]);
+                console.log(date);
+                hTempData.labels.push(date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear());
+              }
+
+              hTempChart.update(1000);
+            } else if (chart == "humidityHistory") {
+              console.log("updating humidity");
+              hHumidityData.datasets[0].data = [];
+              hHumidityData.datasets[0].data = scope.$ctrl.humidityHistory.avg;
+              hHumidityData.labels = [];
+
+              for (i = 0; i < scope.$ctrl.humidityHistory.startTimes.length; ++i) {
+                date = new Date(parseInt(scope.$ctrl.humidityHistory.startTimes[i]));
+                hHumidityData.labels.push(date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear());
+              }
+
+              hHumidityChart.update(1000);
+            } else if (chart == "moistureHistory") {
+              hMoistureData.datasets[0].data = [];
+              hMoistureData.datasets[0].data = scope.$ctrl.moistureHistory.avg;
+              hMoistureData.labels = [];
+
+              for (i = 0; i < scope.$ctrl.moistureHistory.startTimes.length; ++i) {
+                date = new Date(parseInt(scope.$ctrl.moistureHistory.startTimes[i]));
+                hMoistureData.labels.push(date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear());
+              }
+
+              hMoistureChart.update(1000);
             }
+          };
 
-            hTempChart.update(1000);
-          }
+          scope.$ctrl.getPlantHistory(chart, updateChart);
         });
       }
     });

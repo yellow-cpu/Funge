@@ -1,10 +1,11 @@
 <div class="row cards" things-directive>
   <div class="col-lg-12">
     <h1 class="page-header">
-      Plant Boxes <!--<button id="helpThing" class="btn btn-warning">Help me <span class="fa fa-exclamation"></span></button> -->
-      <button id="newThing" class="btn btn-material pull-right" data-toggle="modal" data-target="#createThingModal">
+      Plant Boxes
+      <button id="newThing" class="btn btn-material pull-right" data-toggle="modal" data-target="#createThingModal" style="margin-left: 1em;">
         Create New Plant Box
       </button>
+      <button id="additionalFiles" class="btn btn-material pull-right" data-toggle="modal" data-target="#additionalFilesModal">Additional Files</span></button>
     </h1>
   </div>
 </div>
@@ -30,7 +31,10 @@
               <select ng-model="thing.selectedPlant" type="text" class="form-control">
                 <option ng-repeat="p in $ctrl.plantList" value="{{p.plantId}}">{{p.plantName}}</option>
               </select>
-              <span class="input-group-btn">
+              <span class="input-group-btn" id="take-me-to-plant">
+                <md-tooltip md-direction="right">
+                  Take me to the plant
+                </md-tooltip>
                 <a ng-click="$ctrl.selectPlant(thing.selectedPlant)" class="btn btn-default" type="button" tabindex="-1"><span class="fa fa-leaf" aria-hidden="true" style="color: #757575;"></span></a>
               </span>
             </div>
@@ -81,11 +85,26 @@
   }
 </script>
 
-<div class="modal fade" id="createThingModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" create-thing-directive>
+<div class="modal fade" id="additionalFilesModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><img width="15" valign="middle" style="margin-top:-3px;" src="/images/close.png"></button>
+        <h4 class="modal-title" id="myModalLabel2">Additional Files</h4>
+      </div>
+      <div class="modal-body">
+        <a href="https://s3.amazonaws.com/a-world-of-plants-thing-credentials/rootCA.pem.crt" class="a-files">Root Certificate (rootCa.pem.crt)</a><br>
+        <a href="https://s3.amazonaws.com/a-world-of-plants-thing-credentials/install.sh" class="a-files">Install Script (install.sh)</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="createThingModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" create-thing-directive>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button id="closeThingCreate" type="button" class="close" data-dismiss="modal" aria-label="Close"><img width="15" valign="middle" style="margin-top:-3px;" src="/images/close.png"></button>
         <h4 class="modal-title" id="myModalLabel1">Create New Plant Box</h4>
       </div>
       <div class="modal-body">
@@ -117,7 +136,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header" style="background-color: #db4437;">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><img width="15" valign="middle" style="margin-top:-3px;" src="/images/close.png"></button>
+        <button id="closeThingDelete" type="button" class="close" data-dismiss="modal" aria-label="Close"><img width="15" valign="middle" style="margin-top:-3px;" src="/images/close.png"></button>
         <h4 class="modal-title" id="myModalLabel">Delete Plant Box Confirmation</h4>
       </div>
       <div class="modal-body">
