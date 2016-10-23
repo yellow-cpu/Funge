@@ -94,6 +94,7 @@
 	The project is to use the AWS IoT hardware platform in an interesting and innovative manner to solve an existing problem. It was decided that the problem to be tackled is the growing lack of interest of young South Africans in agriculture.
 	
 \section{Important Terminology}
+Some important words and phrases used in this document are detailed below:
 \begin{itemize}
 	\item \textbf{A World of Plants} Name of the entire system.
 	\item \textbf{AWS} Amazon Web Services. A secure cloud services platform offering compute power, database storage, content delivery and other functionality.
@@ -105,61 +106,78 @@
 	\item \textbf{IoT Topic} A stream of JSON strings that are published to. A stream can be subscribed to, where the subscriber will receive all JSON messages published to that topic
 \end{itemize}
 
+\newpage
+
 \section{Functional Requirements}
-\subsection{Use Case Prioritisation}
-\subsubsection{Critical}
-\begin{itemize}
-	\item User Management Subsystem:
-	\begin{itemize}
-		\item Register account
-		\item Login
-		\item Logout
-	\end{itemize}
-	
-	\item Plant/Device Management Subsystem:
-	\begin{itemize}
-		\item Create plant
-		\item List plants
-		\item Create and associate a virtual 'Thing' with a plant
-		\item View plant status
-		\item Configure light settings
-	\end{itemize}
-	
-	\item Device Communications Subsystem
-	\begin{itemize}
-		\item Send readings summary to Lambda
-	\end{itemize}
-\end{itemize}
-
-\subsubsection{Important}
-\begin{itemize}
-	\item User Management Subsystem:
-	\begin{itemize}
-		\item Update User Details
-	\end{itemize}
-	
-	\item Plant/Device Management Subsystem:
-	\begin{itemize}
-		\item Update plant details
-		\item Configure pump settings
-		\item Configure fan speeds
-		\item Delete plant
-	\end{itemize}
-\end{itemize}
-
-\subsubsection{Nice-to-haves}
-\begin{itemize}
-	\item User Management Subsystem
-	\begin{itemize}
-		\item View gamification information/get user details
-	\end{itemize}
-	\item Device Communications Subsystem
-	\begin{itemize}
-		\item Complex event processing on device communications
-	\end{itemize}
-\end{itemize}
+	\subsection{Use Case Prioritisation}
+		
+		The use cases for each subsystem have been sorted into \emph{Critical} (the system could not work without it), \emph{Important} (the system would work, but would be very different without it) and \emph{Nice-to-have} (not very important; low priority).
+		
+		\subsubsection{User Management Subsystem}
+			\begin{itemize}
+				\item Critical
+				\begin{itemize}
+					\item Register account
+					\item Login
+					\item Logout
+				\end{itemize}
+				
+				\item Important
+				\begin{itemize}
+					\item Update User Details
+				\end{itemize}
+				
+				\item Nice-to-have
+				\begin{itemize}
+					\item View gamification information/get user details
+				\end{itemize}
+			\end{itemize}
+			
+		\subsubsection{Plant/Device Management Subsystem}
+			\begin{itemize}
+				\item Critical
+				\begin{itemize}
+					\item Create plant
+					\item List plants
+					\item Create and associate a virtual 'Thing' with a plant
+					\item View plant status
+					\item Configure light settings
+				\end{itemize}
+				
+				\item Important
+				\begin{itemize}
+					\item Update plant details
+					\item Configure pump settings
+					\item Configure fan speeds
+					\item Delete plant
+				\end{itemize}
+			\end{itemize}
+		
+		\subsubsection{Device Communications Subsystem}
+			\begin{itemize}
+				\item Critical
+				\begin{itemize}
+					\item Send readings summary to Lambda
+				\end{itemize}
+				
+				\item Nice-to-have
+				\begin{itemize}
+					\item Complex event processing on device communications
+				\end{itemize}
+			\end{itemize}
+			
+\newpage
 
 \subsection{Use Case/Service Contracts}
+
+	The system is split into three distinct subsystems, mainly the User Management subsystem, the Plant/Device Management Subsystem and the Device Management Subsystem.
+	
+	In this section, the use cases and service contracts for each subsystem will be laid out and explained.
+
+\begin{figure}[H]
+	\includegraphics[width=\linewidth]{images/UseCases/High-level-Scope.jpg}
+	\caption{High-level scope, showing the three subsystems}
+\end{figure}
 
 \subsubsection{User Management Subsystem}
 
@@ -503,6 +521,8 @@
 	\item According to the event the information indicates the appropriate automated action should take place in terms of controlling some aspect of the device.
 \end{itemize}
 
+\newpage
+
 \section{Architecture Requirements}
 
 \subsection{Access Channel Requirements}
@@ -578,6 +598,8 @@ AWS API Gateway will be used expose the system's API and map it to the serverles
 	
 \end{itemize}
 
+\newpage
+
 \section{Architecture Constraints}
 	The following architecture constraints will be applicable:
 		\begin{itemize}
@@ -647,6 +669,8 @@ The Database Service will use the DynamoDB persistence API to persist user infor
 		\item "Infinitely" scalable read/write I/O running on IOPS-optimised solid state drives
 	\end{itemize}
 
+\newpage
+
 \section{Process Specification}
 	In this section, there is an overview of the three main processes of the system, where each process is explained in a broad manner.
 	
@@ -675,8 +699,8 @@ The Database Service will use the DynamoDB persistence API to persist user infor
 		
 		The IoT devices are connected to sensors that take in readings. The sensor readings are added to JSON strings and sent via MQTT to the IoT manager periodically. The device also receives updates from the IoT manager in the form of shadow updates which will tell the IoT device what configuration to save the configurable devices in (e.g. light colours).
 
-	
-	
+\newpage
+
 \section{Technologies}
 	\subsection{Overview}
 	The system uses the Amazon WebServices SDK and APIs.
@@ -726,6 +750,9 @@ The Database Service will use the DynamoDB persistence API to persist user infor
 	\begin{itemize}
 		\item Processing for Arduino
 	\end{itemize}
+	
+\newpage
+
 \section{Initial Design}
 \begin{figure}[H]
  	\includegraphics[width=\textwidth]{images/initial-design.PNG}
@@ -733,26 +760,6 @@ The Database Service will use the DynamoDB persistence API to persist user infor
 \end{figure}
 
 The initial design of the plant management section of the Web interface. Website navigation appears on the left sidebar. Notifications, Achievements and user actions appear on the top navbar. In the main section, users can add a plant and view a list of their current plants with a short overview.
-
-\section{Open Issues}
-\begin{itemize}
-	\item What is the process to be followed when adding a new device?
-	
-	\begin{itemize}
-		\item The device needs the code and certificates uploaded to it
-		\item As much as possible needs to be automated for the user. Detailed steps should be given
-	\end{itemize}
-
-	\item How do you rate the conditions of the plants?
-	
-	Ideas:
-	\begin{itemize}
-		\item Using a colour palette to measure the leaf colour
-		\item Getting the user to enter his analysis of the state of the plant
-	\end{itemize}
-	
-	\item What type of gamification elements are going to be present?
-\end{itemize}
 
 \section{References}
 [1] Internet of Things Global Standards Initiative. 2016. IOT. [ONLINE] Available at: http://www.itu.int/en/ITU-T/gsi/iot/Pages/default.aspx. [Accessed 1 September 2016].
