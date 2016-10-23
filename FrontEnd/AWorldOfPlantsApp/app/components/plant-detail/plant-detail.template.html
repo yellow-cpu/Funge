@@ -168,7 +168,7 @@
             <div class="tab-content clearfix">
               <div class="tab-pane active" id="live-temp">
                 <canvas id="live-chart-temperature" plant-detail-canvas-directive></canvas>
-                <div class="row" style="margin-top: 30px;">
+                <div class="row avg-min-max" style="margin-top: 30px;">
                   <div class="col-md-4">
                     <span style="background-color: #ffc107; color: white; padding: 10px;">Average: </span>
                     <span id="tempAverage" style="margin-left: 10px;">{{$ctrl.avgMinMax.temp.avg}} °C</span>
@@ -254,7 +254,7 @@
             <div class="tab-content clearfix">
               <div class="tab-pane active" id="live-humidity">
                 <canvas id="live-chart-humidity" plant-detail-canvas-directive></canvas>
-                <div class="row" style="margin-top: 30px;">
+                <div class="row avg-min-max" style="margin-top: 30px;">
                   <div class="col-md-4">
                     <span style="background-color: #db4437; color: white; padding: 10px;">Average: </span>
                     <span id="humidityAverage" style="margin-left: 10px;">{{$ctrl.avgMinMax.humidity.avg}} %</span>
@@ -337,7 +337,7 @@
             <div class="tab-content clearfix">
               <div class="tab-pane active" id="live-moisture">
                 <canvas id="live-chart-moisture" plant-detail-canvas-directive></canvas>
-                <div class="row" style="margin-top: 30px;">
+                <div class="row avg-min-max" style="margin-top: 30px;">
                   <div class="col-md-4">
                     <span style="background-color: #4285f4; color: white; padding: 10px;">Average: </span>
                     <span id="moistureAverage" style="margin-left: 10px;">{{$ctrl.avgMinMax.moisture.avg}} %</span>
