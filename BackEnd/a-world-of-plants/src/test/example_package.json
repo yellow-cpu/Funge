@@ -1,8 +1,0 @@
-{
-	"device-id": "EXAMPLE_ID",
-	"date": 2016-07-26T07:00:00,
-	"sensor-data": {
-		"temperature": 27,
-		"humidity": 23
-	}
-}
