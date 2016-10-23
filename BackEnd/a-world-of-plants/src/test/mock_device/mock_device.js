@@ -1,13 +1,36 @@
 var awsIot = require('aws-iot-device-sdk');
 
-console.log("is it working?");
+/**
+ * ========== Funge Mock Device ==========
+ *
+ * Download the "private.pem.key" and "certificate.pem.crt"
+ * of the device and place them in the certs folder.
+ *
+ * Set the variables below
+ */
+
+var   pemName = "1085ac50a4";
+var thingName = "mockDevice";
+
+/**
+ * ============================================================
+ * ========== Do not change anything below this line ==========
+ * ============================================================
+ */
+
+var  keyPath = './certs/' + pemName + '-private.pem.key';
+var certPath = './certs/' + pemName + '-certificate.pem.crt'
+
+console.log("=======================================");
+console.log("========== Funge Mock Device ==========");
+console.log("=======================================");
 
 var device = awsIot.device({
-   keyPath: './certs/1085ac50a4-private.pem.key',
-  certPath: './certs/1085ac50a4-certificate.pem.crt',
+   keyPath: keyPath,
+  certPath: certPath,
     caPath: './certs/root-CA.crt',
-  clientId: 'MockDevice',
-    region: 'eu-east-1'
+  clientId: thingName,
+    region: 'us-east-1'
 });
 
 var temperature = 0;
@@ -37,16 +60,18 @@ function publish() {
 
 	console.log(JSON.stringify(state));
 
-	clientTokenUpdate = device.publish('mock/test', JSON.stringify(state));
+	clientTokenUpdate = device.publish("$aws/things/" + thingName + "/shadow/update", JSON.stringify(state));
 	if (clientTokenUpdate === null)
 	{
 		console.log('update shadow failed, operation still in progress');
 	}
 }
 
+function startLoop() {
+	setInterval(publish, 3000);
+}
+
 device.on('connect', function() {
 	console.log('connected');
-	//setInterval(publish(), 3000);
+	startLoop();
 });
-/*
-*/
