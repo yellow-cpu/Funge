@@ -210,8 +210,8 @@ angular.module('things').component('things', {
         $mdDialog.show(
           $mdDialog.alert()
             .clickOutsideToClose(true)
-            .title('Empty Plant')
-            .textContent('Please fill in all details for your new plant!')
+            .title('Empty Plant Box')
+            .textContent('Please fill in all details for your new plant box!')
             .ariaLabel('Alert Dialog Demo')
             .ok('Ok!')
         );
@@ -232,6 +232,14 @@ angular.module('things').component('things', {
               $scope.$apply();
             }).catch(function (result) {
             console.log("Error: " + JSON.stringify(result));
+            $mdDialog.show(
+              $mdDialog.alert()
+                .clickOutsideToClose(true)
+                .title('Duplicate Plant Box')
+                .textContent('A plant box with that name already exists!')
+                .ariaLabel('Alert Dialog Demo')
+                .ok('Ok!')
+            );
           });
         };
 

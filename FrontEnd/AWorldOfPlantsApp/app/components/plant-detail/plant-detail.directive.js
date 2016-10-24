@@ -92,8 +92,8 @@ directive('pausePlay', function($compile) {
           scope.$ctrl.chartStatus.humidity = false;
         } else if (chartData == "moisture") {
           scope.$ctrl.chartStatus.moisture = false;
-        } else if (chartData == "aggregate") {
-          scope.$ctrl.chartStatus.aggregate = false;
+        } else if (chartData == "light") {
+          scope.$ctrl.chartStatus.light = false;
         }
       } else if (pausePlay.hasClass('fa-play')) {
         pausePlay.removeClass('fa-play');
@@ -105,8 +105,8 @@ directive('pausePlay', function($compile) {
           scope.$ctrl.chartStatus.humidity = true;
         } else if (chartData == "moisture") {
           scope.$ctrl.chartStatus.moisture = true;
-        } else if (chartData == "aggregate") {
-          scope.$ctrl.chartStatus.aggregate = true;
+        } else if (chartData == "light") {
+          scope.$ctrl.chartStatus.light = true;
         }
       }
     });
@@ -848,6 +848,7 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
         var tempState = false; // false = not received, true = received
         var humidityState = false;
         var moistureState = false;
+        var lightState = false;
 
         if (val == "connected") {
           $sessionStorage.client[scope.$ctrl.plantDetails.plantId].onMessageArrived = function (message) {
@@ -1025,29 +1026,29 @@ directive('plantDetailCanvasDirective', function($compile, $sessionStorage) {
 
                   lightBool = true;
 
-                  /*if (!moistureState) {
-                    moistureState = true;
+                  if (!lightState) {
+                    lightState = true;
 
-                    $("#moistureWarning").css({
+                    $("#lightWarning").css({
                       "display": "none"
                     });
 
-                    $("#moistureSuccess").css({
+                    $("#lightSuccess").css({
                       "display": "block"
                     });
-                  }*/
+                  }
                 } else {
-                  /*if (moistureState) {
-                    moistureState = false;
+                  if (lightState) {
+                    lightState = false;
 
-                    $("#moistureWarning").css({
+                    $("#lightWarning").css({
                       "display": "block"
                     });
 
-                    $("#moistureSuccess").css({
+                    $("#lightSuccess").css({
                       "display": "none"
                     });
-                  }*/
+                  }
                 }
 
                 /*if (tempBool && humidityBool && moistureBool) {

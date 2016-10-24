@@ -390,6 +390,16 @@
           Light Panel
           <button class="btn btn-material btn-circular btnPausePlay" data-chart="light"
                   style="margin-left: 10px;"><i class="fa fa-pause pausePlay" style="color: #c52062;"></i></button>
+          <span id="lightWarning" class="pull-right"><i class="fa fa-exclamation-triangle fa-2x"></i>
+            <md-tooltip md-direction="bottom">
+              No Signal
+            </md-tooltip>
+          </span>
+          <span id="lightSuccess" class="pull-right" style="display: none;"><i class="fa fa-signal fa-2x"></i>
+            <md-tooltip md-direction="bottom">
+              Connected
+            </md-tooltip>
+          </span>
         </div>
         <div class="panel-body">
           <div class="spinner" style="text-align: center;">
