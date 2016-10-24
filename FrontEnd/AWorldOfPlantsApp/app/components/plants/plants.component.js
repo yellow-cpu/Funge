@@ -3,7 +3,7 @@
 // Register `plants` component, along with its associated controller and template
 angular.module('plants').component('plants', {
   templateUrl: 'components/plants/plants.template.html',
-  controller: function PlantsController($scope, $localStorage, siteService, refreshService) {
+  controller: function PlantsController($scope, $localStorage, siteService, refreshService, $mdDialog) {
     var self = this;
 
     self.newPlant = {
@@ -38,47 +38,67 @@ angular.module('plants').component('plants', {
       "November", "December"];
 
     self.createPlant = function() {
-      var apigCreatePlant = function () {
-        console.log(self.newPlant);
-
-        var params = {};
-        var body = self.newPlant;
-        body.plantAge = self.timeConverter(Date.now());
-
-        self.apigClient.plantsPost(params, body)
-          .then(function (result) {
-            console.log("Success: " + JSON.stringify(result.data));
-
-            var createdPlant = result.data.plant;
-
-            createdPlant.plantDay = createdPlant.plantAge.substring(0, createdPlant.plantAge.indexOf('/'));
-            createdPlant.plantMonth = months[createdPlant.plantAge.split('/')[1] - 1];
-            createdPlant.plantYear = createdPlant.plantAge.split('/')[2];
-            createdPlant.plantYear = createdPlant.plantYear.substring(0, createdPlant.plantYear.indexOf('T'));
-
-            self.plants.push(createdPlant);
-
-            $scope.$apply();
-          }).catch(function (result) {
-          console.log("Error: " + JSON.stringify(result));
-        });
-      };
-
-      if (refreshService.needsRefresh($localStorage.expiration)) {
-        refreshService.refresh($localStorage.username, $localStorage.password, function () {
-          self.apigClient = apigClientFactory.newClient({
-            accessKey: $localStorage.accessKey,
-            secretKey: $localStorage.secretKey,
-            sessionToken: $localStorage.sessionToken,
-            region: $localStorage.region
-          });
-
-          console.log("calling apigCreatePlant!");
-
-          apigCreatePlant();
-        });
+      if (self.newPlant.plantName == "" || self.newPlant.plantType == "") {
+        $mdDialog.show(
+          $mdDialog.alert()
+            .clickOutsideToClose(true)
+            .title('Empty Plant')
+            .textContent('Please fill in all details for your new plant!')
+            .ariaLabel('Alert Dialog Demo')
+            .ok('Ok!')
+        );
       } else {
-        apigCreatePlant();
+        var apigCreatePlant = function () {
+          console.log(self.newPlant);
+
+          var params = {};
+          var body = self.newPlant;
+          body.plantAge = self.timeConverter(Date.now());
+
+          self.apigClient.plantsPost(params, body)
+            .then(function (result) {
+              console.log("Success: " + JSON.stringify(result.data));
+
+              var createdPlant = result.data.plant;
+
+              createdPlant.plantDay = createdPlant.plantAge.substring(0, createdPlant.plantAge.indexOf('/'));
+              createdPlant.plantMonth = months[createdPlant.plantAge.split('/')[1] - 1];
+              createdPlant.plantYear = createdPlant.plantAge.split('/')[2];
+              createdPlant.plantYear = createdPlant.plantYear.substring(0, createdPlant.plantYear.indexOf('T'));
+
+              self.plants.push(createdPlant);
+
+              $scope.$apply();
+            }).catch(function (result) {
+            console.log("Error: " + JSON.stringify(result));
+
+            $mdDialog.show(
+              $mdDialog.alert()
+                .clickOutsideToClose(true)
+                .title('Duplicate Plant')
+                .textContent('You already own a plant with that name!')
+                .ariaLabel('Alert Dialog Demo')
+                .ok('Ok!')
+            );
+          });
+        };
+
+        if (refreshService.needsRefresh($localStorage.expiration)) {
+          refreshService.refresh($localStorage.username, $localStorage.password, function () {
+            self.apigClient = apigClientFactory.newClient({
+              accessKey: $localStorage.accessKey,
+              secretKey: $localStorage.secretKey,
+              sessionToken: $localStorage.sessionToken,
+              region: $localStorage.region
+            });
+
+            console.log("calling apigCreatePlant!");
+
+            apigCreatePlant();
+          });
+        } else {
+          apigCreatePlant();
+        }
       }
     };
 
@@ -150,17 +170,5 @@ angular.module('plants').component('plants', {
 
       return newTypes.filter((v, i, a) => a.indexOf(v) === i);
     };
-
-    /*$mdDialog.show(
-      $mdDialog.alert()
-        .parent(angular.element(document.querySelector('#popupContainer')))
-        .clickOutsideToClose(true)
-        .title('This is an alert title')
-        .textContent('You can specify some description text in here.')
-        .ariaLabel('Alert Dialog Demo')
-        .ok('Got it!')
-        .targetEvent(ev)
-    );*/
-
   }
 });
