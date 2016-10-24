@@ -236,7 +236,7 @@ angular.module('things').component('things', {
                 $mdDialog.alert()
                   .clickOutsideToClose(true)
                   .title('Duplicate Plant Box')
-                  .textContent('A plant box with that name already exists!')
+                  .textContent('A plant box with that name already exists, the name of your plant box must be globally unique!')
                   .ariaLabel('Alert Dialog Demo')
                   .ok('Ok!')
               );
