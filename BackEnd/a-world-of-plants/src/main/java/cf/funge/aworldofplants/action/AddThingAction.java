@@ -65,6 +65,24 @@ public class AddThingAction extends AbstractAction {
 
         ThingDAO thingDAO = DAOFactory.getThingDAO();
 
+        // Check if thing exists
+        Thing tempThing;
+
+        try {
+            tempThing = thingDAO.getThingByName(input.getThingName());
+
+            System.out.println(getGson().toJson(tempThing));
+
+            if (tempThing != null) {
+                throw new BadRequestException("thing already exists");
+            }
+        } catch (final DAOException e) {
+            logger.log("Error while returning new thing after creation\n" + e.getMessage());
+            throw new InternalErrorException(ExceptionMessages.EX_DAO_ERROR);
+        } catch (final NullPointerException e) {
+            throw new BadRequestException("thing already exists");
+        }
+
         // Create thing
         CreateThingRequest createThingRequest = new CreateThingRequest();
         createThingRequest.setThingName(input.getThingName());
