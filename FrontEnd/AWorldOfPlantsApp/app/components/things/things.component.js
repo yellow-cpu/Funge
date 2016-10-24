@@ -231,15 +231,15 @@ angular.module('things').component('things', {
               self.things.push(tempArr[0]);
               $scope.$apply();
             }).catch(function (result) {
-            console.log("Error: " + JSON.stringify(result));
-            $mdDialog.show(
-              $mdDialog.alert()
-                .clickOutsideToClose(true)
-                .title('Duplicate Plant Box')
-                .textContent('A plant box with that name already exists!')
-                .ariaLabel('Alert Dialog Demo')
-                .ok('Ok!')
-            );
+              console.log("Error: " + JSON.stringify(result));
+              $mdDialog.show(
+                $mdDialog.alert()
+                  .clickOutsideToClose(true)
+                  .title('Duplicate Plant Box')
+                  .textContent('A plant box with that name already exists!')
+                  .ariaLabel('Alert Dialog Demo')
+                  .ok('Ok!')
+              );
           });
         };
 
