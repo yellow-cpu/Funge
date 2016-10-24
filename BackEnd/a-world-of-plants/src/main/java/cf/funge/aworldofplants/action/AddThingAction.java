@@ -63,6 +63,16 @@ public class AddThingAction extends AbstractAction {
 
         AWSIotClient awsIotClient = new AWSIotClient();
 
+        ThingDAO thingDAO = DAOFactory.getThingDAO();
+
+        try {
+            if (thingDAO.getThingByName(input.getThingName()) != null) {
+                throw new BadRequestException("thing already exists");
+            }
+        } catch (final DAOException e) {
+
+        }
+
         // Create thing
         CreateThingRequest createThingRequest = new CreateThingRequest();
         createThingRequest.setThingName(input.getThingName());
@@ -136,8 +146,6 @@ public class AddThingAction extends AbstractAction {
         //ToDo: if thingName already exists throw BadRequestException
         //ToDo: store location of files in database
         //ToDo: return thing id rather than thing ARN
-
-        ThingDAO thingDAO = DAOFactory.getThingDAO();
 
         Thing newThing = new Thing();
         newThing.setThingName(input.getThingName());
