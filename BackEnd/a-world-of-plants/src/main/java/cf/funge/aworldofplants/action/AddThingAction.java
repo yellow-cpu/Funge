@@ -66,7 +66,8 @@ public class AddThingAction extends AbstractAction {
         ThingDAO thingDAO = DAOFactory.getThingDAO();
 
         try {
-            if (thingDAO.getThingByName(input.getThingName()).getThingName().equals(input.getThingName())) {
+            Thing tempThing = thingDAO.getThingByName(input.getThingName());
+            if (tempThing.getThingName() != null) {
                 throw new BadRequestException("thing already exists");
             }
         } catch (final DAOException e) {
