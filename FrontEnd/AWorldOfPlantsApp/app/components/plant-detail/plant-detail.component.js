@@ -3,7 +3,7 @@
 // Register `plantDetail` component, along with its associated controller and template
 angular.module('plantDetail').component('plantDetail', {
   templateUrl: 'components/plant-detail/plant-detail.template.html',
-  controller: function PlantDetailController($scope, $localStorage, $sessionStorage, siteService, refreshService, $mdDateLocale) {
+  controller: function PlantDetailController($scope, $localStorage, $sessionStorage, siteService, refreshService, $mdDateLocale, $mdDialog) {
     var self = this;
 
     $mdDateLocale.formatDate = function(date) {
@@ -130,6 +130,12 @@ angular.module('plantDetail').component('plantDetail', {
     self.tempStartDate = new Date();
     self.tempEndDate = new Date();
 
+    self.humidityStartDate = new Date();
+    self.humidityEndDate = new Date();
+
+    self.moistureStartDate = new Date();
+    self.moistureEndDate = new Date();
+
     self.minDate = new Date();
     self.maxDate = new Date();
 
@@ -159,6 +165,12 @@ angular.module('plantDetail').component('plantDetail', {
         if (chart == "tempHistory") {
           startDate = self.tempStartDate.getTime();
           endDate = self.tempEndDate.getTime();
+        } else if (chart == "humidityHistory") {
+          startDate = self.humidityStartDate.getTime();
+          endDate = self.humidityEndDate.getTime();
+        } else if (chart == "moistureHistory") {
+          startDate = self.moistureStartDate.getTime();
+          endDate = self.moistureEndDate.getTime();
         }
 
         console.log(startDate);
@@ -252,44 +264,46 @@ angular.module('plantDetail').component('plantDetail', {
     self.lightWhite = false;
 
     self.updateControl = function () {
-      var updateControl = $('#updateControl');
+      if (self.status == "connected") {
+        var updateControl = $('#updateControl');
 
-      updateControl.find('span').css({
-        "display": "none"
-      });
+        updateControl.find('span').css({
+          "display": "none"
+        });
 
-      updateControl.find('.update-spin').css({
-        "display": "inline-block"
-      });
+        updateControl.find('.update-spin').css({
+          "display": "inline-block"
+        });
 
-      var rgb = nmToRGB(self.nmSlider.value);
-      var fanPower = (self.fanSlider.value/100) * 255;
-      var pumpOn = (self.pumpOn == "on") ? 1 : 0;
-      console.log(self.pumpOn + ": " + pumpOn);
+        var rgb = nmToRGB(self.nmSlider.value);
+        var fanPower = (self.fanSlider.value/100) * 255;
+        var pumpOn = (self.pumpOn == "on") ? 1 : 0;
+        console.log(self.pumpOn + ": " + pumpOn);
 
-      if (self.lightOn == "Off") {
-        rgb[0] = 0;
-        rgb[1] = 0;
-        rgb[2] = 0;
-      } else if (self.lightWhite == true) {
-        rgb[0] = 255;
-        rgb[1] = 255;
-        rgb[2] = 255;
+        if (self.lightOn == "Off") {
+          rgb[0] = 0;
+          rgb[1] = 0;
+          rgb[2] = 0;
+        } else if (self.lightWhite == true) {
+          rgb[0] = 255;
+          rgb[1] = 255;
+          rgb[2] = 255;
+        }
+
+        console.log(rgb + " " + fanPower + " " + pumpOn);
+
+        self.publish('{' +
+          '"state": {' +
+            '"desired": {' +
+              '"red": ' + rgb[0] + ',' +
+              '"green": ' + rgb[1] + ',' +
+              '"blue": ' + rgb[2] + ',' +
+              '"fanSpeed": ' + fanPower + ',' +
+              '"pumpTime": ' + pumpOn +
+          '}' +
+          '}' +
+        '}');
       }
-
-      console.log(rgb + " " + fanPower + " " + pumpOn);
-
-      self.publish('{' +
-        '"state": {' +
-          '"desired": {' +
-            '"red": ' + rgb[0] + ',' +
-            '"green": ' + rgb[1] + ',' +
-            '"blue": ' + rgb[2] + ',' +
-            '"fanSpeed": ' + fanPower + ',' +
-            '"pumpTime": ' + pumpOn +
-        '}' +
-        '}' +
-      '}');
     };
 
     var toHex = function(number) {
@@ -404,7 +418,6 @@ angular.module('plantDetail').component('plantDetail', {
     });
 
     self.plantDetails = siteService.getPlant();
-    self.plantDetails.plantAge = self.plantDetails.plantAge.substr(0, self.plantDetails.plantAge.indexOf('T'));
 
     var params = {
       "plantid": self.plantDetails.plantId
@@ -420,6 +433,10 @@ angular.module('plantDetail').component('plantDetail', {
 
             if (result.data.thingName == "undefined" && result.data.mqttTopic == "undefined") {
               console.log("No plant box associated with thing");
+
+              self.status = "history";
+              $scope.$apply();
+
               $('#noplantbox').css({
                 "display": "block"
               });
@@ -470,59 +487,70 @@ angular.module('plantDetail').component('plantDetail', {
     }
 
     self.updatePlant = function () {
-      var plantUpdate = $('#plantUpdate');
+      if (self.plantDetails.plantName == "" || self.plantDetails.plantAge == "") {
+        $mdDialog.show(
+          $mdDialog.alert()
+            .clickOutsideToClose(true)
+            .title('Empty Plant')
+            .textContent('Please fill in all details for your new plant!')
+            .ariaLabel('Alert Dialog Demo')
+            .ok('Ok!')
+        );
+      } else {
+        var plantUpdate = $('#plantUpdate');
 
-      plantUpdate.find('span').css({
-        "display": "none"
-      });
+        plantUpdate.find('span').css({
+          "display": "none"
+        });
 
-      plantUpdate.find('.update-spin').css({
-        "display": "inline-block"
-      });
+        plantUpdate.find('.update-spin').css({
+          "display": "inline-block"
+        });
 
-      var apigUpdatePlant = function () {
-        var params = {};
-        var body = self.plantDetails;
+        var apigUpdatePlant = function () {
+          var params = {};
+          var body = self.plantDetails;
 
-        self.apigClient.plantsUpdatePost(params, body)
-          .then(function (result) {
-            plantUpdate.find('.update-spin').css({
-              "display": "none"
-            });
-
-            plantUpdate.find('svg').css({
-              "display": "block"
-            });
-
-            setTimeout(function () {
-              plantUpdate.find('span').css({
-                "display": "inline"
+          self.apigClient.plantsUpdatePost(params, body)
+            .then(function (result) {
+              plantUpdate.find('.update-spin').css({
+                "display": "none"
               });
 
               plantUpdate.find('svg').css({
-                "display": "none"
+                "display": "block"
               });
-            }, 3000);
 
-            console.log("Success: " + JSON.stringify(result));
-          }).catch(function (result) {
-          console.log("Error: " + JSON.stringify(result));
-        });
-      };
+              setTimeout(function () {
+                plantUpdate.find('span').css({
+                  "display": "inline"
+                });
 
-      if (refreshService.needsRefresh($localStorage.expiration)) {
-        refreshService.refresh($localStorage.username, $localStorage.password, function () {
-          self.apigClient = apigClientFactory.newClient({
-            accessKey: $localStorage.accessKey,
-            secretKey: $localStorage.secretKey,
-            sessionToken: $localStorage.sessionToken,
-            region: $localStorage.region
+                plantUpdate.find('svg').css({
+                  "display": "none"
+                });
+              }, 3000);
+
+              console.log("Success: " + JSON.stringify(result));
+            }).catch(function (result) {
+            console.log("Error: " + JSON.stringify(result));
           });
+        };
 
+        if (refreshService.needsRefresh($localStorage.expiration)) {
+          refreshService.refresh($localStorage.username, $localStorage.password, function () {
+            self.apigClient = apigClientFactory.newClient({
+              accessKey: $localStorage.accessKey,
+              secretKey: $localStorage.secretKey,
+              sessionToken: $localStorage.sessionToken,
+              region: $localStorage.region
+            });
+
+            apigUpdatePlant();
+          });
+        } else {
           apigUpdatePlant();
-        });
-      } else {
-        apigUpdatePlant();
+        }
       }
     };
 

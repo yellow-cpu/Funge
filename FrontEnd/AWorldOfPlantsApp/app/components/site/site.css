@@ -1030,6 +1030,12 @@ ngjs-color-picker li.selectedColor {
     }
 }
 
+@media (max-width: 1274px) {
+    .avg-min-max {
+        display: none;
+    }
+}
+
 @media (max-width: 736px){
     /* Change cards on smaller devices */
     .card-wrapper {

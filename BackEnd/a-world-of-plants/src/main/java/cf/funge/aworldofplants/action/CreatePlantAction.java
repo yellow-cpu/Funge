@@ -27,6 +27,8 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.google.gson.JsonObject;
 
+import java.util.List;
+
 /**
  * Action that creates a new Plant in the data store
  * <p/>
@@ -48,6 +50,14 @@ public class CreatePlantAction extends AbstractAction {
 
         PlantDAO dao = DAOFactory.getPlantDAO();
         TimelineDAO timelineDAO = DAOFactory.getTimelineDAO();
+
+        List<Plant> userPlants = dao.getUserPlants(50, input.getUsername());
+
+        for (int i = 0; i < userPlants.size(); ++i) {
+            if (userPlants.get(i).getPlantName().equals(input.getPlantName())) {
+                throw new BadRequestException("plant already exists");
+            }
+        }
 
         Plant newPlant = new Plant();
         newPlant.setUsername(input.getUsername());

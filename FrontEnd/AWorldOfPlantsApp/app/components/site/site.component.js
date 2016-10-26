@@ -79,6 +79,7 @@ angular.
     var plant = {};
 
     var setPlant = function(_plant) {
+      _plant.plantAge = _plant.plantAge.substr(0, _plant.plantAge.indexOf('T'));
       plant = _plant;
       $localStorage.plant = _plant;
     };

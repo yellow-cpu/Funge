@@ -3,7 +3,7 @@
 // Register `things` component, along with its associated controller and template
 angular.module('things').component('things', {
   templateUrl: 'components/things/things.template.html',
-  controller: function ThingsController($scope, $localStorage, siteService, refreshService) {
+  controller: function ThingsController($scope, $localStorage, siteService, refreshService, $mdDialog) {
     var self = this;
 
     self.selectedColour = "";
@@ -206,38 +206,57 @@ angular.module('things').component('things', {
     };
 
     self.createThing = function() {
-      var apigCreateThing = function () {
-        var params = {};
-        var body = self.newThing;
-
-        console.log(body);
-
-        self.apigClient.thingsPost(params, body)
-          .then(function (result) {
-            console.log("Success: " + JSON.stringify(result.data));
-
-            var tempArr = formatFiles([result.data.thing]);
-            tempArr[0].selectedPlant = tempArr[0].plantId;
-            self.things.push(tempArr[0]);
-            $scope.$apply();
-          }).catch(function (result) {
-          console.log("Error: " + JSON.stringify(result));
-        });
-      };
-
-      if (refreshService.needsRefresh($localStorage.expiration)) {
-        refreshService.refresh($localStorage.username, $localStorage.password, function () {
-          self.apigClient = apigClientFactory.newClient({
-            accessKey: $localStorage.accessKey,
-            secretKey: $localStorage.secretKey,
-            sessionToken: $localStorage.sessionToken,
-            region: $localStorage.region
-          });
-
-          apigCreateThing();
-        });
+      if (self.newThing.thingName == "" || self.newThing.plantId == "") {
+        $mdDialog.show(
+          $mdDialog.alert()
+            .clickOutsideToClose(true)
+            .title('Empty Plant Box')
+            .textContent('Please fill in all details for your new plant box!')
+            .ariaLabel('Alert Dialog Demo')
+            .ok('Ok!')
+        );
       } else {
-        apigCreateThing();
+        var apigCreateThing = function () {
+          var params = {};
+          var body = self.newThing;
+
+          console.log(body);
+
+          self.apigClient.thingsPost(params, body)
+            .then(function (result) {
+              console.log("Success: " + JSON.stringify(result.data));
+
+              var tempArr = formatFiles([result.data.thing]);
+              tempArr[0].selectedPlant = tempArr[0].plantId;
+              self.things.push(tempArr[0]);
+              $scope.$apply();
+            }).catch(function (result) {
+              console.log("Error: " + JSON.stringify(result));
+              $mdDialog.show(
+                $mdDialog.alert()
+                  .clickOutsideToClose(true)
+                  .title('Duplicate Plant Box')
+                  .textContent('A plant box with that name already exists, the name of your plant box must be globally unique!')
+                  .ariaLabel('Alert Dialog Demo')
+                  .ok('Ok!')
+              );
+          });
+        };
+
+        if (refreshService.needsRefresh($localStorage.expiration)) {
+          refreshService.refresh($localStorage.username, $localStorage.password, function () {
+            self.apigClient = apigClientFactory.newClient({
+              accessKey: $localStorage.accessKey,
+              secretKey: $localStorage.secretKey,
+              sessionToken: $localStorage.sessionToken,
+              region: $localStorage.region
+            });
+
+            apigCreateThing();
+          });
+        } else {
+          apigCreateThing();
+        }
       }
     };
 

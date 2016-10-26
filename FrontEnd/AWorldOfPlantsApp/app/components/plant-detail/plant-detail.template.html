@@ -168,7 +168,7 @@
             <div class="tab-content clearfix">
               <div class="tab-pane active" id="live-temp">
                 <canvas id="live-chart-temperature" plant-detail-canvas-directive></canvas>
-                <div class="row" style="margin-top: 30px;">
+                <div class="row avg-min-max" style="margin-top: 30px;">
                   <div class="col-md-4">
                     <span style="background-color: #ffc107; color: white; padding: 10px;">Average: </span>
                     <span id="tempAverage" style="margin-left: 10px;">{{$ctrl.avgMinMax.temp.avg}} °C</span>
@@ -193,7 +193,17 @@
                     <span style="padding-left: 0.5em;">End: <md-datepicker ng-model="$ctrl.tempEndDate" md-min-date="$ctrl.tempStartDate" md-max-date="$ctrl.maxDate" md-placeholder="Enter date"></md-datepicker></span>
                   </div>
                   <div class="col-md-2">
-                    <button class="btn btn-material btn-material-green pull-right history-chart" data-id="tempHistory">Submit</button>
+                    <button class="btn btn-material btn-material-green pull-right history-chart" data-id="tempHistory" style="min-width: 70.13px;">
+                      <span>Submit</span>
+                      <div class="spinner-bounce update-spin" style="display: none; vertical-align: middle;">
+                        <div class="double-bounce1"></div>
+                        <div class="double-bounce2"></div>
+                      </div>
+                      <svg style="display: none;" class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                        <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"></circle>
+                        <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"></path>
+                      </svg>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -244,7 +254,7 @@
             <div class="tab-content clearfix">
               <div class="tab-pane active" id="live-humidity">
                 <canvas id="live-chart-humidity" plant-detail-canvas-directive></canvas>
-                <div class="row" style="margin-top: 30px;">
+                <div class="row avg-min-max" style="margin-top: 30px;">
                   <div class="col-md-4">
                     <span style="background-color: #db4437; color: white; padding: 10px;">Average: </span>
                     <span id="humidityAverage" style="margin-left: 10px;">{{$ctrl.avgMinMax.humidity.avg}} %</span>
@@ -263,13 +273,23 @@
                 <canvas id="historical-chart-humidity"></canvas>
                 <div class="row" style="margin-top: 10px;">
                   <div class="col-md-5">
-                    <!--Begin: <md-datepicker ng-model="$ctrl.startDate" md-max-date="$ctrl.maxDate" md-placeholder="Enter date"></md-datepicker>-->
+                    Begin: <md-datepicker ng-model="$ctrl.humidityStartDate" md-max-date="$ctrl.maxDate" md-placeholder="Enter date"></md-datepicker>
                   </div>
                   <div class="col-md-5">
-                    <!--<span style="padding-left: 0.5em;">End: <md-datepicker ng-model="$ctrl.endDate" md-min-date="$ctrl.startDate" md-max-date="$ctrl.maxDate" md-placeholder="Enter date"></md-datepicker></span>-->
+                    <span style="padding-left: 0.5em;">End: <md-datepicker ng-model="$ctrl.humidityEndDate" md-min-date="$ctrl.humidityStartDate" md-max-date="$ctrl.maxDate" md-placeholder="Enter date"></md-datepicker></span>
                   </div>
                   <div class="col-md-2">
-                    <button class="btn btn-material btn-material-green pull-right history-chart" data-id="humidityHistory">Submit</button>
+                    <button class="btn btn-material btn-material-green pull-right history-chart" data-id="humidityHistory" style="min-width: 70.13px;">
+                      <span>Submit</span>
+                      <div class="spinner-bounce update-spin" style="display: none; vertical-align: middle;">
+                        <div class="double-bounce1"></div>
+                        <div class="double-bounce2"></div>
+                      </div>
+                      <svg style="display: none;" class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                        <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"></circle>
+                        <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"></path>
+                      </svg>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -317,7 +337,7 @@
             <div class="tab-content clearfix">
               <div class="tab-pane active" id="live-moisture">
                 <canvas id="live-chart-moisture" plant-detail-canvas-directive></canvas>
-                <div class="row" style="margin-top: 30px;">
+                <div class="row avg-min-max" style="margin-top: 30px;">
                   <div class="col-md-4">
                     <span style="background-color: #4285f4; color: white; padding: 10px;">Average: </span>
                     <span id="moistureAverage" style="margin-left: 10px;">{{$ctrl.avgMinMax.moisture.avg}} %</span>
@@ -336,13 +356,23 @@
                 <canvas id="historical-chart-moisture"></canvas>
                 <div class="row" style="margin-top: 10px;">
                   <div class="col-md-5">
-                    <!--Begin: <md-datepicker ng-model="$ctrl.startDate" md-max-date="$ctrl.maxDate" md-placeholder="Enter date"></md-datepicker>-->
+                    Begin: <md-datepicker ng-model="$ctrl.moistureStartDate" md-max-date="$ctrl.maxDate" md-placeholder="Enter date"></md-datepicker>
                   </div>
                   <div class="col-md-5">
-                    <!--<span style="padding-left: 0.5em;">End: <md-datepicker ng-model="$ctrl.endDate" md-min-date="$ctrl.startDate" md-max-date="$ctrl.maxDate" md-placeholder="Enter date"></md-datepicker></span>-->
+                    <span style="padding-left: 0.5em;">End: <md-datepicker ng-model="$ctrl.moistureEndDate" md-min-date="$ctrl.moistureStartDate" md-max-date="$ctrl.maxDate" md-placeholder="Enter date"></md-datepicker></span>
                   </div>
                   <div class="col-md-2">
-                    <button class="btn btn-material btn-material-green pull-right history-chart" data-id="moistureHistory">Submit</button>
+                    <button class="btn btn-material btn-material-green pull-right history-chart" data-id="moistureHistory" style="min-width: 70.13px;">
+                      <span>Submit</span>
+                      <div class="spinner-bounce update-spin" style="display: none; vertical-align: middle;">
+                        <div class="double-bounce1"></div>
+                        <div class="double-bounce2"></div>
+                      </div>
+                      <svg style="display: none;" class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                        <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"></circle>
+                        <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"></path>
+                      </svg>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -360,6 +390,16 @@
           Light Panel
           <button class="btn btn-material btn-circular btnPausePlay" data-chart="light"
                   style="margin-left: 10px;"><i class="fa fa-pause pausePlay" style="color: #c52062;"></i></button>
+          <span id="lightWarning" class="pull-right"><i class="fa fa-exclamation-triangle fa-2x"></i>
+            <md-tooltip md-direction="bottom">
+              No Signal
+            </md-tooltip>
+          </span>
+          <span id="lightSuccess" class="pull-right" style="display: none;"><i class="fa fa-signal fa-2x"></i>
+            <md-tooltip md-direction="bottom">
+              Connected
+            </md-tooltip>
+          </span>
         </div>
         <div class="panel-body">
           <div class="spinner" style="text-align: center;">
@@ -375,9 +415,6 @@
               <li class="active">
                 <a data-target="#live-light" data-toggle="tab">Live</a>
               </li>
-              <li>
-                <a data-target="#historical-light" data-toggle="tab">Historical</a>
-              </li>
             </ul>
 
             <div class="tab-content clearfix">
@@ -388,9 +425,6 @@
                 <div class="col-md-6">
                   <canvas id="live-chart-uv" plant-detail-canvas-directive></canvas>
                 </div>
-              </div>
-              <div class="tab-pane" id="historical-light">
-                <h3>historical data over here</h3>
               </div>
             </div>
           </div>
